@@ -1,3 +1,44 @@
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { Loader2 } from 'lucide-react'
+import { api } from '../../api'
+
 export default function Attendance() {
-  return <div className="p-8"><h1 className="text-2xl font-bold">Attendance</h1></div>
+  const [records, setRecords] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => { api('/attendance').then(setRecords).catch(() => {}).finally(() => setLoading(false)) }, [])
+
+  return (
+    <div className="p-6 space-y-6">
+      <h1 className="text-2xl font-bold text-white">Attendance</h1>
+      {loading ? (
+        <div className="flex items-center gap-2 text-ydl-muted"><Loader2 className="w-5 h-5 animate-spin" /> Loading...</div>
+      ) : (
+        <div className="overflow-x-auto rounded-2xl border border-ydl-dark-border">
+          <table className="w-full text-sm">
+            <thead className="bg-ydl-card-gradient">
+              <tr className="text-ydl-muted text-left">
+                <th className="p-3 font-medium">Member</th>
+                <th className="p-3 font-medium">Date</th>
+                <th className="p-3 font-medium">Check In</th>
+                <th className="p-3 font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-ydl-dark-border">
+              {records.map((r, i) => (
+                <motion.tr key={r.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/5 transition-colors">
+                  <td className="p-3 text-white font-medium">{r.memberName}</td>
+                  <td className="p-3 text-ydl-muted">{r.date}</td>
+                  <td className="p-3 text-ydl-muted">{r.checkIn ? new Date(r.checkIn).toLocaleTimeString() : '-'}</td>
+                  <td className="p-3"><span className={`px-2 py-0.5 rounded-full text-xs font-medium ${r.status === 'Present' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>{r.status}</span></td>
+                </motion.tr>
+              ))}
+              {records.length === 0 && <tr><td colSpan={4} className="p-6 text-center text-ydl-muted">No attendance records</td></tr>}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  )
 }
