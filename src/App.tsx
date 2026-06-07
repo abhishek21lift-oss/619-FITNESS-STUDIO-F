@@ -22,6 +22,13 @@ import Classes from './pages/dashboard/Classes'
 import Leads from './pages/dashboard/Leads'
 import Plans from './pages/dashboard/Plans'
 import Settings from './pages/dashboard/Settings'
+import FollowUps from './pages/dashboard/FollowUps'
+import Announcements from './pages/dashboard/Announcements'
+import Batches from './pages/dashboard/Batches'
+import StoreItems from './pages/dashboard/StoreItems'
+import QuickCheckIn from './pages/dashboard/QuickCheckIn'
+import Expiry from './pages/dashboard/Expiry'
+import ActivityLog from './pages/dashboard/ActivityLog'
 import TrainerLayout from './layouts/TrainerLayout'
 import TrainerDashboard from './pages/trainer/Dashboard'
 import TrainerClients from './pages/trainer/Clients'
@@ -58,6 +65,13 @@ export default function App() {
         <Route path="leads" element={<Leads />} />
         <Route path="plans" element={<Plans />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="followups" element={<FollowUps />} />
+        <Route path="announcements" element={<Announcements />} />
+        <Route path="batches" element={<Batches />} />
+        <Route path="store" element={<StoreItems />} />
+        <Route path="checkin" element={<QuickCheckIn />} />
+        <Route path="expiry" element={<Expiry />} />
+        <Route path="activity" element={<ActivityLog />} />
       </Route>
       <Route path="/trainer" element={<TrainerLayout />}>
         <Route index element={<TrainerDashboard />} />
