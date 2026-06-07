@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Dumbbell, LogIn, Loader2, Eye, EyeOff, UserCheck } from 'lucide-react'
+import { login, setToken, setUser } from '../api'
 
 export default function TrainerLogin() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -18,9 +20,16 @@ export default function TrainerLogin() {
       return
     }
     setSubmitting(true)
-    await new Promise((r) => setTimeout(r, 1000))
-    setSubmitting(false)
-    setError('Invalid credentials. Please try again.')
+    try {
+      const data = await login(email, password)
+      setToken(data.token)
+      setUser(data.user)
+      navigate('/trainer')
+    } catch (err: any) {
+      setError(err.message || 'Invalid credentials. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -31,7 +40,6 @@ export default function TrainerLogin() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-4">
             <div className="w-10 h-10 rounded-xl bg-ydl-gradient flex items-center justify-center">
@@ -46,7 +54,6 @@ export default function TrainerLogin() {
           <p className="text-sm text-ydl-muted mt-1">Access your trainer dashboard</p>
         </div>
 
-        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="bg-ydl-card-gradient border border-ydl-dark-border rounded-2xl p-6 sm:p-8 space-y-5"

@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Dumbbell, LogIn, Loader2, Eye, EyeOff, GraduationCap } from 'lucide-react'
+import { login, setToken, setUser } from '../api'
 
 export default function AdminLogin() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -18,10 +20,16 @@ export default function AdminLogin() {
       return
     }
     setSubmitting(true)
-    // Simulate auth
-    await new Promise((r) => setTimeout(r, 1000))
-    setSubmitting(false)
-    setError('Invalid credentials. Please try again.')
+    try {
+      const data = await login(email, password)
+      setToken(data.token)
+      setUser(data.user)
+      navigate('/dashboard')
+    } catch (err: any) {
+      setError(err.message || 'Invalid credentials. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -32,7 +40,6 @@ export default function AdminLogin() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-4">
             <div className="w-10 h-10 rounded-xl bg-ydl-gradient flex items-center justify-center">
@@ -47,7 +54,6 @@ export default function AdminLogin() {
           <p className="text-sm text-ydl-muted mt-1">Access your gym management dashboard</p>
         </div>
 
-        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="bg-ydl-card-gradient border border-ydl-dark-border rounded-2xl p-6 sm:p-8 space-y-5"
@@ -118,7 +124,6 @@ export default function AdminLogin() {
           </div>
         </form>
 
-        {/* Back to home */}
         <div className="text-center mt-6">
           <Link to="/" className="text-sm text-ydl-muted hover:text-ydl-yellow transition-colors">
             &larr; Back to Home
