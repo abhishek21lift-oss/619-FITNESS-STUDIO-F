@@ -1,48 +1,237 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Users2, Calendar, Search, Clock, CheckCircle } from 'lucide-react'
+import {
+  Users2, Search, Calendar, Clock, CheckCircle, MoreHorizontal,
+  Eye, History, UserPlus
+} from 'lucide-react'
+import Modal from '../../components/shared/Modal'
+import ActionMenu from '../../components/shared/ActionMenu'
+import StatsCard from '../../components/shared/StatsCard'
+import FilterBar from '../../components/shared/FilterBar'
+import { FilterField, FilterSelect } from '../../components/shared/FilterBar'
 
-const checkins = [
-  { name: 'Rahul Sharma', date: '07 Jun 2026', time: '06:15 AM', plan: 'Annual Gold', checkins: 142 },
-  { name: 'Priya Singh', date: '07 Jun 2026', time: '07:00 AM', plan: 'Monthly Basic', checkins: 38 },
-  { name: 'Sneha Patel', date: '07 Jun 2026', time: '07:30 AM', plan: 'Annual Platinum', checkins: 189 },
-  { name: 'Neha Gupta', date: '07 Jun 2026', time: '08:00 AM', plan: 'Annual Gold', checkins: 156 },
-  { name: 'Arun Kumar', date: '07 Jun 2026', time: '05:45 AM', plan: 'Quarterly Pro', checkins: 87 },
+const initialCheckins = [
+  { id: 1, name: 'Rahul Sharma', membership: 'Annual Gold', plan: 'Annual Gold', checkIn: '06:15 AM', checkOut: '-', status: 'Checked In', mobile: '+91 90001 00001' },
+  { id: 2, name: 'Priya Singh', membership: 'Monthly Basic', plan: 'Monthly Basic', checkIn: '07:00 AM', checkOut: '08:30 AM', status: 'Checked Out', mobile: '+91 90002 00002' },
+  { id: 3, name: 'Sneha Patel', membership: 'Annual Platinum', plan: 'Annual Platinum', checkIn: '07:30 AM', checkOut: '-', status: 'Checked In', mobile: '+91 90003 00003' },
+  { id: 4, name: 'Neha Gupta', membership: 'Annual Gold', plan: 'Annual Gold', checkIn: '08:00 AM', checkOut: '09:15 AM', status: 'Checked Out', mobile: '+91 90004 00004' },
+  { id: 5, name: 'Arun Kumar', membership: 'Quarterly Pro', plan: 'Quarterly Pro', checkIn: '05:45 AM', checkOut: '07:00 AM', status: 'Checked Out', mobile: '+91 90005 00005' },
+  { id: 6, name: 'Amit Verma', membership: 'Annual Gold', plan: 'Annual Gold', checkIn: '06:00 AM', checkOut: '-', status: 'Checked In', mobile: '+91 90006 00006' },
 ]
 
+const branches = ['All Branches', 'Lucknow', 'Jaipur', 'Delhi']
+const planFilters = ['All Plans', 'Annual Gold', 'Annual Platinum', 'Monthly Basic', 'Quarterly Pro', 'Monthly Premium']
+
+const memberSearchResults = ['Rahul Sharma', 'Priya Singh', 'Sneha Patel', 'Neha Gupta', 'Arun Kumar', 'Amit Verma', 'Vikram Yadav', 'Pooja Jain', 'Rohan Mehra']
+
 export default function AttendanceClient() {
+  const [checkins, setCheckins] = useState(initialCheckins)
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0])
+  const [branch, setBranch] = useState('All Branches')
+  const [planFilter, setPlanFilter] = useState('All Plans')
   const [search, setSearch] = useState('')
+  const [modal, setModal] = useState<{ type: string; data?: any } | null>(null)
+  const [manualSearch, setManualSearch] = useState('')
+
+  const filtered = checkins.filter(c => {
+    if (planFilter !== 'All Plans' && c.plan !== planFilter) return false
+    if (search && !c.name.toLowerCase().includes(search.toLowerCase()) && !c.mobile.includes(search)) return false
+    return true
+  })
+
+  const todayCheckins = checkins.length
+  const uniqueMembers = new Set(checkins.map(c => c.name)).size
+  const avgPerDay = 48
+
+  const statusBadge = (s: string) => {
+    const styles: Record<string, string> = {
+      'Checked In': 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+      'Checked Out': 'text-gray-400 bg-gray-500/10 border-gray-500/20',
+    }
+    return (
+      <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md border ${styles[s] || ''}`}>
+        {s === 'Checked In' ? <CheckCircle className="w-3 h-3" /> : <Clock className="w-3 h-3" />}
+        {s}
+      </span>
+    )
+  }
+
+  const handleManualCheckin = (name: string) => {
+    const newCheckin = {
+      id: checkins.length + 1,
+      name,
+      membership: 'Manual Entry',
+      plan: 'Manual Entry',
+      checkIn: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      checkOut: '-',
+      status: 'Checked In' as const,
+      mobile: '-',
+    }
+    setCheckins([newCheckin, ...checkins])
+    setModal(null)
+    setManualSearch('')
+  }
+
   return (
     <div className="p-4 lg:p-6 space-y-5">
-      <div><h1 className="text-lg font-bold text-white">Client Attendance</h1><p className="text-xs text-gray-500 mt-0.5">Member check-in tracking.</p></div>
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-        <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4 text-center"><p className="text-[10px] text-gray-500">Today</p><p className="text-lg font-bold text-white mt-1">42</p></div>
-        <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4 text-center"><p className="text-[10px] text-gray-500">This Week</p><p className="text-lg font-bold text-white mt-1">287</p></div>
-        <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4 text-center"><p className="text-[10px] text-gray-500">This Month</p><p className="text-lg font-bold text-white mt-1">1,234</p></div>
-        <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4 text-center"><p className="text-[10px] text-gray-500">Avg Daily</p><p className="text-lg font-bold text-ydl-yellow mt-1">48</p></div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-lg font-bold text-white">Client Attendance</h1>
+          <p className="text-xs text-gray-500 mt-0.5">Track member check-ins and visits.</p>
+        </div>
       </div>
-      <div className="flex items-center gap-3">
-        <div className="relative flex-1 max-w-xs"><Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" /><input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Search member..." /></div>
-        <div className="relative"><Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" /><input type="date" className="bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white [color-scheme:dark]" /></div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <StatsCard label="Total Check-ins Today" value={todayCheckins > 0 ? todayCheckins : 0} icon={Users2} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Unique Members" value={uniqueMembers} icon={Users2} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
+        <StatsCard label="Avg/Day (This Month)" value={avgPerDay} icon={Calendar} color="from-ydl-yellow/20 to-amber-600/5" border="border-ydl-yellow/30" text="text-ydl-yellow" />
       </div>
+
+      <FilterBar>
+        <FilterField label="Date">
+          <div className="relative">
+            <Calendar className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-500" />
+            <input type="date" value={date} onChange={e => setDate(e.target.value)} className="h-7 pl-7 pr-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30 [color-scheme:dark]" />
+          </div>
+        </FilterField>
+        <FilterField label="Branch">
+          <FilterSelect options={branches} value={branch} onChange={(e: any) => setBranch(e.target.value)} />
+        </FilterField>
+        <FilterField label="Plan">
+          <FilterSelect options={planFilters} value={planFilter} onChange={(e: any) => setPlanFilter(e.target.value)} />
+        </FilterField>
+        <FilterField label="Search">
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-500" />
+            <input value={search} onChange={e => setSearch(e.target.value)} className="h-7 pl-7 pr-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/30" placeholder="Search name or mobile..." />
+          </div>
+        </FilterField>
+      </FilterBar>
+
+      <div className="flex items-center gap-2">
+        <button onClick={() => setModal({ type: 'manual-checkin' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <UserPlus className="w-3 h-3" /> Manual Check-in
+        </button>
+      </div>
+
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead><tr className="border-b border-ydl-dark-border bg-white/[0.03]"><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Member</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Date</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Time</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Plan</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Total Check-ins</th></tr></thead>
+            <thead>
+              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Member</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Membership</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Check In</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Check Out</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Action</th>
+              </tr>
+            </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {checkins.filter(c => !search || c.name.toLowerCase().includes(search.toLowerCase())).map((c, i) => (
-                <motion.tr key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3"><div className="flex items-center gap-2"><Users2 className="w-3.5 h-3.5 text-gray-500" /><span className="text-xs font-medium text-white">{c.name}</span></div></td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{c.date}</td>
-                  <td className="px-4 py-3"><div className="flex items-center gap-1"><Clock className="w-3 h-3 text-gray-500" /><span className="text-xs text-gray-400">{c.time}</span></div></td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{c.plan}</td>
-                  <td className="px-4 py-3"><div className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3 text-emerald-400" /><span className="text-xs font-medium text-emerald-400">{c.checkins}</span></div></td>
+              {filtered.map((c, i) => (
+                <motion.tr key={c.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-ydl-yellow/20 to-amber-600/10 border border-ydl-yellow/20 flex items-center justify-center">
+                        <span className="text-[9px] font-bold text-ydl-yellow">{c.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
+                      </div>
+                      <div>
+                        <span className="text-xs font-medium text-white">{c.name}</span>
+                        <p className="text-[9px] text-gray-600">{c.mobile}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-xs text-gray-400">{c.membership}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-gray-500" />
+                      <span className="text-xs text-gray-400">{c.checkIn}</span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-xs text-gray-400">{c.checkOut}</td>
+                  <td className="px-4 py-3">{statusBadge(c.status)}</td>
+                  <td className="px-4 py-3 text-right">
+                    <ActionMenu
+                      label={<MoreHorizontal className="w-3.5 h-3.5" />}
+                      actions={[
+                        { label: 'View Member', icon: Eye, onClick: () => setModal({ type: 'view-member', data: c }) },
+                        { label: 'View History', icon: History, onClick: () => setModal({ type: 'history', data: c }) },
+                        { label: 'Mark Manual Check-in', icon: UserPlus, onClick: () => setModal({ type: 'manual-checkin' }) },
+                      ]}
+                    />
+                  </td>
                 </motion.tr>
               ))}
             </tbody>
           </table>
         </div>
+        {filtered.length === 0 && <div className="text-center py-10 text-xs text-gray-500">No check-ins found for this date.</div>}
       </motion.div>
+
+      <Modal open={modal?.type === 'manual-checkin'} onClose={() => setModal(null)} title="Manual Check-in" size="md">
+        <div className="space-y-3">
+          <div className="space-y-1.5">
+            <label className="text-[10px] text-gray-500">Search Member</label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-500" />
+              <input value={manualSearch} onChange={e => setManualSearch(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Type to search member..." />
+            </div>
+          </div>
+          <div className="max-h-48 overflow-y-auto space-y-1">
+            {memberSearchResults
+              .filter(m => !manualSearch || m.toLowerCase().includes(manualSearch.toLowerCase()))
+              .map(m => (
+                <button key={m} onClick={() => handleManualCheckin(m)} className="w-full text-left px-3 py-2 text-[11px] text-gray-400 hover:bg-white/5 hover:text-white rounded-lg transition-colors">
+                  {m}
+                </button>
+              ))}
+          </div>
+          {manualSearch && memberSearchResults.filter(m => m.toLowerCase().includes(manualSearch.toLowerCase())).length === 0 && (
+            <button onClick={() => handleManualCheckin(manualSearch)} className="w-full text-left px-3 py-2 text-[11px] text-ydl-yellow hover:bg-white/5 rounded-lg transition-colors">
+              + Add "{manualSearch}" as new check-in
+            </button>
+          )}
+          <div className="flex items-center gap-3 pt-2">
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal open={modal?.type === 'view-member'} onClose={() => setModal(null)} title={`Member: ${modal?.data?.name || ''}`} size="sm">
+        {modal?.data && (
+          <div className="space-y-2 text-xs">
+            <div className="grid grid-cols-2 gap-2">
+              <div><span className="text-gray-500">Name:</span> <span className="text-white">{modal.data.name}</span></div>
+              <div><span className="text-gray-500">Mobile:</span> <span className="text-white">{modal.data.mobile}</span></div>
+              <div><span className="text-gray-500">Plan:</span> <span className="text-white">{modal.data.membership}</span></div>
+              <div><span className="text-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
+              <div><span className="text-gray-500">Check In:</span> <span className="text-white">{modal.data.checkIn}</span></div>
+              <div><span className="text-gray-500">Check Out:</span> <span className="text-white">{modal.data.checkOut}</span></div>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      <Modal open={modal?.type === 'history'} onClose={() => setModal(null)} title={`Check-in History: ${modal?.data?.name || ''}`} size="md">
+        {modal?.data && (
+          <div className="space-y-2">
+            {[0, 1, 2, 3, 4].map(i => {
+              const d = new Date(Date.now() - i * 86400000)
+              return (
+                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-white/[0.02] border border-ydl-dark-border">
+                  <div>
+                    <span className="text-xs font-medium text-white">{d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                    <p className="text-[10px] text-gray-500">{i === 0 ? modal.data.checkIn : '07:0' + (5 + i % 3) + ' AM'}</p>
+                  </div>
+                  <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md border ${i < 2 ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 'text-gray-400 bg-gray-500/10 border-gray-500/20'}`}>
+                    {i < 2 ? 'Checked In' : 'Checked Out'}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </Modal>
     </div>
   )
 }

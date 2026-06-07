@@ -1,87 +1,146 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { TrendingUp, TrendingDown, PhoneCall, MessageSquare, Users } from 'lucide-react'
+import {
+  PhoneCall, MessageSquare, Users, Eye, TrendingUp, TrendingDown,
+} from 'lucide-react'
+import Modal from '../../components/shared/Modal'
+import StatsCard from '../../components/shared/StatsCard'
+import Table from '../../components/shared/Table'
+import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
 
-const stats = [
-  { label: 'Total Enquiries', value: '1,376', change: '+6.8%', up: true, icon: PhoneCall },
-  { label: 'Open', value: '388', change: '+2.1%', up: false, icon: MessageSquare },
-  { label: 'Converted', value: '412', change: '+8.5%', up: true, icon: Users },
-  { label: 'Lost', value: '198', change: '-4.3%', up: true, icon: XIcon },
-]
+const sourceOptions = ['All Sources', 'Walk-in', 'Instagram', 'Facebook', 'Google', 'Friend', 'Other']
+const staffOptions = ['All Staff', 'Rahul S.', 'Priya M.', 'Amit K.', 'Sneha R.']
 
 const sourceData = [
-  { label: 'Walk-in', pct: 30, color: 'bg-ydl-yellow' },
-  { label: 'Instagram', pct: 23, color: 'bg-pink-500' },
-  { label: 'Facebook', pct: 15, color: 'bg-blue-500' },
-  { label: 'Google', pct: 12, color: 'bg-emerald-500' },
-  { label: 'Friend Referral', pct: 11, color: 'bg-purple-500' },
-  { label: 'Other', pct: 9, color: 'bg-gray-500' },
+  { source: 'Walk-in', count: 120, pct: 31, trend: 'up' as const },
+  { source: 'Instagram', count: 88, pct: 23, trend: 'up' as const },
+  { source: 'Facebook', count: 58, pct: 15, trend: 'down' as const },
+  { source: 'Google', count: 46, pct: 12, trend: 'up' as const },
+  { source: 'Friend', count: 42, pct: 11, trend: 'down' as const },
+  { source: 'Other', count: 34, pct: 8, trend: 'stable' as const },
 ]
 
-function XIcon(props: any) { return <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> }
+const allEnquiries = Array.from({ length: 25 }, (_, i) => ({
+  id: i + 1,
+  name: `Enquiry ${i + 1}`,
+  source: sourceOptions[1 + (i % 6)],
+  staff: staffOptions[1 + (i % 4)],
+  date: `0${(i % 30) + 1}-Jun-2026`,
+  status: i % 5 === 0 ? 'Closed' as const : 'Open' as const,
+}))
+
+const dailyTrend = [12, 15, 8, 18, 14, 10, 6, 20, 16, 11, 13, 9, 17, 19, 7, 14, 12, 16, 10, 15, 13, 11, 18, 14, 9, 16, 12, 8, 15, 10]
+const maxTrend = Math.max(...dailyTrend, 1)
 
 export default function AnalysisEnquiry() {
-  const totalPct = sourceData.reduce((a, s) => a + s.pct, 0)
-  let cumulative = 0
+  const [from, setFrom] = useState('2026-06-01')
+  const [to, setTo] = useState('2026-06-30')
+  const [source, setSource] = useState('All Sources')
+  const [staff, setStaff] = useState('All Staff')
+  const [viewAll, setViewAll] = useState(false)
+
+  const totalEnquiries = allEnquiries.length
+  const openCount = allEnquiries.filter(e => e.status === 'Open').length
+  const closedCount = allEnquiries.filter(e => e.status === 'Closed').length
+
+  const filteredSource = source === 'All Sources' ? sourceData : sourceData.filter(s => s.source === source)
+
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
         <h1 className="text-lg font-bold text-white">Enquiry Analysis</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Enquiry funnel and source breakdown.</p>
+        <p className="text-xs text-gray-500 mt-0.5">Track enquiries by source, staff, and status.</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {stats.map((s, i) => (
-          <motion.div key={s.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
-            <div className="flex items-start justify-between">
-              <div><p className="text-[10px] font-medium text-gray-500 uppercase">{s.label}</p><p className="text-lg font-bold text-white mt-1">{s.value}</p></div>
-              <s.icon className="w-5 h-5 text-gray-500" />
-            </div>
-            <div className={`flex items-center gap-1 mt-2 ${s.up ? 'text-emerald-400' : 'text-red-400'}`}>
-              {s.up ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-              <span className="text-[10px] font-medium">{s.change}</span>
-            </div>
-          </motion.div>
-        ))}
+
+      <FilterBar>
+        <FilterField label="From">
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+        </FilterField>
+        <FilterField label="To">
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+        </FilterField>
+        <FilterField label="Source">
+          <FilterSelect options={sourceOptions} value={source} onChange={e => setSource(e.target.value)} />
+        </FilterField>
+        <FilterField label="Staff">
+          <FilterSelect options={staffOptions} value={staff} onChange={e => setStaff(e.target.value)} />
+        </FilterField>
+      </FilterBar>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <StatsCard label="Total Enquiries" value={totalEnquiries} icon={PhoneCall} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={0} />
+        <StatsCard label="Open" value={openCount} icon={MessageSquare} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
+        <StatsCard label="Closed" value={closedCount} icon={Users} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" index={2} />
       </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Source Distribution (Pie)</h2>
-          <div className="flex items-center justify-center">
-            <div className="relative w-40 h-40 rounded-full overflow-hidden">
-              {sourceData.map(s => {
-                const start = cumulative
-                cumulative += s.pct
-                return (
-                  <div key={s.label} className="absolute inset-0" style={{ clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos(Math.PI * 2 * (start + s.pct) / totalPct - Math.PI / 2)}% ${50 + 50 * Math.sin(Math.PI * 2 * (start + s.pct) / totalPct - Math.PI / 2)}%, 50% 0%)`, background: s.color.includes('ydl') ? '#D4AF34' : undefined }} />
-                )
-              })}
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 mt-4">
-            {sourceData.map(s => (
-              <div key={s.label} className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${s.color}`} />
-                <span className="text-[10px] text-gray-400">{s.label} ({s.pct}%)</span>
+          <h2 className="text-xs font-semibold text-white mb-4">Source-wise Breakdown</h2>
+          <div className="space-y-3">
+            {filteredSource.map(s => (
+              <div key={s.source}>
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-300">{s.source}</span>
+                    {s.trend === 'up' ? <TrendingUp className="w-2.5 h-2.5 text-emerald-400" /> : s.trend === 'down' ? <TrendingDown className="w-2.5 h-2.5 text-red-400" /> : null}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-500">{s.count}</span>
+                    <span className="text-[10px] font-medium text-gray-400">{s.pct}%</span>
+                  </div>
+                </div>
+                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-full rounded-full bg-gradient-to-r from-ydl-yellow/60 to-ydl-yellow/30" style={{ width: `${s.pct * 3.33}%` }} />
+                </div>
               </div>
             ))}
           </div>
         </motion.div>
+
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Source Breakdown</h2>
-          <div className="space-y-3">
-            {sourceData.map(s => (
-              <div key={s.label}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-gray-300">{s.label}</span>
-                  <span className="text-[10px] text-gray-500">{s.pct}%</span>
-                </div>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full ${s.color} opacity-60`} style={{ width: `${s.pct * 3.33}%` }} />
-                </div>
+          <h2 className="text-xs font-semibold text-white mb-4">Daily Enquiry Trend</h2>
+          <div className="flex items-end gap-[2px] h-32">
+            {dailyTrend.map((v, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center justify-end">
+                <div
+                  className="w-full rounded-t-sm bg-gradient-to-t from-ydl-yellow/40 to-ydl-yellow/20 hover:from-ydl-yellow/60 hover:to-ydl-yellow/40 transition-all cursor-pointer"
+                  style={{ height: `${(v / maxTrend) * 110}px` }}
+                  title={`Day ${i + 1}: ${v}`}
+                />
               </div>
             ))}
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-[9px] text-gray-500">Day 1</span>
+            <span className="text-[9px] text-gray-500">Day 30</span>
           </div>
         </motion.div>
       </div>
+
+      <div className="flex justify-end">
+        <button onClick={() => setViewAll(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">
+          <Eye className="w-3 h-3" /> View All Enquiries
+        </button>
+      </div>
+
+      <Modal open={viewAll} onClose={() => setViewAll(false)} title="All Enquiries" size="xl">
+        <div className="max-h-96 overflow-y-auto">
+          <Table
+            columns={[
+              { header: '#', accessor: r => r.id },
+              { header: 'Name', accessor: r => r.name },
+              { header: 'Source', accessor: r => r.source },
+              { header: 'Staff', accessor: r => r.staff },
+              { header: 'Date', accessor: r => r.date },
+              { header: 'Status', accessor: r => (
+                <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${r.status === 'Open' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-gray-500/10 text-gray-400'}`}>{r.status}</span>
+              )},
+            ]}
+            data={allEnquiries}
+            keyExtractor={r => r.id}
+          />
+        </div>
+      </Modal>
     </div>
   )
 }

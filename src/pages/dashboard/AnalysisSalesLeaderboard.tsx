@@ -1,68 +1,114 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Award, Trophy, Medal, TrendingUp, DollarSign, UserCheck } from 'lucide-react'
+import {
+  Trophy, DollarSign, Target, Eye, Star, MessageSquare,
+} from 'lucide-react'
+import ActionMenu from '../../components/shared/ActionMenu'
+import StatsCard from '../../components/shared/StatsCard'
+import Table from '../../components/shared/Table'
+import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
 
-const rankings = [
-  { rank: 1, name: 'Riya Singh', deals: 34, revenue: '₹ 4,82,000', conversion: '87%', trend: 'up' },
-  { rank: 2, name: 'Awash Vikash', deals: 28, revenue: '₹ 3,96,000', conversion: '82%', trend: 'up' },
-  { rank: 3, name: 'Shivani Verma', deals: 22, revenue: '₹ 3,12,000', conversion: '83%', trend: 'up' },
-  { rank: 4, name: 'Abhishek Katiyar', deals: 18, revenue: '₹ 2,54,000', conversion: '75%', trend: 'down' },
-  { rank: 5, name: 'Rajat Katiyar', deals: 15, revenue: '₹ 2,10,000', conversion: '76%', trend: 'up' },
-  { rank: 6, name: 'Narayan Chandel', deals: 11, revenue: '₹ 1,56,000', conversion: '71%', trend: 'down' },
-]
+const branchOptions = ['All Branches', 'Main Branch', 'Sector 62', 'Gomti Nagar']
 
-const RankIcon = ({ rank }: { rank: number }) => {
-  if (rank === 1) return <Trophy className="w-5 h-5 text-ydl-yellow" />
-  if (rank === 2) return <Medal className="w-5 h-5 text-gray-300" />
-  if (rank === 3) return <Medal className="w-5 h-5 text-amber-700" />
-  return <span className="w-5 h-5 flex items-center justify-center text-xs font-bold text-gray-500">#{rank}</span>
+interface StaffRank {
+  rank: number
+  name: string
+  branch: string
+  sales: number
+  target: number
+  achievement: number
+  deals: number
 }
 
+const staffData: StaffRank[] = [
+  { rank: 1, name: 'Rahul S.', branch: 'Main Branch', sales: 185000, target: 200000, achievement: 93, deals: 18 },
+  { rank: 2, name: 'Priya M.', branch: 'Sector 62', sales: 162000, target: 180000, achievement: 90, deals: 15 },
+  { rank: 3, name: 'Amit K.', branch: 'Main Branch', sales: 148000, target: 175000, achievement: 85, deals: 14 },
+  { rank: 4, name: 'Sneha R.', branch: 'Gomti Nagar', sales: 135000, target: 160000, achievement: 84, deals: 12 },
+  { rank: 5, name: 'Vikas P.', branch: 'Sector 62', sales: 112000, target: 150000, achievement: 75, deals: 10 },
+  { rank: 6, name: 'Neha K.', branch: 'Gomti Nagar', sales: 98000, target: 140000, achievement: 70, deals: 9 },
+  { rank: 7, name: 'Deepak M.', branch: 'Main Branch', sales: 85000, target: 130000, achievement: 65, deals: 7 },
+]
+
 export default function AnalysisSalesLeaderboard() {
+  const [from, setFrom] = useState('2026-06-01')
+  const [to, setTo] = useState('2026-06-30')
+  const [branch, setBranch] = useState('All Branches')
+
+  const filtered = branch === 'All Branches' ? staffData : staffData.filter(s => s.branch === branch)
+  const totalSales = staffData.reduce((s, d) => s + d.sales, 0)
+  const avgAchievement = Math.round(staffData.reduce((s, d) => s + d.achievement, 0) / staffData.length)
+
+  const getRankBadge = (rank: number) => {
+    if (rank === 1) return <Trophy className="w-4 h-4 text-yellow-400" />
+    if (rank === 2) return <Trophy className="w-4 h-4 text-gray-400" />
+    if (rank === 3) return <Trophy className="w-4 h-4 text-amber-600" />
+    return <span className="text-[10px] text-gray-500 w-4 text-center inline-block">{rank}</span>
+  }
+
   return (
     <div className="p-4 lg:p-6 space-y-5">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-lg font-bold text-white">Sales Leaderboard</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Staff performance rankings by revenue.</p>
-        </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-ydl-yellow/10 border border-ydl-yellow/20">
-          <Award className="w-3.5 h-3.5 text-ydl-yellow" />
-          <span className="text-[10px] font-semibold text-ydl-yellow">This Month</span>
-        </div>
+      <div>
+        <h1 className="text-lg font-bold text-white">Sales Leaderboard</h1>
+        <p className="text-xs text-gray-500 mt-0.5">Staff rankings by sales performance.</p>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
-        {rankings.map((r, i) => (
-          <motion.div
-            key={r.rank}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${
-              r.rank === 1
-                ? 'bg-ydl-yellow/5 border-ydl-yellow/20'
-                : 'bg-white/[0.02] border-ydl-dark-border hover:bg-white/[0.04]'
-            }`}
-          >
-            <div className="flex-shrink-0 w-8 text-center">
-              <RankIcon rank={r.rank} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-white">{r.name}</p>
-              <div className="flex items-center gap-3 mt-1">
-                <span className="text-[10px] text-gray-500"><UserCheck className="w-3 h-3 inline mr-0.5" />{r.deals} deals</span>
-                <span className="text-[10px] text-gray-500"><DollarSign className="w-3 h-3 inline mr-0.5" />{r.revenue}</span>
-                <span className="text-[10px] text-ydl-yellow">{r.conversion} conversion</span>
-              </div>
-            </div>
-            <div className={`flex items-center gap-1 text-[10px] font-medium ${r.trend === 'up' ? 'text-emerald-400' : 'text-red-400'}`}>
-              {r.trend === 'up' ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-            </div>
-          </motion.div>
-        ))}
+      <FilterBar>
+        <FilterField label="From">
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+        </FilterField>
+        <FilterField label="To">
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+        </FilterField>
+        <FilterField label="Branch">
+          <FilterSelect options={branchOptions} value={branch} onChange={e => setBranch(e.target.value)} />
+        </FilterField>
+      </FilterBar>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <StatsCard label="Top Performer" value={filtered[0]?.name || '-'} icon={Trophy} color="from-yellow-500/20 to-yellow-600/5" border="border-yellow-500/30" text="text-yellow-400" index={0} />
+        <StatsCard label="Total Sales" value={`₹ ${totalSales.toLocaleString()}`} icon={DollarSign} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
+        <StatsCard label="Avg Achievement" value={`${avgAchievement}%`} icon={Target} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={2} />
+      </div>
+
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+        <h2 className="text-xs font-semibold text-white mb-3">Staff Rankings</h2>
+        <Table
+          columns={[
+            { header: 'Rank', accessor: r => getRankBadge(r.rank) },
+            { header: 'Name', accessor: r => <span className="text-white font-medium">{r.name}</span> },
+            { header: 'Branch', accessor: r => r.branch },
+            { header: 'Sales', accessor: r => <span className="text-emerald-400 font-medium">₹{r.sales.toLocaleString()}</span> },
+            { header: 'Target', accessor: r => `₹${r.target.toLocaleString()}` },
+            { header: 'Achievement', accessor: r => {
+              let color = 'text-red-400'
+              if (r.achievement >= 90) color = 'text-emerald-400'
+              else if (r.achievement >= 80) color = 'text-yellow-400'
+              return (
+                <div className="flex items-center gap-2">
+                  <div className="w-20 h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className={`h-full rounded-full ${r.achievement >= 90 ? 'bg-emerald-500/60' : r.achievement >= 80 ? 'bg-yellow-500/60' : 'bg-red-500/60'}`} style={{ width: `${r.achievement}%` }} />
+                  </div>
+                  <span className={`text-[10px] font-medium ${color}`}>{r.achievement}%</span>
+                </div>
+              )
+            }},
+            { header: 'Deals', accessor: r => r.deals },
+            { header: '', accessor: r => (
+              <ActionMenu
+                label="Actions"
+                actions={[
+                  { label: 'View Details', icon: Eye, onClick: () => alert(`Viewing ${r.name}'s details`) },
+                  { label: 'Send Appreciation', icon: Star, onClick: () => alert(`Appreciation sent to ${r.name}`) },
+                  { label: 'Message', icon: MessageSquare, onClick: () => alert(`Messaging ${r.name}`) },
+                ]}
+              />
+            )},
+          ]}
+          data={filtered}
+          keyExtractor={r => r.rank}
+        />
       </motion.div>
     </div>
   )
 }
-
-function TrendingDown(props: any) { return <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg> }

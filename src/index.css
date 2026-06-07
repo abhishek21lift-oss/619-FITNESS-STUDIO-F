@@ -3,164 +3,25 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
-    @apply bg-black text-white font-body;
+    @apply bg-[#0A0A0A] text-white font-body antialiased;
   }
-
   ::selection {
     @apply bg-ydl-yellow/30 text-white;
   }
-
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-ydl-yellow;
   }
 }
 
 @layer components {
-  .ydl-container {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
-  }
-
-  .ydl-card {
-    @apply rounded-xl border border-ydl-dark-border bg-ydl-dark-card backdrop-blur-sm
-           transition-all duration-300 hover:border-ydl-dark-border-hover hover:bg-ydl-dark-card-hover
-           shadow-ydl-card;
-  }
-
-  .ydl-card-glow {
-    @apply ydl-card relative overflow-hidden;
-  }
-
-  .ydl-card-glow::before {
-    content: '';
-    @apply absolute inset-0 bg-ydl-glow opacity-0 transition-opacity duration-500;
-  }
-
-  .ydl-card-glow:hover::before {
-    @apply opacity-100;
-  }
-
-  .ydl-btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg
-           bg-ydl-gradient px-6 py-3 font-accent font-semibold text-black
-           transition-all duration-300 hover:shadow-ydl-gold-lg
-           hover:scale-[1.02] active:scale-[0.98]
-           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
-  }
-
-  .ydl-btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg
-           border border-ydl-yellow/30 bg-transparent px-6 py-3
-           font-accent font-semibold text-ydl-yellow
-           transition-all duration-300 hover:bg-ydl-yellow/10 hover:border-ydl-yellow/50;
-  }
-
-  .ydl-btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg
-           px-4 py-2 font-accent font-medium text-ydl-muted
-           transition-all duration-300 hover:text-white hover:bg-white/5;
-  }
-
-  .ydl-section {
-    @apply relative py-16 sm:py-20 lg:py-24;
-  }
-
-  .ydl-section-title {
-    @apply font-heading text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl;
-  }
-
-  .ydl-section-subtitle {
-    @apply mt-4 max-w-2xl text-lg text-ydl-muted;
-  }
-
-  .ydl-gradient-text {
-    @apply bg-ydl-gradient bg-clip-text text-transparent;
-  }
-
-  .ydl-input {
-    @apply w-full rounded-lg border border-ydl-dark-border bg-ydl-surface
-           px-4 py-3 text-white placeholder-ydl-muted
-           transition-all duration-200
-           focus:border-ydl-yellow/50 focus:outline-none focus:ring-1 focus:ring-ydl-yellow/30;
-  }
-
-  .ydl-label {
-    @apply mb-1.5 block font-accent text-sm font-medium text-ydl-muted-light;
-  }
-
-  .ydl-badge {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-ydl-dark-border
-           bg-ydl-dark-card px-3 py-1 text-xs font-medium text-ydl-muted-light;
-  }
-
-  .ydl-badge-gold {
-    @apply ydl-badge border-ydl-yellow/20 text-ydl-yellow;
-  }
-
-  .ydl-divider {
-    @apply h-px w-full bg-gradient-to-r from-transparent via-ydl-yellow/20 to-transparent;
-  }
-
-  .ydl-ticker {
-    @apply flex overflow-hidden;
-  }
-
-  .ydl-ticker-track {
-    @apply flex shrink-0 animate-ticker gap-8;
-  }
-
-  .ydl-shimmer {
-    @apply bg-[length:200%_100%] bg-gradient-to-r
-           from-transparent via-white/5 to-transparent
-           animate-shimmer;
-  }
-
-  .ydl-glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
-  }
-
-  .ydl-nav-link {
-    @apply relative font-accent text-sm font-medium text-ydl-muted
-           transition-colors duration-200 hover:text-white;
-  }
-
-  .ydl-nav-link-active {
-    @apply text-ydl-yellow;
-  }
-
-  .ydl-mobile-nav {
-    @apply fixed inset-0 z-50 flex flex-col bg-black/95 backdrop-blur-xl;
-  }
-
-  .ydl-hero-gradient {
-    @apply absolute inset-0 bg-gradient-to-b from-ydl-yellow/5 via-transparent to-black;
-  }
-
-  .ydl-grid-pattern {
-    background-image: linear-gradient(rgba(212, 175, 52, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212, 175, 52, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-
   .scrollbar-thin::-webkit-scrollbar {
     width: 4px;
   }
-
   .scrollbar-thin::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
-
   .scrollbar-thin::-webkit-scrollbar-thumb {
     @apply rounded-full bg-ydl-yellow/20 hover:bg-ydl-yellow/40;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
   }
 }

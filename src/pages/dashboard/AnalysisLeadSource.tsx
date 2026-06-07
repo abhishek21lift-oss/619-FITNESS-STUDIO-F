@@ -1,62 +1,131 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Target, TrendingUp, Globe, Camera, MessageSquare, Phone, Users } from 'lucide-react'
+import {
+  Users, UserCheck, TrendingUp,
+} from 'lucide-react'
+import StatsCard from '../../components/shared/StatsCard'
+import Table from '../../components/shared/Table'
+import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
 
-const stats = [
-  { label: 'Total Leads', value: '1,376', change: '+6.8%', icon: Users },
-  { label: 'Cost per Lead', value: '₹ 124', change: '-8.2%', icon: DollarIcon },
-  { label: 'Best Source', value: 'Walk-in', change: '30% share', icon: Target },
+const groupOptions = ['All Groups', 'Online', 'Offline', 'Referral']
+const sourceOptions = [
+  { name: 'Walk-in', group: 'Offline', leads: 120, converted: 42 },
+  { name: 'Instagram', group: 'Online', leads: 95, converted: 28 },
+  { name: 'Facebook', group: 'Online', leads: 68, converted: 18 },
+  { name: 'Google', group: 'Online', leads: 55, converted: 22 },
+  { name: 'Friend Referral', group: 'Referral', leads: 45, converted: 25 },
+  { name: 'Website', group: 'Online', leads: 38, converted: 12 },
+  { name: 'Email', group: 'Online', leads: 28, converted: 8 },
+  { name: 'Other', group: 'Offline', leads: 35, converted: 9 },
 ]
 
-const sources = [
-  { name: 'Walk-in', leads: 420, converted: 189, cost: '₹ 0', roi: '∞', trend: 'up', icon: Users },
-  { name: 'Instagram', leads: 312, converted: 98, cost: '₹ 12,480', roi: '312%', trend: 'up', icon: Camera },
-  { name: 'Facebook', leads: 198, converted: 52, cost: '₹ 9,900', roi: '184%', trend: 'down', icon: MessageSquare },
-  { name: 'Google', leads: 167, converted: 61, cost: '₹ 16,700', roi: '245%', trend: 'up', icon: Globe },
-  { name: 'Friend Referral', leads: 145, converted: 78, cost: '₹ 3,625', roi: '520%', trend: 'up', icon: MessageSquare },
-  { name: 'Phone Call', leads: 98, converted: 28, cost: '₹ 4,900', roi: '112%', trend: 'down', icon: Phone },
-]
-
-function DollarIcon(props: any) { return <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> }
+const pieColors = ['#D4AF34', '#EC4899', '#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444', '#6B7280']
 
 export default function AnalysisLeadSource() {
+  const [from, setFrom] = useState('2026-01-01')
+  const [to, setTo] = useState('2026-06-30')
+  const [group, setGroup] = useState('All Groups')
+
+  const filtered = group === 'All Groups' ? sourceOptions : sourceOptions.filter(s => s.group === group)
+  const totalLeads = filtered.reduce((s, d) => s + d.leads, 0)
+  const totalConverted = filtered.reduce((s, d) => s + d.converted, 0)
+  const overallRate = totalLeads > 0 ? Math.round((totalConverted / totalLeads) * 100) : 0
+  const total = totalLeads
+  let cumulative = 0
+
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
         <h1 className="text-lg font-bold text-white">Lead Source Analysis</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Which channels bring the best leads.</p>
+        <p className="text-xs text-gray-500 mt-0.5">Break down leads by source and track conversion.</p>
       </div>
+
+      <FilterBar>
+        <FilterField label="From">
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+        </FilterField>
+        <FilterField label="To">
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+        </FilterField>
+        <FilterField label="Source Group">
+          <FilterSelect options={groupOptions} value={group} onChange={e => setGroup(e.target.value)} />
+        </FilterField>
+      </FilterBar>
+
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {stats.map((s, i) => (
-          <motion.div key={s.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
-            <div className="flex items-start justify-between">
-              <div><p className="text-[10px] font-medium text-gray-500 uppercase">{s.label}</p><p className="text-lg font-bold text-white mt-1">{s.value}</p></div>
-              <s.icon className="w-5 h-5 text-gray-500" />
-            </div>
-            <span className="text-[10px] font-medium text-emerald-400">↑ {s.change}</span>
-          </motion.div>
-        ))}
+        <StatsCard label="Total Leads" value={totalLeads} icon={Users} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={0} />
+        <StatsCard label="Converted" value={totalConverted} icon={UserCheck} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
+        <StatsCard label="Conversion Rate" value={`${overallRate}%`} icon={TrendingUp} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" index={2} />
       </div>
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead><tr className="border-b border-ydl-dark-border bg-white/[0.03]"><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Source</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Leads</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Converted</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Cost</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">ROI</th><th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Trend</th></tr></thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
-              {sources.map(s => (
-                <tr key={s.name} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3"><div className="flex items-center gap-2"><s.icon className="w-3.5 h-3.5 text-gray-500" /><span className="text-xs text-gray-300">{s.name}</span></div></td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{s.leads}</td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{s.converted}</td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{s.cost}</td>
-                  <td className="px-4 py-3"><span className="text-[10px] font-medium text-ydl-yellow">{s.roi}</span></td>
-                  <td className="px-4 py-3">{s.trend === 'up' ? <TrendingUp className="w-3.5 h-3.5 text-emerald-400" /> : <TrendingDown2 className="w-3.5 h-3.5 text-red-400" />}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-white mb-4">Lead Distribution</h2>
+          <div className="flex items-center justify-center">
+            <div className="relative w-40 h-40 rounded-full overflow-hidden">
+              {filtered.map((d, i) => {
+                const pct = total > 0 ? (d.leads / total) * 100 : 0
+                const start = cumulative
+                cumulative += pct
+                const angle1 = (start / 100) * 360 - 90
+                const angle2 = ((start + pct) / 100) * 360 - 90
+                const x1 = 50 + 50 * Math.cos((angle1 * Math.PI) / 180)
+                const y1 = 50 + 50 * Math.sin((angle1 * Math.PI) / 180)
+                const x2 = 50 + 50 * Math.cos((angle2 * Math.PI) / 180)
+                const y2 = 50 + 50 * Math.sin((angle2 * Math.PI) / 180)
+                const large = pct > 50 ? 1 : 0
+                return (
+                  <svg key={d.name} className="absolute inset-0 w-full h-full">
+                    <path d={`M 50 50 L ${x1} ${y1} A 50 50 0 ${large} 1 ${x2} ${y2} Z`} fill={pieColors[i % pieColors.length]} opacity={0.8} />
+                  </svg>
+                )
+              })}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2 mt-4">
+            {filtered.map((d, i) => (
+              <div key={d.name} className="flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: pieColors[i % pieColors.length] }} />
+                <span className="text-[10px] text-gray-400">{d.name} ({d.leads})</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+          <h2 className="text-xs font-semibold text-white mb-3">Source-wise Table</h2>
+          <Table
+            columns={[
+              { header: 'Source', accessor: r => r.name },
+              { header: 'Group', accessor: r => (
+                <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${
+                  r.group === 'Online' ? 'bg-blue-500/10 text-blue-400' : r.group === 'Offline' ? 'bg-yellow-500/10 text-yellow-400' : 'bg-purple-500/10 text-purple-400'
+                }`}>{r.group}</span>
+              )},
+              { header: 'Leads', accessor: r => r.leads },
+              { header: 'Converted', accessor: r => <span className="text-emerald-400 font-medium">{r.converted}</span> },
+              { header: 'Rate %', accessor: r => {
+                const rate = r.leads > 0 ? Math.round((r.converted / r.leads) * 100) : 0
+                return (
+                  <span className={`font-medium ${rate >= 40 ? 'text-emerald-400' : rate >= 30 ? 'text-yellow-400' : 'text-red-400'}`}>
+                    {rate}%
+                  </span>
+                )
+              }},
+              { header: 'Bar', accessor: r => {
+                const rate = r.leads > 0 ? Math.round((r.converted / r.leads) * 100) : 0
+                return (
+                  <div className="w-20 h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-full rounded-full bg-gradient-to-r from-ydl-yellow/60 to-ydl-yellow/30" style={{ width: `${rate * 1.6}%` }} />
+                  </div>
+                )
+              }},
+            ]}
+            data={filtered}
+            keyExtractor={r => r.name}
+          />
+        </motion.div>
+      </div>
     </div>
   )
 }
-
-function TrendingDown2(props: any) { return <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg> }

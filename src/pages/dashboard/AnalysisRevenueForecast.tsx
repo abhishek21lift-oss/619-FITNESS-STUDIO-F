@@ -1,61 +1,101 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { TrendingUp, DollarSign, Target } from 'lucide-react'
+import {
+  TrendingUp, DollarSign, BarChart3,
+} from 'lucide-react'
+import StatsCard from '../../components/shared/StatsCard'
+import Table from '../../components/shared/Table'
+import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
 
-const stats = [
-  { label: 'Current ARR', value: '₹ 1,04,72,000', change: '+12.4%', icon: DollarSign },
-  { label: 'Forecasted ARR', value: '₹ 1,18,50,000', change: '+13.2%', icon: TrendingUp },
-  { label: 'Monthly Target', value: '₹ 9,87,500', change: 'On Track', icon: Target },
-]
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const currentData = [185000, 210000, 178000, 245000, 232000, 198000, 0, 0, 0, 0, 0, 0]
+const projectedData = [185000, 210000, 178000, 245000, 232000, 198000, 215000, 230000, 245000, 260000, 275000, 290000]
+const maxVal = Math.max(...projectedData, 1)
 
-const months = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const actual = [241800, 256000, null, null, null, null]
-const forecast = [null, null, 268000, 282000, 295000, 310000]
+const projectionOptions = ['3 Months', '6 Months', '12 Months']
 
 export default function AnalysisRevenueForecast() {
-  const allVals = [...actual.filter(Boolean), ...forecast.filter(Boolean)] as number[]
-  const maxVal = Math.max(...allVals, 1)
+  const [selectedMonth, setSelectedMonth] = useState('June')
+  const [projectionPeriod, setProjectionPeriod] = useState('6 Months')
+
+  const monthIdx = months.indexOf(selectedMonth)
+  const currentRevenue = currentData.slice(0, monthIdx + 1).reduce((a, b) => a + b, 0)
+  const projectedRevenue = projectedData.slice(0, monthIdx + 1 + (projectionPeriod === '3 Months' ? 3 : projectionPeriod === '6 Months' ? 6 : 12)).reduce((a, b) => a + b, 0)
+  const growthPct = currentRevenue > 0 ? Math.round(((projectedRevenue - currentRevenue) / currentRevenue) * 100) : 0
+
+  const forecastMonths = months.slice(0, monthIdx + 1 + (projectionPeriod === '3 Months' ? 3 : projectionPeriod === '6 Months' ? 6 : 12)).filter((_, i) => i < monthIdx + 1 + (projectionPeriod === '3 Months' ? 3 : projectionPeriod === '6 Months' ? 6 : 12))
+
+  const tableData = forecastMonths.map(m => {
+    const mi = months.indexOf(m)
+    return {
+      month: m,
+      current: mi <= monthIdx ? currentData[mi] : null,
+      projected: projectedData[mi],
+      growth: mi > monthIdx ? projectedData[mi] - (currentData[mi] || 0) : null,
+    }
+  })
+
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
         <h1 className="text-lg font-bold text-white">Revenue Forecast</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Projected revenue for upcoming months.</p>
+        <p className="text-xs text-gray-500 mt-0.5">Project future revenue based on current trends.</p>
       </div>
+
+      <FilterBar>
+        <FilterField label="Current Month">
+          <FilterSelect options={months} value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)} />
+        </FilterField>
+        <FilterField label="Projection Period">
+          <FilterSelect options={projectionOptions} value={projectionPeriod} onChange={e => setProjectionPeriod(e.target.value)} />
+        </FilterField>
+      </FilterBar>
+
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {stats.map((s, i) => (
-          <motion.div key={s.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
-            <div className="flex items-start justify-between">
-              <div><p className="text-[10px] font-medium text-gray-500 uppercase">{s.label}</p><p className="text-lg font-bold text-ydl-yellow mt-1">{s.value}</p></div>
-              <s.icon className="w-5 h-5 text-gray-500" />
-            </div>
-            <span className="text-[10px] font-medium text-emerald-400">↑ {s.change}</span>
-          </motion.div>
-        ))}
+        <StatsCard label="Current Revenue" value={`₹ ${currentRevenue.toLocaleString()}`} icon={DollarSign} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={0} />
+        <StatsCard label="Projected Revenue" value={`₹ ${projectedRevenue.toLocaleString()}`} icon={TrendingUp} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
+        <StatsCard label="Growth %" value={`${growthPct >= 0 ? '+' : ''}${growthPct}%`} icon={BarChart3} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text={growthPct >= 0 ? 'text-emerald-400' : 'text-red-400'} index={2} />
       </div>
+
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-        <h2 className="text-xs font-semibold text-white mb-4">Forecast (Actual + Projected)</h2>
-        <div className="flex items-end gap-3 h-40">
-          {months.map((m, i) => {
-            const actualVal = actual[i]
-            const forecastVal = forecast[i]
-            const displayVal = actualVal ?? forecastVal!
+        <h2 className="text-xs font-semibold text-white mb-4">Current vs Projected Revenue</h2>
+        <div className="flex items-end gap-2 h-40">
+          {forecastMonths.map(m => {
+            const mi = months.indexOf(m)
+            const isProjected = mi > monthIdx
             return (
-              <div key={m} className="flex-1 flex flex-col items-center gap-1.5">
-                <span className="text-[9px] font-medium text-ydl-yellow">₹{(displayVal/1000).toFixed(0)}k</span>
+              <div key={m} className="flex-1 flex flex-col items-center gap-1">
                 <div className="w-full flex items-end justify-center gap-0.5">
-                  {actualVal != null && (
-                    <div className="w-[60%] rounded-t-md bg-gradient-to-t from-ydl-yellow/60 to-ydl-yellow/30" style={{ height: `${(actualVal / maxVal) * 120}px` }} />
+                  {!isProjected && (
+                    <div className="w-[40%] rounded-t-sm bg-blue-500/60" style={{ height: `${(currentData[mi] / maxVal) * 130}px` }} title={`Current: ₹${currentData[mi].toLocaleString()}`} />
                   )}
-                  {forecastVal != null && (
-                    <div className="w-[60%] rounded-t-md bg-gradient-to-t from-emerald-500/60 to-emerald-500/30 opacity-60" style={{ height: `${(forecastVal / maxVal) * 120}px` }} />
-                  )}
+                  <div className={`w-[40%] rounded-t-sm ${isProjected ? 'bg-emerald-500/40' : 'bg-emerald-500/60'}`} style={{ height: `${(projectedData[mi] / maxVal) * 130}px` }} title={`${isProjected ? 'Projected' : 'Current'}: ₹${projectedData[mi].toLocaleString()}`} />
                 </div>
                 <span className="text-[9px] text-gray-500">{m}</span>
-                {actualVal != null && <span className="text-[8px] text-gray-600">Actual</span>}
-                {forecastVal != null && <span className="text-[8px] text-emerald-500/60">Forecast</span>}
               </div>
             )
           })}
         </div>
+        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-ydl-dark-border">
+          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-blue-500/60" /><span className="text-[10px] text-gray-400">Actual</span></div>
+          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-emerald-500/60" /><span className="text-[10px] text-gray-400">Projected</span></div>
+        </div>
+      </motion.div>
+
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        <h2 className="text-xs font-semibold text-white mb-3">Monthly Breakdown</h2>
+        <Table
+          columns={[
+            { header: 'Month', accessor: r => r.month },
+            { header: 'Current', accessor: r => r.current !== null ? <span className="text-blue-400 font-medium">₹{r.current.toLocaleString()}</span> : <span className="text-gray-600">—</span> },
+            { header: 'Projected', accessor: r => <span className="text-emerald-400 font-medium">₹{r.projected.toLocaleString()}</span> },
+            { header: 'Growth', accessor: r => r.growth !== null ? (
+              <span className={r.growth >= 0 ? 'text-emerald-400' : 'text-red-400'}>₹{r.growth > 0 ? '+' : ''}{r.growth.toLocaleString()}</span>
+            ) : <span className="text-gray-600">—</span> },
+          ]}
+          data={tableData}
+          keyExtractor={r => r.month}
+        />
       </motion.div>
     </div>
   )
