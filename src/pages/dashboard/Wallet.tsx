@@ -107,7 +107,7 @@ export default function Wallet() {
             </button>
           ))}
         </div>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">
+        <button onClick={() => alert('Exporting statement for the current period...\n\nThis would generate a CSV/PDF report.')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">
           <Download className="w-3 h-3" /> Export Statement
         </button>
       </div>

@@ -39,6 +39,8 @@ export default function MembershipSubscriptions() {
   const [selectedSub, setSelectedSub] = useState<Sub | null>(null)
   const [renewDate, setRenewDate] = useState('')
   const [cancelReason, setCancelReason] = useState('')
+  const [profileModal, setProfileModal] = useState(false)
+  const [profileMember, setProfileMember] = useState<Sub | null>(null)
 
   const planOptions = ['All Plans', 'Annual Gold', 'Monthly Basic', 'Quarterly Pro', 'Annual Platinum', 'PT Monthly', 'Half-Yearly']
 
@@ -85,6 +87,11 @@ export default function MembershipSubscriptions() {
     setSelectedSub(sub)
     setCancelReason('')
     setCancelModal(true)
+  }
+
+  const viewProfile = (sub: Sub) => {
+    setProfileMember(sub)
+    setProfileModal(true)
   }
 
   return (
@@ -141,7 +148,7 @@ export default function MembershipSubscriptions() {
             <tbody className="divide-y divide-ydl-dark-border/50">
               {filtered.map((s, i) => (
                 <motion.tr key={s.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3 text-xs font-medium text-white">{s.member}<br /><span className="text-[9px] text-gray-600">{s.id}</span></td>
+                  <td className="px-4 py-3"><span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => viewProfile(s)}>{s.member}</span><br /><span className="text-[9px] text-gray-600">{s.id}</span></td>
                   <td className="px-4 py-3 text-xs text-gray-400">{s.plan}</td>
                   <td className="px-4 py-3 text-xs text-gray-400">{s.startDate}</td>
                   <td className="px-4 py-3 text-xs text-gray-400">{s.endDate}</td>
@@ -157,11 +164,11 @@ export default function MembershipSubscriptions() {
                     <ActionMenu
                       label="Actions"
                       actions={[
-                        { label: 'View', onClick: () => {}, icon: Eye },
+                        { label: 'View', onClick: () => viewProfile(s), icon: Eye },
                         { label: 'Renew', onClick: () => openRenew(s), icon: RefreshCw },
-                        { label: 'Upgrade', onClick: () => {}, icon: ArrowUpRight },
+                        { label: 'Upgrade', onClick: () => alert(`Upgrade ${s.member} from ${s.plan} to a higher tier.`), icon: ArrowUpRight },
                         { label: 'Cancel', onClick: () => openCancel(s), icon: XCircle, color: 'text-red-400' },
-                        { label: 'Send Reminder', onClick: () => {}, icon: Bell },
+                        { label: 'Send Reminder', onClick: () => alert(`Reminder sent to ${s.member} regarding subscription expiry.`), icon: Bell },
                       ]}
                     />
                   </td>
@@ -206,6 +213,30 @@ export default function MembershipSubscriptions() {
             <button onClick={() => setCancelModal(false)} className="px-4 py-2 text-xs font-medium text-gray-400 hover:text-white">Keep Subscription</button>
           </div>
         </div>
+      </Modal>
+      <Modal open={profileModal} onClose={() => setProfileModal(false)} title="Member Profile" size="sm">
+        {profileMember && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 pb-3 border-b border-ydl-dark-border">
+              <div className="w-10 h-10 rounded-full bg-ydl-yellow/10 border border-ydl-yellow/20 flex items-center justify-center text-sm font-bold text-ydl-yellow">
+                {profileMember.member.charAt(0)}
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">{profileMember.member}</h3>
+                <p className="text-[10px] text-gray-500">{profileMember.id}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div><p className="text-[10px] text-gray-500">Plan</p><p className="text-xs text-white">{profileMember.plan}</p></div>
+              <div><p className="text-[10px] text-gray-500">Amount</p><p className="text-xs text-ydl-yellow">{profileMember.amount}</p></div>
+              <div><p className="text-[10px] text-gray-500">Start Date</p><p className="text-xs text-white">{profileMember.startDate}</p></div>
+              <div><p className="text-[10px] text-gray-500">End Date</p><p className="text-xs text-white">{profileMember.endDate}</p></div>
+            </div>
+            <div className="pt-2">
+              <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${profileMember.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : profileMember.status === 'Expired' ? 'text-red-400 bg-red-500/10 border border-red-500/20' : 'text-amber-400 bg-amber-500/10 border border-amber-500/20'}`}>{profileMember.status}</span>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   )

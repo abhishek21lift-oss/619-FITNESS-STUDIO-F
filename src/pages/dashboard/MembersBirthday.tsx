@@ -127,7 +127,7 @@ export default function MembersBirthday() {
                       <div className="w-8 h-8 rounded-full bg-ydl-yellow/10 flex items-center justify-center">
                         <Cake className="w-3.5 h-3.5 text-ydl-yellow" />
                       </div>
-                      <span className="text-xs font-medium text-white">{b.name}</span>
+                      <span onClick={() => setModal({ type: 'profile', data: b })} className="text-xs font-medium text-white hover:text-ydl-yellow cursor-pointer transition-colors">{b.name}</span>
                     </div>
                   </td>
                   <td className="px-3 py-3 text-xs text-gray-400">{b.mobile}</td>
@@ -178,7 +178,7 @@ export default function MembersBirthday() {
             ))}
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Gift className="w-3 h-3 inline mr-1" /> Send Gift</button>
+            <button onClick={() => { alert(`Gift sent to ${modal?.data?.name}!`); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Gift className="w-3 h-3 inline mr-1" /> Send Gift</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
@@ -194,10 +194,25 @@ export default function MembersBirthday() {
           </div>
           <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[80px] resize-none" placeholder="Custom message (optional)" defaultValue="Happy Birthday! 🎂 Wishing you health and happiness. - 619 FITNESS STUDIO" />
           <div className="flex items-center gap-3 pt-2">
-            <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send to All</button>
+            <button onClick={() => { alert('Birthday wishes sent to all!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send to All</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
+      </Modal>
+
+      <Modal open={modal?.type === 'profile'} onClose={() => setModal(null)} title={`Profile: ${modal?.data?.name || ''}`} size="lg">
+        {modal?.data && (
+          <div className="space-y-3 text-xs">
+            <div className="grid grid-cols-2 gap-3">
+              <div><span className="text-gray-500">Name:</span> <span className="text-white font-medium">{modal.data.name}</span></div>
+              <div><span className="text-gray-500">Mobile:</span> <span className="text-white">{modal.data.mobile}</span></div>
+              <div><span className="text-gray-500">Email:</span> <span className="text-white">{modal.data.email}</span></div>
+              <div><span className="text-gray-500">Birth Date:</span> <span className="text-white">{modal.data.date}</span></div>
+              <div><span className="text-gray-500">Age:</span> <span className="text-white">{modal.data.age} yrs</span></div>
+              <div><span className="text-gray-500">Plan:</span> <span className="text-white">{modal.data.plan}</span></div>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   )

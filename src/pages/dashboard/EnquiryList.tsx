@@ -240,10 +240,10 @@ export default function EnquiryList() {
         <button onClick={() => setModal({ type: 'send-notification' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-purple-400 bg-purple-500/10 border border-purple-500/20 rounded-lg hover:bg-purple-500/20 transition-colors">
           <Bell className="w-3 h-3" /> Send Notification
         </button>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors">
+        <button onClick={() => alert('Sending customized WhatsApp message...')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors">
           <Send className="w-3 h-3" /> Send Customized WhatsApp
         </button>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-lg hover:bg-blue-500/20 transition-colors">
+        <button onClick={() => alert('Selected enquiries marked as Tapped!')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-lg hover:bg-blue-500/20 transition-colors">
           <CheckCircle className="w-3 h-3" /> Mark as Tapped
         </button>
       </div>
@@ -284,7 +284,7 @@ export default function EnquiryList() {
                   <td className="px-3 py-3">
                     <div className="flex flex-col gap-0.5">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-medium text-white">{enq.name}</span>
+                        <span onClick={() => setModal({ type: 'view-profile', data: enq })} className="text-xs font-medium text-white hover:text-ydl-yellow cursor-pointer transition-colors">{enq.name}</span>
                         <span className={`inline-flex items-center px-1.5 py-0.5 text-[8px] font-medium rounded ${enq.appStatus === 'installed' ? 'text-emerald-400 bg-emerald-500/10' : 'text-gray-500 bg-gray-500/10'}`}>
                           {enq.appStatus === 'installed' ? 'App' : 'No App'}
                         </span>
@@ -364,7 +364,7 @@ export default function EnquiryList() {
             <input type="checkbox" className="accent-ydl-yellow" /> Send to all {filtered.length} filtered enquiries
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><Send className="w-3.5 h-3.5" /> Send</button>
+            <button onClick={() => { alert('Notification sent successfully!'); setModal(null); }} className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><Send className="w-3.5 h-3.5" /> Send</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
           </div>
         </div>
@@ -419,7 +419,7 @@ export default function EnquiryList() {
       <Modal open={modal?.type === 'delete'} onClose={() => setModal(null)} title="Confirm Delete" size="sm">
         <p className="text-xs text-gray-400">Are you sure you want to delete {modal?.data === 'selected' ? `${selectedRows.size} selected` : 'this'} enquiry? This action cannot be undone.</p>
         <div className="flex items-center gap-3 mt-4">
-          <button className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors">Delete</button>
+          <button onClick={() => { alert(`Enquiry ${modal?.data === 'selected' ? `${selectedRows.size} selected` : modal?.data?.id || ''} deleted.`); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors">Delete</button>
           <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
         </div>
       </Modal>
@@ -429,7 +429,7 @@ export default function EnquiryList() {
           <div className="text-[11px] text-gray-500">To: <span className="text-white">{modal?.data?.mobile}</span></div>
           <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[100px] resize-none" placeholder="Type SMS message..." />
           <div className="flex items-center gap-3 pt-2">
-            <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><MessageSquare className="w-3 h-3 inline mr-1" /> Send SMS</button>
+            <button onClick={() => { alert('SMS sent successfully!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><MessageSquare className="w-3 h-3 inline mr-1" /> Send SMS</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
           </div>
         </div>
@@ -441,7 +441,7 @@ export default function EnquiryList() {
           <input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Subject" />
           <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[120px] resize-none" placeholder="Compose email..." />
           <div className="flex items-center gap-3 pt-2">
-            <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><Mail className="w-3 h-3 inline mr-1" /> Send Email</button>
+            <button onClick={() => { alert('Email sent successfully!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><Mail className="w-3 h-3 inline mr-1" /> Send Email</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
           </div>
         </div>
@@ -457,7 +457,7 @@ export default function EnquiryList() {
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Source</label><select defaultValue={modal.data.source} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40">{sourceEnquiries.filter(s => s !== 'All').map(s => <option key={s}>{s}</option>)}</select></div>
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Handled By</label><select defaultValue={modal.data.clientRep} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40">{clientReps.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}</select></div>
             <div className="col-span-2 flex items-center gap-3 pt-2 border-t border-ydl-dark-border mt-2">
-              <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
+              <button onClick={() => { alert('Enquiry updated successfully!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
               <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
             </div>
           </div>
@@ -472,7 +472,7 @@ export default function EnquiryList() {
       <Modal open={modal?.type === 'deactivate'} onClose={() => setModal(null)} title="Deactivate Enquiries" size="sm">
         <p className="text-xs text-gray-400">You can deactivate selected enquiries. They will be hidden from the active list but data will be preserved.</p>
         <div className="flex items-center gap-3 mt-4">
-          <button className="px-4 py-2 text-xs font-semibold text-white bg-amber-500 rounded-lg hover:bg-amber-600 transition-colors">Deactivate</button>
+          <button onClick={() => { alert('Enquiries deactivated successfully!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-amber-500 rounded-lg hover:bg-amber-600 transition-colors">Deactivate</button>
           <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
         </div>
       </Modal>

@@ -142,7 +142,7 @@ export default function AccountsPayroll() {
                       actions={[
                         { label: 'View Pay Slip', onClick: () => openPaySlip(s), icon: FileText },
                         { label: s.status === 'Paid' ? 'Mark as Pending' : 'Mark Paid', onClick: () => handleMarkPaid(s.id), icon: s.status === 'Paid' ? XCircle : CheckCircle },
-                        { label: 'Edit', onClick: () => {}, icon: Edit3 },
+                        { label: 'Edit', onClick: () => alert(`Edit payroll for ${s.name} (${s.role}) — Net Pay: ${fmt(s.netPay)}`), icon: Edit3 },
                         { label: 'Delete', onClick: () => handleDelete(s.id), color: 'text-red-400' },
                       ]}
                     />

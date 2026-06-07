@@ -88,7 +88,7 @@ export default function BatchesProgram() {
                 actions={[
                   { label: 'Edit', onClick: () => openEdit(p) },
                   { label: p.active ? 'Deactivate' : 'Activate', onClick: () => handleDeactivate(p.id) },
-                  { label: 'View Schedule', onClick: () => {}, icon: Calendar },
+                  { label: 'View Schedule', onClick: () => alert(`Opening schedule for ${p.name}`), icon: Calendar },
                   { label: 'Delete', onClick: () => handleDelete(p.id), color: 'text-red-400' },
                 ]}
               />

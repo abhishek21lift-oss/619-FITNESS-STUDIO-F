@@ -138,7 +138,7 @@ export default function AppSettingsWorkouts() {
                 </div>
                 <ActionMenu actions={[
                   { label: 'Edit', icon: Edit3, onClick: () => openEditWorkout(w) },
-                  { label: 'View Details', icon: Play, onClick: () => {} },
+                  { label: 'View Details', icon: Play, onClick: () => alert(`${w.name}: ${w.description} (${w.difficulty}, ${w.duration})`) },
                   { label: 'Duplicate', icon: ClipboardCopy, onClick: () => duplicateWorkout(w) },
                   { label: 'Delete', icon: Trash2, onClick: () => removeWorkout(w.id), color: 'text-red-400' },
                 ]} />
@@ -162,7 +162,7 @@ export default function AppSettingsWorkouts() {
                 </div>
                 <ActionMenu actions={[
                   { label: 'Edit', icon: Edit3, onClick: () => openEditDiet(d) },
-                  { label: 'View Details', icon: Play, onClick: () => {} },
+                  { label: 'View Details', icon: Play, onClick: () => alert(`${d.name}: ${d.description} (${d.calories} cal, ${d.duration})`) },
                   { label: 'Duplicate', icon: ClipboardCopy, onClick: () => duplicateDiet(d) },
                   { label: 'Delete', icon: Trash2, onClick: () => removeDiet(d.id), color: 'text-red-400' },
                 ]} />

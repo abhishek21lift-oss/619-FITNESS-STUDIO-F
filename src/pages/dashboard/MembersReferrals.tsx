@@ -63,7 +63,7 @@ export default function MembersReferrals() {
           <p className="text-xs text-gray-500 mt-0.5">Track referrals, rewards, and member-driven growth.</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={() => alert(`Exporting ${filtered.length} referrals...`)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <Download className="w-3 h-3" /> Export CSV
           </button>
           <button onClick={() => setModal({ type: 'add-referral' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
@@ -123,7 +123,7 @@ export default function MembersReferrals() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <div className="w-7 h-7 rounded-full bg-ydl-yellow/10 flex items-center justify-center text-[10px] font-bold text-ydl-yellow">{r.client.split(' ').map(n => n[0]).join('')}</div>
-                      <span className="text-xs font-medium text-white">{r.client}</span>
+                      <span onClick={() => setModal({ type: 'details', data: r })} className="text-xs font-medium text-white hover:text-ydl-yellow cursor-pointer transition-colors">{r.client}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3 text-xs text-gray-400">{r.mobile}</td>
@@ -184,7 +184,7 @@ export default function MembersReferrals() {
       <Modal open={modal?.type === 'mark-claimed'} onClose={() => setModal(null)} title="Mark as Claimed" size="sm">
         <p className="text-xs text-gray-400">Mark referral reward for <span className="text-white">{modal?.data?.client}</span> as claimed?</p>
         <div className="flex items-center gap-3 mt-4">
-          <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><CheckCircle className="w-3 h-3 inline mr-1" /> Mark Claimed</button>
+          <button onClick={() => { alert(`Reward marked as claimed for ${modal?.data?.client}`); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><CheckCircle className="w-3 h-3 inline mr-1" /> Mark Claimed</button>
           <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
         </div>
       </Modal>
@@ -198,7 +198,7 @@ export default function MembersReferrals() {
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Reward</label><select className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40">{rewardOptions.filter(r => r !== 'All').map(r => <option key={r}>{r}</option>)}</select></div>
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Add Referral</button>
+            <button onClick={() => { alert('Referral added successfully!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Add Referral</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>

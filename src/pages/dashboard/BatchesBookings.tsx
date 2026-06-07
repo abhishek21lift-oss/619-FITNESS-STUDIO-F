@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, CheckCircle, XCircle, Users, Eye } from 'lucide-react'
+import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
 
@@ -32,6 +33,8 @@ export default function BatchesBookings() {
   const [dateFilter, setDateFilter] = useState('')
   const [batchFilter, setBatchFilter] = useState('All Batches')
   const [categoryFilter, setCategoryFilter] = useState('All Categories')
+  const [profileModal, setProfileModal] = useState(false)
+  const [profileMember, setProfileMember] = useState<Booking | null>(null)
 
   const filtered = bookings.filter(b => {
     if (batchFilter !== 'All Batches' && b.batch !== batchFilter) return false
@@ -105,7 +108,7 @@ export default function BatchesBookings() {
                 const StatusIcon = statusIcons[b.status]
                 return (
                   <motion.tr key={b.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-4 py-3 text-xs font-medium text-white">{b.member}<br /><span className="text-[9px] text-gray-600">{b.id}</span></td>
+                    <td className="px-4 py-3"><span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => { setProfileMember(b); setProfileModal(true) }}>{b.member}</span><br /><span className="text-[9px] text-gray-600">{b.id}</span></td>
                     <td className="px-4 py-3 text-xs text-gray-400">{b.batch}</td>
                     <td className="px-4 py-3 text-xs text-gray-400">{b.date}</td>
                     <td className="px-4 py-3 text-xs text-gray-400">{b.time}</td>
@@ -121,7 +124,7 @@ export default function BatchesBookings() {
                           { label: 'Confirm', onClick: () => updateStatus(b.id, 'Confirmed'), icon: CheckCircle },
                           { label: 'Cancel', onClick: () => updateStatus(b.id, 'Cancelled'), icon: XCircle, color: 'text-red-400' },
                           { label: 'Move to Waitlist', onClick: () => updateStatus(b.id, 'Waitlist'), icon: Clock },
-                          { label: 'View Member', onClick: () => {}, icon: Eye },
+                          { label: 'View Member', onClick: () => { setProfileMember(b); setProfileModal(true) }, icon: Eye },
                         ]}
                       />
                     </td>
@@ -132,6 +135,27 @@ export default function BatchesBookings() {
           </table>
         </div>
       </motion.div>
+      <Modal open={profileModal} onClose={() => setProfileModal(false)} title="Member Profile" size="sm">
+        {profileMember && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 pb-3 border-b border-ydl-dark-border">
+              <div className="w-10 h-10 rounded-full bg-ydl-yellow/10 border border-ydl-yellow/20 flex items-center justify-center text-sm font-bold text-ydl-yellow">
+                {profileMember.member.charAt(0)}
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">{profileMember.member}</h3>
+                <p className="text-[10px] text-gray-500">{profileMember.id}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div><p className="text-[10px] text-gray-500">Batch</p><p className="text-xs text-white">{profileMember.batch}</p></div>
+              <div><p className="text-[10px] text-gray-500">Status</p><span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md border ${statusColors[profileMember.status]}`}>{profileMember.status}</span></div>
+              <div><p className="text-[10px] text-gray-500">Date</p><p className="text-xs text-white">{profileMember.date}</p></div>
+              <div><p className="text-[10px] text-gray-500">Time</p><p className="text-xs text-white">{profileMember.time}</p></div>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   )
 }

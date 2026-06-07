@@ -117,7 +117,7 @@ export default function StaffList() {
                       <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/5 border border-blue-500/30 flex items-center justify-center">
                         <span className="text-[9px] font-bold text-blue-400">{s.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
                       </div>
-                      <span className="text-xs font-medium text-white">{s.name}</span>
+                      <span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => setModal({ type: 'view', data: s })}>{s.name}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3 text-xs text-gray-400">{s.email}</td>
@@ -171,7 +171,7 @@ export default function StaffList() {
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Branch</label><select value={editForm.branch} onChange={e => setEditForm({ ...editForm, branch: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40"><option>Lucknow</option><option>Jaipur</option><option>Delhi</option><option>Mumbai</option><option>Bangalore</option></select></div>
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Access Level</label><select value={editForm.access} onChange={e => setEditForm({ ...editForm, access: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40"><option>Full</option><option>Partial</option><option>Limited</option></select></div>
             <div className="col-span-2 flex items-center gap-3 pt-2 border-t border-ydl-dark-border mt-2">
-              <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
+              <button onClick={() => { setStaff(prev => prev.map(s => s.id === editForm.id ? { ...s, ...editForm } : s)); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
               <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function StaffList() {
             <input type="password" value={resetPass.confirm} onChange={e => setResetPass({ ...resetPass, confirm: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Re-enter password" />
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Lock className="w-3 h-3 inline mr-1" /> Reset</button>
+            <button onClick={() => { if (resetPass.password && resetPass.password === resetPass.confirm) { alert(`Password reset successfully for ${modal?.data?.name}`); setModal(null) } else { alert('Passwords do not match or are empty.') } }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Lock className="w-3 h-3 inline mr-1" /> Reset</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>

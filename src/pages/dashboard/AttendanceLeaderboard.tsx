@@ -107,7 +107,7 @@ export default function AttendanceLeaderboard() {
 
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className={`text-sm font-semibold ${isTop3 ? 'text-white' : 'text-gray-300'}`}>{m.name}</span>
+                  <span className={`text-sm font-semibold cursor-pointer hover:text-ydl-yellow transition-colors ${isTop3 ? 'text-white' : 'text-gray-300'}`} onClick={() => alert(`Member: ${m.name}\nMembership: ${m.membership}\nCheck-ins: ${m.checkins}\nStreak: ${m.streak} days\nLast Check-in: ${m.lastCheckin}`)}>{m.name}</span>
                   {isTop3 && <Star className={`w-3 h-3 ${m.rank === 1 ? 'text-ydl-yellow' : m.rank === 2 ? 'text-gray-300' : 'text-amber-700'}`} />}
                 </div>
                 <div className="flex items-center gap-4 mt-0.5">

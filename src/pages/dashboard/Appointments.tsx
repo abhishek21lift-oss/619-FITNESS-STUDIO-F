@@ -148,7 +148,7 @@ export default function Appointments() {
                 return (
                   <motion.tr key={a.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                     <td className="px-4 py-3 text-xs font-medium text-gray-300">{a.id}</td>
-                    <td className="px-4 py-3"><div className="flex items-center gap-1.5"><User className="w-3 h-3 text-gray-500" /><span className="text-xs font-medium text-white">{a.client}</span></div></td>
+                    <td className="px-4 py-3"><div className="flex items-center gap-1.5"><User className="w-3 h-3 text-gray-500" /><span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => alert(`Client: ${a.client}\nID: ${a.id}\nDate: ${a.date}\nTime: ${a.time}\nTrainer: ${a.trainer}\nStatus: ${a.status}`)}>{a.client}</span></div></td>
                     <td className="px-4 py-3 text-xs text-gray-400">{a.trainer}</td>
                     <td className="px-4 py-3 text-xs text-gray-400">{a.date}</td>
                     <td className="px-4 py-3"><div className="flex items-center gap-1"><Clock className="w-3 h-3 text-gray-500" /><span className="text-xs text-gray-400">{a.time}</span></div></td>
@@ -163,7 +163,7 @@ export default function Appointments() {
                         ...(a.status === 'Pending' ? [{ label: 'Confirm', icon: CheckCircle, onClick: () => confirmAppointment(a.id), color: 'text-emerald-400' as const }] : []),
                         { label: 'Reschedule', icon: Calendar, onClick: () => openReschedule(a) },
                         { label: 'Cancel', icon: XCircle, onClick: () => openCancel(a), color: 'text-red-400' },
-                        { label: 'View Member', icon: Eye, onClick: () => {} },
+                        { label: 'View Member', icon: Eye, onClick: () => alert(`Member: ${a.client}\nAppointment: ${a.id}\nDate: ${a.date}\nTime: ${a.time}\nTrainer: ${a.trainer}\nStatus: ${a.status}`) },
                       ]} />
                     </td>
                   </motion.tr>

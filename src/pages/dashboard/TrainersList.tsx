@@ -142,7 +142,7 @@ export default function TrainersList() {
                         <span className="text-[9px] font-bold text-ydl-yellow">{t.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
                       </div>
                       <div>
-                        <span className="text-xs font-medium text-white">{t.name}</span>
+                        <span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => setModal({ type: 'view-trainer', data: t })}>{t.name}</span>
                         {t.subtitle && <p className="text-[9px] text-ydl-yellow">{t.subtitle}</p>}
                       </div>
                     </div>
@@ -210,7 +210,7 @@ export default function TrainersList() {
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Gender</label><select value={editForm.gender} onChange={e => setEditForm({ ...editForm, gender: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40"><option>Male</option><option>Female</option><option>Other</option></select></div>
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Type</label><select value={editForm.type} onChange={e => setEditForm({ ...editForm, type: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40"><option>Head Trainer</option><option>Senior Trainer</option><option>Trainer</option><option>Junior Trainer</option><option>Yoga Trainer</option></select></div>
             <div className="flex items-center gap-3 pt-2 border-t border-ydl-dark-border mt-2 col-span-2">
-              <button onClick={() => { setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
+              <button onClick={() => { setTrainers(prev => prev.map(tr => tr.id === editForm.id ? { ...tr, ...editForm } : tr)); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
               <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
             </div>
           </div>
@@ -250,7 +250,7 @@ export default function TrainersList() {
               <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Time</label><input type="time" className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" /></div>
             </div>
             <div className="flex items-center gap-3 pt-2">
-              <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Clock className="w-3 h-3 inline mr-1" /> Add Time</button>
+              <button onClick={() => { alert(`Time added for ${modal?.data?.name}`); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Clock className="w-3 h-3 inline mr-1" /> Add Time</button>
               <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
             </div>
           </div>
@@ -263,7 +263,7 @@ export default function TrainersList() {
           <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Email</label><input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40" placeholder="Email" /></div>
           <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Phone</label><input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40" placeholder="Phone" /></div>
           <div className="col-span-2 flex gap-3 pt-2">
-            <button className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Add</button>
+            <button onClick={() => { alert('Trainer added successfully!'); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Add</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>

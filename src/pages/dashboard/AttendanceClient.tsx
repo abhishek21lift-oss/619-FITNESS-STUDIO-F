@@ -136,7 +136,7 @@ export default function AttendanceClient() {
                         <span className="text-[9px] font-bold text-ydl-yellow">{c.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
                       </div>
                       <div>
-                        <span className="text-xs font-medium text-white">{c.name}</span>
+                        <span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => setModal({ type: 'view-member', data: c })}>{c.name}</span>
                         <p className="text-[9px] text-gray-600">{c.mobile}</p>
                       </div>
                     </div>

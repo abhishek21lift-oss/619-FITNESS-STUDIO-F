@@ -154,7 +154,7 @@ export default function AccountsRegisters() {
                       label="Actions"
                       actions={[
                         { label: 'Edit', onClick: () => openEdit(e) },
-                        { label: 'View Receipt', onClick: () => {}, icon: FileText },
+                        { label: 'View Receipt', onClick: () => alert(`Receipt for ${e.description} — ${fmt(e.amount)} (${e.paymentMethod})`), icon: FileText },
                         { label: 'Delete', onClick: () => handleDelete(e.id), color: 'text-red-400' },
                       ]}
                     />
