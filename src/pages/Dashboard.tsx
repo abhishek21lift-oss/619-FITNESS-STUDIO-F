@@ -19,9 +19,9 @@ const quickActions = [
 const dateFilters = ['Today', 'Last 7 Days', 'Last 15 Days', 'Last 30 Days', 'Last 90 Days', 'Custom Date']
 
 const statsCards = [
-  { label: "Today's Sale", value: '₹ 0', icon: DollarSign, color: 'from-blue-500/20 to-blue-600/5', border: 'border-blue-500/30', text: 'text-blue-400' },
-  { label: 'Collected Payments', value: '₹ 0', icon: ArrowUpRight, color: 'from-green-500/20 to-green-600/5', border: 'border-green-500/30', text: 'text-green-400' },
-  { label: 'Pending Payments', value: '₹ 0', icon: AlertTriangle, color: 'from-red-500/20 to-red-600/5', border: 'border-red-500/30', text: 'text-red-400' },
+  { label: "Today's Sale", value: '₹ 0', icon: DollarSign, color: 'from-blue-500/20 to-blue-600/5', border: 'border-blue-500/30', text: 'text-blue-400', viewMore: '/dashboard/accounts/registers' },
+  { label: 'Collected Payments', value: '₹ 0', icon: ArrowUpRight, color: 'from-green-500/20 to-green-600/5', border: 'border-green-500/30', text: 'text-green-400', viewMore: '/dashboard/analysis/collection' },
+  { label: 'Pending Payments', value: '₹ 0', icon: AlertTriangle, color: 'from-red-500/20 to-red-600/5', border: 'border-red-500/30', text: 'text-red-400', viewMore: '/dashboard/members/database' },
 ]
 
 const metrics = [
@@ -168,7 +168,7 @@ export default function Dashboard() {
               </div>
               <card.icon className={`w-6 h-6 ${card.text} opacity-50`} />
             </div>
-            <button onClick={() => navigate('/dashboard/members/database')} className="inline-block mt-2 text-[10px] text-gray-500 hover:text-gray-300 underline underline-offset-2">
+            <button onClick={() => navigate(card.viewMore)} className="inline-block mt-2 text-[10px] text-gray-500 hover:text-gray-300 underline underline-offset-2">
               View More
             </button>
           </motion.div>

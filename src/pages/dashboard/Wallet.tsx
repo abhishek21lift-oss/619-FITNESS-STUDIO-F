@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Wallet as WalletIcon, Plus, ArrowUpRight, ArrowDownRight, Clock, CheckCircle, Download, Eye, Trash2, IndianRupee } from 'lucide-react'
+import { Wallet as WalletIcon, Plus, ArrowUpRight, ArrowDownRight, Clock, CheckCircle, Download, Eye, Trash2, IndianRupee, XCircle } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
@@ -33,12 +33,17 @@ export default function Wallet() {
   const [detailOpen, setDetailOpen] = useState<Transaction | null>(null)
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const filtered = tab === 'All' ? transactions : transactions.filter(t => t.type === (tab === 'Credits' ? 'Credit' : 'Debit'))
 
   const totalBalance = transactions.reduce((s, t) => {
     return t.status === 'Completed' ? (t.type === 'Credit' ? s + t.amount : s - t.amount) : s
   }, 1500000)
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const thisMonthCredits = transactions.filter(t => t.type === 'Credit' && t.status === 'Completed' && t.date.includes('Jun')).reduce((s, t) => s + t.amount, 0)
   const thisMonthDebits = transactions.filter(t => t.type === 'Debit' && t.status === 'Completed' && t.date.includes('Jun')).reduce((s, t) => s + t.amount, 0)
@@ -124,7 +129,7 @@ export default function Wallet() {
             </tr>
           </thead>
           <tbody className="divide-y divide-ydl-dark-border/50">
-            {filtered.map((t, i) => (
+            {paged.map((t, i) => (
               <motion.tr key={t.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                 <td className="px-4 py-3 text-xs text-gray-400">{t.date}</td>
                 <td className="px-4 py-3">
@@ -157,6 +162,7 @@ export default function Wallet() {
             ))}
           </tbody>
         </table>
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={addMoneyOpen} onClose={() => setAddMoneyOpen(false)} title="Add Money" size="sm">
@@ -234,13 +240,5 @@ export default function Wallet() {
         )}
       </Modal>
     </div>
-  )
-}
-
-function XCircle(props: any) {
-  return (
-    <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" /><path d="M15 9l-6 6" /><path d="M9 9l6 6" />
-    </svg>
   )
 }

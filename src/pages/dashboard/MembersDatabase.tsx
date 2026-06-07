@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import {
   Search, Users, Phone, MapPin, MoreHorizontal, Eye, Edit3, Trash2,
   ChevronLeft, ChevronRight, Bell, Send, Download, Filter, ChevronDown,
@@ -32,6 +33,7 @@ const mockClients = Array.from({ length: 991 }, (_, i) => ({
 }))
 
 export default function MembersDatabase() {
+  const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [gender, setGender] = useState('All')
   const [status, setStatus] = useState('All')
@@ -87,7 +89,7 @@ export default function MembersDatabase() {
           <button onClick={() => alert(`Exporting CSV with ${filtered.length} members...`)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <Download className="w-3 h-3" /> Export CSV
           </button>
-          <button onClick={() => alert('Navigating to Add Member page...')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={() => navigate('/dashboard/members/add')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <UserPlus className="w-3 h-3" /> Add Member
           </button>
         </div>

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search, Plus, Download, Filter, ChevronDown, Phone, Mail, MessageSquare,
@@ -54,6 +55,7 @@ function LeadStatusTab({ label, count, active, onClick }: { label: string; count
 }
 
 export default function EnquiryList() {
+  const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [leadTab, setLeadTab] = useState('Open')
   const [showFilters, setShowFilters] = useState(false)
@@ -154,7 +156,7 @@ export default function EnquiryList() {
           <button onClick={() => setModal({ type: 'deactivate' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg hover:bg-amber-500/20 transition-colors">
             <XCircle className="w-3 h-3" /> Deactivate
           </button>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={() => navigate('/dashboard/enquiry/add')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <Plus className="w-3 h-3" /> Add Enquiry
           </button>
         </div>

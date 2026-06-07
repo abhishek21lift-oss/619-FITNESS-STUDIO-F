@@ -32,11 +32,16 @@ export default function AttendanceStaff() {
   const [branchFilt, setBranchFilt] = useState('All Branches')
   const [modal, setModal] = useState<{ type: string; data?: any } | null>(null)
   const [markForm, setMarkForm] = useState({ name: staffFilter[1], status: 'Present', time: '09:00', date: new Date().toISOString().split('T')[0] })
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const filtered = attendance.filter(a => {
     if (staffFilt !== 'All Staff' && a.name !== staffFilt) return false
     return true
   })
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const presentCount = attendance.filter(a => a.status === 'Present').length
   const absentCount = attendance.filter(a => a.status === 'Absent').length
@@ -146,7 +151,7 @@ export default function AttendanceStaff() {
               </tr>
             </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {filtered.map((a, i) => (
+              {paged.map((a, i) => (
                 <motion.tr key={a.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
@@ -182,6 +187,7 @@ export default function AttendanceStaff() {
           </table>
         </div>
         {filtered.length === 0 && <div className="text-center py-10 text-xs text-gray-500">No attendance records for this date.</div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={modal?.type === 'mark'} onClose={() => setModal(null)} title="Mark Attendance" size="md">

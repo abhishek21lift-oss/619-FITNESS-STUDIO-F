@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   User, Mail, Phone, Calendar, Briefcase, Save,
@@ -16,13 +17,35 @@ export default function MembersAdd() {
     address1: '', address2: '', company: '', gst: '', aadhaar: '', pan: '', guardian: ''
   })
 
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const navigate = useNavigate()
+
+  const validate = () => {
+    const errs: Record<string, string> = {}
+    if (!form.firstName.trim()) errs.firstName = 'First name is required'
+    if (!form.mobile.trim()) errs.mobile = 'Mobile is required'
+    setErrors(errs)
+    return Object.keys(errs).length === 0
+  }
+
+  const handleSave = () => {
+    if (!validate()) return
+    alert('Member saved successfully!')
+  }
+
+  const handleSaveClose = () => {
+    if (!validate()) return
+    alert('Member saved successfully!')
+    navigate('/dashboard/members/database')
+  }
+
   const set = (key: string, value: string) => setForm({ ...form, [key]: value })
 
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <button className="p-1.5 text-gray-500 hover:text-white bg-white/5 border border-ydl-dark-border rounded-lg hover:bg-white/10 transition-colors">
+          <button onClick={() => navigate('/dashboard/members/database')} className="p-1.5 text-gray-500 hover:text-white bg-white/5 border border-ydl-dark-border rounded-lg hover:bg-white/10 transition-colors">
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
@@ -39,7 +62,8 @@ export default function MembersAdd() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <label className="text-[11px] font-medium text-gray-400">First Name <span className="text-red-400">*</span></label>
-            <div className="relative"><User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" /><input value={form.firstName} onChange={e => set('firstName', e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="First name" /></div>
+            <div className="relative"><User className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" /><input value={form.firstName} onChange={e => { set('firstName', e.target.value); if (errors.firstName) setErrors(prev => { const n = { ...prev }; delete n.firstName; return n }) }} className={`w-full bg-white/5 border ${errors.firstName ? 'border-red-400' : 'border-ydl-dark-border'} rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors`} placeholder="First name" /></div>
+              {errors.firstName && <p className="text-[10px] text-red-400 mt-1">{errors.firstName}</p>}
           </div>
           <div className="space-y-1.5">
             <label className="text-[11px] font-medium text-gray-400">Last Name</label>
@@ -51,7 +75,8 @@ export default function MembersAdd() {
           </div>
           <div className="space-y-1.5">
             <label className="text-[11px] font-medium text-gray-400">Mobile <span className="text-red-400">*</span></label>
-            <div className="relative"><Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" /><input value={form.mobile} onChange={e => set('mobile', e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="+91 98765 43210" /></div>
+            <div className="relative"><Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" /><input value={form.mobile} onChange={e => { set('mobile', e.target.value); if (errors.mobile) setErrors(prev => { const n = { ...prev }; delete n.mobile; return n }) }} className={`w-full bg-white/5 border ${errors.mobile ? 'border-red-400' : 'border-ydl-dark-border'} rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors`} placeholder="+91 98765 43210" /></div>
+              {errors.mobile && <p className="text-[10px] text-red-400 mt-1">{errors.mobile}</p>}
           </div>
           <div className="space-y-1.5">
             <label className="text-[11px] font-medium text-gray-400">Alt Mobile</label>
@@ -97,13 +122,13 @@ export default function MembersAdd() {
         )}
 
         <div className="flex items-center gap-3 mt-6 pt-4 border-t border-ydl-dark-border">
-          <button className="flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={handleSave} className="flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <Save className="w-3.5 h-3.5" /> Save
           </button>
-          <button className="flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={handleSaveClose} className="flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <Save className="w-3.5 h-3.5" /> Save & Close
           </button>
-          <button className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">
+          <button onClick={() => navigate('/dashboard/members/database')} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">
             <ArrowLeft className="w-3 h-3 inline mr-1" /> Back
           </button>
         </div>

@@ -41,6 +41,8 @@ export default function MembershipSubscriptions() {
   const [cancelReason, setCancelReason] = useState('')
   const [profileModal, setProfileModal] = useState(false)
   const [profileMember, setProfileMember] = useState<Sub | null>(null)
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const planOptions = ['All Plans', 'Annual Gold', 'Monthly Basic', 'Quarterly Pro', 'Annual Platinum', 'PT Monthly', 'Half-Yearly']
 
@@ -51,6 +53,9 @@ export default function MembershipSubscriptions() {
     if (statusFilter !== 'All' && s.status !== statusFilter) return false
     return true
   })
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const stats = {
     active: subs.filter(s => s.status === 'Active').length,
@@ -146,7 +151,7 @@ export default function MembershipSubscriptions() {
               </tr>
             </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {filtered.map((s, i) => (
+              {paged.map((s, i) => (
                 <motion.tr key={s.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3"><span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => viewProfile(s)}>{s.member}</span><br /><span className="text-[9px] text-gray-600">{s.id}</span></td>
                   <td className="px-4 py-3 text-xs text-gray-400">{s.plan}</td>
@@ -177,6 +182,7 @@ export default function MembershipSubscriptions() {
             </tbody>
           </table>
         </div>
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={renewModal} onClose={() => setRenewModal(false)} title="Renew Subscription" size="sm">

@@ -11,9 +11,11 @@ import StudioSoftware from './pages/StudioSoftware'
 import DigitalMarketing from './pages/DigitalMarketing'
 import AdminLogin from './pages/AdminLogin'
 import TrainerLogin from './pages/TrainerLogin'
-import DashboardLayout from './layouts/DashboardLayout'
+import Login from './pages/Login'
+import DashboardLayout from './components/layout/DashboardLayout'
+import ProtectedRoute from './components/auth/ProtectedRoute'
+import Dashboard from './pages/Dashboard'
 import Overview from './pages/dashboard/Overview'
-import YdlDashboard from './pages/dashboard/YdlDashboard'
 import EnquiryAdd from './pages/dashboard/EnquiryAdd'
 import EnquiryList from './pages/dashboard/EnquiryList'
 import FollowUps from './pages/dashboard/FollowUps'
@@ -94,6 +96,7 @@ import TrainerSchedule from './pages/trainer/Schedule'
 export default function App() {
   return (
     <Routes>
+      {/* Public pages */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
@@ -105,99 +108,121 @@ export default function App() {
         <Route path="/studio" element={<StudioSoftware />} />
         <Route path="/digital-marketing-for-gyms-and-fitness-clubs" element={<DigitalMarketing />} />
       </Route>
+
+      {/* Login pages */}
       <Route path="/fitness-center/login" element={<AdminLogin />} />
       <Route path="/trainer-dashboard/login" element={<TrainerLogin />} />
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<YdlDashboard />} />
-        <Route path="overview" element={<Overview />} />
+      <Route path="/login" element={<Login />} />
+
+      {/* Protected Dashboard */}
+      <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/overview" element={<Overview />} />
+
         {/* Enquiry */}
-        <Route path="enquiry/add" element={<EnquiryAdd />} />
-        <Route path="enquiry/list" element={<EnquiryList />} />
+        <Route path="/dashboard/enquiry/add" element={<EnquiryAdd />} />
+        <Route path="/dashboard/enquiry/list" element={<EnquiryList />} />
+
         {/* Follow Ups */}
-        <Route path="followups" element={<FollowUps />} />
+        <Route path="/dashboard/followups" element={<FollowUps />} />
+
         {/* Members */}
-        <Route path="members/add" element={<MembersAdd />} />
-        <Route path="members/quick-add" element={<MembersQuickAdd />} />
-        <Route path="members/database" element={<MembersDatabase />} />
-        <Route path="members/referrals" element={<MembersReferrals />} />
-        <Route path="members/birthday" element={<MembersBirthday />} />
-        <Route path="members/other-branch" element={<MembersOtherBranch />} />
+        <Route path="/dashboard/members/add" element={<MembersAdd />} />
+        <Route path="/dashboard/members/quick-add" element={<MembersQuickAdd />} />
+        <Route path="/dashboard/members/database" element={<MembersDatabase />} />
+        <Route path="/dashboard/members/referrals" element={<MembersReferrals />} />
+        <Route path="/dashboard/members/birthday" element={<MembersBirthday />} />
+        <Route path="/dashboard/members/other-branch" element={<MembersOtherBranch />} />
+
         {/* Analysis */}
-        <Route path="analysis/traffic" element={<AnalysisTraffic />} />
-        <Route path="analysis/members" element={<AnalysisMembers />} />
-        <Route path="analysis/collection" element={<AnalysisCollection />} />
-        <Route path="analysis/subscriptions" element={<AnalysisSubscriptions />} />
-        <Route path="analysis/renewal" element={<AnalysisRenewal />} />
-        <Route path="analysis/followup" element={<AnalysisFollowup />} />
-        <Route path="analysis/conversion" element={<AnalysisConversion />} />
-        <Route path="analysis/enquiry" element={<AnalysisEnquiry />} />
-        <Route path="analysis/expense" element={<AnalysisExpense />} />
-        <Route path="analysis/profit-loss" element={<AnalysisProfitLoss />} />
-        <Route path="analysis/billing" element={<AnalysisBilling />} />
-        <Route path="analysis/sales-leaderboard" element={<AnalysisSalesLeaderboard />} />
-        <Route path="analysis/revenue-forecast" element={<AnalysisRevenueForecast />} />
-        <Route path="analysis/lead-source" element={<AnalysisLeadSource />} />
+        <Route path="/dashboard/analysis/traffic" element={<AnalysisTraffic />} />
+        <Route path="/dashboard/analysis/members" element={<AnalysisMembers />} />
+        <Route path="/dashboard/analysis/collection" element={<AnalysisCollection />} />
+        <Route path="/dashboard/analysis/subscriptions" element={<AnalysisSubscriptions />} />
+        <Route path="/dashboard/analysis/renewal" element={<AnalysisRenewal />} />
+        <Route path="/dashboard/analysis/followup" element={<AnalysisFollowup />} />
+        <Route path="/dashboard/analysis/conversion" element={<AnalysisConversion />} />
+        <Route path="/dashboard/analysis/enquiry" element={<AnalysisEnquiry />} />
+        <Route path="/dashboard/analysis/expense" element={<AnalysisExpense />} />
+        <Route path="/dashboard/analysis/profit-loss" element={<AnalysisProfitLoss />} />
+        <Route path="/dashboard/analysis/billing" element={<AnalysisBilling />} />
+        <Route path="/dashboard/analysis/sales-leaderboard" element={<AnalysisSalesLeaderboard />} />
+        <Route path="/dashboard/analysis/revenue-forecast" element={<AnalysisRevenueForecast />} />
+        <Route path="/dashboard/analysis/lead-source" element={<AnalysisLeadSource />} />
+
         {/* Memberships */}
-        <Route path="memberships/plans" element={<MembershipPlans />} />
-        <Route path="memberships/subscriptions" element={<MembershipSubscriptions />} />
-        <Route path="memberships/coupon" element={<MembershipCoupon />} />
-        <Route path="memberships/combo" element={<MembershipCombo />} />
+        <Route path="/dashboard/memberships/plans" element={<MembershipPlans />} />
+        <Route path="/dashboard/memberships/subscriptions" element={<MembershipSubscriptions />} />
+        <Route path="/dashboard/memberships/coupon" element={<MembershipCoupon />} />
+        <Route path="/dashboard/memberships/combo" element={<MembershipCombo />} />
+
         {/* Batches & Classes */}
-        <Route path="batches/add" element={<BatchesAdd />} />
-        <Route path="batches/list" element={<BatchesList />} />
-        <Route path="batches/bookings" element={<BatchesBookings />} />
-        <Route path="batches/calendar" element={<BatchesCalendar />} />
-        <Route path="batches/program" element={<BatchesProgram />} />
+        <Route path="/dashboard/batches/add" element={<BatchesAdd />} />
+        <Route path="/dashboard/batches/list" element={<BatchesList />} />
+        <Route path="/dashboard/batches/bookings" element={<BatchesBookings />} />
+        <Route path="/dashboard/batches/calendar" element={<BatchesCalendar />} />
+        <Route path="/dashboard/batches/program" element={<BatchesProgram />} />
+
         {/* Accounts */}
-        <Route path="accounts/registers" element={<AccountsRegisters />} />
-        <Route path="accounts/payroll" element={<AccountsPayroll />} />
-        <Route path="accounts/expense" element={<AccountsExpense />} />
+        <Route path="/dashboard/accounts/registers" element={<AccountsRegisters />} />
+        <Route path="/dashboard/accounts/payroll" element={<AccountsPayroll />} />
+        <Route path="/dashboard/accounts/expense" element={<AccountsExpense />} />
+
         {/* Notifications */}
-        <Route path="notifications" element={<Notifications />} />
-        <Route path="notifications/whatsapp" element={<NotificationsWhatsApp />} />
-        <Route path="notifications/sms" element={<NotificationsSMS />} />
-        <Route path="notifications/email" element={<NotificationsEmail />} />
+        <Route path="/dashboard/notifications" element={<Notifications />} />
+        <Route path="/dashboard/notifications/whatsapp" element={<NotificationsWhatsApp />} />
+        <Route path="/dashboard/notifications/sms" element={<NotificationsSMS />} />
+        <Route path="/dashboard/notifications/email" element={<NotificationsEmail />} />
+
         {/* Trainers */}
-        <Route path="trainers/add" element={<TrainersAdd />} />
-        <Route path="trainers/list" element={<TrainersList />} />
-        <Route path="trainers/transformations" element={<TrainersTransformations />} />
-        <Route path="trainers/leave" element={<TrainersLeave />} />
+        <Route path="/dashboard/trainers/add" element={<TrainersAdd />} />
+        <Route path="/dashboard/trainers/list" element={<TrainersList />} />
+        <Route path="/dashboard/trainers/transformations" element={<TrainersTransformations />} />
+        <Route path="/dashboard/trainers/leave" element={<TrainersLeave />} />
+
         {/* Settings - Fitness Center */}
-        <Route path="settings/fitness-centers" element={<SettingsFitnessCenters />} />
-        <Route path="settings/fitness-settings" element={<SettingsFitnessSettings />} />
-        <Route path="settings/biometric" element={<SettingsBiometric />} />
-        <Route path="settings/equipment" element={<SettingsEquipment />} />
-        <Route path="settings/notices" element={<SettingsNotices />} />
-        <Route path="settings/holiday" element={<SettingsHoliday />} />
-        <Route path="settings/feedback" element={<SettingsFeedback />} />
+        <Route path="/dashboard/settings/fitness-centers" element={<SettingsFitnessCenters />} />
+        <Route path="/dashboard/settings/fitness-settings" element={<SettingsFitnessSettings />} />
+        <Route path="/dashboard/settings/biometric" element={<SettingsBiometric />} />
+        <Route path="/dashboard/settings/equipment" element={<SettingsEquipment />} />
+        <Route path="/dashboard/settings/notices" element={<SettingsNotices />} />
+        <Route path="/dashboard/settings/holiday" element={<SettingsHoliday />} />
+        <Route path="/dashboard/settings/feedback" element={<SettingsFeedback />} />
+
         {/* Staff */}
-        <Route path="staff/add" element={<StaffAdd />} />
-        <Route path="staff/list" element={<StaffList />} />
-        <Route path="staff/access" element={<StaffAccess />} />
-        <Route path="staff/target" element={<StaffTarget />} />
+        <Route path="/dashboard/staff/add" element={<StaffAdd />} />
+        <Route path="/dashboard/staff/list" element={<StaffList />} />
+        <Route path="/dashboard/staff/access" element={<StaffAccess />} />
+        <Route path="/dashboard/staff/target" element={<StaffTarget />} />
+
         {/* Attendance */}
-        <Route path="attendance/staff" element={<AttendanceStaff />} />
-        <Route path="attendance/client" element={<AttendanceClient />} />
-        <Route path="attendance/leaderboard" element={<AttendanceLeaderboard />} />
+        <Route path="/dashboard/attendance/staff" element={<AttendanceStaff />} />
+        <Route path="/dashboard/attendance/client" element={<AttendanceClient />} />
+        <Route path="/dashboard/attendance/leaderboard" element={<AttendanceLeaderboard />} />
+
         {/* App Settings */}
-        <Route path="app-settings/permissions" element={<AppSettingsPermissions />} />
-        <Route path="app-settings/services" element={<AppSettingsServices />} />
-        <Route path="app-settings/gallery" element={<AppSettingsGallery />} />
-        <Route path="app-settings/actions" element={<AppSettingsActions />} />
-        <Route path="app-settings/banner" element={<AppSettingsBanner />} />
-        <Route path="app-settings/social" element={<AppSettingsSocial />} />
-        <Route path="app-settings/measurements" element={<AppSettingsMeasurements />} />
-        <Route path="app-settings/workouts" element={<AppSettingsWorkouts />} />
-        <Route path="app-settings/community" element={<AppSettingsCommunity />} />
-        <Route path="app-settings/challenges" element={<AppSettingsChallenges />} />
+        <Route path="/dashboard/app-settings/permissions" element={<AppSettingsPermissions />} />
+        <Route path="/dashboard/app-settings/services" element={<AppSettingsServices />} />
+        <Route path="/dashboard/app-settings/gallery" element={<AppSettingsGallery />} />
+        <Route path="/dashboard/app-settings/actions" element={<AppSettingsActions />} />
+        <Route path="/dashboard/app-settings/banner" element={<AppSettingsBanner />} />
+        <Route path="/dashboard/app-settings/social" element={<AppSettingsSocial />} />
+        <Route path="/dashboard/app-settings/measurements" element={<AppSettingsMeasurements />} />
+        <Route path="/dashboard/app-settings/workouts" element={<AppSettingsWorkouts />} />
+        <Route path="/dashboard/app-settings/community" element={<AppSettingsCommunity />} />
+        <Route path="/dashboard/app-settings/challenges" element={<AppSettingsChallenges />} />
+
         {/* Tutorial */}
-        <Route path="tutorial/videos" element={<TutorialVideos />} />
-        <Route path="tutorial/faq" element={<TutorialFAQ />} />
+        <Route path="/dashboard/tutorial/videos" element={<TutorialVideos />} />
+        <Route path="/dashboard/tutorial/faq" element={<TutorialFAQ />} />
+
         {/* More */}
-        <Route path="appointments" element={<Appointments />} />
-        <Route path="wallet" element={<Wallet />} />
-        <Route path="ecommerce" element={<Ecommerce />} />
+        <Route path="/dashboard/appointments" element={<Appointments />} />
+        <Route path="/dashboard/wallet" element={<Wallet />} />
+        <Route path="/dashboard/ecommerce" element={<Ecommerce />} />
       </Route>
+
+      {/* Trainer routes */}
       <Route path="/trainer" element={<TrainerLayout />}>
         <Route index element={<TrainerDashboard />} />
         <Route path="dashboard" element={<TrainerDashboard />} />

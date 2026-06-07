@@ -34,8 +34,13 @@ export default function Ecommerce() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editProduct, setEditProduct] = useState<Product | null>(null)
   const [form, setForm] = useState({ name: '', category: 'Supplements', price: '', stock: 0, description: '', status: 'Active' as Product['status'] })
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const filtered = category === 'All' ? products : products.filter(p => p.category === category)
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const lowStockItems = products.filter(p => p.stock <= 10 && p.status === 'Active').length
 
@@ -99,7 +104,7 @@ export default function Ecommerce() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filtered.map((p, i) => (
+        {paged.map((p, i) => (
           <motion.div key={p.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
             <div className="aspect-square bg-gradient-to-br from-ydl-yellow/10 to-amber-600/5 flex items-center justify-center relative">
               <Package className="w-12 h-12 text-gray-600" />
@@ -134,6 +139,8 @@ export default function Ecommerce() {
           </motion.div>
         ))}
       </div>
+
+      {totalPages > 1 && <div className="flex items-center justify-between"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editProduct ? 'Edit Product' : 'Add Product'} size="md">
         <div className="space-y-3">

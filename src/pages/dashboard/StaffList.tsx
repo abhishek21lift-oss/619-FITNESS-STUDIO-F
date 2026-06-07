@@ -30,6 +30,8 @@ export default function StaffList() {
   const [modal, setModal] = useState<{ type: string; data?: any } | null>(null)
   const [editForm, setEditForm] = useState<any>(null)
   const [resetPass, setResetPass] = useState({ password: '', confirm: '' })
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const filtered = staff.filter(s => {
     if (roleFilter !== 'All Roles' && s.role !== roleFilter) return false
@@ -37,6 +39,9 @@ export default function StaffList() {
     if (search && !s.name.toLowerCase().includes(search.toLowerCase()) && !s.email.toLowerCase().includes(search.toLowerCase()) && !s.phone.includes(search)) return false
     return true
   })
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const activeCount = staff.filter(s => s.status === 'Active').length
   const inactiveCount = staff.filter(s => s.status === 'Inactive').length
@@ -110,7 +115,7 @@ export default function StaffList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {filtered.map((s, i) => (
+              {paged.map((s, i) => (
                 <motion.tr key={s.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
@@ -144,6 +149,7 @@ export default function StaffList() {
           </table>
         </div>
         {filtered.length === 0 && <div className="text-center py-10 text-xs text-gray-500">No staff match your filters.</div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={modal?.type === 'view'} onClose={() => setModal(null)} title={`Staff: ${modal?.data?.name || ''}`} size="md">

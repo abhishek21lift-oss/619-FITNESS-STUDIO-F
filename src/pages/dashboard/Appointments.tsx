@@ -39,8 +39,13 @@ export default function Appointments() {
   const [selectedAppt, setSelectedAppt] = useState<Appointment | null>(null)
   const [newDate, setNewDate] = useState('')
   const [form, setForm] = useState({ client: '', trainer: 'Riya Singh', date: '', time: '', type: 'PT Session', notes: '' })
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const filtered = filter === 'All' ? appointments : appointments.filter(a => a.status === filter)
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const todayAppts = appointments.filter(a => a.date === '08 Jun 2026').length
   const pendingAppts = appointments.filter(a => a.status === 'Pending').length
@@ -143,7 +148,7 @@ export default function Appointments() {
               </tr>
             </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {filtered.map((a, i) => {
+              {paged.map((a, i) => {
                 const StatusIcon = statusIcons[a.status]
                 return (
                   <motion.tr key={a.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
@@ -171,6 +176,7 @@ export default function Appointments() {
               })}
             </tbody>
           </table>
+          {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
         </motion.div>
       ) : (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">

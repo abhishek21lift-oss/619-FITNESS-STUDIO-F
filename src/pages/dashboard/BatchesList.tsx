@@ -59,6 +59,8 @@ export default function BatchesList() {
   const [attendanceModal, setAttendanceModal] = useState(false)
   const [selectedBatch, setSelectedBatch] = useState<Batch | null>(null)
   const [attendance, setAttendance] = useState<number[]>([])
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const filtered = batches.filter(b => {
     if (categoryFilter !== 'All' && b.category !== categoryFilter) return false
@@ -66,6 +68,9 @@ export default function BatchesList() {
     if (search && !b.name.toLowerCase().includes(search.toLowerCase()) && !b.trainer.toLowerCase().includes(search.toLowerCase())) return false
     return true
   })
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const openViewMembers = (batch: Batch) => {
     setSelectedBatch(batch)
@@ -133,7 +138,7 @@ export default function BatchesList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {filtered.map((b, i) => (
+              {paged.map((b, i) => (
                 <motion.tr key={b.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3 text-xs font-medium text-white">{b.name}</td>
                   <td className="px-4 py-3">
@@ -176,6 +181,7 @@ export default function BatchesList() {
             </tbody>
           </table>
         </div>
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={viewMembersModal} onClose={() => setViewMembersModal(false)} title={`Members - ${selectedBatch?.name || ''}`} size="lg">

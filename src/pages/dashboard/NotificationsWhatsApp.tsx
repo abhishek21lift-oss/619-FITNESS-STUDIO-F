@@ -19,6 +19,10 @@ export default function NotificationsWhatsApp() {
   const [testPhone, setTestPhone] = useState('')
   const [testMsg, setTestMsg] = useState('')
   const [sentCount, setSentCount] = useState(0)
+  const [page, setPage] = useState(1)
+  const perPage = 10
+  const totalPages = Math.ceil(templates.length / perPage)
+  const paged = templates.slice((page - 1) * perPage, page * perPage)
 
   const handleDisconnect = () => {
     setConnected(false)
@@ -80,7 +84,7 @@ export default function NotificationsWhatsApp() {
         <div className="mt-4">
           <h3 className="text-xs font-semibold text-white mb-2">Templates</h3>
           <div className="space-y-2">
-            {templates.map((t, i) => (
+            {paged.map((t, i) => (
               <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-ydl-dark-border">
                 <div className="flex items-center gap-2">
                   <MessageSquare className="w-3.5 h-3.5 text-ydl-yellow" />
@@ -97,6 +101,8 @@ export default function NotificationsWhatsApp() {
             ))}
           </div>
         </div>
+
+        {totalPages > 1 && <div className="flex items-center justify-between"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
 
         <div className="flex items-center gap-3 mt-6 pt-4 border-t border-ydl-dark-border">
           {connected ? (

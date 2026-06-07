@@ -28,6 +28,8 @@ export default function MembersReferrals() {
   const [statusFilter, setStatusFilter] = useState('All')
   const [rewardFilter, setRewardFilter] = useState('All')
   const [modal, setModal] = useState<{ type: string; data?: any } | null>(null)
+  const [page, setPage] = useState(1)
+  const perPage = 25
 
   const claimed = mockReferrals.filter(r => r.status === 'Claimed').length
   const pending = mockReferrals.filter(r => r.status === 'Pending').length
@@ -45,6 +47,9 @@ export default function MembersReferrals() {
     if (search && !r.client.toLowerCase().includes(search.toLowerCase()) && !r.referred.toLowerCase().includes(search.toLowerCase()) && !r.mobile.includes(search)) return false
     return true
   })
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const statusBadge = (s: string) => {
     const map: Record<string, string> = {
@@ -118,7 +123,7 @@ export default function MembersReferrals() {
               </tr>
             </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {filtered.map((r, i) => (
+              {paged.map((r, i) => (
                 <motion.tr key={r.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
@@ -158,6 +163,7 @@ export default function MembersReferrals() {
           </table>
         </div>
         {filtered.length === 0 && <div className="text-center py-10"><p className="text-xs text-gray-500">No referrals found.</p></div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={modal?.type === 'details'} onClose={() => setModal(null)} title={`Referral: ${modal?.data?.client || ''}`} size="md">

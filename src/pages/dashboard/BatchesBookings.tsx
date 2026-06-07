@@ -35,12 +35,17 @@ export default function BatchesBookings() {
   const [categoryFilter, setCategoryFilter] = useState('All Categories')
   const [profileModal, setProfileModal] = useState(false)
   const [profileMember, setProfileMember] = useState<Booking | null>(null)
+  const [page, setPage] = useState(1)
+  const perPage = 10
 
   const filtered = bookings.filter(b => {
     if (batchFilter !== 'All Batches' && b.batch !== batchFilter) return false
     if (dateFilter && b.date !== new Date(dateFilter).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })) return false
     return true
   })
+
+  const totalPages = Math.ceil(filtered.length / perPage)
+  const paged = filtered.slice((page - 1) * perPage, page * perPage)
 
   const stats = {
     total: bookings.length,
@@ -104,7 +109,7 @@ export default function BatchesBookings() {
               </tr>
             </thead>
             <tbody className="divide-y divide-ydl-dark-border/50">
-              {filtered.map((b, i) => {
+              {paged.map((b, i) => {
                 const StatusIcon = statusIcons[b.status]
                 return (
                   <motion.tr key={b.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="hover:bg-white/[0.02] transition-colors">
@@ -134,6 +139,7 @@ export default function BatchesBookings() {
             </tbody>
           </table>
         </div>
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
       <Modal open={profileModal} onClose={() => setProfileModal(false)} title="Member Profile" size="sm">
         {profileMember && (
