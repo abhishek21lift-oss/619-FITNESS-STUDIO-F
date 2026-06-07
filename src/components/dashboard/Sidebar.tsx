@@ -1,157 +1,167 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Users, PhoneCall, TrendingUp, CreditCard,
   CalendarRange, DollarSign, Bell,
   UserCog, Dumbbell, Settings, HelpCircle,
   ChevronDown, X,
-  ClipboardCheck, Briefcase, ShoppingCart,
-  MessageSquare, FileText,
+  ClipboardCheck, Briefcase, Wallet, ShoppingCart,
+  MessageSquare,
+  Calendar, List, UserPlus, Database, Gift, Cake,
+  GitBranch, BarChart3, LineChart, PieChart, Target,
+  BookOpen, Tag, Layers, Clock, Award, FileText,
+  PlusSquare, Grid, Video, Sun, AlertTriangle,
+  Key, Image, Link2, Activity, Zap, Users2,
+  Mail,
 } from 'lucide-react'
 
-interface SectionItem {
+interface MenuItem {
   label: string
   icon: any
   to?: string
-  children?: { label: string; to: string }[]
+  children?: { label: string; to: string; icon?: any }[]
 }
 
-const navData: { label: string; items: SectionItem[] }[] = [
-  {
-    label: 'MAIN',
-    items: [
-      { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard/overview' },
-    ],
-  },
-  {
-    label: 'ENQUIRY',
-    items: [
-      { label: 'Enquiry', icon: PhoneCall, children: [
-        { label: 'Add Enquiry', to: '/dashboard/leads' },
-        { label: 'Enquiry List', to: '/dashboard/leads' },
-      ]},
-    ],
-  },
-  {
-    label: 'TRACKING',
-    items: [
-      { label: 'Follow Ups', icon: Bell, to: '/dashboard/followups' },
-    ],
-  },
-  {
-    label: 'MEMBERS',
-    items: [
-      { label: 'Members', icon: Users, children: [
-        { label: 'Add Member', to: '/dashboard/members' },
-        { label: 'My Members', to: '/dashboard/members' },
-        { label: 'Expiry', to: '/dashboard/expiry' },
-        { label: 'Client Database', to: '/dashboard/members' },
-        { label: 'Client Referrals', to: '/dashboard/members' },
-        { label: 'Members Birthday', to: '/dashboard/members' },
-      ]},
-    ],
-  },
-  {
-    label: 'ANALYSIS',
-    items: [
-      { label: 'Analysis', icon: TrendingUp, children: [
-        { label: 'Traffic Analysis', to: '/dashboard/reports' },
-        { label: 'Members Analysis', to: '/dashboard/reports' },
-        { label: 'Collection Analysis', to: '/dashboard/reports' },
-        { label: 'Revenue Forecast', to: '/dashboard/reports' },
-      ]},
-    ],
-  },
-  {
-    label: 'MEMBERSHIPS',
-    items: [
-      { label: 'Memberships', icon: CreditCard, children: [
-        { label: 'Membership Plans', to: '/dashboard/plans' },
-        { label: 'Subscriptions', to: '/dashboard/billing' },
-      ]},
-    ],
-  },
-  {
-    label: 'SCHEDULE',
-    items: [
-      { label: 'Batches & Classes', icon: CalendarRange, children: [
-        { label: 'Add Batch', to: '/dashboard/batches' },
-        { label: 'Batch List', to: '/dashboard/batches' },
-        { label: 'Class Bookings', to: '/dashboard/classes' },
-        { label: 'Classes Calendar', to: '/dashboard/classes' },
-      ]},
-    ],
-  },
-  {
-    label: 'ACCOUNTS',
-    items: [
-      { label: 'Accounts', icon: DollarSign, children: [
-        { label: 'Billing', to: '/dashboard/billing' },
-        { label: 'Quick Check-In', to: '/dashboard/checkin' },
-      ]},
-    ],
-  },
-  {
-    label: 'COMMUNICATION',
-    items: [
-      { label: 'Notification & WhatsApp', icon: MessageSquare, children: [
-        { label: 'Announcements', to: '/dashboard/announcements' },
-        { label: 'Activity Log', to: '/dashboard/activity' },
-      ]},
-    ],
-  },
-  {
-    label: 'TRAINERS',
-    items: [
-      { label: 'Trainers', icon: Dumbbell, children: [
-        { label: 'Add Trainer', to: '/dashboard/staff' },
-        { label: 'My Trainers', to: '/dashboard/staff' },
-        { label: 'Staff', to: '/dashboard/staff' },
-      ]},
-    ],
-  },
-  {
-    label: 'SETTINGS',
-    items: [
-      { label: 'Fitness Center', icon: Briefcase, children: [
-        { label: 'Settings', to: '/dashboard/settings' },
-        { label: 'Store Items', to: '/dashboard/store' },
-      ]},
-      { label: 'Staff', icon: UserCog, children: [
-        { label: 'Staff List', to: '/dashboard/staff' },
-        { label: 'Attendance', to: '/dashboard/attendance' },
-      ]},
-      { label: 'Attendance Reports', icon: ClipboardCheck, children: [
-        { label: 'Staff & Trainer Attendance', to: '/dashboard/attendance' },
-        { label: 'Client Attendance', to: '/dashboard/attendance' },
-      ]},
-      { label: 'App Settings', icon: Settings, children: [
-        { label: 'Reports', to: '/dashboard/reports' },
-      ]},
-      { label: 'Tutorial & Help', icon: HelpCircle, children: [
-        { label: 'Tutorial Videos', to: '#' },
-        { label: 'Admin FAQ', to: '#' },
-      ]},
-    ],
-  },
-  {
-    label: 'MORE',
-    items: [
-      { label: 'Reports', icon: FileText, to: '/dashboard/reports' },
-      { label: 'Store', icon: ShoppingCart, to: '/dashboard/store' },
-    ],
-  },
+const navData: { label: string; items: MenuItem[] }[] = [
+  { label: 'MAIN', items: [
+    { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard' },
+  ]},
+  { label: 'ENQUIRY', items: [
+    { label: 'Enquiry', icon: PhoneCall, children: [
+      { label: 'Add Enquiry', to: '/dashboard/enquiry/add', icon: PlusSquare },
+      { label: 'Enquiry List', to: '/dashboard/enquiry/list', icon: List },
+    ]},
+  ]},
+  { label: 'TRACKING', items: [
+    { label: 'Follow Ups', icon: Bell, to: '/dashboard/followups' },
+  ]},
+  { label: 'MEMBERS', items: [
+    { label: 'Members', icon: Users, children: [
+      { label: 'Add Member', to: '/dashboard/members/add', icon: UserPlus },
+      { label: 'Add Quick Member', to: '/dashboard/members/quick-add', icon: Zap },
+      { label: 'Client Database', to: '/dashboard/members/database', icon: Database },
+      { label: 'Client Referrals', to: '/dashboard/members/referrals', icon: Gift },
+      { label: 'Members Birthday', to: '/dashboard/members/birthday', icon: Cake },
+      { label: 'Other Branch', to: '/dashboard/members/other-branch', icon: GitBranch },
+    ]},
+  ]},
+  { label: 'ANALYSIS', items: [
+    { label: 'Analysis', icon: TrendingUp, children: [
+      { label: 'Traffic Analysis', to: '/dashboard/analysis/traffic', icon: BarChart3 },
+      { label: 'Members Analysis', to: '/dashboard/analysis/members', icon: Users2 },
+      { label: 'Collection Analysis', to: '/dashboard/analysis/collection', icon: DollarSign },
+      { label: 'Subscriptions Analysis', to: '/dashboard/analysis/subscriptions', icon: CreditCard },
+      { label: 'Renewal Analysis', to: '/dashboard/analysis/renewal', icon: RefreshIcon },
+      { label: 'Follow up Analysis', to: '/dashboard/analysis/followup', icon: PhoneCall },
+      { label: 'Conversion Analysis', to: '/dashboard/analysis/conversion', icon: Target },
+      { label: 'Enquiry Analysis', to: '/dashboard/analysis/enquiry', icon: PieChart },
+      { label: 'Expense Analysis', to: '/dashboard/analysis/expense', icon: DollarSign },
+      { label: 'Profit & Loss', to: '/dashboard/analysis/profit-loss', icon: LineChart },
+      { label: 'Billing Analysis', to: '/dashboard/analysis/billing', icon: FileText },
+      { label: 'Sales Leaderboard', to: '/dashboard/analysis/sales-leaderboard', icon: Award },
+      { label: 'Revenue Forecast', to: '/dashboard/analysis/revenue-forecast', icon: TrendingUp },
+      { label: 'Lead Source Analysis', to: '/dashboard/analysis/lead-source', icon: Target },
+    ]},
+  ]},
+  { label: 'MEMBERSHIPS', items: [
+    { label: 'Memberships', icon: CreditCard, children: [
+      { label: 'Membership Plans', to: '/dashboard/memberships/plans', icon: BookOpen },
+      { label: 'Subscriptions', to: '/dashboard/memberships/subscriptions', icon: Layers },
+      { label: 'Coupon', to: '/dashboard/memberships/coupon', icon: Tag },
+      { label: 'Combo Offer', to: '/dashboard/memberships/combo', icon: Gift },
+    ]},
+  ]},
+  { label: 'SCHEDULE', items: [
+    { label: 'Batches & Classes', icon: CalendarRange, children: [
+      { label: 'Add Batch', to: '/dashboard/batches/add', icon: PlusSquare },
+      { label: 'Batch List', to: '/dashboard/batches/list', icon: List },
+      { label: 'Class Bookings', to: '/dashboard/batches/bookings', icon: Calendar },
+      { label: 'Classes Calendar', to: '/dashboard/batches/calendar', icon: Calendar },
+      { label: 'Program', to: '/dashboard/batches/program', icon: Grid },
+    ]},
+  ]},
+  { label: 'ACCOUNTS', items: [
+    { label: 'Accounts', icon: DollarSign, children: [
+      { label: 'Account Registers', to: '/dashboard/accounts/registers', icon: FileText },
+      { label: 'Payroll', to: '/dashboard/accounts/payroll', icon: Users },
+      { label: 'Expense', to: '/dashboard/accounts/expense', icon: CreditCard },
+    ]},
+  ]},
+  { label: 'COMMUNICATION', items: [
+    { label: 'Notification & WhatsApp', icon: MessageSquare, children: [
+      { label: 'Notification', to: '/dashboard/notifications', icon: Bell },
+      { label: 'WhatsApp', to: '/dashboard/notifications/whatsapp', icon: MessageSquare },
+      { label: 'SMS', to: '/dashboard/notifications/sms', icon: Mail },
+      { label: 'Email', to: '/dashboard/notifications/email', icon: Mail },
+    ]},
+  ]},
+  { label: 'TRAINERS', items: [
+    { label: 'Trainers', icon: Dumbbell, children: [
+      { label: 'Add Trainer', to: '/dashboard/trainers/add', icon: UserPlus },
+      { label: 'My Trainers', to: '/dashboard/trainers/list', icon: Users },
+      { label: 'Transformations', to: '/dashboard/trainers/transformations', icon: Activity },
+      { label: 'Leave Requests', to: '/dashboard/trainers/leave', icon: Clock },
+    ]},
+  ]},
+  { label: 'SETTINGS', items: [
+    { label: 'Fitness Center', icon: Briefcase, children: [
+      { label: 'My Fitness Centers', to: '/dashboard/settings/fitness-centers', icon: Briefcase },
+      { label: 'Fitness Settings', to: '/dashboard/settings/fitness-settings', icon: Settings },
+      { label: 'Biometric', to: '/dashboard/settings/biometric', icon: Key },
+      { label: 'Equipment', to: '/dashboard/settings/equipment', icon: Dumbbell },
+      { label: 'Notices & Rules', to: '/dashboard/settings/notices', icon: AlertTriangle },
+      { label: 'Holiday', to: '/dashboard/settings/holiday', icon: Sun },
+      { label: 'Feedback', to: '/dashboard/settings/feedback', icon: MessageSquare },
+    ]},
+    { label: 'Staff', icon: UserCog, children: [
+      { label: 'Add Staff', to: '/dashboard/staff/add', icon: UserPlus },
+      { label: 'Staff List', to: '/dashboard/staff/list', icon: Users },
+      { label: 'Access Control', to: '/dashboard/staff/access', icon: Key },
+      { label: 'Staff Target', to: '/dashboard/staff/target', icon: Target },
+    ]},
+    { label: 'Attendance', icon: ClipboardCheck, children: [
+      { label: 'Staff Attendance', to: '/dashboard/attendance/staff', icon: Users },
+      { label: 'Client Attendance', to: '/dashboard/attendance/client', icon: Users2 },
+      { label: 'Check-ins Leaderboard', to: '/dashboard/attendance/leaderboard', icon: Award },
+    ]},
+    { label: 'App Settings', icon: Settings, children: [
+      { label: 'Permissions', to: '/dashboard/app-settings/permissions', icon: Key },
+      { label: 'Services List', to: '/dashboard/app-settings/services', icon: List },
+      { label: 'Gallery', to: '/dashboard/app-settings/gallery', icon: Image },
+      { label: 'Action Items', to: '/dashboard/app-settings/actions', icon: Zap },
+      { label: 'Banner', to: '/dashboard/app-settings/banner', icon: Image },
+      { label: 'Social & QR', to: '/dashboard/app-settings/social', icon: Link2 },
+      { label: 'Measurements', to: '/dashboard/app-settings/measurements', icon: Activity },
+      { label: 'Workouts & Diet', to: '/dashboard/app-settings/workouts', icon: Dumbbell },
+      { label: 'Community', to: '/dashboard/app-settings/community', icon: Users },
+      { label: 'Challenges', to: '/dashboard/app-settings/challenges', icon: Award },
+    ]},
+    { label: 'Tutorial & Help', icon: HelpCircle, children: [
+      { label: 'Tutorial Videos', to: '/dashboard/tutorial/videos', icon: Video },
+      { label: 'Admin FAQ', to: '/dashboard/tutorial/faq', icon: HelpCircle },
+    ]},
+  ]},
+  { label: 'MORE', items: [
+    { label: 'Appointments', icon: Calendar, to: '/dashboard/appointments' },
+    { label: 'Wallet', icon: Wallet, to: '/dashboard/wallet' },
+    { label: 'E-commerce', icon: ShoppingCart, to: '/dashboard/ecommerce' },
+  ]},
 ]
 
-function NavItem({ item, depth = 0, onClose }: { item: SectionItem; depth?: number; onClose: () => void }) {
-  const [open, setOpen] = useState(false)
-  const hasChildren = item.children && item.children.length > 0
+function RefreshIcon(props: any) { return <svg {...props} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> }
 
-  if (item.to && !hasChildren) {
+function NavItem({ item, depth = 0, onClose }: { item: MenuItem; depth?: number; onClose: () => void }) {
+  const loc = useLocation()
+  const hasChildren = item.children && item.children.length > 0
+  const childActive = hasChildren && item.children!.some((c) => loc.pathname === c.to || loc.pathname.startsWith(c.to + '/'))
+  const [open, setOpen] = useState(childActive)
+
+  if (!hasChildren && item.to) {
     return (
       <NavLink
         to={item.to}
+        end
         onClick={onClose}
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-accent font-medium transition-all duration-200 
@@ -168,20 +178,23 @@ function NavItem({ item, depth = 0, onClose }: { item: SectionItem; depth?: numb
   }
 
   if (depth === 0) {
+    const isOpen = open || childActive
     return (
       <div>
         <button
-          onClick={() => setOpen(!open)}
-          className="flex items-center justify-between w-full px-3 py-2 rounded-lg text-sm font-accent font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200"
+          onClick={() => setOpen(!isOpen)}
+          className={`flex items-center justify-between w-full px-3 py-2 rounded-lg text-sm font-accent font-medium transition-all duration-200 ${
+            childActive ? 'text-[#D4AF34] bg-[#D4AF34]/5' : 'text-gray-400 hover:text-white hover:bg-white/5'
+          }`}
         >
           <span className="flex items-center gap-3">
             <item.icon className="w-4 h-4 shrink-0" />
             {item.label}
           </span>
-          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
-        <AnimatePresence>
-          {open && (
+        <AnimatePresence initial={false}>
+          {isOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
@@ -194,6 +207,7 @@ function NavItem({ item, depth = 0, onClose }: { item: SectionItem; depth?: numb
                   <NavLink
                     key={child.label}
                     to={child.to}
+                    end
                     onClick={onClose}
                     className={({ isActive }) =>
                       `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-accent transition-all duration-200

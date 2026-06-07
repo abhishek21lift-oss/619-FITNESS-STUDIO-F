@@ -30,16 +30,16 @@ export default function DashboardLayout() {
             <input
               type="text"
               placeholder="Search for Name, Mobile number..."
-              className="w-full bg-white/5 border border-[#D4AF34]/10 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#D4AF34]/30 transition-colors"
+              className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-ydl-yellow/30 transition-colors"
             />
-            <button className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 text-[10px] font-medium text-black bg-[#D4AF34] rounded hover:opacity-90 transition-opacity">
+            <button className="absolute right-1 top-1/2 -translate-y-1/2 px-2 py-0.5 text-[10px] font-medium text-black bg-ydl-gradient rounded hover:opacity-90 transition-opacity">
               Go!
             </button>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-gray-500 hidden sm:block">619 FITNESS STUDIO</span>
-            <span className="text-[10px] text-[#D4AF34]/70 hidden sm:block">(Kalyanpur)</span>
+            <span className="text-[10px] text-ydl-yellow/70 hidden sm:block">(Kalyanpur)</span>
           </div>
 
           <button className="relative p-1.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">
