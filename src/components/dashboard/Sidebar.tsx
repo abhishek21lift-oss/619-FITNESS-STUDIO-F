@@ -6,9 +6,8 @@ import {
   CalendarRange, DollarSign, Bell,
   UserCog, Dumbbell, Settings, HelpCircle,
   ChevronDown, X,
-  ClipboardCheck, Briefcase, Wallet, ShoppingCart,
-  MessageSquare, Calendar, UserMinus, Activity,
-  ClipboardList, QrCode, Megaphone, Store, FileText,
+  ClipboardCheck, Briefcase, ShoppingCart,
+  MessageSquare, FileText,
 } from 'lucide-react'
 
 interface SectionItem {
