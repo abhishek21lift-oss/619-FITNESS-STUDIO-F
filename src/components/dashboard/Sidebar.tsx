@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Users, CreditCard, QrCode, UserCog,
-  BarChart3, CalendarDays, TrendingUp, ClipboardList,
+  CalendarDays, TrendingUp, ClipboardList,
   Settings, Dumbbell, X, PhoneCall, Megaphone, Store,
-  Package, CalendarRange, Bell, Activity, Dumbbell as ExerciseIcon,
-  Wrench, ClipboardCheck, UserMinus, FileText, ShoppingCart,
+  CalendarRange, Activity,
+  ClipboardCheck, UserMinus, FileText,
 } from 'lucide-react'
 
 const sections = [

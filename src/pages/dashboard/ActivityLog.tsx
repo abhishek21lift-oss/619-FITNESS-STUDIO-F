@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Loader2, Activity, UserCheck, UserX, LogIn, LogOut } from 'lucide-react'
+import { Loader2, Activity, LogIn } from 'lucide-react'
 import { api } from '../../api'
 
 export default function ActivityLog() {
