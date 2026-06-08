@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Clock, Dumbbell, Plus, Search, Users, CheckSquare } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
+import { useToast } from '../../components/ui/Toast'
 
 interface Batch {
   id: number
@@ -61,6 +62,7 @@ export default function BatchesList() {
   const [attendance, setAttendance] = useState<number[]>([])
   const [page, setPage] = useState(1)
   const perPage = 10
+  const { toast } = useToast()
 
   const filtered = batches.filter(b => {
     if (categoryFilter !== 'All' && b.category !== categoryFilter) return false
@@ -231,7 +233,7 @@ export default function BatchesList() {
             )}
           </div>
           <div className="flex items-center gap-3 pt-3 border-t border-ydl-dark-border">
-            <button onClick={() => { setAttendanceModal(false); alert(`Attendance saved for ${attendance.length} member(s)`) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Save Attendance</button>
+            <button onClick={() => { setAttendanceModal(false); toast(`Attendance saved for ${attendance.length} member(s)`, 'success') }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Save Attendance</button>
             <button onClick={() => setAttendanceModal(false)} className="px-4 py-2 text-xs font-medium text-gray-400 hover:text-white">Cancel</button>
           </div>
         </div>

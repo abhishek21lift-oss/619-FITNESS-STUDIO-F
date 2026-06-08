@@ -7,6 +7,7 @@ import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { useToast } from '../../components/ui/Toast'
 
 const branchOptions = ['All Branches', 'Main Branch', 'Sector 62', 'Gomti Nagar']
 
@@ -34,6 +35,7 @@ export default function AnalysisSalesLeaderboard() {
   const [from, setFrom] = useState('2026-06-01')
   const [to, setTo] = useState('2026-06-30')
   const [branch, setBranch] = useState('All Branches')
+  const { toast } = useToast()
 
   const filtered = branch === 'All Branches' ? staffData : staffData.filter(s => s.branch === branch)
   const totalSales = staffData.reduce((s, d) => s + d.sales, 0)
@@ -98,9 +100,9 @@ export default function AnalysisSalesLeaderboard() {
               <ActionMenu
                 label="Actions"
                 actions={[
-                  { label: 'View Details', icon: Eye, onClick: () => alert(`Viewing ${r.name}'s details`) },
-                  { label: 'Send Appreciation', icon: Star, onClick: () => alert(`Appreciation sent to ${r.name}`) },
-                  { label: 'Message', icon: MessageSquare, onClick: () => alert(`Messaging ${r.name}`) },
+                  { label: 'View Details', icon: Eye, onClick: () => toast(`Viewing ${r.name}'s details`, 'info') },
+                  { label: 'Send Appreciation', icon: Star, onClick: () => toast(`Appreciation sent to ${r.name}`, 'success') },
+                  { label: 'Message', icon: MessageSquare, onClick: () => toast(`Messaging ${r.name}`, 'info') },
                 ]}
               />
             )},

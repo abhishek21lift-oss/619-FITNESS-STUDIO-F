@@ -4,6 +4,7 @@ import { Search, Eye, RefreshCw, ArrowUpRight, XCircle, Bell, Layers, Users, Ale
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
+import { useToast } from '../../components/ui/Toast'
 
 interface Sub {
   id: string
@@ -43,6 +44,7 @@ export default function MembershipSubscriptions() {
   const [profileMember, setProfileMember] = useState<Sub | null>(null)
   const [page, setPage] = useState(1)
   const perPage = 10
+  const { toast } = useToast()
 
   const planOptions = ['All Plans', 'Annual Gold', 'Monthly Basic', 'Quarterly Pro', 'Annual Platinum', 'PT Monthly', 'Half-Yearly']
 
@@ -171,9 +173,9 @@ export default function MembershipSubscriptions() {
                       actions={[
                         { label: 'View', onClick: () => viewProfile(s), icon: Eye },
                         { label: 'Renew', onClick: () => openRenew(s), icon: RefreshCw },
-                        { label: 'Upgrade', onClick: () => alert(`Upgrade ${s.member} from ${s.plan} to a higher tier.`), icon: ArrowUpRight },
+                        { label: 'Upgrade', onClick: () => toast(`Upgrade ${s.member} from ${s.plan} to a higher tier.`, 'info'), icon: ArrowUpRight },
                         { label: 'Cancel', onClick: () => openCancel(s), icon: XCircle, color: 'text-red-400' },
-                        { label: 'Send Reminder', onClick: () => alert(`Reminder sent to ${s.member} regarding subscription expiry.`), icon: Bell },
+                        { label: 'Send Reminder', onClick: () => toast(`Reminder sent to ${s.member} regarding subscription expiry.`, 'success'), icon: Bell },
                       ]}
                     />
                   </td>

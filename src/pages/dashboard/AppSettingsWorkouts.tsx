@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Dumbbell, Plus, Edit3, Trash2, Play, ClipboardCopy, Salad, Flame } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
+import { useToast } from '../../components/ui/Toast'
 
 interface WorkoutPlan {
   id: number
@@ -58,6 +59,7 @@ export default function AppSettingsWorkouts() {
   const [dietForm, setDietForm] = useState({ name: '', type: 'Veg', calories: '', meals: 3, duration: '', description: '' })
   const [editMode, setEditMode] = useState<'workout' | 'diet' | null>(null)
   const [editId, setEditId] = useState<number | null>(null)
+  const { toast } = useToast()
 
   const openAddWorkout = () => {
     setEditMode('workout')
@@ -138,7 +140,7 @@ export default function AppSettingsWorkouts() {
                 </div>
                 <ActionMenu actions={[
                   { label: 'Edit', icon: Edit3, onClick: () => openEditWorkout(w) },
-                  { label: 'View Details', icon: Play, onClick: () => alert(`${w.name}: ${w.description} (${w.difficulty}, ${w.duration})`) },
+                  { label: 'View Details', icon: Play, onClick: () => toast(`${w.name}: ${w.description} (${w.difficulty}, ${w.duration})`, 'info') },
                   { label: 'Duplicate', icon: ClipboardCopy, onClick: () => duplicateWorkout(w) },
                   { label: 'Delete', icon: Trash2, onClick: () => removeWorkout(w.id), color: 'text-red-400' },
                 ]} />
@@ -162,7 +164,7 @@ export default function AppSettingsWorkouts() {
                 </div>
                 <ActionMenu actions={[
                   { label: 'Edit', icon: Edit3, onClick: () => openEditDiet(d) },
-                  { label: 'View Details', icon: Play, onClick: () => alert(`${d.name}: ${d.description} (${d.calories} cal, ${d.duration})`) },
+                  { label: 'View Details', icon: Play, onClick: () => toast(`${d.name}: ${d.description} (${d.calories} cal, ${d.duration})`, 'info') },
                   { label: 'Duplicate', icon: ClipboardCopy, onClick: () => duplicateDiet(d) },
                   { label: 'Delete', icon: Trash2, onClick: () => removeDiet(d.id), color: 'text-red-400' },
                 ]} />

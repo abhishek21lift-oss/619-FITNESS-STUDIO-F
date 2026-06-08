@@ -4,6 +4,7 @@ import { DollarSign, ArrowUpRight, ArrowDownRight, Plus, Search, Download, FileT
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
+import { useToast } from '../../components/ui/Toast'
 
 interface Entry {
   id: number
@@ -35,6 +36,7 @@ export default function AccountsRegisters() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editEntry, setEditEntry] = useState<Entry | null>(null)
   const [form, setForm] = useState({ date: '', description: '', type: 'Income' as 'Income' | 'Expense', amount: '', paymentMethod: 'Cash', note: '' })
+  const { toast } = useToast()
 
   const filtered = entries.filter(e => {
     if (typeFilter !== 'All' && e.type !== typeFilter) return false
@@ -154,7 +156,7 @@ export default function AccountsRegisters() {
                       label="Actions"
                       actions={[
                         { label: 'Edit', onClick: () => openEdit(e) },
-                        { label: 'View Receipt', onClick: () => alert(`Receipt for ${e.description} — ${fmt(e.amount)} (${e.paymentMethod})`), icon: FileText },
+                        { label: 'View Receipt', onClick: () => toast(`Receipt for ${e.description} — ${fmt(e.amount)} (${e.paymentMethod})`, 'info'), icon: FileText },
                         { label: 'Delete', onClick: () => handleDelete(e.id), color: 'text-red-400' },
                       ]}
                     />

@@ -6,6 +6,7 @@ import {
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 
 const sourceOptions = ['All Sources', 'Walk-in', 'Instagram', 'Facebook', 'Google', 'Friend Referral', 'Other']
 const sourceData = [
@@ -27,9 +28,6 @@ export default function AnalysisConversion() {
   const totalLeads = sourceData.reduce((s, d) => s + d.leads, 0)
   const totalConverted = sourceData.reduce((s, d) => s + d.converted, 0)
   const convRate = totalLeads > 0 ? Math.round((totalConverted / totalLeads) * 100) : 0
-  const total = filtered.reduce((s, d) => s + d.leads, 0)
-  let cumulative = 0
-
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
@@ -58,28 +56,17 @@ export default function AnalysisConversion() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">Conversion by Source (Pie)</h2>
-          <div className="flex items-center justify-center">
-            <div className="relative w-40 h-40 rounded-full overflow-hidden">
-              {pieColors.map((color, i) => {
-                const d = filtered[i] || sourceData[i]
-                if (!d) return null
-                const pct = (d.leads / (total || 1)) * 100
-                const start = cumulative
-                cumulative += pct
-                const angle1 = (start / 100) * 360 - 90
-                const angle2 = ((start + pct) / 100) * 360 - 90
-                const x1 = 50 + 50 * Math.cos((angle1 * Math.PI) / 180)
-                const y1 = 50 + 50 * Math.sin((angle1 * Math.PI) / 180)
-                const x2 = 50 + 50 * Math.cos((angle2 * Math.PI) / 180)
-                const y2 = 50 + 50 * Math.sin((angle2 * Math.PI) / 180)
-                const large = pct > 50 ? 1 : 0
-                return (
-                  <svg key={d.source} className="absolute inset-0 w-full h-full">
-                    <path d={`M 50 50 L ${x1} ${y1} A 50 50 0 ${large} 1 ${x2} ${y2} Z`} fill={color} opacity={0.8} />
-                  </svg>
-                )
-              })}
-            </div>
+          <div className="h-48 flex items-center justify-center">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={filtered} dataKey="leads" nameKey="source" cx="50%" cy="50%" outerRadius={70} innerRadius={30} paddingAngle={3}>
+                  {filtered.map((_, i) => (
+                    <Cell key={i} fill={pieColors[i % pieColors.length]} />
+                  ))}
+                </Pie>
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
           <div className="grid grid-cols-2 gap-2 mt-4">
             {sourceData.map((d, i) => (

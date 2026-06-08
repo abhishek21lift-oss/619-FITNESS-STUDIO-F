@@ -8,6 +8,7 @@ import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
 import FilterBar from '../../components/shared/FilterBar'
+import { useToast } from '../../components/ui/Toast'
 import { FilterField, FilterSelect } from '../../components/shared/FilterBar'
 
 const initialStaff = [
@@ -32,6 +33,7 @@ export default function StaffList() {
   const [resetPass, setResetPass] = useState({ password: '', confirm: '' })
   const [page, setPage] = useState(1)
   const perPage = 10
+  const { toast } = useToast()
 
   const filtered = staff.filter(s => {
     if (roleFilter !== 'All Roles' && s.role !== roleFilter) return false
@@ -195,7 +197,7 @@ export default function StaffList() {
             <input type="password" value={resetPass.confirm} onChange={e => setResetPass({ ...resetPass, confirm: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Re-enter password" />
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { if (resetPass.password && resetPass.password === resetPass.confirm) { alert(`Password reset successfully for ${modal?.data?.name}`); setModal(null) } else { alert('Passwords do not match or are empty.') } }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Lock className="w-3 h-3 inline mr-1" /> Reset</button>
+            <button onClick={() => { if (resetPass.password && resetPass.password === resetPass.confirm) { toast(`Password reset successfully for ${modal?.data?.name}`, 'success'); setModal(null) } else { toast('Passwords do not match or are empty.', 'error') } }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Lock className="w-3 h-3 inline mr-1" /> Reset</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>

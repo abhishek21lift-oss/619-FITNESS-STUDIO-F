@@ -7,6 +7,7 @@ import Modal from '../../components/shared/Modal'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 const branches = ['All Branches', 'Main Branch', 'Sector 62', 'Gomti Nagar']
 const dailyData = [
@@ -18,8 +19,6 @@ const dailyData = [
   { date: '06-Jun', checkins: 0, unique: 0, avg: 0 },
   { date: '07-Jun', checkins: 0, unique: 0, avg: 0 },
 ]
-const maxCheckin = Math.max(...dailyData.map(d => d.checkins), 1)
-
 export default function AnalysisTraffic() {
   const [from, setFrom] = useState('2026-06-01')
   const [to, setTo] = useState('2026-06-07')
@@ -63,16 +62,16 @@ export default function AnalysisTraffic() {
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
         <h2 className="text-xs font-semibold text-white mb-4">Daily Check-ins</h2>
-        <div className="flex items-end gap-3 h-40">
-          {dailyData.map(d => (
-            <button key={d.date} onClick={() => setViewModal({ open: true, date: d.date, data: [d] })} className="flex-1 flex flex-col items-center gap-1.5 group">
-              <div className="w-full flex items-end justify-center">
-                <div className="w-full max-w-[32px] rounded-t-md bg-gradient-to-t from-ydl-yellow/40 to-ydl-yellow/20 group-hover:from-ydl-yellow/60 group-hover:to-ydl-yellow/40 transition-all cursor-pointer" style={{ height: `${(d.checkins / maxCheckin) * 130}px` }} />
-              </div>
-              <span className="text-[9px] text-gray-500">{d.date}</span>
-              <span className="text-[9px] font-medium text-gray-400">{d.checkins}</span>
-            </button>
-          ))}
+        <div className="h-40">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={dailyData.map(d => ({ date: d.date, checkins: d.checkins }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+              <XAxis dataKey="date" tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
+              <Bar dataKey="checkins" fill="#D4AF34" radius={[4, 4, 0, 0]} onClick={(d: any) => setViewModal({ open: true, date: d.date, data: [{ ...d, unique: 0, avg: 0 }] })} cursor="pointer" />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </motion.div>
 

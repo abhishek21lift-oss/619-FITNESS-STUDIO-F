@@ -6,6 +6,7 @@ import {
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { PieChart, Pie, Cell, BarChart, Bar, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 
 const groupOptions = ['All Groups', 'Online', 'Offline', 'Referral']
 const sourceOptions = [
@@ -30,8 +31,6 @@ export default function AnalysisLeadSource() {
   const totalLeads = filtered.reduce((s, d) => s + d.leads, 0)
   const totalConverted = filtered.reduce((s, d) => s + d.converted, 0)
   const overallRate = totalLeads > 0 ? Math.round((totalConverted / totalLeads) * 100) : 0
-  const total = totalLeads
-  let cumulative = 0
 
   return (
     <div className="p-4 lg:p-6 space-y-5">
@@ -61,34 +60,18 @@ export default function AnalysisLeadSource() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">Lead Distribution</h2>
-          <div className="flex items-center justify-center">
-            <div className="relative w-40 h-40 rounded-full overflow-hidden">
-              {filtered.map((d, i) => {
-                const pct = total > 0 ? (d.leads / total) * 100 : 0
-                const start = cumulative
-                cumulative += pct
-                const angle1 = (start / 100) * 360 - 90
-                const angle2 = ((start + pct) / 100) * 360 - 90
-                const x1 = 50 + 50 * Math.cos((angle1 * Math.PI) / 180)
-                const y1 = 50 + 50 * Math.sin((angle1 * Math.PI) / 180)
-                const x2 = 50 + 50 * Math.cos((angle2 * Math.PI) / 180)
-                const y2 = 50 + 50 * Math.sin((angle2 * Math.PI) / 180)
-                const large = pct > 50 ? 1 : 0
-                return (
-                  <svg key={d.name} className="absolute inset-0 w-full h-full">
-                    <path d={`M 50 50 L ${x1} ${y1} A 50 50 0 ${large} 1 ${x2} ${y2} Z`} fill={pieColors[i % pieColors.length]} opacity={0.8} />
-                  </svg>
-                )
-              })}
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-2 mt-4">
-            {filtered.map((d, i) => (
-              <div key={d.name} className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: pieColors[i % pieColors.length] }} />
-                <span className="text-[10px] text-gray-400">{d.name} ({d.leads})</span>
-              </div>
-            ))}
+          <div className="h-48 flex items-center justify-center">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={filtered} dataKey="leads" nameKey="name" cx="50%" cy="50%" outerRadius={70} innerRadius={30} paddingAngle={3}>
+                  {filtered.map((_, i) => (
+                    <Cell key={i} fill={pieColors[i % pieColors.length]} />
+                  ))}
+                </Pie>
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} />
+                <Legend wrapperStyle={{ fontSize: 10, color: '#9CA3AF' }} />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         </motion.div>
 
@@ -115,8 +98,12 @@ export default function AnalysisLeadSource() {
               { header: 'Bar', accessor: r => {
                 const rate = r.leads > 0 ? Math.round((r.converted / r.leads) * 100) : 0
                 return (
-                  <div className="w-20 h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full rounded-full bg-gradient-to-r from-ydl-yellow/60 to-ydl-yellow/30" style={{ width: `${rate * 1.6}%` }} />
+                  <div className="w-20 h-6">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={[{ name: '', rate }]} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                        <Bar dataKey="rate" fill="#D4AF34" radius={[2, 2, 2, 2]} />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
                 )
               }},

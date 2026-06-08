@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Plus, Dumbbell, Calendar } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
+import { useToast } from '../../components/ui/Toast'
 
 interface Program {
   id: number
@@ -29,6 +30,7 @@ export default function BatchesProgram() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editProgram, setEditProgram] = useState<Program | null>(null)
   const [form, setForm] = useState({ name: '', description: '', duration: '', sessions: '', level: 'Beginner', active: true })
+  const { toast } = useToast()
 
   const openAdd = () => {
     setEditProgram(null)
@@ -88,7 +90,7 @@ export default function BatchesProgram() {
                 actions={[
                   { label: 'Edit', onClick: () => openEdit(p) },
                   { label: p.active ? 'Deactivate' : 'Activate', onClick: () => handleDeactivate(p.id) },
-                  { label: 'View Schedule', onClick: () => alert(`Opening schedule for ${p.name}`), icon: Calendar },
+                  { label: 'View Schedule', onClick: () => toast(`Opening schedule for ${p.name}`, 'info'), icon: Calendar },
                   { label: 'Delete', onClick: () => handleDelete(p.id), color: 'text-red-400' },
                 ]}
               />

@@ -6,12 +6,11 @@ import {
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
 const revenueData = [185000, 210000, 178000, 245000, 232000, 198000]
 const expenseData = [72000, 81000, 69000, 88000, 79000, 78000]
-const maxVal = Math.max(...revenueData, ...expenseData, 1)
-
 const monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const yearOptions = ['2026', '2025', '2024']
 
@@ -55,16 +54,17 @@ export default function AnalysisProfitLoss() {
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
         <h2 className="text-xs font-semibold text-white mb-4">Revenue vs Expense</h2>
-        <div className="flex items-end gap-3 h-40">
-          {months.map((m, i) => (
-            <div key={m} className="flex-1 flex flex-col items-center gap-1">
-              <div className="w-full flex items-end justify-center gap-0.5">
-                <div className="w-[35%] rounded-t-sm bg-emerald-500/60" style={{ height: `${(revenueData[i] / maxVal) * 130}px` }} title={`Revenue: ₹${revenueData[i].toLocaleString()}`} />
-                <div className="w-[35%] rounded-t-sm bg-red-500/60" style={{ height: `${(expenseData[i] / maxVal) * 130}px` }} title={`Expense: ₹${expenseData[i].toLocaleString()}`} />
-              </div>
-              <span className="text-[9px] text-gray-500">{m}</span>
-            </div>
-          ))}
+        <div className="h-44">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={months.map((m, i) => ({ month: m, Revenue: revenueData[i], Expense: expenseData[i] }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+              <XAxis dataKey="month" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, undefined]} />
+              <Bar dataKey="Revenue" fill="#10B981" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="Expense" fill="#EF4444" radius={[2, 2, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
         <div className="flex items-center gap-4 mt-4 pt-3 border-t border-ydl-dark-border">
           <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-emerald-500/60" /><span className="text-[10px] text-gray-400">Revenue</span></div>

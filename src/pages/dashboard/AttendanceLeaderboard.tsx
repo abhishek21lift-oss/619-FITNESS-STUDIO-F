@@ -7,6 +7,7 @@ import {
 import StatsCard from '../../components/shared/StatsCard'
 import FilterBar from '../../components/shared/FilterBar'
 import { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { useToast } from '../../components/ui/Toast'
 
 const initialLeaderboard = [
   { rank: 1, name: 'Sneha Patel', membership: 'Annual Platinum', checkins: 189, streak: 45, lastCheckin: '07 Jun 2026' },
@@ -28,6 +29,7 @@ export default function AttendanceLeaderboard() {
   const [leaderboard] = useState(initialLeaderboard)
   const [dateRange, setDateRange] = useState('This Month')
   const [branch, setBranch] = useState('All Branches')
+  const { toast } = useToast()
 
   const topMember = leaderboard[0]
   const avgCheckins = Math.round(leaderboard.reduce((s, m) => s + m.checkins, 0) / leaderboard.length)
@@ -107,7 +109,7 @@ export default function AttendanceLeaderboard() {
 
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className={`text-sm font-semibold cursor-pointer hover:text-ydl-yellow transition-colors ${isTop3 ? 'text-white' : 'text-gray-300'}`} onClick={() => alert(`Member: ${m.name}\nMembership: ${m.membership}\nCheck-ins: ${m.checkins}\nStreak: ${m.streak} days\nLast Check-in: ${m.lastCheckin}`)}>{m.name}</span>
+                  <span className={`text-sm font-semibold cursor-pointer hover:text-ydl-yellow transition-colors ${isTop3 ? 'text-white' : 'text-gray-300'}`} onClick={() => toast(`Member: ${m.name}, Membership: ${m.membership}, Check-ins: ${m.checkins}, Streak: ${m.streak} days, Last: ${m.lastCheckin}`, 'info')}>{m.name}</span>
                   {isTop3 && <Star className={`w-3 h-3 ${m.rank === 1 ? 'text-ydl-yellow' : m.rank === 2 ? 'text-gray-300' : 'text-amber-700'}`} />}
                 </div>
                 <div className="flex items-center gap-4 mt-0.5">

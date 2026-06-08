@@ -24,7 +24,7 @@ export default function Login() {
     const ok = await login(mobile.trim(), password)
     setLoading(false)
     if (ok) navigate('/dashboard', { replace: true })
-    else setError('Invalid credentials. Try 919651924262 / fit123')
+    else setError('Invalid credentials. Please try again.')
   }
 
   return (

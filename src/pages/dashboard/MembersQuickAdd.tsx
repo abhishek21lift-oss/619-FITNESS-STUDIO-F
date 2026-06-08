@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { User, Phone, Users, Save, Zap } from 'lucide-react'
+import { useToast } from '../../components/ui/Toast'
 
 const genderOptions = ['Male', 'Female', 'Other']
 
@@ -11,6 +12,7 @@ export default function MembersQuickAdd() {
   const [mobile, setMobile] = useState('')
   const [gender, setGender] = useState('Male')
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const { toast } = useToast()
 
   const handleSave = () => {
     const errs: Record<string, string> = {}
@@ -18,7 +20,7 @@ export default function MembersQuickAdd() {
     if (!mobile.trim()) errs.mobile = 'Mobile is required'
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
-    alert('Member added successfully!')
+    toast('Member added successfully!', 'success')
   }
 
   return (

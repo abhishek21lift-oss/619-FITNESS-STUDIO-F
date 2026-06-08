@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import { authApi } from '../api/auth'
 
 interface User {
   name: string
@@ -12,18 +13,17 @@ interface AuthContextType {
   login: (mobile: string, password: string) => Promise<boolean>
   logout: () => void
   isAuthenticated: boolean
+  loading: boolean
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
-
-const ADMIN_CREDENTIALS = { mobile: '919651924262', password: 'fit123' }
-const ADMIN_USER: User = { name: 'Awash Vikash', mobile: '919651924262', email: 'admin@ydl.com', branch: '619 FITNESS STUDIO (Kalyanpur)' }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(() => {
     const stored = localStorage.getItem('ydl_user')
     return stored ? JSON.parse(stored) : null
   })
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (user) localStorage.setItem('ydl_user', JSON.stringify(user))
@@ -31,20 +31,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user])
 
   const login = async (mobile: string, password: string): Promise<boolean> => {
-    await new Promise(r => setTimeout(r, 800))
-    if (mobile === ADMIN_CREDENTIALS.mobile && password === ADMIN_CREDENTIALS.password) {
-      setUser(ADMIN_USER)
+    setLoading(true)
+    try {
+      const data = await authApi.login(mobile, password)
+      if (data.token) localStorage.setItem('ydl_token', data.token)
+      setUser(data.user)
       return true
+    } catch {
+      return false
+    } finally {
+      setLoading(false)
     }
-    return false
   }
 
   const logout = () => {
+    localStorage.removeItem('ydl_token')
     setUser(null)
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, loading }}>
       {children}
     </AuthContext.Provider>
   )

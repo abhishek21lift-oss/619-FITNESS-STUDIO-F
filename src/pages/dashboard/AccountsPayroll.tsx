@@ -4,6 +4,7 @@ import { DollarSign, CheckCircle, XCircle, Plus, Search, Download, Edit3, FileTe
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
+import { useToast } from '../../components/ui/Toast'
 
 interface PayrollEntry {
   id: number
@@ -39,6 +40,7 @@ export default function AccountsPayroll() {
   const [generateModal, setGenerateModal] = useState(false)
   const [paySlipModal, setPaySlipModal] = useState(false)
   const [selectedStaff, setSelectedStaff] = useState<PayrollEntry | null>(null)
+  const { toast } = useToast()
 
   const filtered = staff.filter(s => {
     if (roleFilter !== 'All Roles' && s.role !== roleFilter) return false
@@ -142,7 +144,7 @@ export default function AccountsPayroll() {
                       actions={[
                         { label: 'View Pay Slip', onClick: () => openPaySlip(s), icon: FileText },
                         { label: s.status === 'Paid' ? 'Mark as Pending' : 'Mark Paid', onClick: () => handleMarkPaid(s.id), icon: s.status === 'Paid' ? XCircle : CheckCircle },
-                        { label: 'Edit', onClick: () => alert(`Edit payroll for ${s.name} (${s.role}) — Net Pay: ${fmt(s.netPay)}`), icon: Edit3 },
+                        { label: 'Edit', onClick: () => toast(`Edit payroll for ${s.name} (${s.role}) — Net Pay: ${fmt(s.netPay)}`, 'info'), icon: Edit3 },
                         { label: 'Delete', onClick: () => handleDelete(s.id), color: 'text-red-400' },
                       ]}
                     />
@@ -163,7 +165,7 @@ export default function AccountsPayroll() {
             <div className="flex justify-between text-xs"><span className="text-gray-400">Total Amount</span><span className="text-ydl-yellow font-semibold">{fmt(totalPayroll)}</span></div>
           </div>
           <div className="flex items-center gap-3 pt-3 border-t border-ydl-dark-border">
-            <button onClick={() => { setGenerateModal(false); alert(`Payroll generated for ${months[selectedMonth]} ${selectedYear}`) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Confirm Generate</button>
+            <button onClick={() => { setGenerateModal(false); toast(`Payroll generated for ${months[selectedMonth]} ${selectedYear}`, 'success') }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Confirm Generate</button>
             <button onClick={() => setGenerateModal(false)} className="px-4 py-2 text-xs font-medium text-gray-400 hover:text-white">Cancel</button>
           </div>
         </div>
@@ -189,7 +191,7 @@ export default function AccountsPayroll() {
               <div className="flex justify-between px-3 py-2 text-xs font-semibold bg-white/[0.02]"><span className="text-gray-300">Net Pay</span><span className="text-ydl-yellow">{fmt(selectedStaff.netPay)}</span></div>
             </div>
             <div className="flex justify-center pt-2">
-              <button onClick={() => alert('Downloading pay slip PDF...')} className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">
+              <button onClick={() => toast('Downloading pay slip PDF...', 'info')} className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">
                 <Download className="w-3.5 h-3.5" /> Download PDF
               </button>
             </div>

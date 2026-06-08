@@ -5,6 +5,7 @@ import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { useToast } from '../../components/ui/Toast'
 
 interface Expense {
   id: number
@@ -40,6 +41,7 @@ export default function AccountsExpense() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editExpense, setEditExpense] = useState<Expense | null>(null)
   const [form, setForm] = useState({ date: '', category: 'Utilities', description: '', amount: '', paymentMethod: 'Cash', note: '' })
+  const { toast } = useToast()
 
   const filtered = expenses.filter(e => {
     if (categoryFilter !== 'All Categories' && e.category !== categoryFilter) return false
@@ -168,7 +170,7 @@ export default function AccountsExpense() {
                       label="Actions"
                       actions={[
                         { label: 'Edit', onClick: () => openEdit(e), icon: Edit3 },
-                        { label: 'View Bill', onClick: () => alert(e.hasBill ? `Viewing bill for: ${e.description}` : 'No bill attached'), icon: FileText },
+                        { label: 'View Bill', onClick: () => toast(e.hasBill ? `Viewing bill for: ${e.description}` : 'No bill attached', 'info'), icon: FileText },
                         { label: 'Delete', onClick: () => handleDelete(e.id), color: 'text-red-400' },
                       ]}
                     />

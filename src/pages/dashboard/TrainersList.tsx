@@ -7,6 +7,7 @@ import {
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
+import { useToast } from '../../components/ui/Toast'
 
 const initialTrainers = [
   { id: 'TT-17043', name: '619 Fitness Studio', subtitle: 'AWASH VIKASH', type: 'Head Trainer', email: 'awash@ydl.com', phone: '+91 98765 43210', gender: 'Male', checkin: 'Present', checkinTime: '05:45 AM', star: '-', status: 'Active' },
@@ -25,6 +26,7 @@ export default function TrainersList() {
   const [editForm, setEditForm] = useState<any>(null)
   const [page, setPage] = useState(1)
   const perPage = 10
+  const { toast } = useToast()
 
   const filtered = trainers.filter(t =>
     !search || t.name.toLowerCase().includes(search.toLowerCase()) || t.phone.includes(search) || t.email.toLowerCase().includes(search.toLowerCase())
@@ -256,7 +258,7 @@ export default function TrainersList() {
               <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Time</label><input type="time" className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" /></div>
             </div>
             <div className="flex items-center gap-3 pt-2">
-              <button onClick={() => { alert(`Time added for ${modal?.data?.name}`); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Clock className="w-3 h-3 inline mr-1" /> Add Time</button>
+              <button onClick={() => { toast(`Time added for ${modal?.data?.name}`, 'success'); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Clock className="w-3 h-3 inline mr-1" /> Add Time</button>
               <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
             </div>
           </div>
@@ -269,7 +271,7 @@ export default function TrainersList() {
           <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Email</label><input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40" placeholder="Email" /></div>
           <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Phone</label><input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40" placeholder="Phone" /></div>
           <div className="col-span-2 flex gap-3 pt-2">
-            <button onClick={() => { alert('Trainer added successfully!'); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Add</button>
+            <button onClick={() => { toast('Trainer added successfully!', 'success'); setModal(null) }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Add</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>

@@ -5,6 +5,7 @@ import {
   User, Mail, Phone, Calendar, Briefcase, Save,
   ChevronDown, ChevronUp, ArrowLeft, MapPin, FileText, CreditCard
 } from 'lucide-react'
+import { useToast } from '../../components/ui/Toast'
 
 const genderOptions = ['Male', 'Female', 'Other']
 const clientReps = ['Awash Vikash', 'Riya Singh', 'Abhishek Katiyar', 'Rajat Katiyar', 'Narayan Chandel', 'Shivani Verma']
@@ -19,6 +20,7 @@ export default function MembersAdd() {
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const navigate = useNavigate()
+  const { toast } = useToast()
 
   const validate = () => {
     const errs: Record<string, string> = {}
@@ -30,12 +32,12 @@ export default function MembersAdd() {
 
   const handleSave = () => {
     if (!validate()) return
-    alert('Member saved successfully!')
+    toast('Member saved successfully!', 'success')
   }
 
   const handleSaveClose = () => {
     if (!validate()) return
-    alert('Member saved successfully!')
+    toast('Member saved successfully!', 'success')
     navigate('/dashboard/members/database')
   }
 

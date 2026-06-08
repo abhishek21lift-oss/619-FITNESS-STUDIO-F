@@ -8,6 +8,7 @@ import {
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import FilterBar, { FilterField } from '../../components/shared/FilterBar'
+import { useToast } from '../../components/ui/Toast'
 
 const genders = ['All', 'Male', 'Female']
 const convertibilities = ['All', 'Hot', 'Warm', 'Cold', 'Expected', 'Unpitched']
@@ -55,6 +56,7 @@ export default function FollowUps() {
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
   const [page, setPage] = useState(1)
   const perPage = 25
+  const { toast } = useToast()
 
   const filtered = mockFollowups.filter(f => {
     if (gender !== 'All' && f.gender !== gender) return false
@@ -125,7 +127,7 @@ export default function FollowUps() {
           <button onClick={() => setModal({ type: 'delete-bulk' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg hover:bg-red-500/20 transition-colors">
             <Trash2 className="w-3 h-3" /> Delete
           </button>
-          <button onClick={() => alert(`Exporting CSV with ${filtered.length} follow-ups...`)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={() => toast(`Exporting CSV with ${filtered.length} follow-ups...`, 'info')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <Download className="w-3 h-3" /> Export CSV
           </button>
         </div>
@@ -256,7 +258,7 @@ export default function FollowUps() {
           <div className="space-y-1.5"><label className="text-[11px] text-gray-400">Response</label><select className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">{callResponses.filter(r => r !== 'All').map(r => <option key={r}>{r}</option>)}</select></div>
           <div className="space-y-1.5"><label className="text-[11px] text-gray-400">Comment</label><textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[60px] resize-none" placeholder="Add comment..." /></div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert('Follow up saved!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Save</button>
+            <button onClick={() => { toast('Follow up saved!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Save</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
@@ -267,7 +269,7 @@ export default function FollowUps() {
           <div className="text-xs text-gray-500">Transfer {selectedRows.size || 'all'} follow up(s) to:</div>
           <select className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">{staffList.filter(s => s !== 'All').map(s => <option key={s}>{s}</option>)}</select>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert('Follow ups transferred successfully!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Upload className="w-3 h-3 inline mr-1" /> Transfer</button>
+            <button onClick={() => { toast('Follow ups transferred successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Upload className="w-3 h-3 inline mr-1" /> Transfer</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
@@ -276,7 +278,7 @@ export default function FollowUps() {
       <Modal open={modal?.type === 'delete-bulk'} onClose={() => setModal(null)} title="Delete Follow Ups" size="sm">
         <p className="text-xs text-gray-400">Are you sure you want to delete {selectedRows.size || 'all filtered'} follow up(s)? This action cannot be undone.</p>
         <div className="flex items-center gap-3 mt-4">
-          <button onClick={() => { alert(`${selectedRows.size || 'all filtered'} follow up(s) deleted.`); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600">Delete</button>
+          <button onClick={() => { toast(`${selectedRows.size || 'all filtered'} follow up(s) deleted.`, 'error'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600">Delete</button>
           <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
         </div>
       </Modal>
@@ -303,7 +305,7 @@ export default function FollowUps() {
           <div className="text-[11px] text-gray-500">To: <span className="text-white">{modal?.data?.mobile}</span></div>
           <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[100px] resize-none" placeholder="Type WhatsApp message..." />
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert('WhatsApp message sent!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Send WhatsApp</button>
+            <button onClick={() => { toast('WhatsApp message sent!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Send WhatsApp</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
@@ -312,7 +314,7 @@ export default function FollowUps() {
       <Modal open={modal?.type === 'mark-done'} onClose={() => setModal(null)} title="Mark as Done" size="sm">
         <p className="text-xs text-gray-400">Mark follow up <span className="text-white">{modal?.data?.id}</span> for <span className="text-white">{modal?.data?.name}</span> as completed?</p>
         <div className="flex items-center gap-3 mt-4">
-          <button onClick={() => { alert('Follow up marked as done!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><CheckCircle className="w-3 h-3 inline mr-1" /> Mark Done</button>
+          <button onClick={() => { toast('Follow up marked as done!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><CheckCircle className="w-3 h-3 inline mr-1" /> Mark Done</button>
           <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
         </div>
       </Modal>
@@ -323,7 +325,7 @@ export default function FollowUps() {
           <div className="space-y-1.5"><label className="text-[11px] text-gray-400">New Date</label><input type="date" className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" /></div>
           <div className="space-y-1.5"><label className="text-[11px] text-gray-400">Reason</label><textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[60px] resize-none" placeholder="Reason for rescheduling..." /></div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert('Follow up rescheduled!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Reschedule</button>
+            <button onClick={() => { toast('Follow up rescheduled!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Reschedule</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>

@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  PhoneCall, MessageSquare, Users, Eye, TrendingUp, TrendingDown,
+  PhoneCall, MessageSquare, Users, Eye,
 } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 const sourceOptions = ['All Sources', 'Walk-in', 'Instagram', 'Facebook', 'Google', 'Friend', 'Other']
 const staffOptions = ['All Staff', 'Rahul S.', 'Priya M.', 'Amit K.', 'Sneha R.']
@@ -30,7 +31,6 @@ const allEnquiries = Array.from({ length: 25 }, (_, i) => ({
 }))
 
 const dailyTrend = [12, 15, 8, 18, 14, 10, 6, 20, 16, 11, 13, 9, 17, 19, 7, 14, 12, 16, 10, 15, 13, 11, 18, 14, 9, 16, 12, 8, 15, 10]
-const maxTrend = Math.max(...dailyTrend, 1)
 
 export default function AnalysisEnquiry() {
   const [from, setFrom] = useState('2026-06-01')
@@ -76,43 +76,31 @@ export default function AnalysisEnquiry() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">Source-wise Breakdown</h2>
-          <div className="space-y-3">
-            {filteredSource.map(s => (
-              <div key={s.source}>
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-300">{s.source}</span>
-                    {s.trend === 'up' ? <TrendingUp className="w-2.5 h-2.5 text-emerald-400" /> : s.trend === 'down' ? <TrendingDown className="w-2.5 h-2.5 text-red-400" /> : null}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-gray-500">{s.count}</span>
-                    <span className="text-[10px] font-medium text-gray-400">{s.pct}%</span>
-                  </div>
-                </div>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-ydl-yellow/60 to-ydl-yellow/30" style={{ width: `${s.pct * 3.33}%` }} />
-                </div>
-              </div>
-            ))}
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={filteredSource} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+                <XAxis type="number" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="source" tick={{ fill: '#D1D5DB', fontSize: 11 }} axisLine={false} tickLine={false} width={70} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 12 }} labelStyle={{ color: '#D4AF34' }} />
+                <Bar dataKey="count" fill="#D4AF34" radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">Daily Enquiry Trend</h2>
-          <div className="flex items-end gap-[2px] h-32">
-            {dailyTrend.map((v, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center justify-end">
-                <div
-                  className="w-full rounded-t-sm bg-gradient-to-t from-ydl-yellow/40 to-ydl-yellow/20 hover:from-ydl-yellow/60 hover:to-ydl-yellow/40 transition-all cursor-pointer"
-                  style={{ height: `${(v / maxTrend) * 110}px` }}
-                  title={`Day ${i + 1}: ${v}`}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-[9px] text-gray-500">Day 1</span>
-            <span className="text-[9px] text-gray-500">Day 30</span>
+          <div className="h-36">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={dailyTrend.map((v, i) => ({ day: `D${i + 1}`, count: v }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+                <XAxis dataKey="day" tick={{ fill: '#9CA3AF', fontSize: 8 }} axisLine={false} tickLine={false} interval={4} />
+                <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} />
+                <Bar dataKey="count" fill="#D4AF34" radius={[2, 2, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </motion.div>
       </div>

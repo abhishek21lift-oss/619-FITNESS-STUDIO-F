@@ -5,6 +5,7 @@ import {
   User, Mail, Phone, Dumbbell, Percent, Save, ArrowLeft,
   Briefcase, Image, ShieldCheck, X
 } from 'lucide-react'
+import { useToast } from '../../components/ui/Toast'
 
 const specializations = ['Strength Training', 'Yoga', 'Cardio', 'HIIT', 'Boxing', 'Zumba', 'Pilates', 'CrossFit', 'MMA', 'Functional Training', 'Bodybuilding', 'Rehabilitation']
 const trainerTypes = ['Personal Trainer', 'Head Trainer', 'CH', 'Nutrition Coach']
@@ -20,6 +21,7 @@ export default function TrainersAdd() {
   const [photo, setPhoto] = useState<{ preview: string; file: File | null }>({ preview: '', file: null })
   const [errors, setErrors] = useState<Record<string, string>>({})
   const navigate = useNavigate()
+  const { toast } = useToast()
 
   const validate = () => {
     const errs: Record<string, string> = {}
@@ -31,12 +33,12 @@ export default function TrainersAdd() {
 
   const handleSave = () => {
     if (!validate()) return
-    alert('Trainer saved successfully!')
+    toast('Trainer saved successfully!', 'success')
   }
 
   const handleSaveClose = () => {
     if (!validate()) return
-    alert('Trainer saved successfully!')
+    toast('Trainer saved successfully!', 'success')
     navigate('/dashboard/trainers/list')
   }
 

@@ -7,6 +7,7 @@ import Modal from '../../components/shared/Modal'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 const categoryOptions = ['All Categories', 'Rent', 'Utilities', 'Staff Salary', 'Equipment', 'Marketing', 'Other']
 
@@ -52,8 +53,6 @@ export default function AnalysisExpense() {
 
   const totalExpense = expenses.reduce((s, e) => s + e.amount, 0)
   const thisMonth = expenses.filter(e => e.date.includes('Jun')).reduce((s, e) => s + e.amount, 0)
-  const maxCat = Math.max(...categories.map(c => c.amount), 1)
-
   const filteredExpenses = catFilter === 'All Categories' ? expenses : expenses.filter(e => e.category === catFilter)
 
   const handleAdd = () => {
@@ -108,23 +107,16 @@ export default function AnalysisExpense() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">Category Breakdown</h2>
-          <div className="space-y-3">
-            {categories.map(c => (
-              <div key={c.name}>
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <c.icon className="w-3.5 h-3.5 text-gray-500" />
-                    <span className="text-xs text-gray-300">{c.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-gray-500">₹{c.amount.toLocaleString()}</span>
-                  </div>
-                </div>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-red-500/60 to-red-500/30" style={{ width: `${(c.amount / (maxCat || 1)) * 100}%` }} />
-                </div>
-              </div>
-            ))}
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={categories} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+                <XAxis type="number" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" tick={{ fill: '#D1D5DB', fontSize: 11 }} axisLine={false} tickLine={false} width={80} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
+                <Bar dataKey="amount" fill="#EF4444" radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </motion.div>
 

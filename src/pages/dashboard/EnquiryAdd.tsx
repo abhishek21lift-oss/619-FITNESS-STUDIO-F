@@ -7,6 +7,7 @@ import {
   CreditCard, FileText, ArrowLeft
 } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
+import { useToast } from '../../components/ui/Toast'
 
 const sourcePromotions = ['Instagram Ad', 'Facebook Ad', 'Google Ads', 'Referral Program', 'Billboard', 'Radio', 'Newspaper', 'SMS Campaign', 'Email Campaign', 'YouTube Ad', 'Podcast', 'Local Event', 'Cross Promotion', 'Flyer', 'Poster', 'Banner', 'TV Ad', 'WhatsApp Group', 'Telegram', 'LinkedIn', 'Twitter', 'Pinterest', 'Snapchat', 'TikTok', 'Blog', 'SEO', 'Word of Mouth', 'Other', 'Facebook Post', 'Google My Business', 'Influencer', 'Referral by Member', 'SMS Blast', 'WhatsApp Broadcast', 'Walk-in', 'Website Blog', 'YouTube Channel', 'Zomato', 'Swiggy']
 const sourceEnquiries = ['Instagram', 'Facebook', 'Google', 'Walk-in', 'Friend Referral', 'Phone Call', 'Website', 'YouTube', 'LinkedIn', 'Twitter', 'Email', 'Referral', 'Newspaper', 'Radio', 'TV', 'Billboard', 'SMS', 'WhatsApp', 'Telegram', 'Other']
@@ -43,6 +44,7 @@ export default function EnquiryAdd() {
   const [showQuickMsg, setShowQuickMsg] = useState(false)
   const [showMemberLookup, setShowMemberLookup] = useState(false)
   const navigate = useNavigate()
+  const { toast } = useToast()
 
   const validate = () => {
     const errs: Record<string, string> = {}
@@ -54,12 +56,12 @@ export default function EnquiryAdd() {
 
   const handleSave = () => {
     if (!validate()) return
-    alert('Enquiry saved successfully!')
+    toast('Enquiry saved successfully!', 'success')
   }
 
   const handleSaveClose = () => {
     if (!validate()) return
-    alert('Enquiry saved successfully!')
+    toast('Enquiry saved successfully!', 'success')
     navigate('/dashboard/enquiry/list')
   }
 

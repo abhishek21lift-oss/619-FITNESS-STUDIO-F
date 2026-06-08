@@ -8,6 +8,7 @@ import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { useToast } from '../../components/ui/Toast'
 
 const staffOptions = ['All Staff', 'Rahul S.', 'Priya M.', 'Amit K.', 'Sneha R.']
 const typeOptions = ['All Types', 'Phone', 'Email', 'WhatsApp', 'In-Person']
@@ -26,6 +27,7 @@ export default function AnalysisFollowup() {
   const [type, setType] = useState('All Types')
   const [exportOpen, setExportOpen] = useState(false)
   const [detailModal, setDetailModal] = useState<{ open: boolean; staff: string }>({ open: false, staff: '' })
+  const { toast } = useToast()
 
   const totalFollowups = staffData.reduce((s, d) => s + d.total, 0)
   const totalDone = staffData.reduce((s, d) => s + d.done, 0)
@@ -89,8 +91,8 @@ export default function AnalysisFollowup() {
                 label={<Eye className="w-3 h-3" />}
                 actions={[
                   { label: 'View Details', icon: Eye, onClick: () => setDetailModal({ open: true, staff: r.name }) },
-                  { label: 'Send Message', icon: MessageSquare, onClick: () => alert(`Message sent to ${r.name}`) },
-                  { label: 'Mark as Reviewed', icon: UserCheck, onClick: () => alert(`Marked ${r.name} as reviewed`) },
+                  { label: 'Send Message', icon: MessageSquare, onClick: () => toast(`Message sent to ${r.name}`, 'success') },
+                  { label: 'Mark as Reviewed', icon: UserCheck, onClick: () => toast(`Marked ${r.name} as reviewed`, 'success') },
                 ]}
               />
             )},

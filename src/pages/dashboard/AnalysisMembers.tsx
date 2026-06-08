@@ -7,6 +7,7 @@ import Modal from '../../components/shared/Modal'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
 const newData = [32, 28, 41, 36, 48, 52]
@@ -24,7 +25,6 @@ export default function AnalysisMembers() {
   const [dateFilter, setDateFilter] = useState('Last 6 Months')
   const [exportOpen, setExportOpen] = useState(false)
 
-  const maxVal = Math.max(...newData.map((v, i) => v + churnData[i]))
   const totalActive = 991
   const newMembers = newData.reduce((a, b) => a + b, 0)
   const churned = churnData.reduce((a, b) => a + b, 0)
@@ -60,20 +60,18 @@ export default function AnalysisMembers() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">New vs Churned</h2>
-          <div className="flex items-end gap-3 h-40">
-            {months.map((m, i) => (
-              <div key={m} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full flex items-end justify-center gap-0.5">
-                  <div className="w-[40%] rounded-t-sm bg-emerald-500/60" style={{ height: `${(newData[i] / maxVal) * 130}px` }} title={`New: ${newData[i]}`} />
-                  <div className="w-[40%] rounded-t-sm bg-red-500/60" style={{ height: `${(churnData[i] / maxVal) * 130}px` }} title={`Churned: ${churnData[i]}`} />
-                </div>
-                <span className="text-[9px] text-gray-500">{m}</span>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center gap-4 mt-4 pt-3 border-t border-ydl-dark-border">
-            <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-emerald-500/60" /><span className="text-[10px] text-gray-400">New</span></div>
-            <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-red-500/60" /><span className="text-[10px] text-gray-400">Churned</span></div>
+          <div className="h-44">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={months.map((m, i) => ({ month: m, New: newData[i], Churned: churnData[i] }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+                <XAxis dataKey="month" tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} />
+                <Legend wrapperStyle={{ fontSize: 10, color: '#9CA3AF' }} />
+                <Bar dataKey="New" fill="#10B981" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="Churned" fill="#EF4444" radius={[2, 2, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </motion.div>
 

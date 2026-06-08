@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Cake, Gift, Send, ChevronLeft, Phone, MessageSquare } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
+import { useToast } from '../../components/ui/Toast'
 
 const months = ['All', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -28,6 +29,7 @@ export default function MembersBirthday() {
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [page, setPage] = useState(1)
   const perPage = 25
+  const { toast } = useToast()
 
   const monthMap: Record<string, string> = {
     January: 'Jan', February: 'Feb', March: 'Mar', April: 'Apr', May: 'May', June: 'Jun',
@@ -184,7 +186,7 @@ export default function MembersBirthday() {
             ))}
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert(`Gift sent to ${modal?.data?.name}!`); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Gift className="w-3 h-3 inline mr-1" /> Send Gift</button>
+            <button onClick={() => { toast(`Gift sent to ${modal?.data?.name}!`, 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Gift className="w-3 h-3 inline mr-1" /> Send Gift</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
@@ -200,7 +202,7 @@ export default function MembersBirthday() {
           </div>
           <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[80px] resize-none" placeholder="Custom message (optional)" defaultValue="Happy Birthday! 🎂 Wishing you health and happiness. - 619 FITNESS STUDIO" />
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert('Birthday wishes sent to all!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send to All</button>
+            <button onClick={() => { toast('Birthday wishes sent to all!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send to All</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>

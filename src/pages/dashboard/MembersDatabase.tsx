@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -8,8 +8,11 @@ import {
 } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
+import { useToast } from '../../components/ui/Toast'
 import StatsCard from '../../components/shared/StatsCard'
 import FilterBar, { FilterField } from '../../components/shared/FilterBar'
+import { membersApi } from '../../api/members'
+import { TableSkeleton, StatsCardSkeleton } from '../../components/ui/Skeleton'
 
 const branchOptions = ['All Branches', 'Kalyanpur', 'Gomti Nagar', 'Indira Nagar']
 const statusOptions = ['All', 'Active', 'Inactive', 'Expired', 'Freeze']
@@ -45,11 +48,28 @@ export default function MembersDatabase() {
   const perPage = 25
   const [modal, setModal] = useState<{ type: string; data?: any } | null>(null)
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+  const { toast } = useToast()
+  const [loading, setLoading] = useState(true)
+  const [members, setMembers] = useState<typeof mockClients>([])
 
-  const active = mockClients.filter(c => c.status === 'Active').length
-  const inactive = mockClients.filter(c => c.status !== 'Active').length
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const data = await membersApi.list({ limit: '1000' })
+        setMembers(data.members || [])
+      } catch {
+        setMembers(mockClients)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchMembers()
+  }, [])
 
-  const filtered = mockClients.filter(c => {
+  const active = members.filter(c => c.status === 'Active').length
+  const inactive = members.filter(c => c.status !== 'Active').length
+
+  const filtered = members.filter(c => {
     if (status !== 'All' && c.status !== status) return false
     if (branch !== 'All Branches' && c.branch !== branch) return false
     if (gender !== 'All' && c.gender !== gender) return false
@@ -78,6 +98,8 @@ export default function MembersDatabase() {
     setSelectedRows(next)
   }
 
+  if (loading) return <div className="p-4 lg:p-6 space-y-5"><StatsCardSkeleton count={4} /><TableSkeleton rows={10} cols={8} /></div>
+
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -86,7 +108,7 @@ export default function MembersDatabase() {
           <p className="text-xs text-gray-500 mt-0.5">Manage all registered members.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <button onClick={() => alert(`Exporting CSV with ${filtered.length} members...`)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={() => toast(`Exporting CSV with ${filtered.length} members...`, 'info')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
             <Download className="w-3 h-3" /> Export CSV
           </button>
           <button onClick={() => navigate('/dashboard/members/add')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
@@ -96,10 +118,10 @@ export default function MembersDatabase() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatsCard label="Total Members" value={mockClients.length} icon={Users} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" index={0} />
+        <StatsCard label="Total Members" value={members.length} icon={Users} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" index={0} />
         <StatsCard label="Active" value={active} icon={CheckCircle} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
         <StatsCard label="Inactive" value={inactive} icon={XCircle} color="from-amber-500/20 to-amber-600/5" border="border-amber-500/30" text="text-amber-400" index={2} />
-        <StatsCard label="Expiring Soon" value={mockClients.filter(c => c.status === 'Active').length} icon={Users} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" index={3} />
+        <StatsCard label="Expiring Soon" value={members.filter(c => c.status === 'Active').length} icon={Users} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" index={3} />
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
@@ -115,7 +137,7 @@ export default function MembersDatabase() {
         <button onClick={() => setShowFilters(!showFilters)} className={`flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-colors ${showFilters ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-400 hover:text-white'}`}>
           <Filter className="w-3 h-3" /> Filters <ChevronDown className={`w-3 h-3 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
         </button>
-        <span className="text-[10px] text-gray-500">{filtered.length} of {mockClients.length} members</span>
+        <span className="text-[10px] text-gray-500">{filtered.length} of {members.length} members</span>
       </div>
 
       {showFilters && (
@@ -136,7 +158,7 @@ export default function MembersDatabase() {
           <div className="flex items-center gap-2 ml-2">
             <span className="text-ydl-yellow">{selectedRows.size} selected</span>
             <button onClick={() => setModal({ type: 'send-notification' })} className="flex items-center gap-1 px-2 py-1 text-[10px] font-medium text-purple-400 bg-purple-500/10 border border-purple-500/20 rounded-lg hover:bg-purple-500/20"><Bell className="w-3 h-3" /> Notify</button>
-            <button onClick={() => { alert(`Sending WhatsApp to ${selectedRows.size} members...`); }} className="flex items-center gap-1 px-2 py-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20"><Send className="w-3 h-3" /> WhatsApp</button>
+            <button onClick={() => { toast(`Sending WhatsApp to ${selectedRows.size} members...`, 'info'); }} className="flex items-center gap-1 px-2 py-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20"><Send className="w-3 h-3" /> WhatsApp</button>
           </div>
         )}
       </div>
@@ -248,7 +270,7 @@ export default function MembersDatabase() {
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Plan</label><select defaultValue={modal.data.plan} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40">{membershipPlans.filter(p => p !== 'All').map(p => <option key={p}>{p}</option>)}</select></div>
             <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Status</label><select defaultValue={modal.data.status} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40"><option>Active</option><option>Inactive</option><option>Expired</option><option>Freeze</option></select></div>
             <div className="col-span-2 flex items-center gap-3 pt-3 border-t border-ydl-dark-border mt-2">
-              <button onClick={() => { alert(`Changes saved for ${modal?.data?.name}`); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
+              <button onClick={() => { toast(`Changes saved for ${modal?.data?.name}`, 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
               <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
             </div>
           </div>
@@ -261,7 +283,7 @@ export default function MembersDatabase() {
           <div className="space-y-1.5"><label className="text-[11px] text-gray-400">Title</label><input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Notification title" /></div>
           <div className="space-y-1.5"><label className="text-[11px] text-gray-400">Message</label><textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[80px] resize-none" placeholder="Type notification message..." /></div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert('Notification sent successfully!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Bell className="w-3 h-3 inline mr-1" /> Send</button>
+            <button onClick={() => { toast('Notification sent successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Bell className="w-3 h-3 inline mr-1" /> Send</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
@@ -272,7 +294,7 @@ export default function MembersDatabase() {
           <div className="text-[11px] text-gray-500">To: <span className="text-white">{modal?.data?.mobile}</span></div>
           <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[100px] resize-none" placeholder="Type WhatsApp message..." />
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { alert('WhatsApp message sent!'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send</button>
+            <button onClick={() => { toast('WhatsApp message sent!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send</button>
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
           </div>
         </div>
@@ -281,7 +303,7 @@ export default function MembersDatabase() {
       <Modal open={modal?.type === 'delete'} onClose={() => setModal(null)} title="Confirm Delete" size="sm">
         <p className="text-xs text-gray-400">Are you sure you want to delete <span className="text-white">{modal?.data?.name}</span>? This action cannot be undone.</p>
         <div className="flex items-center gap-3 mt-4">
-          <button onClick={() => { alert(`Member ${modal?.data?.name} deleted.`); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600"><Trash2 className="w-3 h-3 inline mr-1" /> Delete</button>
+          <button onClick={() => { toast(`Member ${modal?.data?.name} deleted.`, 'error'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600"><Trash2 className="w-3 h-3 inline mr-1" /> Delete</button>
           <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
         </div>
       </Modal>

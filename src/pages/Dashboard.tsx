@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useToast } from '../components/ui/Toast'
+import { StatsCardSkeleton } from '../components/ui/Skeleton'
+import { membersApi } from '../api/members'
+import { enquiriesApi } from '../api/enquiries'
 import {
   Plus, Receipt, Phone, QrCode, UserPlus, CreditCard,
   Users, DollarSign, AlertTriangle, ArrowUpRight,
@@ -60,8 +64,27 @@ const summaryRows = [
 
 export default function Dashboard() {
   const navigate = useNavigate()
+  const { toast } = useToast()
   const [bannerVisible, setBannerVisible] = useState(true)
   const [activeFilter, setActiveFilter] = useState('Today')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        await membersApi.list({ limit: '1' })
+      } catch {
+        // API unavailable — using mock data fallback
+      }
+      try {
+        await enquiriesApi.list({ limit: '1' })
+      } catch {
+        // API unavailable — using mock data fallback
+      }
+      setLoading(false)
+    }
+    fetchStats()
+  }, [])
 
   const summaryRoutes: Record<string, string> = {
     'Follow-Ups': '/dashboard/followups',
@@ -74,6 +97,37 @@ export default function Dashboard() {
     'Pending Renewals': '/dashboard/memberships/subscriptions',
     'Client Birthdays': '/dashboard/members/birthday',
     'Client Anniversaries': '/dashboard/members/birthday',
+  }
+
+  if (loading) {
+    return (
+      <div className="p-4 lg:p-6 space-y-5">
+        <StatsCardSkeleton count={3} />
+        <StatsCardSkeleton count={4} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
+            <div className="grid grid-cols-3 gap-4">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="text-center">
+                  <div className="animate-pulse bg-white/5 rounded-lg h-8 w-16 mx-auto" />
+                  <div className="animate-pulse bg-white/5 rounded-lg h-3 w-20 mx-auto mt-2" />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
+            <div className="grid grid-cols-4 gap-3">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="text-center">
+                  <div className="animate-pulse bg-white/5 rounded-lg h-8 w-12 mx-auto" />
+                  <div className="animate-pulse bg-white/5 rounded-lg h-3 w-16 mx-auto mt-2" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -244,7 +298,7 @@ export default function Dashboard() {
             <div key={row.label} className="flex items-center justify-between px-4 py-2.5 hover:bg-white/[0.02] transition-colors">
               <span className="text-[11px] text-gray-400">{row.label}</span>
               {row.href ? (
-                <button onClick={() => { const r = summaryRoutes[row.label]; if (r) navigate(r); else alert(`Navigating to ${row.label}...`); }} className="text-[11px] font-medium text-ydl-yellow hover:text-ydl-yellow-light underline underline-offset-2">
+                <button onClick={() => { const r = summaryRoutes[row.label]; if (r) navigate(r); else toast(`Navigating to ${row.label}...`, 'info'); }} className="text-[11px] font-medium text-ydl-yellow hover:text-ydl-yellow-light underline underline-offset-2">
                   {row.value}
                 </button>
               ) : (

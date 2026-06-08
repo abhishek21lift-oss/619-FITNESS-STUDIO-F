@@ -7,12 +7,11 @@ import Modal from '../../components/shared/Modal'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 const methodOptions = ['All Methods', 'Cash', 'Card', 'UPI', 'Net Banking']
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 const dailyBilling = [18500, 21200, 16800, 23400, 19800, 14200, 0]
-const maxDaily = Math.max(...dailyBilling, 1)
-
 const methodData = [
   { method: 'Cash', amount: 42500, pct: 32 },
   { method: 'Card', amount: 38500, pct: 29 },
@@ -79,36 +78,31 @@ export default function AnalysisBilling() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">Payment Method Breakdown</h2>
-          <div className="space-y-3">
-            {filteredMethods.map(m => (
-              <div key={m.method}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-gray-300">{m.method}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-gray-500">₹{m.amount.toLocaleString()}</span>
-                    <span className="text-[10px] font-medium text-gray-400">{m.pct}%</span>
-                  </div>
-                </div>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-ydl-yellow/60 to-ydl-yellow/30" style={{ width: `${m.pct * 3.33}%` }} />
-                </div>
-              </div>
-            ))}
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={filteredMethods} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+                <XAxis type="number" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="method" tick={{ fill: '#D1D5DB', fontSize: 11 }} axisLine={false} tickLine={false} width={80} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
+                <Bar dataKey="amount" fill="#D4AF34" radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
           <h2 className="text-xs font-semibold text-white mb-4">Daily Billing Trend</h2>
-          <div className="flex items-end gap-3 h-36">
-            {days.map((d, i) => (
-              <div key={d} className="flex-1 flex flex-col items-center gap-1.5">
-                <div className="w-full flex items-end justify-center">
-                  <div className="w-full max-w-[32px] rounded-t-md bg-gradient-to-t from-blue-500/40 to-blue-500/20" style={{ height: `${(dailyBilling[i] / maxDaily) * 120}px` }} />
-                </div>
-                <span className="text-[9px] text-gray-500">{d}</span>
-                <span className="text-[9px] font-medium text-gray-400">₹{dailyBilling[i]}</span>
-              </div>
-            ))}
+          <div className="h-40">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={days.map((d, i) => ({ day: d, amount: dailyBilling[i] }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+                <XAxis dataKey="day" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
+                <Bar dataKey="amount" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </motion.div>
       </div>

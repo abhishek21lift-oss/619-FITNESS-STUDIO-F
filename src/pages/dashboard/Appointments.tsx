@@ -4,6 +4,7 @@ import { Calendar, Clock, User, CheckCircle, XCircle, Plus, List, Grid3X3, Eye }
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'
+import { useToast } from '../../components/ui/Toast'
 
 interface Appointment {
   id: string
@@ -41,6 +42,7 @@ export default function Appointments() {
   const [form, setForm] = useState({ client: '', trainer: 'Riya Singh', date: '', time: '', type: 'PT Session', notes: '' })
   const [page, setPage] = useState(1)
   const perPage = 10
+  const { toast } = useToast()
 
   const filtered = filter === 'All' ? appointments : appointments.filter(a => a.status === filter)
 
@@ -153,7 +155,7 @@ export default function Appointments() {
                 return (
                   <motion.tr key={a.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                     <td className="px-4 py-3 text-xs font-medium text-gray-300">{a.id}</td>
-                    <td className="px-4 py-3"><div className="flex items-center gap-1.5"><User className="w-3 h-3 text-gray-500" /><span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => alert(`Client: ${a.client}\nID: ${a.id}\nDate: ${a.date}\nTime: ${a.time}\nTrainer: ${a.trainer}\nStatus: ${a.status}`)}>{a.client}</span></div></td>
+                    <td className="px-4 py-3"><div className="flex items-center gap-1.5"><User className="w-3 h-3 text-gray-500" /><span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => toast(`Client: ${a.client}, ID: ${a.id}, Date: ${a.date}, Time: ${a.time}, Trainer: ${a.trainer}, Status: ${a.status}`, 'info')}>{a.client}</span></div></td>
                     <td className="px-4 py-3 text-xs text-gray-400">{a.trainer}</td>
                     <td className="px-4 py-3 text-xs text-gray-400">{a.date}</td>
                     <td className="px-4 py-3"><div className="flex items-center gap-1"><Clock className="w-3 h-3 text-gray-500" /><span className="text-xs text-gray-400">{a.time}</span></div></td>
@@ -168,7 +170,7 @@ export default function Appointments() {
                         ...(a.status === 'Pending' ? [{ label: 'Confirm', icon: CheckCircle, onClick: () => confirmAppointment(a.id), color: 'text-emerald-400' as const }] : []),
                         { label: 'Reschedule', icon: Calendar, onClick: () => openReschedule(a) },
                         { label: 'Cancel', icon: XCircle, onClick: () => openCancel(a), color: 'text-red-400' },
-                        { label: 'View Member', icon: Eye, onClick: () => alert(`Member: ${a.client}\nAppointment: ${a.id}\nDate: ${a.date}\nTime: ${a.time}\nTrainer: ${a.trainer}\nStatus: ${a.status}`) },
+                        { label: 'View Member', icon: Eye, onClick: () => toast(`Member: ${a.client} - ${a.id}`, 'info') },
                       ]} />
                     </td>
                   </motion.tr>

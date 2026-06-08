@@ -7,13 +7,12 @@ import Modal from '../../components/shared/Modal'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
 import FilterBar, { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 const staffOptions = ['All Staff', 'Rahul S.', 'Priya M.', 'Amit K.', 'Sneha R.']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
 const renewalsData = [45, 52, 38, 61, 55, 48]
 const targetData = [60, 60, 60, 70, 70, 70]
-const maxRenewal = Math.max(...renewalsData, ...targetData, 1)
-
 const renewalTable = [
   { month: 'Jan', renewals: 45, target: 60, rate: '75%', staff: 'Rahul S.' },
   { month: 'Feb', renewals: 52, target: 60, rate: '87%', staff: 'Priya M.' },
@@ -65,16 +64,17 @@ export default function AnalysisRenewal() {
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
         <h2 className="text-xs font-semibold text-white mb-4">Monthly Renewal vs Target</h2>
-        <div className="flex items-end gap-3 h-40">
-          {months.map((m, i) => (
-            <div key={m} className="flex-1 flex flex-col items-center gap-1">
-              <div className="w-full flex items-end justify-center gap-0.5">
-                <div className="w-[35%] rounded-t-sm bg-blue-500/60" style={{ height: `${(renewalsData[i] / maxRenewal) * 130}px` }} title={`Renewals: ${renewalsData[i]}`} />
-                <div className="w-[35%] rounded-t-sm bg-ydl-yellow/50" style={{ height: `${(targetData[i] / maxRenewal) * 130}px` }} title={`Target: ${targetData[i]}`} />
-              </div>
-              <span className="text-[9px] text-gray-500">{m}</span>
-            </div>
-          ))}
+        <div className="h-44">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={months.map((m, i) => ({ month: m, Renewals: renewalsData[i], Target: targetData[i] }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
+              <XAxis dataKey="month" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
+              <Bar dataKey="Renewals" fill="#3B82F6" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="Target" fill="#D4AF34" radius={[2, 2, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
         <div className="flex items-center gap-4 mt-4 pt-3 border-t border-ydl-dark-border">
           <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-blue-500/60" /><span className="text-[10px] text-gray-400">Renewals</span></div>

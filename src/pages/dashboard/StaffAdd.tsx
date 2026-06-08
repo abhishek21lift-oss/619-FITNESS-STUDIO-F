@@ -5,6 +5,7 @@ import {
   User, Mail, Phone, Briefcase, Shield, Save, ArrowLeft,
   Lock, MapPin, Eye, EyeOff
 } from 'lucide-react'
+import { useToast } from '../../components/ui/Toast'
 
 const roleOptions = ['Manager', 'Receptionist', 'Accountant', 'Trainer', 'Admin']
 const accessLevels = ['Full', 'Partial', 'Limited']
@@ -19,6 +20,7 @@ export default function StaffAdd() {
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const navigate = useNavigate()
+  const { toast } = useToast()
 
   const validate = () => {
     const errs: Record<string, string> = {}
@@ -34,12 +36,12 @@ export default function StaffAdd() {
 
   const handleSave = () => {
     if (!validate()) return
-    alert('Staff account created successfully!')
+    toast('Staff account created successfully!', 'success')
   }
 
   const handleSaveClose = () => {
     if (!validate()) return
-    alert('Staff account created successfully!')
+    toast('Staff account created successfully!', 'success')
     navigate('/dashboard/staff/list')
   }
 
