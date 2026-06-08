@@ -1,4 +1,6 @@
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API = import.meta.env.PROD
+  ? 'https://ydl-backend.onrender.com'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3001');
 
 export async function login(email: string, password: string) {
   const res = await fetch(`${API}/api/auth/login`, {
