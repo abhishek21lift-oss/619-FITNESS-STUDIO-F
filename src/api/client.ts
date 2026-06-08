@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:3001/api'
+const API_URL = import.meta.env.PROD
+  ? 'https://ydl-backend.onrender.com/api'
+  : 'http://localhost:3001/api'
 
 async function request(endpoint: string, options: RequestInit = {}) {
   const token = localStorage.getItem('ydl_token')
