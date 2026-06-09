@@ -184,7 +184,7 @@ export default function MembersDatabase() {
                 <motion.tr key={c.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.02 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-3 py-3"><input type="checkbox" checked={selectedRows.has(c.id)} onChange={() => toggleRow(c.id)} className="accent-ydl-yellow" /></td>
                   <td className="px-3 py-3 text-xs font-medium text-apple-blue">{c.id}</td>
-                  <td className="px-3 py-3"><div className="flex items-center gap-2"><div className="w-7 h-7 rounded-full bg-apple-blue/10 flex items-center justify-center text-[10px] font-bold text-apple-blue">{c.name.split(' ').map(n => n[0]).join('')}</div><span onClick={() => setModal({ type: 'view-profile', data: c })} className="text-xs font-medium text-[#1C1C1E] hover:text-apple-blue cursor-pointer transition-colors">{c.name}</span></div></td>
+                  <td className="px-3 py-3"><div className="flex items-center gap-2"><div className="w-7 h-7 rounded-full bg-apple-blue/10 flex items-center justify-center text-[10px] font-bold text-apple-blue">{c.name.split(' ').map(n => n[0]).join('')}</div><span onClick={() => navigate(`/dashboard/members/profile/${c.id}`)} className="text-xs font-medium text-[#1C1C1E] hover:text-apple-blue cursor-pointer transition-colors">{c.name}</span></div></td>
                   <td className="px-3 py-3"><div className="flex items-center gap-1.5"><Phone className="w-3 h-3 text-apple-gray-500" /><span className="text-xs text-apple-gray-400">{c.mobile}</span></div></td>
                   <td className="px-3 py-3 text-xs text-apple-gray-400">{c.plan}</td>
                   <td className="px-3 py-3"><div className="flex items-center gap-1.5"><MapPin className="w-3 h-3 text-apple-gray-500" /><span className="text-xs text-apple-gray-400">{c.branch}</span></div></td>
@@ -194,7 +194,7 @@ export default function MembersDatabase() {
                     <ActionMenu
                       label={<MoreHorizontal className="w-3.5 h-3.5" />}
                       actions={[
-                        { label: 'View Profile', icon: Eye, onClick: () => setModal({ type: 'view-profile', data: c }) },
+                        { label: 'View Profile', icon: Eye, onClick: () => navigate(`/dashboard/members/profile/${c.id}`) },
                         { label: 'Edit', icon: Edit3, onClick: () => setModal({ type: 'edit', data: c }) },
                         { label: 'Send WhatsApp', icon: MessageSquare, onClick: () => setModal({ type: 'whatsapp', data: c }) },
                         { label: 'Send Notification', icon: Bell, onClick: () => setModal({ type: 'send-notification', data: c }) },
@@ -231,34 +231,6 @@ export default function MembersDatabase() {
           </button>
         </div>
       </div>
-
-      <Modal open={modal?.type === 'view-profile'} onClose={() => setModal(null)} title={`Member: ${modal?.data?.name || ''}`} size="lg">
-        {modal?.data && (
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 pb-3 border-b border-apple-gray-200">
-              <div className="w-12 h-12 rounded-full bg-apple-blue/10 flex items-center justify-center text-lg font-bold text-apple-blue">{modal.data.name.split(' ').map((n: string) => n[0]).join('')}</div>
-              <div><h3 className="text-sm font-semibold text-[#1C1C1E]">{modal.data.name}</h3><p className="text-[11px] text-apple-gray-500">{modal.data.id}</p></div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div><span className="text-apple-gray-500">Mobile:</span> <span className="text-[#1C1C1E]">{modal.data.mobile}</span></div>
-              <div><span className="text-apple-gray-500">Email:</span> <span className="text-[#1C1C1E]">{modal.data.email}</span></div>
-              <div><span className="text-apple-gray-500">Gender:</span> <span className="text-[#1C1C1E]">{modal.data.gender}</span></div>
-              <div><span className="text-apple-gray-500">Branch:</span> <span className="text-[#1C1C1E]">{modal.data.branch}</span></div>
-              <div><span className="text-apple-gray-500">Plan:</span> <span className="text-[#1C1C1E]">{modal.data.plan}</span></div>
-              <div><span className="text-apple-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
-              <div><span className="text-apple-gray-500">Join Date:</span> <span className="text-[#1C1C1E]">{modal.data.joinDate}</span></div>
-              <div><span className="text-apple-gray-500">Expiry:</span> <span className="text-[#1C1C1E]">{modal.data.expiry}</span></div>
-              <div><span className="text-apple-gray-500">Client Rep:</span> <span className="text-[#1C1C1E]">{modal.data.clientRep}</span></div>
-              <div><span className="text-apple-gray-500">Amount:</span> <span className="text-[#1C1C1E]">₹{modal.data.amount}</span></div>
-            </div>
-            <div className="flex items-center gap-2 pt-2">
-              <button onClick={() => setModal({ type: 'edit', data: modal.data })} className="px-3 py-1.5 text-[10px] font-medium text-[#007AFF] bg-blue-500/10 border border-blue-500/20 rounded-lg hover:bg-blue-500/20"><Edit3 className="w-3 h-3 inline mr-1" /> Edit</button>
-              <button onClick={() => window.open(`tel:${modal.data.mobile}`)} className="px-3 py-1.5 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20"><Phone className="w-3 h-3 inline mr-1" /> Call</button>
-              <button onClick={() => setModal({ type: 'send-notification', data: modal.data })} className="px-3 py-1.5 text-[10px] font-medium text-purple-400 bg-purple-500/10 border border-purple-500/20 rounded-lg hover:bg-purple-500/20"><Bell className="w-3 h-3 inline mr-1" /> Notify</button>
-            </div>
-          </div>
-        )}
-      </Modal>
 
       <Modal open={modal?.type === 'edit'} onClose={() => setModal(null)} title={`Edit: ${modal?.data?.name || ''}`} size="lg">
         {modal?.data && (

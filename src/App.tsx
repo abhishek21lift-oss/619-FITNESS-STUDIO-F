@@ -22,6 +22,7 @@ import FollowUps from './pages/dashboard/FollowUps'
 import MembersAdd from './pages/dashboard/MembersAdd'
 import MembersQuickAdd from './pages/dashboard/MembersQuickAdd'
 import MembersDatabase from './pages/dashboard/MembersDatabase'
+import ClientProfile from './pages/dashboard/ClientProfile'
 import MembersReferrals from './pages/dashboard/MembersReferrals'
 import MembersBirthday from './pages/dashboard/MembersBirthday'
 import MembersOtherBranch from './pages/dashboard/MembersOtherBranch'
@@ -130,6 +131,7 @@ export default function App() {
         <Route path="/dashboard/members/add" element={<MembersAdd />} />
         <Route path="/dashboard/members/quick-add" element={<MembersQuickAdd />} />
         <Route path="/dashboard/members/database" element={<MembersDatabase />} />
+        <Route path="/dashboard/members/profile/:id" element={<ClientProfile />} />
         <Route path="/dashboard/members/referrals" element={<MembersReferrals />} />
         <Route path="/dashboard/members/birthday" element={<MembersBirthday />} />
         <Route path="/dashboard/members/other-branch" element={<MembersOtherBranch />} />
