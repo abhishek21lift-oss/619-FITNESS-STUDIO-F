@@ -143,9 +143,9 @@ function Doughnut3D({ data, colors, title, icon: Icon, centerLabel }: {
   )
 }
 
-function StatCard({ label, value, icon: Icon, gradient, shadow, delay, subtitle }: {
+function StatCard({ label, value, icon: Icon, color, shadow, delay, subtitle }: {
   label: string; value: string | number; icon: any
-  gradient: string; shadow: string; delay: number; subtitle?: string
+  color: string; shadow: string; delay: number; subtitle?: string
 }) {
   return (
     <motion.div
@@ -153,7 +153,7 @@ function StatCard({ label, value, icon: Icon, gradient, shadow, delay, subtitle 
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5, ease: 'easeOut' }}
       className="relative overflow-hidden rounded-2xl p-5 text-white"
-      style={{ background: `linear-gradient(135deg, ${gradient.split(' ')[0].replace('from-', '')}, ${gradient.split(' ')[1].replace('to-', '')})`, boxShadow: `0 8px 32px ${shadow}` }}
+      style={{ background: `linear-gradient(135deg, ${color} 0%, ${color}dd 100%)`, boxShadow: `0 8px 32px ${shadow}` }}
     >
       <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
@@ -414,7 +414,7 @@ export default function Dashboard() {
           label="Today's Sale"
           value="₹ 0"
           icon={TrendingUp}
-          gradient="from-[#007AFF] to-[#5856D6]"
+          color="#007AFF"
           shadow="rgba(0,122,255,0.35)"
           delay={0.1}
           subtitle="+0% vs yesterday"
@@ -423,7 +423,7 @@ export default function Dashboard() {
           label="Collected Payments"
           value="₹ 0"
           icon={DollarSign}
-          gradient="from-[#34C759] to-[#30B350]"
+          color="#34C759"
           shadow="rgba(52,199,89,0.35)"
           delay={0.15}
           subtitle="This period"
@@ -432,7 +432,7 @@ export default function Dashboard() {
           label="Pending Payments"
           value="₹ 0"
           icon={AlertTriangle}
-          gradient="from-[#FF9500] to-[#FF6B00]"
+          color="#FF9500"
           shadow="rgba(255,149,0,0.35)"
           delay={0.2}
           subtitle="Requires attention"
