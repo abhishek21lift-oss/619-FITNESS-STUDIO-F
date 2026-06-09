@@ -23,12 +23,12 @@ const APPLE_PURPLE = '#AF52DE'
 const APPLE_PINK = '#FF2D55'
 const APPLE_TEAL = '#5AC8FA'
 const quickActions = [
-  { label: 'Add Enquiry', icon: Plus, path: '/dashboard/enquiry/add', gradient: 'from-[#007AFF] to-[#5856D6]', shadow: 'rgba(0,122,255,0.4)' },
-  { label: 'Quick Billing', icon: CreditCard, path: '/dashboard/accounts/registers', gradient: 'from-[#34C759] to-[#30B350]', shadow: 'rgba(52,199,89,0.4)' },
-  { label: 'Receipts', icon: Receipt, path: '/dashboard/accounts/registers', gradient: 'from-[#AF52DE] to-[#8944C2]', shadow: 'rgba(175,82,222,0.4)' },
-  { label: 'Quick Follow Up', icon: Phone, path: '/dashboard/followups', gradient: 'from-[#5AC8FA] to-[#4A9EDA]', shadow: 'rgba(90,200,250,0.4)' },
-  { label: 'QR Codes', icon: QrCode, path: '/dashboard/app-settings/actions', gradient: 'from-[#FF9500] to-[#FF6B00]', shadow: 'rgba(255,149,0,0.4)' },
-  { label: 'Quick Member', icon: UserPlus, path: '/dashboard/members/quick-add', gradient: 'from-[#FF2D55] to-[#D6244A]', shadow: 'rgba(255,45,85,0.4)' },
+  { label: 'Add Enquiry', icon: Plus, path: '/dashboard/enquiry/add', from: '#007AFF', to: '#5856D6', shadow: 'rgba(0,122,255,0.5)', accent: '#007AFF', badge: 'NEW' },
+  { label: 'Quick Billing', icon: CreditCard, path: '/dashboard/accounts/registers', from: '#34C759', to: '#1E8A3E', shadow: 'rgba(52,199,89,0.5)', accent: '#34C759', badge: 'BILL' },
+  { label: 'Receipts', icon: Receipt, path: '/dashboard/accounts/registers', from: '#AF52DE', to: '#7B2DAF', shadow: 'rgba(175,82,222,0.5)', accent: '#AF52DE', badge: 'PDF' },
+  { label: 'Quick Follow Up', icon: Phone, path: '/dashboard/followups', from: '#5AC8FA', to: '#007AFF', shadow: 'rgba(90,200,250,0.5)', accent: '#5AC8FA', badge: 'CALL' },
+  { label: 'QR Codes', icon: QrCode, path: '/dashboard/app-settings/actions', from: '#FF9500', to: '#CC6A00', shadow: 'rgba(255,149,0,0.5)', accent: '#FF9500', badge: 'SCAN' },
+  { label: 'Quick Member', icon: UserPlus, path: '/dashboard/members/quick-add', from: '#FF2D55', to: '#CC1A3A', shadow: 'rgba(255,45,85,0.5)', accent: '#FF2D55', badge: 'ADD' },
 ]
 
 const dateFilters = ['Today', 'Last 7 Days', 'Last 15 Days', 'Last 30 Days', 'Last 90 Days', 'Custom Date']
@@ -379,28 +379,53 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* Quick Actions */}
+      {/* Quick Actions — Premium */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {quickActions.map((action, i) => (
           <motion.button
             key={action.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: i * 0.06, duration: 0.4, ease: 'easeOut' }}
+            whileHover={{ y: -5, scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => navigate(action.path)}
-            className="relative overflow-hidden rounded-xl p-3 text-white text-left group"
+            className="relative overflow-hidden rounded-2xl p-[18px] text-white text-left group cursor-pointer border-0"
             style={{
-              background: `linear-gradient(135deg, ${action.gradient})`,
-              boxShadow: `0 4px 16px ${action.shadow}`,
+              background: `linear-gradient(145deg, ${action.from} 0%, ${action.to} 100%)`,
+              boxShadow: `0 8px 28px ${action.shadow}, inset 0 1px 0 rgba(255,255,255,0.25)`,
             }}
           >
-            <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -translate-y-1/3 translate-x-1/3 group-hover:scale-150 transition-transform duration-500" />
-            <div className="relative z-10">
-              <action.icon className="w-5 h-5 mb-2 text-white/80" />
-              <p className="text-[11px] font-semibold leading-tight">{action.label}</p>
+            {/* Shimmer overlay */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background: `linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.15) 45%, transparent 60%)`,
+              }}
+            />
+            {/* Decorative blobs */}
+            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-white/10 group-hover:scale-[2] transition-transform duration-700 ease-out" />
+            <div className="absolute -bottom-4 -left-4 w-14 h-14 rounded-full bg-white/5 group-hover:scale-[2] transition-transform duration-700 ease-out delay-100" />
+            {/* Subtle pattern dots */}
+            <div className="absolute inset-0 opacity-[0.04]"
+              style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+                backgroundSize: '12px 12px',
+              }}
+            />
+            {/* Content */}
+            <div className="relative z-10 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
+                  <action.icon className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-[8px] font-bold uppercase tracking-[1px] text-white/60 bg-white/10 px-2 py-0.5 rounded-full">
+                  {action.badge}
+                </span>
+              </div>
+              <p className="text-[11px] font-bold leading-tight drop-shadow-sm">{action.label}</p>
             </div>
+            {/* Bottom accent glow */}
+            <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/30 rounded-b-2xl" />
           </motion.button>
         ))}
       </div>
