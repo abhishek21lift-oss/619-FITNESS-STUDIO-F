@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Save, Upload, FileText, Hash, Globe, MapPin } from 'lucide-react'
+import { Save, Upload, FileText, Hash, MapPin } from 'lucide-react'
 import { useToast } from '../../components/ui/Toast'
 
 export default function SettingsInvoiceSettings() {

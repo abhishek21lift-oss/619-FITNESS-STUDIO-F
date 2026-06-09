@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, Users, Upload, MessageSquare, DollarSign, AlertTriangle } from 'lucide-react'
+import { Send, Users, Upload, MessageSquare, AlertTriangle } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import { useToast } from '../../components/ui/Toast'
 

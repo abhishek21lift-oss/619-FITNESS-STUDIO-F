@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { QrCode, RefreshCw, Smartphone, CheckCircle, X } from 'lucide-react'
+import { QrCode, RefreshCw, Smartphone, CheckCircle } from 'lucide-react'
 import { useToast } from '../../components/ui/Toast'
 
 export default function NotificationsWhatsAppQR() {

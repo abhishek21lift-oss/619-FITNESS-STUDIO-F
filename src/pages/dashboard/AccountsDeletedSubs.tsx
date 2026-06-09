@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { DollarSign, Trash2, Users, Plus, Search, Download } from 'lucide-react'
+import { DollarSign, Trash2, Plus, Search, Download } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import ActionMenu from '../../components/shared/ActionMenu'
 import StatsCard from '../../components/shared/StatsCard'

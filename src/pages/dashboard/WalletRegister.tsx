@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Calendar, BookOpen, ArrowUpRight, ArrowDownRight } from 'lucide-react'
+import { Search, Calendar, ArrowUpRight, ArrowDownRight } from 'lucide-react'
 import Table from '../../components/shared/Table'
 
 interface RegisterRow {

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  Weight, TrendingDown, ArrowDown, Download,
+  Weight, TrendingDown, ArrowDown,
 } from 'lucide-react'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'

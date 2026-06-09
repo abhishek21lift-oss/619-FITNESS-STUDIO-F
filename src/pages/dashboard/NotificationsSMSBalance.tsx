@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { DollarSign, Plus, CreditCard, Calendar, Wallet, ArrowDownRight, ArrowUpRight } from 'lucide-react'
+import { Plus, CreditCard, Calendar, Wallet, ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
 import StatsCard from '../../components/shared/StatsCard'
 import { useToast } from '../../components/ui/Toast'

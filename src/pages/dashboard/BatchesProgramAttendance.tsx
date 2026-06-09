@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, X, Users, Sun } from 'lucide-react'
+import { Check, X } from 'lucide-react'
 
 interface MemberAttendance {
   id: number

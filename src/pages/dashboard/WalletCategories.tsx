@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Edit3, Trash2, Tags } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+
 import Modal from '../../components/shared/Modal'
 import Table from '../../components/shared/Table'
 import ActionMenu from '../../components/shared/ActionMenu'
@@ -25,7 +25,6 @@ const initialCategories: WalletCategory[] = [
 ]
 
 export default function WalletCategories() {
-  const navigate = useNavigate()
   const { toast } = useToast()
   const [categories, setCategories] = useState<WalletCategory[]>(initialCategories)
   const [modalOpen, setModalOpen] = useState(false)

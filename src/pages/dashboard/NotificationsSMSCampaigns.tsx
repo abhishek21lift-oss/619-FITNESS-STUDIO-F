@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, TrendingUp, Users, CheckCircle, XCircle, DollarSign } from 'lucide-react'
+import { Search, Users, CheckCircle, DollarSign } from 'lucide-react'
 
 interface Campaign {
   id: number

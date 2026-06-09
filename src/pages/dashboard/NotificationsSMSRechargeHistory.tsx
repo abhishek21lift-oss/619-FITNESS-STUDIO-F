@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Wallet, DollarSign, ArrowUpRight, ArrowDownRight } from 'lucide-react'
+import { Search, Wallet, ArrowUpRight, ArrowDownRight } from 'lucide-react'
 import StatsCard from '../../components/shared/StatsCard'
 
 interface RechargeEntry {

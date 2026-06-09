@@ -21,7 +21,7 @@ const initialBatches: BatchCapacity[] = [
   { id: 8, name: 'Evening Cardio (7-8pm)', capacity: 30, booked: 30, waitlist: 4 },
 ]
 
-const getStatusColor = (batches: BatchCapacity, batch: BatchCapacity) => {
+const getStatusColor = (batch: BatchCapacity) => {
   const pct = (batch.booked / batch.capacity) * 100
   if (batch.booked >= batch.capacity) return 'text-red-400 bg-red-500/10 border-red-500/20'
   if (pct > 80) return 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20'
@@ -70,7 +70,7 @@ export default function BatchesCapacity() {
             </tr>
           </thead>
           <tbody>
-            {batches.map((b, i) => {
+            {batches.map((b) => {
               const available = b.capacity - b.booked
               const pct = (b.booked / b.capacity) * 100
               return (
@@ -81,7 +81,7 @@ export default function BatchesCapacity() {
                   <td className={`px-4 py-3 text-xs text-right ${available > 0 ? 'text-emerald-400' : 'text-red-400'}`}>{available}</td>
                   <td className="px-4 py-3 text-xs text-yellow-400 text-right">{b.waitlist || '-'}</td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-full border ${getStatusColor(batches, b)}`}>
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-full border ${getStatusColor(b)}`}>
                       <Users className="w-2.5 h-2.5" />
                       {b.booked >= b.capacity ? 'Full' : pct > 80 ? 'Near Full' : 'Available'}
                     </span>

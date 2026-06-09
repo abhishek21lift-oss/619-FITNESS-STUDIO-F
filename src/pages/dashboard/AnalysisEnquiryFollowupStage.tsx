@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  MessageSquare, UserCheck, TrendingUp, Download,
+  MessageSquare, UserCheck, TrendingUp,
 } from 'lucide-react'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  Trophy, TrendingUp, IndianRupee, Percent, Download,
+  Trophy, IndianRupee, Percent,
 } from 'lucide-react'
 import StatsCard from '../../components/shared/StatsCard'
 import Table from '../../components/shared/Table'
