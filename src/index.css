@@ -4,10 +4,13 @@
 
 @layer base {
   html {
-    font-size: 16.5px;
+    font-size: 17px;
+    -webkit-text-size-adjust: 100%;
   }
   body {
     @apply bg-[#F5F5F7] text-[#1C1C1E] font-body antialiased;
+    font-weight: 450;
+    letter-spacing: 0.012em;
   }
   ::selection {
     @apply bg-[#007AFF]/20 text-[#1C1C1E];

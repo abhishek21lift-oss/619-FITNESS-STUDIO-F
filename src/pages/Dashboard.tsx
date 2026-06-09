@@ -91,7 +91,7 @@ function Doughnut3D({ data, colors, title, icon: Icon, centerLabel, boxIndex = 0
     >
       <div className="flex items-center gap-2 mb-3">
         <Icon className="w-4 h-4 text-apple-blue" />
-        <h3 className="text-xs font-semibold text-[#1C1C1E]">{title}</h3>
+        <h3 className="text-xs font-bold text-[#1C1C1E]">{title}</h3>
       </div>
       <div className="relative">
         <ResponsiveContainer width="100%" height={180}>
@@ -144,7 +144,7 @@ function Doughnut3D({ data, colors, title, icon: Icon, centerLabel, boxIndex = 0
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="text-center">
             <p className="text-lg font-bold text-[#1C1C1E]">{total.toLocaleString()}</p>
-            <p className="text-[12px] text-apple-gray-400 uppercase tracking-wider">{centerLabel}</p>
+            <p className="text-[12px] text-apple-gray-500 uppercase tracking-wider">{centerLabel}</p>
           </div>
         </div>
       </div>
@@ -155,8 +155,8 @@ function Doughnut3D({ data, colors, title, icon: Icon, centerLabel, boxIndex = 0
               className="w-2 h-2 rounded-full"
               style={{ backgroundColor: colors[d.name] || APPLE_BLUE }}
             />
-            <span className="text-[12px] text-apple-gray-500">{d.name}</span>
-            <span className="text-[12px] font-semibold text-[#1C1C1E]">{d.value}</span>
+            <span className="text-[12px] text-apple-gray-600">{d.name}</span>
+            <span className="text-[12px] font-bold text-[#1C1C1E]">{d.value}</span>
           </div>
         ))}
       </div>
@@ -195,8 +195,8 @@ function ActivityBar({ label, value, max, color }: { label: string; value: numbe
   return (
     <div className="space-y-1">
       <div className="flex justify-between text-[12px]">
-        <span className="text-apple-gray-500">{label}</span>
-        <span className="font-semibold text-[#1C1C1E]">{value}</span>
+        <span className="text-apple-gray-600 font-semibold">{label}</span>
+        <span className="font-bold text-[#1C1C1E]">{value}</span>
       </div>
       <div className="h-2 bg-apple-gray-100 rounded-full overflow-hidden">
         <motion.div
@@ -347,7 +347,7 @@ export default function Dashboard() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34C759] animate-pulse" />
-              <span className="text-xs font-semibold text-[#34C759]">WhatsApp Connected</span>
+              <span className="text-xs font-bold text-[#34C759]">WhatsApp Connected</span>
             </div>
             <p className="text-[13px] text-[#34C759]/70">QR code scanned successfully. Messages will be delivered normally.</p>
           </div>
@@ -368,7 +368,7 @@ export default function Dashboard() {
         <div className="relative z-10 flex items-center justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-white/80">Special Offer</p>
-            <p className="text-sm font-semibold mt-0.5">🎉 Special Coupon Offers Available</p>
+            <p className="text-sm font-bold mt-0.5">🎉 Special Coupon Offers Available</p>
           </div>
           <button
             onClick={() => navigate('/dashboard/memberships/coupon')}
@@ -434,15 +434,15 @@ export default function Dashboard() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl shadow-apple-sm" style={{ background: 'linear-gradient(135deg, #007AFF12, #5856D608)', border: '1px solid #007AFF25' }}>
           <Users className="w-3.5 h-3.5 text-apple-blue" />
-          <span className="text-xs font-medium text-[#1C1C1E]">619 FITNESS STUDIO (Kalyanpur)</span>
-          <ChevronDown className="w-3 h-3 text-apple-gray-400" />
+          <span className="text-xs font-semibold text-[#1C1C1E]">619 FITNESS STUDIO (Kalyanpur)</span>
+          <ChevronDown className="w-3 h-3 text-apple-gray-500" />
         </div>
         <div className="flex flex-wrap gap-1.5">
           {dateFilters.map((f) => (
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
-              className={`px-3 py-1.5 text-[12px] font-medium rounded-lg border transition-all shadow-sm ${
+              className={`px-3 py-1.5 text-[12px] font-semibold rounded-lg border transition-all shadow-sm ${
                 activeFilter === f
                   ? 'text-white shadow-md'
                   : 'text-apple-gray-500 hover:text-[#1C1C1E]'
@@ -509,7 +509,7 @@ export default function Dashboard() {
             }}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[12px] font-medium uppercase tracking-wider" style={{ color: m.color }}>{m.label}</span>
+              <span className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: m.color }}>{m.label}</span>
               <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${m.color}20` }}>
                 <m.icon className="w-3.5 h-3.5" style={{ color: m.color }} />
               </div>
@@ -566,9 +566,9 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-apple-blue" />
-            <h3 className="text-xs font-semibold text-[#1C1C1E]">Weekly Check-ins</h3>
+            <h3 className="text-xs font-bold text-[#1C1C1E]">Weekly Check-ins</h3>
           </div>
-          <span className="text-[12px] text-apple-gray-400">This week</span>
+          <span className="text-[12px] text-apple-gray-500">This week</span>
         </div>
         <div className="grid grid-cols-7 gap-2">
           {weeklyCheckins.map((day, i) => (
@@ -593,7 +593,7 @@ export default function Dashboard() {
                 />
               </div>
               <span className="text-[12px] font-semibold text-[#1C1C1E]">{day.value}</span>
-              <span className="text-[12px] text-apple-gray-400">{day.label}</span>
+              <span className="text-[12px] text-apple-gray-500">{day.label}</span>
             </motion.div>
           ))}
         </div>
@@ -610,7 +610,7 @@ export default function Dashboard() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Target className="w-4 h-4 text-apple-green" />
-            <h3 className="text-xs font-semibold text-[#1C1C1E]">Performance Metrics</h3>
+            <h3 className="text-xs font-bold text-[#1C1C1E]">Performance Metrics</h3>
           </div>
           <div className="space-y-3">
             <ActivityBar label="Enquiry Conversion" value={68} max={100} color={APPLE_GREEN} />
@@ -629,7 +629,7 @@ export default function Dashboard() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Award className="w-4 h-4 text-apple-purple" />
-            <h3 className="text-xs font-semibold text-[#1C1C1E]">Top Performers</h3>
+            <h3 className="text-xs font-bold text-[#1C1C1E]">Top Performers</h3>
           </div>
           <div className="space-y-3">
             {[
@@ -652,12 +652,12 @@ export default function Dashboard() {
                   {p.name.charAt(0)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-[#1C1C1E]">{p.name}</p>
-                  <p className="text-[12px] text-apple-gray-400">{p.role}</p>
+                  <p className="text-xs font-semibold text-[#1C1C1E]">{p.name}</p>
+                  <p className="text-[12px] text-apple-gray-500">{p.role}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs font-bold text-[#1C1C1E]">{p.deals}</p>
-                  <p className="text-[12px] text-apple-gray-400">deals</p>
+                  <p className="text-[12px] text-apple-gray-500">deals</p>
                 </div>
               </motion.div>
             ))}
@@ -714,10 +714,10 @@ export default function Dashboard() {
 
       {/* Footer */}
       <div className="flex items-center justify-between pt-2 pb-4">
-        <p className="text-[12px] text-apple-gray-400">Copyrights &copy; 2026 YourDigitalLift.</p>
+        <p className="text-[12px] text-apple-gray-500">Copyrights &copy; 2026 YourDigitalLift.</p>
         <button
           onClick={() => window.open('https://anydesk.com', '_blank')}
-          className="text-[12px] text-apple-gray-400 hover:text-apple-blue transition-colors"
+          className="text-[12px] text-apple-gray-500 hover:text-apple-blue transition-colors"
         >
           Download Anydesk
         </button>

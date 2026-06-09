@@ -36,9 +36,15 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Inter', 'system-ui', 'sans-serif'],
-        heading: ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
-        body: ['SF Pro Text', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Segoe UI', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        heading: ['Segoe UI', '-apple-system', 'system-ui', 'sans-serif'],
+        body: ['Segoe UI', '-apple-system', 'system-ui', 'sans-serif'],
+      },
+      fontWeight: {
+        normal: '450',
+        medium: '550',
+        semibold: '650',
+        bold: '720',
       },
       backgroundImage: {
         'apple-gradient-blue': 'linear-gradient(135deg, #007AFF 0%, #5856D6 100%)',
