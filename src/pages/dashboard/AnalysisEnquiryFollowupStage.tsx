@@ -11,7 +11,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGri
 const branches = ['All Branches', 'Kalyanpur', 'Gomti Nagar', 'Indira Nagar']
 
 const stageData = [
-  { stage: 'New', count: 48, color: '#D4AF34' },
+  { stage: 'New', count: 48, color: '#007AFF' },
   { stage: 'Contacted', count: 62, color: '#60A5FA' },
   { stage: 'Followed Up', count: 35, color: '#A78BFA' },
   { stage: 'Converted', count: 24, color: '#34D399' },
@@ -37,8 +37,8 @@ export default function AnalysisEnquiryFollowupStage() {
 
   const stageBadge = (s: string) => {
     const colors: Record<string, string> = {
-      New: 'text-ydl-yellow bg-ydl-yellow/10 border-ydl-yellow/30',
-      Contacted: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
+      New: 'text-apple-blue bg-apple-blue/10 border-ydl-yellow/30',
+      Contacted: 'text-[#007AFF] bg-blue-500/10 border-blue-500/20',
       'Followed Up': 'text-purple-400 bg-purple-500/10 border-purple-500/20',
       Converted: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
       Lost: 'text-red-400 bg-red-500/10 border-red-500/20',
@@ -49,16 +49,16 @@ export default function AnalysisEnquiryFollowupStage() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Enquiry Follow-up Stage</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Track enquiries across follow-up stages.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Enquiry Follow-up Stage</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Track enquiries across follow-up stages.</p>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="Branch">
           <FilterSelect options={branches} value={branch} onChange={e => setBranch(e.target.value)} />
@@ -66,21 +66,21 @@ export default function AnalysisEnquiryFollowupStage() {
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Enquiries" value={total} icon={MessageSquare} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" index={0} />
+        <StatsCard label="Total Enquiries" value={total} icon={MessageSquare} color="from-apple-blue/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-apple-blue" index={0} />
         <StatsCard label="Under Follow-up" value={underFollowUp} icon={UserCheck} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" index={1} />
         <StatsCard label="Converted" value={converted} icon={TrendingUp} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={2} />
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-        <h2 className="text-xs font-semibold text-white mb-4">Enquiry Stage Distribution</h2>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Enquiry Stage Distribution</h2>
         <div className="h-40">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={stageData} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
               <XAxis dataKey="stage" tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
-              <Bar dataKey="count" fill="#D4AF34" radius={[4, 4, 0, 0]} />
+              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#007AFF' }} />
+              <Bar dataKey="count" fill="#007AFF" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -89,7 +89,7 @@ export default function AnalysisEnquiryFollowupStage() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <Table
           columns={[
-            { header: 'Enquiry ID', accessor: r => <span className="text-ydl-yellow font-medium">{r.id}</span> },
+            { header: 'Enquiry ID', accessor: r => <span className="text-apple-blue font-medium">{r.id}</span> },
             { header: 'Name', accessor: r => r.name },
             { header: 'Stage', accessor: r => stageBadge(r.stage) },
             { header: 'Date', accessor: r => r.date },

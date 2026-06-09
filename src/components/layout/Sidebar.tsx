@@ -201,8 +201,8 @@ function NavItem({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-accent font-medium transition-all duration-200 
           ${isActive
-            ? 'bg-ydl-yellow/10 text-ydl-yellow border border-ydl-yellow/20'
-            : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
+            ? 'bg-apple-blue/10 text-apple-blue border border-apple-blue/20'
+            : 'text-apple-gray-500 hover:text-[#1C1C1E] hover:bg-apple-gray-100 border border-transparent'
           }`
         }
       >
@@ -219,7 +219,7 @@ function NavItem({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
         <button
           onClick={() => setOpen(!isOpen)}
           className={`flex items-center justify-between w-full px-3 py-2 rounded-lg text-sm font-accent font-medium transition-all duration-200 ${
-            childActive ? 'text-ydl-yellow bg-ydl-yellow/5' : 'text-gray-400 hover:text-white hover:bg-white/5'
+            childActive ? 'text-apple-blue bg-apple-blue/5' : 'text-apple-gray-500 hover:text-[#1C1C1E] hover:bg-apple-gray-100'
           }`}
         >
           <span className="flex items-center gap-3">
@@ -237,7 +237,7 @@ function NavItem({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
               transition={{ duration: 0.15 }}
               className="overflow-hidden"
             >
-              <div className="ml-4 mt-0.5 space-y-0.5 border-l border-ydl-yellow/10 pl-2">
+              <div className="ml-4 mt-0.5 space-y-0.5 border-l border-apple-blue/10 pl-2">
                 {item.children!.map((child) => (
                   <NavLink
                     key={child.label}
@@ -246,8 +246,8 @@ function NavItem({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
                     className={({ isActive }) =>
                       `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-accent transition-all duration-200
                       ${isActive
-                        ? 'bg-ydl-yellow/10 text-ydl-yellow'
-                        : 'text-gray-500 hover:text-gray-300 hover:bg-white/5'
+                        ? 'bg-apple-blue/10 text-apple-blue'
+                        : 'text-apple-gray-400 hover:text-[#1C1C1E] hover:bg-apple-gray-50'
                       }`
                     }
                   >
@@ -268,23 +268,23 @@ function NavItem({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
 export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <>
-      {open && <div className="fixed inset-0 bg-black/60 z-40 lg:hidden" onClick={onClose} />}
+      {open && <div className="fixed inset-0 bg-black/20 z-40 lg:hidden" onClick={onClose} />}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#0A0A0A] border-r border-ydl-dark-border 
+        className={`fixed top-0 left-0 z-50 h-full w-64 bg-white border-r border-apple-gray-200 
           flex flex-col transition-transform duration-300 
           ${open ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
-        <div className="flex items-center justify-between p-4 border-b border-ydl-dark-border">
+        <div className="flex items-center justify-between p-4 border-b border-apple-gray-200">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-ydl-gradient flex items-center justify-center">
-              <Dumbbell className="w-4 h-4 text-black" />
+            <div className="w-8 h-8 rounded-lg bg-apple-gradient-blue flex items-center justify-center">
+              <Dumbbell className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h1 className="font-heading text-xs font-bold text-white tracking-tight">YOUR DIGITAL</h1>
-              <p className="text-[9px] font-accent text-ydl-yellow tracking-widest -mt-0.5">LIFT</p>
+              <h1 className="font-heading text-xs font-bold text-[#1C1C1E] tracking-tight">YOUR DIGITAL</h1>
+              <p className="text-[9px] font-accent text-apple-blue tracking-widest -mt-0.5">LIFT</p>
             </div>
           </div>
-          <button onClick={onClose} className="lg:hidden text-gray-400 hover:text-white">
+          <button onClick={onClose} className="lg:hidden text-apple-gray-400 hover:text-[#1C1C1E]">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -292,7 +292,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
         <nav className="flex-1 overflow-y-auto py-2 px-2.5 space-y-3 scrollbar-thin">
           {navData.map((section) => (
             <div key={section.label}>
-              <p className="px-3 text-[9px] font-accent text-gray-600 tracking-wider mb-1 uppercase">{section.label}</p>
+              <p className="px-3 text-[9px] font-accent text-apple-gray-400 tracking-wider mb-1 uppercase">{section.label}</p>
               <div className="space-y-0.5">
                 {section.items.map((item) => (
                   <NavItem key={item.label} item={item} />
@@ -302,8 +302,8 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
           ))}
         </nav>
 
-        <div className="p-3 border-t border-ydl-dark-border">
-          <p className="text-[9px] text-gray-600 font-accent text-center">v2.0.0 &middot; YDL Admin</p>
+        <div className="p-3 border-t border-apple-gray-200">
+          <p className="text-[9px] text-apple-gray-400 font-accent text-center">v2.0.0 &middot; YDL Admin</p>
         </div>
       </aside>
     </>

@@ -80,10 +80,10 @@ export default function TrainersLeave() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-white">Leave Requests</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Manage trainer leave applications.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Leave Requests</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Manage trainer leave applications.</p>
         </div>
-        <button onClick={() => setModal({ type: 'add' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+        <button onClick={() => setModal({ type: 'add' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity">
           <Plus className="w-3 h-3" /> Add Leave
         </button>
       </div>
@@ -95,43 +95,43 @@ export default function TrainersLeave() {
 
       <div className="flex flex-wrap items-center gap-2">
         {statusTabs.map(tab => (
-          <button key={tab} onClick={() => setStatusTab(tab)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${statusTab === tab ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-500 hover:text-gray-300'}`}>
+          <button key={tab} onClick={() => setStatusTab(tab)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${statusTab === tab ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue' : 'bg-white/5 border-apple-gray-200 text-apple-gray-500 hover:text-apple-gray-600'}`}>
             {tab} {tab !== 'All' && <span className="font-bold">({leaves.filter(l => l.status === tab).length})</span>}
           </button>
         ))}
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Trainer</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Leave Type</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">From</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">To</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Days</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Reason</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-                <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Action</th>
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Trainer</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Leave Type</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">From</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">To</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Days</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Reason</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Status</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {filtered.map((l, i) => (
                 <motion.tr key={l.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-lg bg-ydl-yellow/10 flex items-center justify-center">
-                        <span className="text-[8px] font-bold text-ydl-yellow">{l.trainer.split(' ').map(n => n[0]).join('')}</span>
+                      <div className="w-6 h-6 rounded-lg bg-apple-blue/10 flex items-center justify-center">
+                        <span className="text-[8px] font-bold text-apple-blue">{l.trainer.split(' ').map(n => n[0]).join('')}</span>
                       </div>
-                      <span className="text-xs font-medium text-white">{l.trainer}</span>
+                      <span className="text-xs font-medium text-[#1C1C1E]">{l.trainer}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{l.type}</td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{formatDate(l.from)}</td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{formatDate(l.to)}</td>
-                  <td className="px-4 py-3 text-xs font-medium text-white">{l.days}</td>
-                  <td className="px-4 py-3 text-xs text-gray-400 max-w-[150px] truncate">{l.reason}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{l.type}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{formatDate(l.from)}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{formatDate(l.to)}</td>
+                  <td className="px-4 py-3 text-xs font-medium text-[#1C1C1E]">{l.days}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400 max-w-[150px] truncate">{l.reason}</td>
                   <td className="px-4 py-3">{statusBadge(l.status)}</td>
                   <td className="px-4 py-3 text-right">
                     <ActionMenu
@@ -150,40 +150,40 @@ export default function TrainersLeave() {
             </tbody>
           </table>
         </div>
-        {filtered.length === 0 && <div className="text-center py-10 text-xs text-gray-500">No {statusTab.toLowerCase()} leave requests.</div>}
+        {filtered.length === 0 && <div className="text-center py-10 text-xs text-apple-gray-500">No {statusTab.toLowerCase()} leave requests.</div>}
       </motion.div>
 
       <Modal open={modal?.type === 'add'} onClose={() => setModal(null)} title="Add Leave Request" size="md">
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <label className="text-[10px] text-gray-500">Trainer</label>
-            <select value={addForm.trainer} onChange={e => setAddForm({ ...addForm, trainer: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+            <label className="text-[10px] text-apple-gray-500">Trainer</label>
+            <select value={addForm.trainer} onChange={e => setAddForm({ ...addForm, trainer: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
               {trainers.map(t => <option key={t}>{t}</option>)}
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[10px] text-gray-500">Leave Type</label>
-            <select value={addForm.type} onChange={e => setAddForm({ ...addForm, type: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+            <label className="text-[10px] text-apple-gray-500">Leave Type</label>
+            <select value={addForm.type} onChange={e => setAddForm({ ...addForm, type: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
               {leaveTypes.map(t => <option key={t}>{t}</option>)}
             </select>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-500">From Date</label>
-              <input type="date" value={addForm.from} onChange={e => setAddForm({ ...addForm, from: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
+              <label className="text-[10px] text-apple-gray-500">From Date</label>
+              <input type="date" value={addForm.from} onChange={e => setAddForm({ ...addForm, from: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-500">To Date</label>
-              <input type="date" value={addForm.to} onChange={e => setAddForm({ ...addForm, to: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
+              <label className="text-[10px] text-apple-gray-500">To Date</label>
+              <input type="date" value={addForm.to} onChange={e => setAddForm({ ...addForm, to: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
             </div>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[10px] text-gray-500">Reason</label>
-            <textarea value={addForm.reason} onChange={e => setAddForm({ ...addForm, reason: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[60px] resize-none" placeholder="Reason for leave..." />
+            <label className="text-[10px] text-apple-gray-500">Reason</label>
+            <textarea value={addForm.reason} onChange={e => setAddForm({ ...addForm, reason: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[60px] resize-none" placeholder="Reason for leave..." />
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={handleAdd} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Submit</button>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+            <button onClick={handleAdd} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Plus className="w-3 h-3 inline mr-1" /> Submit</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -191,10 +191,10 @@ export default function TrainersLeave() {
       <Modal open={modal?.type === 'confirm-approve'} onClose={() => setModal(null)} title="Approve Leave" size="sm">
         {modal?.data && (
           <div>
-            <p className="text-xs text-gray-400">Approve <span className="text-ydl-yellow font-medium">{modal.data.trainer}</span>'s {modal.data.type} ({formatDate(modal.data.from)} - {formatDate(modal.data.to)})?</p>
+            <p className="text-xs text-apple-gray-400">Approve <span className="text-apple-blue font-medium">{modal.data.trainer}</span>'s {modal.data.type} ({formatDate(modal.data.from)} - {formatDate(modal.data.to)})?</p>
             <div className="flex items-center gap-3 mt-4">
-              <button onClick={() => handleApprove(modal.data.id)} className="px-4 py-2 text-xs font-semibold text-white bg-emerald-500 rounded-lg hover:bg-emerald-600 transition-colors"><CheckCircle className="w-3 h-3 inline mr-1" /> Approve</button>
-              <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+              <button onClick={() => handleApprove(modal.data.id)} className="px-4 py-2 text-xs font-semibold text-[#1C1C1E] bg-emerald-500 rounded-lg hover:bg-emerald-600 transition-colors"><CheckCircle className="w-3 h-3 inline mr-1" /> Approve</button>
+              <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
             </div>
           </div>
         )}
@@ -203,10 +203,10 @@ export default function TrainersLeave() {
       <Modal open={modal?.type === 'confirm-reject'} onClose={() => setModal(null)} title="Reject Leave" size="sm">
         {modal?.data && (
           <div>
-            <p className="text-xs text-gray-400">Reject <span className="text-ydl-yellow font-medium">{modal.data.trainer}</span>'s {modal.data.type}?</p>
+            <p className="text-xs text-apple-gray-400">Reject <span className="text-apple-blue font-medium">{modal.data.trainer}</span>'s {modal.data.type}?</p>
             <div className="flex items-center gap-3 mt-4">
-              <button onClick={() => handleReject(modal.data.id)} className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors"><XCircle className="w-3 h-3 inline mr-1" /> Reject</button>
-              <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+              <button onClick={() => handleReject(modal.data.id)} className="px-4 py-2 text-xs font-semibold text-[#1C1C1E] bg-red-500 rounded-lg hover:bg-red-600 transition-colors"><XCircle className="w-3 h-3 inline mr-1" /> Reject</button>
+              <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
             </div>
           </div>
         )}
@@ -216,16 +216,16 @@ export default function TrainersLeave() {
         {modal?.data && (
           <div className="space-y-2 text-xs">
             <div className="grid grid-cols-2 gap-2">
-              <div><span className="text-gray-500">Trainer:</span> <span className="text-white">{modal.data.trainer}</span></div>
-              <div><span className="text-gray-500">Type:</span> <span className="text-white">{modal.data.type}</span></div>
-              <div><span className="text-gray-500">From:</span> <span className="text-white">{formatDate(modal.data.from)}</span></div>
-              <div><span className="text-gray-500">To:</span> <span className="text-white">{formatDate(modal.data.to)}</span></div>
-              <div><span className="text-gray-500">Days:</span> <span className="text-white">{modal.data.days}</span></div>
-              <div><span className="text-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
+              <div><span className="text-apple-gray-500">Trainer:</span> <span className="text-[#1C1C1E]">{modal.data.trainer}</span></div>
+              <div><span className="text-apple-gray-500">Type:</span> <span className="text-[#1C1C1E]">{modal.data.type}</span></div>
+              <div><span className="text-apple-gray-500">From:</span> <span className="text-[#1C1C1E]">{formatDate(modal.data.from)}</span></div>
+              <div><span className="text-apple-gray-500">To:</span> <span className="text-[#1C1C1E]">{formatDate(modal.data.to)}</span></div>
+              <div><span className="text-apple-gray-500">Days:</span> <span className="text-[#1C1C1E]">{modal.data.days}</span></div>
+              <div><span className="text-apple-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
             </div>
-            <div className="pt-2 border-t border-ydl-dark-border">
-              <span className="text-gray-500">Reason:</span>
-              <p className="text-white mt-0.5">{modal.data.reason}</p>
+            <div className="pt-2 border-t border-apple-gray-200">
+              <span className="text-apple-gray-500">Reason:</span>
+              <p className="text-[#1C1C1E] mt-0.5">{modal.data.reason}</p>
             </div>
           </div>
         )}

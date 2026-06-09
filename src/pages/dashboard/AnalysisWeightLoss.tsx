@@ -31,34 +31,34 @@ export default function AnalysisWeightLoss() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Weight Loss Tracking</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Monitor member weight loss progress.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Weight Loss Tracking</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Monitor member weight loss progress.</p>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Participants" value={totalParticipants} icon={Weight} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" index={0} />
-        <StatsCard label="Avg Loss (kg)" value={avgLoss.toFixed(1)} icon={TrendingDown} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={1} />
+        <StatsCard label="Total Participants" value={totalParticipants} icon={Weight} color="from-apple-blue/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-apple-blue" index={0} />
+        <StatsCard label="Avg Loss (kg)" value={avgLoss.toFixed(1)} icon={TrendingDown} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={1} />
         <StatsCard label="Max Loss (kg)" value={maxLoss} icon={ArrowDown} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={2} />
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <Table
           columns={[
-            { header: 'Name', accessor: r => <span className="text-white font-medium">{r.name}</span> },
+            { header: 'Name', accessor: r => <span className="text-[#1C1C1E] font-medium">{r.name}</span> },
             { header: 'Start Weight', accessor: r => `${r.start} kg` },
-            { header: 'Current', accessor: r => <span className="text-blue-400 font-medium">{r.current} kg</span> },
+            { header: 'Current', accessor: r => <span className="text-[#007AFF] font-medium">{r.current} kg</span> },
             { header: 'Target', accessor: r => `${r.target} kg` },
             { header: 'Lost', accessor: r => <span className="text-emerald-400 font-medium">{r.lost} kg</span> },
-            { header: '%', accessor: r => <span className="text-ydl-yellow font-medium">{r.pct}%</span> },
+            { header: '%', accessor: r => <span className="text-apple-blue font-medium">{r.pct}%</span> },
           ]}
           data={weightData}
           keyExtractor={r => r.name}

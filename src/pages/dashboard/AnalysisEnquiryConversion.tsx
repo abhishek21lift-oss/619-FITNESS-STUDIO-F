@@ -35,16 +35,16 @@ export default function AnalysisEnquiryConversion() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Enquiry Conversion</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Analyse enquiry-to-member conversion rates.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Enquiry Conversion</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Analyse enquiry-to-member conversion rates.</p>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="Staff Member">
           <FilterSelect options={staffOptions} value={staff} onChange={e => setStaff(e.target.value)} />
@@ -52,36 +52,36 @@ export default function AnalysisEnquiryConversion() {
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Enquiries" value={totalEnquiries} icon={MessageSquare} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" index={0} />
+        <StatsCard label="Total Enquiries" value={totalEnquiries} icon={MessageSquare} color="from-apple-blue/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-apple-blue" index={0} />
         <StatsCard label="Converted" value={totalConverted} icon={UserCheck} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
-        <StatsCard label="Conversion Rate" value={`${overallRate}%`} icon={Percent} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={2} />
+        <StatsCard label="Conversion Rate" value={`${overallRate}%`} icon={Percent} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={2} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Conversion Overview</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Conversion Overview</h2>
           <div className="h-40 flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie data={pieData} cx="50%" cy="50%" innerRadius={40} outerRadius={70} dataKey="value" paddingAngle={4}>
                   {pieData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                 </Pie>
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Staff Conversion Rates</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Staff Conversion Rates</h2>
           <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={staffData} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis dataKey="name" tick={{ fill: '#9CA3AF', fontSize: 8 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} unit="%" />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
-                <Bar dataKey="rate" fill="#D4AF34" radius={[4, 4, 0, 0]} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#007AFF' }} />
+                <Bar dataKey="rate" fill="#007AFF" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -91,10 +91,10 @@ export default function AnalysisEnquiryConversion() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <Table
           columns={[
-            { header: 'Staff Name', accessor: r => <span className="text-white font-medium">{r.name}</span> },
+            { header: 'Staff Name', accessor: r => <span className="text-[#1C1C1E] font-medium">{r.name}</span> },
             { header: 'Enquiries', accessor: r => r.enquiries },
             { header: 'Converted', accessor: r => <span className="text-emerald-400 font-medium">{r.converted}</span> },
-            { header: 'Conversion Rate', accessor: r => <span className="text-ydl-yellow font-medium">{r.rate}%</span> },
+            { header: 'Conversion Rate', accessor: r => <span className="text-apple-blue font-medium">{r.rate}%</span> },
           ]}
           data={staffData}
           keyExtractor={r => r.name}

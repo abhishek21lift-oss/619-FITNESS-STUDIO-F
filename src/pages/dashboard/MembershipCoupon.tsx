@@ -81,39 +81,39 @@ export default function MembershipCoupon() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-bold text-white">Coupon Management</h1><p className="text-xs text-gray-500 mt-0.5">Create and manage promotional coupons.</p></div>
-        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><Plus className="w-3.5 h-3.5" /> Add Coupon</button>
+        <div><h1 className="text-lg font-bold text-[#1C1C1E]">Coupon Management</h1><p className="text-xs text-apple-gray-500 mt-0.5">Create and manage promotional coupons.</p></div>
+        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity"><Plus className="w-3.5 h-3.5" /> Add Coupon</button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Coupons" value={totalCoupons} icon={Tag} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Total Coupons" value={totalCoupons} icon={Tag} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Active" value={activeCoupons} icon={Check} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
         <StatsCard label="Redeemed Total" value={redeemedCoupons} icon={Copy} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {coupons.map((c, i) => (
-          <motion.div key={c.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className={`rounded-xl border ${c.active ? 'border-ydl-dark-border' : 'border-red-500/20'} bg-white/[0.02] p-4`}>
+          <motion.div key={c.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className={`rounded-xl border ${c.active ? 'border-apple-gray-200' : 'border-red-500/20'} bg-white/[0.02] p-4`}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <Tag className="w-4 h-4 text-ydl-yellow" />
-                <span className="text-sm font-bold text-white font-mono">{c.code}</span>
+                <Tag className="w-4 h-4 text-apple-blue" />
+                <span className="text-sm font-bold text-[#1C1C1E] font-mono">{c.code}</span>
               </div>
-              <button onClick={() => handleCopy(c.code)} className="p-1 text-gray-500 hover:text-ydl-yellow transition-colors" title="Copy code">
+              <button onClick={() => handleCopy(c.code)} className="p-1 text-apple-gray-500 hover:text-apple-blue transition-colors" title="Copy code">
                 {copiedCode === c.code ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
             </div>
             <div className="mt-3 space-y-1">
-              <p className="text-lg font-bold text-ydl-yellow">{displayDiscount(c)}</p>
-              <p className="text-[10px] text-gray-500">{c.discountType} · Valid till {c.validUntil}</p>
+              <p className="text-lg font-bold text-apple-blue">{displayDiscount(c)}</p>
+              <p className="text-[10px] text-apple-gray-500">{c.discountType} · Valid till {c.validUntil}</p>
               <div className="flex items-center gap-2 mt-2">
                 <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
                   <div className="h-full rounded-full bg-ydl-yellow/60" style={{ width: `${Math.min((c.uses / c.maxUses) * 100, 100)}%` }} />
                 </div>
-                <span className="text-[9px] text-gray-500">{c.uses}/{c.maxUses}</span>
+                <span className="text-[9px] text-apple-gray-500">{c.uses}/{c.maxUses}</span>
               </div>
             </div>
-            <div className="flex items-center justify-between mt-3 pt-3 border-t border-ydl-dark-border">
+            <div className="flex items-center justify-between mt-3 pt-3 border-t border-apple-gray-200">
               <span className={`text-[10px] font-medium px-2 py-0.5 rounded-md ${c.active ? 'text-emerald-400 bg-emerald-500/10' : 'text-red-400 bg-red-500/10'}`}>{c.active ? 'Active' : 'Inactive'}</span>
               <ActionMenu
                 label="Manage"
@@ -132,40 +132,40 @@ export default function MembershipCoupon() {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Coupon Code</label>
-              <input value={form.code} onChange={e => setForm(prev => ({ ...prev, code: e.target.value.toUpperCase() }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. SUMMER25" />
+              <label className="text-[11px] font-medium text-apple-gray-400">Coupon Code</label>
+              <input value={form.code} onChange={e => setForm(prev => ({ ...prev, code: e.target.value.toUpperCase() }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. SUMMER25" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Discount Type</label>
-              <select value={form.discountType} onChange={e => setForm(prev => ({ ...prev, discountType: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+              <label className="text-[11px] font-medium text-apple-gray-400">Discount Type</label>
+              <select value={form.discountType} onChange={e => setForm(prev => ({ ...prev, discountType: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
                 <option value="Percentage">Percentage (%)</option>
                 <option value="Flat">Flat (₹)</option>
                 <option value="Freebie">Freebie</option>
               </select>
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Discount Value</label>
-              <input value={form.discount} onChange={e => setForm(prev => ({ ...prev, discount: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder={form.discountType === 'Percentage' ? 'e.g. 25' : 'e.g. 500'} />
+              <label className="text-[11px] font-medium text-apple-gray-400">Discount Value</label>
+              <input value={form.discount} onChange={e => setForm(prev => ({ ...prev, discount: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder={form.discountType === 'Percentage' ? 'e.g. 25' : 'e.g. 500'} />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Max Uses</label>
-              <input type="number" value={form.maxUses} onChange={e => setForm(prev => ({ ...prev, maxUses: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="100" />
+              <label className="text-[11px] font-medium text-apple-gray-400">Max Uses</label>
+              <input type="number" value={form.maxUses} onChange={e => setForm(prev => ({ ...prev, maxUses: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="100" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Valid Until</label>
-              <input type="date" value={form.validUntil} onChange={e => setForm(prev => ({ ...prev, validUntil: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
+              <label className="text-[11px] font-medium text-apple-gray-400">Valid Until</label>
+              <input type="date" value={form.validUntil} onChange={e => setForm(prev => ({ ...prev, validUntil: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Status</label>
-              <label className="flex items-center gap-2 h-7 text-xs text-gray-300 cursor-pointer">
+              <label className="text-[11px] font-medium text-apple-gray-400">Status</label>
+              <label className="flex items-center gap-2 h-7 text-xs text-apple-gray-600 cursor-pointer">
                 <input type="checkbox" checked={form.active} onChange={e => setForm(prev => ({ ...prev, active: e.target.checked }))} className="w-3.5 h-3.5 accent-ydl-yellow" />
                 Active
               </label>
             </div>
           </div>
-          <div className="flex items-center gap-3 pt-3 border-t border-ydl-dark-border">
-            <button onClick={handleSave} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">{editCoupon ? 'Update Coupon' : 'Create Coupon'}</button>
-            <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors">Cancel</button>
+          <div className="flex items-center gap-3 pt-3 border-t border-apple-gray-200">
+            <button onClick={handleSave} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity">{editCoupon ? 'Update Coupon' : 'Create Coupon'}</button>
+            <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 hover:text-[#1C1C1E] transition-colors">Cancel</button>
           </div>
         </div>
       </Modal>

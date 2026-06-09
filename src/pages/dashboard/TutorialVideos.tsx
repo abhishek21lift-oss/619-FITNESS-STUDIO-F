@@ -26,7 +26,7 @@ const initialVideos: TutorialVideo[] = [
 ]
 
 const bgColors = [
-  'from-blue-500/20 to-blue-600/5',
+  'from-[#007AFF]/10 to-[#007AFF]/5',
   'from-emerald-500/20 to-emerald-600/5',
   'from-purple-500/20 to-purple-600/5',
   'from-rose-500/20 to-rose-600/5',
@@ -80,43 +80,43 @@ export default function TutorialVideos() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-bold text-white">Tutorial Videos</h1><p className="text-xs text-gray-500 mt-0.5">Helpful guides for using the system.</p></div>
-        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Upload Video</button>
+        <div><h1 className="text-lg font-bold text-[#1C1C1E]">Tutorial Videos</h1><p className="text-xs text-apple-gray-500 mt-0.5">Helpful guides for using the system.</p></div>
+        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Upload Video</button>
       </div>
 
       <div className="flex items-center gap-3">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-8 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Search videos..." />
-          {search && <X className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-500 cursor-pointer hover:text-white" onClick={() => setSearch('')} />}
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-apple-gray-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg pl-9 pr-8 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Search videos..." />
+          {search && <X className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 text-apple-gray-500 cursor-pointer hover:text-[#1C1C1E]" onClick={() => setSearch('')} />}
         </div>
         <div className="flex gap-1.5">
           {['All', ...categories].map(c => (
-            <button key={c} onClick={() => setCategory(c)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${category === c ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-500 hover:text-gray-300'}`}>{c}</button>
+            <button key={c} onClick={() => setCategory(c)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${category === c ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue' : 'bg-white/5 border-apple-gray-200 text-apple-gray-500 hover:text-apple-gray-600'}`}>{c}</button>
           ))}
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filtered.map((v, i) => (
-          <motion.div key={v.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden group cursor-pointer" onClick={() => { setPlayingVideo(v); setPlayOpen(true) }}>
+          <motion.div key={v.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden group cursor-pointer" onClick={() => { setPlayingVideo(v); setPlayOpen(true) }}>
             <div className={`aspect-video bg-gradient-to-br ${bgColors[i % bgColors.length]} flex items-center justify-center relative`}>
-              <Video className="w-10 h-10 text-gray-600" />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <Video className="w-10 h-10 text-apple-gray-400" />
+              <div className="absolute inset-0 bg-[#F5F5F7]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <div className="w-12 h-12 rounded-full bg-ydl-yellow/80 flex items-center justify-center"><Play className="w-5 h-5 text-black ml-0.5" /></div>
               </div>
-              <span className="absolute bottom-2 right-2 px-2 py-0.5 text-[9px] font-medium text-white bg-black/60 rounded-md flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" />{v.duration}</span>
+              <span className="absolute bottom-2 right-2 px-2 py-0.5 text-[9px] font-medium text-[#1C1C1E] bg-[#F5F5F7]/60 rounded-md flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" />{v.duration}</span>
             </div>
             <div className="p-3">
               <div className="flex items-start justify-between">
-                <h3 className="text-xs font-semibold text-white flex-1">{v.title}</h3>
+                <h3 className="text-xs font-semibold text-[#1C1C1E] flex-1">{v.title}</h3>
                 <ActionMenu actions={[
                   { label: 'Edit', icon: Edit3, onClick: () => openEdit(v) },
                   { label: 'Delete', icon: Trash2, onClick: () => removeVideo(v.id), color: 'text-red-400' },
                 ]} />
               </div>
-              <p className="text-[9px] text-gray-500 mt-1 line-clamp-2">{v.description}</p>
-              <span className="inline-block mt-2 text-[9px] font-medium text-ydl-yellow bg-ydl-yellow/10 px-1.5 py-0.5 rounded">{v.category}</span>
+              <p className="text-[9px] text-apple-gray-500 mt-1 line-clamp-2">{v.description}</p>
+              <span className="inline-block mt-2 text-[9px] font-medium text-apple-blue bg-apple-blue/10 px-1.5 py-0.5 rounded">{v.category}</span>
             </div>
           </motion.div>
         ))}
@@ -128,15 +128,15 @@ export default function TutorialVideos() {
             <div className={`w-full aspect-video rounded-xl bg-gradient-to-br ${bgColors[videos.indexOf(playingVideo) % bgColors.length]} flex items-center justify-center mb-3`}>
               <div className="text-center">
                 <div className="w-16 h-16 rounded-full bg-ydl-yellow/80 flex items-center justify-center mx-auto mb-2"><Play className="w-7 h-7 text-black ml-0.5" /></div>
-                <p className="text-xs text-gray-400">{playingVideo.duration}</p>
+                <p className="text-xs text-apple-gray-400">{playingVideo.duration}</p>
               </div>
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-white">{playingVideo.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5">{playingVideo.description}</p>
+                <p className="text-sm font-semibold text-[#1C1C1E]">{playingVideo.title}</p>
+                <p className="text-xs text-apple-gray-500 mt-0.5">{playingVideo.description}</p>
               </div>
-              <span className="text-[10px] font-medium text-ydl-yellow bg-ydl-yellow/10 px-2 py-0.5 rounded-md">{playingVideo.category}</span>
+              <span className="text-[10px] font-medium text-apple-blue bg-apple-blue/10 px-2 py-0.5 rounded-md">{playingVideo.category}</span>
             </div>
           </div>
         )}
@@ -145,34 +145,34 @@ export default function TutorialVideos() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editVideo ? 'Edit Video' : 'Upload Video'} size="md">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Video Title</label>
-            <input value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="How to Use the Admin Dashboard" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Video Title</label>
+            <input value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="How to Use the Admin Dashboard" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Duration</label>
-              <input value={form.duration} onChange={e => setForm(p => ({ ...p, duration: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="12:34" />
+              <label className="text-[10px] font-medium text-apple-gray-400">Duration</label>
+              <input value={form.duration} onChange={e => setForm(p => ({ ...p, duration: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="12:34" />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Category</label>
-              <select value={form.category} onChange={e => setForm(p => ({ ...p, category: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+              <label className="text-[10px] font-medium text-apple-gray-400">Category</label>
+              <select value={form.category} onChange={e => setForm(p => ({ ...p, category: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
                 {categories.map(c => <option key={c}>{c}</option>)}
               </select>
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Description</label>
-            <textarea value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} rows={2} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 resize-none" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Description</label>
+            <textarea value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} rows={2} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 resize-none" />
           </div>
-          <div className="border-2 border-dashed border-ydl-dark-border rounded-lg p-6 text-center hover:border-ydl-yellow/30 transition-colors cursor-pointer">
-            <Video className="w-8 h-8 text-gray-600 mx-auto mb-1" />
-            <p className="text-[10px] text-gray-500">Click to upload video file</p>
-            <p className="text-[8px] text-gray-600">MP4, WebM, or OGG (max 100MB)</p>
+          <div className="border-2 border-dashed border-apple-gray-200 rounded-lg p-6 text-center hover:border-ydl-yellow/30 transition-colors cursor-pointer">
+            <Video className="w-8 h-8 text-apple-gray-400 mx-auto mb-1" />
+            <p className="text-[10px] text-apple-gray-500">Click to upload video file</p>
+            <p className="text-[8px] text-apple-gray-400">MP4, WebM, or OGG (max 100MB)</p>
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleSave} disabled={!form.title} className="flex-1 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 disabled:opacity-40">{editVideo ? 'Update' : 'Upload'} Video</button>
-          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleSave} disabled={!form.title} className="flex-1 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 disabled:opacity-40">{editVideo ? 'Update' : 'Upload'} Video</button>
+          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
     </div>

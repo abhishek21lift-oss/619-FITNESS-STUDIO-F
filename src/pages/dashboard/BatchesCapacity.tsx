@@ -34,14 +34,14 @@ export default function BatchesCapacity() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Batch Capacity</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Monitor class capacity and availability.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Batch Capacity</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Monitor class capacity and availability.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-        <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
-          <p className="text-[10px] text-gray-500">Total Batches</p>
-          <p className="text-xl font-bold text-white mt-1">{batches.length}</p>
+        <div className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-4">
+          <p className="text-[10px] text-apple-gray-500">Total Batches</p>
+          <p className="text-xl font-bold text-[#1C1C1E] mt-1">{batches.length}</p>
         </div>
         <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
           <p className="text-[10px] text-emerald-400">Available</p>
@@ -57,16 +57,16 @@ export default function BatchesCapacity() {
         </div>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-ydl-dark-border">
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Class / Batch</th>
-              <th className="text-right px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Capacity</th>
-              <th className="text-right px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Booked</th>
-              <th className="text-right px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Available</th>
-              <th className="text-right px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Waitlist</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <tr className="border-b border-apple-gray-200">
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Class / Batch</th>
+              <th className="text-right px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Capacity</th>
+              <th className="text-right px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Booked</th>
+              <th className="text-right px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Available</th>
+              <th className="text-right px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Waitlist</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -74,10 +74,10 @@ export default function BatchesCapacity() {
               const available = b.capacity - b.booked
               const pct = (b.booked / b.capacity) * 100
               return (
-                <tr key={b.id} className="border-b border-ydl-dark-border/50 last:border-0 hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3 text-xs text-white">{b.name}</td>
-                  <td className="px-4 py-3 text-xs text-white text-right">{b.capacity}</td>
-                  <td className="px-4 py-3 text-xs text-white text-right">{b.booked}</td>
+                <tr key={b.id} className="border-b border-apple-gray-200/50 last:border-0 hover:bg-white/[0.02] transition-colors">
+                  <td className="px-4 py-3 text-xs text-[#1C1C1E]">{b.name}</td>
+                  <td className="px-4 py-3 text-xs text-[#1C1C1E] text-right">{b.capacity}</td>
+                  <td className="px-4 py-3 text-xs text-[#1C1C1E] text-right">{b.booked}</td>
                   <td className={`px-4 py-3 text-xs text-right ${available > 0 ? 'text-emerald-400' : 'text-red-400'}`}>{available}</td>
                   <td className="px-4 py-3 text-xs text-yellow-400 text-right">{b.waitlist || '-'}</td>
                   <td className="px-4 py-3">

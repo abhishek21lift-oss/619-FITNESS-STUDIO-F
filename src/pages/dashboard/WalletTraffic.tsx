@@ -40,33 +40,33 @@ export default function WalletTraffic() {
 
   return (
     <div className="p-4 lg:p-6 space-y-5">
-      <div><h1 className="text-lg font-bold text-white">Wallet Traffic</h1><p className="text-xs text-gray-500 mt-0.5">Activity traffic and revenue tracking.</p></div>
+      <div><h1 className="text-lg font-bold text-[#1C1C1E]">Wallet Traffic</h1><p className="text-xs text-apple-gray-500 mt-0.5">Activity traffic and revenue tracking.</p></div>
 
       <div className="grid grid-cols-3 gap-3">
         <StatsCard label="Total Revenue" value={`₹${totalRevenue.toLocaleString('en-IN')}`} icon={IndianRupee} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
-        <StatsCard label="Total Activities" value={totalActivities} icon={Activity} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Total Activities" value={totalActivities} icon={Activity} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Active Users" value={activeUsers} icon={Users} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" />
       </div>
 
       <div className="flex items-center gap-3 flex-wrap">
-        <div className="flex items-center gap-2 bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 flex-1 max-w-xs">
-          <Search className="w-3.5 h-3.5 text-gray-500" />
-          <input value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent text-xs text-white placeholder-gray-600 focus:outline-none w-full" placeholder="Search member or activity..." />
+        <div className="flex items-center gap-2 bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 flex-1 max-w-xs">
+          <Search className="w-3.5 h-3.5 text-apple-gray-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none w-full" placeholder="Search member or activity..." />
         </div>
         <div className="flex items-center gap-2">
-          <Calendar className="w-3.5 h-3.5 text-gray-500" />
-          <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
-          <span className="text-[10px] text-gray-500">to</span>
-          <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
+          <Calendar className="w-3.5 h-3.5 text-apple-gray-500" />
+          <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
+          <span className="text-[10px] text-apple-gray-500">to</span>
+          <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
         </div>
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <Table
           columns={[
-            { header: 'Member', accessor: (r: TrafficRow) => <span className="text-white font-medium">{r.memberName}</span> },
+            { header: 'Member', accessor: (r: TrafficRow) => <span className="text-[#1C1C1E] font-medium">{r.memberName}</span> },
             { header: 'Activity', accessor: (r: TrafficRow) => <span>{r.activity}</span> },
-            { header: 'Amount', accessor: (r: TrafficRow) => <span className="text-ydl-yellow font-medium">₹{r.amount.toLocaleString('en-IN')}</span> },
+            { header: 'Amount', accessor: (r: TrafficRow) => <span className="text-apple-blue font-medium">₹{r.amount.toLocaleString('en-IN')}</span> },
             { header: 'Date', accessor: (r: TrafficRow) => <span>{r.date}</span> },
             { header: 'Status', accessor: (r: TrafficRow) => (
               <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${r.status === 'Completed' ? 'text-emerald-400 bg-emerald-500/10' : r.status === 'Pending' ? 'text-amber-400 bg-amber-500/10' : 'text-red-400 bg-red-500/10'}`}>{r.status}</span>

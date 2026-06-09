@@ -33,8 +33,8 @@ export default function AnalysisProfitLoss() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Profit & Loss</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Revenue vs expense analysis and net profit tracking.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Profit & Loss</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Revenue vs expense analysis and net profit tracking.</p>
       </div>
 
       <FilterBar>
@@ -49,31 +49,31 @@ export default function AnalysisProfitLoss() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <StatsCard label="Total Revenue" value={`₹ ${totalRev.toLocaleString()}`} icon={TrendingUp} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={0} />
         <StatsCard label="Total Expense" value={`₹ ${totalExp.toLocaleString()}`} icon={TrendingDown} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" index={1} />
-        <StatsCard label="Net Profit" value={`₹ ${netProfit.toLocaleString()}`} icon={DollarSign} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text={netColor} index={2} />
+        <StatsCard label="Net Profit" value={`₹ ${netProfit.toLocaleString()}`} icon={DollarSign} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text={netColor} index={2} />
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-        <h2 className="text-xs font-semibold text-white mb-4">Revenue vs Expense</h2>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Revenue vs Expense</h2>
         <div className="h-44">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={months.map((m, i) => ({ month: m, Revenue: revenueData[i], Expense: expenseData[i] }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
               <XAxis dataKey="month" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, undefined]} />
+              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#007AFF' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, undefined]} />
               <Bar dataKey="Revenue" fill="#10B981" radius={[2, 2, 0, 0]} />
               <Bar dataKey="Expense" fill="#EF4444" radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-ydl-dark-border">
-          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-emerald-500/60" /><span className="text-[10px] text-gray-400">Revenue</span></div>
-          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-red-500/60" /><span className="text-[10px] text-gray-400">Expense</span></div>
+        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-apple-gray-200">
+          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-emerald-500/60" /><span className="text-[10px] text-apple-gray-400">Revenue</span></div>
+          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-red-500/60" /><span className="text-[10px] text-apple-gray-400">Expense</span></div>
         </div>
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-        <h2 className="text-xs font-semibold text-white mb-3">Monthly Breakdown</h2>
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-3">Monthly Breakdown</h2>
         <Table
           columns={[
             { header: 'Month', accessor: r => r.month },

@@ -4,13 +4,13 @@
 
 @layer base {
   body {
-    @apply bg-[#0A0A0A] text-white font-body antialiased;
+    @apply bg-[#F5F5F7] text-[#1C1C1E] font-body antialiased;
   }
   ::selection {
-    @apply bg-ydl-yellow/30 text-white;
+    @apply bg-[#007AFF]/20 text-[#1C1C1E];
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-ydl-yellow;
+    @apply outline-2 outline-offset-2 outline-[#007AFF];
   }
 }
 
@@ -22,6 +22,6 @@
     @apply bg-transparent;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-ydl-yellow/20 hover:bg-ydl-yellow/40;
+    @apply rounded-full bg-[#D2D2D7] hover:bg-[#AEAEB2];
   }
 }

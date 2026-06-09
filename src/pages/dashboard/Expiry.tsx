@@ -27,11 +27,11 @@ export default function Expiry() {
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+      <h1 className="text-2xl font-bold text-[#1C1C1E] flex items-center gap-3">
         <UserMinus className="w-6 h-6 text-orange-400" /> Membership Expiry
       </h1>
       {loading ? (
-        <div className="flex items-center gap-2 text-ydl-muted"><Loader2 className="w-5 h-5 animate-spin" /> Loading...</div>
+        <div className="flex items-center gap-2 text-apple-gray-400"><Loader2 className="w-5 h-5 animate-spin" /> Loading...</div>
       ) : (
         <>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
@@ -41,18 +41,18 @@ export default function Expiry() {
               { label: 'Expiring Soon (30d)', value: members.filter(m => getDaysLeft(m.endDate) > 0).length, color: 'text-yellow-400' },
             ].map((s, i) => (
               <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                className="rounded-2xl border border-ydl-dark-border bg-ydl-card-gradient p-4">
+                className="rounded-2xl border border-apple-gray-200 bg-white p-4">
                 <div className="flex items-start justify-between">
-                  <div><p className="text-sm text-ydl-muted">{s.label}</p><p className={`text-xl font-bold mt-1 ${s.color}`}>{s.value}</p></div>
+                  <div><p className="text-sm text-apple-gray-400">{s.label}</p><p className={`text-xl font-bold mt-1 ${s.color}`}>{s.value}</p></div>
                   <AlertTriangle className={`w-6 h-6 ${s.color} opacity-60`} />
                 </div>
               </motion.div>
             ))}
           </div>
-          <div className="overflow-x-auto rounded-2xl border border-ydl-dark-border">
+          <div className="overflow-x-auto rounded-2xl border border-apple-gray-200">
             <table className="w-full text-sm">
-              <thead className="bg-ydl-card-gradient">
-                <tr className="text-ydl-muted text-left">
+              <thead className="bg-white">
+                <tr className="text-apple-gray-400 text-left">
                   <th className="p-3 font-medium">Member</th>
                   <th className="p-3 font-medium">Plan</th>
                   <th className="p-3 font-medium">End Date</th>
@@ -60,14 +60,14 @@ export default function Expiry() {
                   <th className="p-3 font-medium">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-ydl-dark-border">
+              <tbody className="divide-y divide-apple-gray-200">
                 {members.map((m, i) => {
                   const days = getDaysLeft(m.endDate)
                   return (
-                    <motion.tr key={m.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/5 transition-colors">
-                      <td className="p-3 text-white font-medium">{m.name}</td>
-                      <td className="p-3 text-ydl-muted">{m.plan}</td>
-                      <td className="p-3 text-ydl-muted">{m.endDate}</td>
+                    <motion.tr key={m.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }} className="hover:bg-apple-gray-100 transition-colors">
+                      <td className="p-3 text-[#1C1C1E] font-medium">{m.name}</td>
+                      <td className="p-3 text-apple-gray-400">{m.plan}</td>
+                      <td className="p-3 text-apple-gray-400">{m.endDate}</td>
                       <td className="p-3">
                         <span className={`font-semibold ${
                           days < 0 ? 'text-red-400' : days <= 7 ? 'text-orange-400' : 'text-yellow-400'
@@ -84,7 +84,7 @@ export default function Expiry() {
                   )
                 })}
                 {members.length === 0 && (
-                  <tr><td colSpan={5} className="p-6 text-center text-ydl-muted">No members expiring within 30 days</td></tr>
+                  <tr><td colSpan={5} className="p-6 text-center text-apple-gray-400">No members expiring within 30 days</td></tr>
                 )}
               </tbody>
             </table>

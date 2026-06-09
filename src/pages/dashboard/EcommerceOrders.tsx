@@ -26,7 +26,7 @@ const initialOrders: Order[] = [
 
 const statusColors: Record<string, string> = {
   Pending: 'text-amber-400 bg-amber-500/10',
-  Confirmed: 'text-blue-400 bg-blue-500/10',
+  Confirmed: 'text-[#007AFF] bg-blue-500/10',
   Shipped: 'text-purple-400 bg-purple-500/10',
   Delivered: 'text-emerald-400 bg-emerald-500/10',
   Cancelled: 'text-red-400 bg-red-500/10',
@@ -56,39 +56,39 @@ export default function EcommerceOrders() {
 
   return (
     <div className="p-4 lg:p-6 space-y-5">
-      <div><h1 className="text-lg font-bold text-white">Orders</h1><p className="text-xs text-gray-500 mt-0.5">Manage e-commerce orders and shipments.</p></div>
+      <div><h1 className="text-lg font-bold text-[#1C1C1E]">Orders</h1><p className="text-xs text-apple-gray-500 mt-0.5">Manage e-commerce orders and shipments.</p></div>
 
       <div className="grid grid-cols-3 gap-3">
-        <StatsCard label="Total Orders" value={totalOrders} icon={Package} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Total Orders" value={totalOrders} icon={Package} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Pending" value={pendingOrders} icon={Clock} color="from-amber-500/20 to-amber-600/5" border="border-amber-500/30" text="text-amber-400" />
         <StatsCard label="Total Revenue" value={formatAmount(totalRevenue)} icon={IndianRupee} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
       </div>
 
       <div className="flex items-center gap-3 flex-wrap">
-        <div className="flex items-center gap-2 bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 flex-1 max-w-xs">
-          <Search className="w-3.5 h-3.5 text-gray-500" />
-          <input value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent text-xs text-white placeholder-gray-600 focus:outline-none w-full" placeholder="Search orders, customers..." />
+        <div className="flex items-center gap-2 bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 flex-1 max-w-xs">
+          <Search className="w-3.5 h-3.5 text-apple-gray-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} className="bg-transparent text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none w-full" placeholder="Search orders, customers..." />
         </div>
         <div className="flex items-center gap-2">
-          <Calendar className="w-3.5 h-3.5 text-gray-500" />
-          <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
-          <span className="text-[10px] text-gray-500">to</span>
-          <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
+          <Calendar className="w-3.5 h-3.5 text-apple-gray-500" />
+          <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
+          <span className="text-[10px] text-apple-gray-500">to</span>
+          <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
         </div>
       </div>
 
       <div className="flex gap-1.5">
         {statusFilters.map(s => (
-          <button key={s} onClick={() => setStatusFilter(s)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${statusFilter === s ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-500 hover:text-gray-300'}`}>{s}</button>
+          <button key={s} onClick={() => setStatusFilter(s)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${statusFilter === s ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue' : 'bg-white/5 border-apple-gray-200 text-apple-gray-500 hover:text-apple-gray-600'}`}>{s}</button>
         ))}
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <Table
           columns={[
-            { header: 'Order #', accessor: (r: Order) => <span className="text-ydl-yellow font-mono font-medium">{r.id}</span> },
+            { header: 'Order #', accessor: (r: Order) => <span className="text-apple-blue font-mono font-medium">{r.id}</span> },
             { header: 'Date', accessor: (r: Order) => <span>{r.date}</span> },
-            { header: 'Customer', accessor: (r: Order) => <span className="text-white font-medium">{r.customer}</span> },
+            { header: 'Customer', accessor: (r: Order) => <span className="text-[#1C1C1E] font-medium">{r.customer}</span> },
             { header: 'Product', accessor: (r: Order) => <span>{r.product}</span> },
             { header: 'Qty', accessor: (r: Order) => <span className="text-center">{r.qty}</span> },
             { header: 'Total', accessor: (r: Order) => <span className="font-medium">₹{r.total.toLocaleString('en-IN')}</span> },

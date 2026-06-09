@@ -78,10 +78,10 @@ export default function AnalysisExpense() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Expense Analysis</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Track and categorize business expenses.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Expense Analysis</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Track and categorize business expenses.</p>
         </div>
-        <button onClick={() => setAddOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">
+        <button onClick={() => setAddOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-apple-blue/10 border border-ydl-yellow/30 text-apple-blue rounded-lg hover:bg-apple-blue/20 transition-all">
           <Plus className="w-3 h-3" /> Add Expense
         </button>
       </div>
@@ -91,10 +91,10 @@ export default function AnalysisExpense() {
           <FilterSelect options={categoryOptions} value={catFilter} onChange={e => setCatFilter(e.target.value)} />
         </FilterField>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
       </FilterBar>
 
@@ -105,15 +105,15 @@ export default function AnalysisExpense() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Category Breakdown</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Category Breakdown</h2>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={categories} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis type="number" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
                 <YAxis type="category" dataKey="name" tick={{ fill: '#D1D5DB', fontSize: 11 }} axisLine={false} tickLine={false} width={80} />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#007AFF' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
                 <Bar dataKey="amount" fill="#EF4444" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -122,8 +122,8 @@ export default function AnalysisExpense() {
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xs font-semibold text-white">Expense Records</h2>
-            <span className="text-[10px] text-gray-500">{filteredExpenses.length} entries</span>
+            <h2 className="text-xs font-semibold text-[#1C1C1E]">Expense Records</h2>
+            <span className="text-[10px] text-apple-gray-500">{filteredExpenses.length} entries</span>
           </div>
           <div className="max-h-64 overflow-y-auto">
             <Table
@@ -131,7 +131,7 @@ export default function AnalysisExpense() {
                 { header: 'Category', accessor: r => r.category },
                 { header: 'Amount', accessor: r => <span className="text-red-400 font-medium">₹{r.amount.toLocaleString()}</span> },
                 { header: 'Date', accessor: r => r.date },
-                { header: 'Note', accessor: r => <span className="text-gray-500 text-[10px]">{r.note}</span> },
+                { header: 'Note', accessor: r => <span className="text-apple-gray-500 text-[10px]">{r.note}</span> },
                 { header: '', accessor: r => (
                   <button onClick={() => handleDelete(r.id)} className="text-red-400/50 hover:text-red-400 transition-colors">
                     <Trash2 className="w-3 h-3" />
@@ -148,22 +148,22 @@ export default function AnalysisExpense() {
       <Modal open={addOpen} onClose={() => setAddOpen(false)} title="Add Expense" size="md">
         <div className="space-y-3">
           <div>
-            <label className="text-[10px] font-medium text-gray-500 block mb-1">Category</label>
+            <label className="text-[10px] font-medium text-apple-gray-500 block mb-1">Category</label>
             <FilterSelect options={['Rent', 'Utilities', 'Staff Salary', 'Equipment', 'Marketing', 'Other']} value={newCategory} onChange={e => setNewCategory(e.target.value)} />
           </div>
           <div>
-            <label className="text-[10px] font-medium text-gray-500 block mb-1">Amount (₹)</label>
-            <input type="number" value={newAmount} onChange={e => setNewAmount(e.target.value)} placeholder="0" className="w-full h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/30" />
+            <label className="text-[10px] font-medium text-apple-gray-500 block mb-1">Amount (₹)</label>
+            <input type="number" value={newAmount} onChange={e => setNewAmount(e.target.value)} placeholder="0" className="w-full h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/30" />
           </div>
           <div>
-            <label className="text-[10px] font-medium text-gray-500 block mb-1">Date</label>
-            <input type="date" value={newDate} onChange={e => setNewDate(e.target.value)} className="w-full h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+            <label className="text-[10px] font-medium text-apple-gray-500 block mb-1">Date</label>
+            <input type="date" value={newDate} onChange={e => setNewDate(e.target.value)} className="w-full h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
           </div>
           <div>
-            <label className="text-[10px] font-medium text-gray-500 block mb-1">Note</label>
-            <input type="text" value={newNote} onChange={e => setNewNote(e.target.value)} placeholder="Optional note" className="w-full h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/30" />
+            <label className="text-[10px] font-medium text-apple-gray-500 block mb-1">Note</label>
+            <input type="text" value={newNote} onChange={e => setNewNote(e.target.value)} placeholder="Optional note" className="w-full h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/30" />
           </div>
-          <button onClick={handleAdd} className="w-full py-2 text-[11px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">
+          <button onClick={handleAdd} className="w-full py-2 text-[11px] font-medium bg-apple-blue/10 border border-ydl-yellow/30 text-apple-blue rounded-lg hover:bg-apple-blue/20 transition-all">
             Add Expense
           </button>
         </div>

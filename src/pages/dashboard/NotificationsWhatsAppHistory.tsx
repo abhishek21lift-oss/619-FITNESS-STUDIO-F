@@ -41,7 +41,7 @@ export default function NotificationsWhatsAppHistory() {
 
   const statusIcon = (s: string) => {
     switch (s) {
-      case 'Sent': return <Clock className="w-3 h-3 text-blue-400" />
+      case 'Sent': return <Clock className="w-3 h-3 text-[#007AFF]" />
       case 'Delivered': return <CheckCircle className="w-3 h-3 text-emerald-400" />
       case 'Failed': return <XCircle className="w-3 h-3 text-red-400" />
       default: return null
@@ -51,50 +51,50 @@ export default function NotificationsWhatsAppHistory() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">WhatsApp History</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Sent WhatsApp messages and delivery status.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">WhatsApp History</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Sent WhatsApp messages and delivery status.</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Search by number or message..." />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-apple-gray-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Search by number or message..." />
         </div>
         <div className="flex items-center gap-2">
-          <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark]" />
-          <span className="text-[10px] text-gray-500">to</span>
-          <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark]" />
+          <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark]" />
+          <span className="text-[10px] text-apple-gray-500">to</span>
+          <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark]" />
         </div>
-        <div className="flex items-center gap-1 rounded-lg border border-ydl-dark-border bg-white/[0.02] p-0.5">
+        <div className="flex items-center gap-1 rounded-lg border border-apple-gray-200 bg-white/[0.02] p-0.5">
           {(['All', 'Sent', 'Delivered', 'Failed'] as const).map(s => (
-            <button key={s} onClick={() => setStatusFilter(s)} className={`px-3 py-1 text-[10px] font-medium rounded-md transition-colors ${statusFilter === s ? 'text-black bg-ydl-gradient' : 'text-gray-400 hover:text-white'}`}>{s}</button>
+            <button key={s} onClick={() => setStatusFilter(s)} className={`px-3 py-1 text-[10px] font-medium rounded-md transition-colors ${statusFilter === s ? 'text-black bg-apple-gradient-blue' : 'text-apple-gray-400 hover:text-[#1C1C1E]'}`}>{s}</button>
           ))}
         </div>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Date</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">To</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Type</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Message</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-                <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Action</th>
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Date</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">To</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Type</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Message</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Status</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {filtered.map((m, i) => (
                 <motion.tr key={m.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3 text-[10px] text-gray-400">{m.date}</td>
-                  <td className="px-4 py-3 text-xs text-white">{m.to}</td>
-                  <td className="px-4 py-3"><span className={`text-[10px] font-medium px-2 py-0.5 rounded-md border ${m.type === 'Template' ? 'text-purple-400 bg-purple-500/10 border-purple-500/20' : m.type === 'Text' ? 'text-blue-400 bg-blue-500/10 border-blue-500/20' : 'text-amber-400 bg-amber-500/10 border-amber-500/20'}`}>{m.type}</span></td>
-                  <td className="px-4 py-3 text-[11px] text-gray-300 max-w-[200px] truncate">{m.message}</td>
-                  <td className="px-4 py-3"><span className={`inline-flex items-center gap-1 text-[10px] font-medium ${m.status === 'Sent' ? 'text-blue-400' : m.status === 'Delivered' ? 'text-emerald-400' : 'text-red-400'}`}>{statusIcon(m.status)} {m.status}</span></td>
+                  <td className="px-4 py-3 text-[10px] text-apple-gray-400">{m.date}</td>
+                  <td className="px-4 py-3 text-xs text-[#1C1C1E]">{m.to}</td>
+                  <td className="px-4 py-3"><span className={`text-[10px] font-medium px-2 py-0.5 rounded-md border ${m.type === 'Template' ? 'text-purple-400 bg-purple-500/10 border-purple-500/20' : m.type === 'Text' ? 'text-[#007AFF] bg-blue-500/10 border-blue-500/20' : 'text-amber-400 bg-amber-500/10 border-amber-500/20'}`}>{m.type}</span></td>
+                  <td className="px-4 py-3 text-[11px] text-apple-gray-600 max-w-[200px] truncate">{m.message}</td>
+                  <td className="px-4 py-3"><span className={`inline-flex items-center gap-1 text-[10px] font-medium ${m.status === 'Sent' ? 'text-[#007AFF]' : m.status === 'Delivered' ? 'text-emerald-400' : 'text-red-400'}`}>{statusIcon(m.status)} {m.status}</span></td>
                   <td className="px-4 py-3 text-right">
-                    <button onClick={() => handleRetry(m.id)} disabled={m.status !== 'Failed'} className="flex items-center gap-1 px-2 py-1 text-[10px] font-medium text-ydl-yellow bg-ydl-yellow/10 border border-ydl-yellow/20 rounded-lg hover:bg-ydl-yellow/20 disabled:opacity-30 disabled:cursor-not-allowed">
+                    <button onClick={() => handleRetry(m.id)} disabled={m.status !== 'Failed'} className="flex items-center gap-1 px-2 py-1 text-[10px] font-medium text-apple-blue bg-apple-blue/10 border border-ydl-yellow/20 rounded-lg hover:bg-apple-blue/20 disabled:opacity-30 disabled:cursor-not-allowed">
                       <RefreshCw className="w-3 h-3" /> Retry
                     </button>
                   </td>

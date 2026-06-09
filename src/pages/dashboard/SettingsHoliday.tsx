@@ -69,44 +69,44 @@ export default function SettingsHoliday() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Holiday Management</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Set gym holidays and off days. ({activeCount} active)</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Holiday Management</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Set gym holidays and off days. ({activeCount} active)</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex bg-white/[0.03] rounded-lg border border-ydl-dark-border">
-            <button onClick={() => setView('list')} className={`p-1.5 ${view === 'list' ? 'text-ydl-yellow bg-ydl-yellow/10' : 'text-gray-500'} rounded-l-lg`}><List className="w-3.5 h-3.5" /></button>
-            <button onClick={() => setView('calendar')} className={`p-1.5 ${view === 'calendar' ? 'text-ydl-yellow bg-ydl-yellow/10' : 'text-gray-500'} rounded-r-lg`}><Grid3X3 className="w-3.5 h-3.5" /></button>
+          <div className="flex bg-white/[0.03] rounded-lg border border-apple-gray-200">
+            <button onClick={() => setView('list')} className={`p-1.5 ${view === 'list' ? 'text-apple-blue bg-apple-blue/10' : 'text-apple-gray-500'} rounded-l-lg`}><List className="w-3.5 h-3.5" /></button>
+            <button onClick={() => setView('calendar')} className={`p-1.5 ${view === 'calendar' ? 'text-apple-blue bg-apple-blue/10' : 'text-apple-gray-500'} rounded-r-lg`}><Grid3X3 className="w-3.5 h-3.5" /></button>
           </div>
-          <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Holiday</button>
+          <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Holiday</button>
         </div>
       </div>
 
       {view === 'list' ? (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Holiday</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Date</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Day</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Type</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-                <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Actions</th>
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Holiday</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Date</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Day</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Type</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Status</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {holidays.map((h, i) => (
                 <motion.tr key={h.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3"><div className="flex items-center gap-2"><Sun className="w-3.5 h-3.5 text-ydl-yellow" /><span className="text-xs font-medium text-white">{h.name}</span></div></td>
-                  <td className="px-4 py-3"><div className="flex items-center gap-1.5"><Calendar className="w-3 h-3 text-gray-500" /><span className="text-xs text-gray-400">{formatDate(h.date)}</span></div></td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{h.day}</td>
+                  <td className="px-4 py-3"><div className="flex items-center gap-2"><Sun className="w-3.5 h-3.5 text-apple-blue" /><span className="text-xs font-medium text-[#1C1C1E]">{h.name}</span></div></td>
+                  <td className="px-4 py-3"><div className="flex items-center gap-1.5"><Calendar className="w-3 h-3 text-apple-gray-500" /><span className="text-xs text-apple-gray-400">{formatDate(h.date)}</span></div></td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{h.day}</td>
                   <td className="px-4 py-3">
                     <span className={`text-[10px] font-medium px-2 py-0.5 rounded-md ${
-                      h.type === 'Closed' ? 'text-red-400 bg-red-500/10' : h.type === 'Public' ? 'text-blue-400 bg-blue-500/10' : 'text-amber-400 bg-amber-500/10'
+                      h.type === 'Closed' ? 'text-red-400 bg-red-500/10' : h.type === 'Public' ? 'text-[#007AFF] bg-blue-500/10' : 'text-amber-400 bg-amber-500/10'
                     }`}>{h.type}</span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${h.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10' : 'text-gray-400 bg-gray-500/10'}`}>{h.status}</span>
+                    <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${h.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10' : 'text-apple-gray-400 bg-gray-500/10'}`}>{h.status}</span>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <ActionMenu actions={[
@@ -121,10 +121,10 @@ export default function SettingsHoliday() {
           </table>
         </motion.div>
       ) : (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
           <div className="grid grid-cols-7 gap-1 text-center">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-              <div key={d} className="text-[10px] font-medium text-gray-500 py-2">{d}</div>
+              <div key={d} className="text-[10px] font-medium text-apple-gray-500 py-2">{d}</div>
             ))}
             {Array.from({ length: 31 }).map((_, i) => {
               const day = i + 1
@@ -133,10 +133,10 @@ export default function SettingsHoliday() {
                 return d.getMonth() === 5 && d.getDate() === day
               })
               return (
-                <div key={i} className={`min-h-[60px] rounded-lg p-1 text-[10px] ${monthHolidays.length ? 'bg-ydl-yellow/10 border border-ydl-yellow/20' : 'bg-white/[0.02] border border-ydl-dark-border/30'}`}>
-                  <span className="text-gray-500">{day}</span>
+                <div key={i} className={`min-h-[60px] rounded-lg p-1 text-[10px] ${monthHolidays.length ? 'bg-apple-blue/10 border border-ydl-yellow/20' : 'bg-white/[0.02] border border-apple-gray-200/30'}`}>
+                  <span className="text-apple-gray-500">{day}</span>
                   {monthHolidays.map(h => (
-                    <div key={h.id} className="text-[8px] text-ydl-yellow truncate mt-0.5">{h.name}</div>
+                    <div key={h.id} className="text-[8px] text-apple-blue truncate mt-0.5">{h.name}</div>
                   ))}
                 </div>
               )
@@ -148,31 +148,31 @@ export default function SettingsHoliday() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editHoliday ? 'Edit Holiday' : 'Add Holiday'} size="sm">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Occasion Name</label>
-            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Holiday name" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Occasion Name</label>
+            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Holiday name" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Date</label>
-              <input type="date" value={form.date} onChange={e => setForm(p => ({ ...p, date: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
+              <label className="text-[10px] font-medium text-apple-gray-400">Date</label>
+              <input type="date" value={form.date} onChange={e => setForm(p => ({ ...p, date: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Type</label>
-              <select value={form.type} onChange={e => setForm(p => ({ ...p, type: e.target.value as Holiday['type'] }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+              <label className="text-[10px] font-medium text-apple-gray-400">Type</label>
+              <select value={form.type} onChange={e => setForm(p => ({ ...p, type: e.target.value as Holiday['type'] }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
                 <option>Public</option><option>Closed</option><option>Optional</option>
               </select>
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Status</label>
-            <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Holiday['status'] }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+            <label className="text-[10px] font-medium text-apple-gray-400">Status</label>
+            <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Holiday['status'] }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
               <option>Active</option><option>Inactive</option>
             </select>
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleSave} disabled={!form.name || !form.date} className="flex-1 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 disabled:opacity-40">{editHoliday ? 'Update' : 'Add'} Holiday</button>
-          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleSave} disabled={!form.name || !form.date} className="flex-1 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 disabled:opacity-40">{editHoliday ? 'Update' : 'Add'} Holiday</button>
+          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
     </div>

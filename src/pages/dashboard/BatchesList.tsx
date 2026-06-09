@@ -101,68 +101,68 @@ export default function BatchesList() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Batch List</h1>
-          <p className="text-xs text-gray-500 mt-0.5">All scheduled batches and classes.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Batch List</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">All scheduled batches and classes.</p>
         </div>
-        <button onClick={() => navigate('/dashboard/batches/add')} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+        <button onClick={() => navigate('/dashboard/batches/add')} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity">
           <Plus className="w-3.5 h-3.5" /> Add Batch
         </button>
       </div>
 
-      <div className="flex items-center gap-2 border-b border-ydl-dark-border pb-0 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-apple-gray-200 pb-0 overflow-x-auto">
         {categoryOptions.map(cat => (
-          <button key={cat} onClick={() => setCategoryFilter(cat)} className={`whitespace-nowrap px-3 py-2 text-[10px] font-semibold uppercase tracking-wider border-b-2 transition-colors ${categoryFilter === cat ? 'text-ydl-yellow border-ydl-yellow' : 'text-gray-500 border-transparent hover:text-gray-300'}`}>{cat}</button>
+          <button key={cat} onClick={() => setCategoryFilter(cat)} className={`whitespace-nowrap px-3 py-2 text-[10px] font-semibold uppercase tracking-wider border-b-2 transition-colors ${categoryFilter === cat ? 'text-apple-blue border-ydl-yellow' : 'text-apple-gray-500 border-transparent hover:text-apple-gray-600'}`}>{cat}</button>
         ))}
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="Search batches..." />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-apple-gray-500" />
+          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="Search batches..." />
         </div>
-        <select value={trainerFilter} onChange={e => setTrainerFilter(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+        <select value={trainerFilter} onChange={e => setTrainerFilter(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
           {trainerOptions.map(t => <option key={t}>{t}</option>)}
         </select>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Name</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Category</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Trainer</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Schedule</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Capacity</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-                <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Action</th>
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Name</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Category</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Trainer</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Schedule</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Capacity</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Status</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {paged.map((b, i) => (
                 <motion.tr key={b.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3 text-xs font-medium text-white">{b.name}</td>
+                  <td className="px-4 py-3 text-xs font-medium text-[#1C1C1E]">{b.name}</td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-ydl-yellow bg-ydl-yellow/10 border border-ydl-yellow/20 rounded-md">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-apple-blue bg-apple-blue/10 border border-ydl-yellow/20 rounded-md">
                       <Dumbbell className="w-3 h-3" />{b.category}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{b.trainer}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{b.trainer}</td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center gap-1"><Clock className="w-3 h-3 text-gray-500" /><span className="text-xs text-gray-400">{b.time}</span></div>
-                    <p className="text-[9px] text-gray-600 mt-0.5">{b.days}</p>
+                    <div className="flex items-center gap-1"><Clock className="w-3 h-3 text-apple-gray-500" /><span className="text-xs text-apple-gray-400">{b.time}</span></div>
+                    <p className="text-[9px] text-apple-gray-400 mt-0.5">{b.days}</p>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <div className="w-16 h-1.5 bg-white/5 rounded-full overflow-hidden">
                         <div className="h-full rounded-full bg-ydl-yellow/60" style={{ width: `${(b.enrolled / b.capacity) * 100}%` }} />
                       </div>
-                      <span className="text-[10px] text-gray-400">{b.enrolled}/{b.capacity}</span>
+                      <span className="text-[10px] text-apple-gray-400">{b.enrolled}/{b.capacity}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${b.active ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : 'text-gray-400 bg-gray-500/10 border border-gray-500/20'}`}>
+                    <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${b.active ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : 'text-apple-gray-400 bg-gray-500/10 border border-gray-500/20'}`}>
                       {b.active ? 'Active' : 'Inactive'}
                     </span>
                   </td>
@@ -183,31 +183,31 @@ export default function BatchesList() {
             </tbody>
           </table>
         </div>
-        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-apple-gray-200 bg-white/[0.02]"><span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={viewMembersModal} onClose={() => setViewMembersModal(false)} title={`Members - ${selectedBatch?.name || ''}`} size="lg">
         <div className="space-y-3">
-          <p className="text-xs text-gray-500">Enrolled: {selectedBatch ? mockMembers[selectedBatch.id]?.length || 0 : 0} / {selectedBatch?.capacity || 0}</p>
-          <div className="overflow-x-auto rounded-lg border border-ydl-dark-border">
+          <p className="text-xs text-apple-gray-500">Enrolled: {selectedBatch ? mockMembers[selectedBatch.id]?.length || 0 : 0} / {selectedBatch?.capacity || 0}</p>
+          <div className="overflow-x-auto rounded-lg border border-apple-gray-200">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-                  <th className="text-left px-3 py-2 text-[10px] font-semibold text-gray-500 uppercase">Name</th>
-                  <th className="text-left px-3 py-2 text-[10px] font-semibold text-gray-500 uppercase">Phone</th>
-                  <th className="text-left px-3 py-2 text-[10px] font-semibold text-gray-500 uppercase">Joined</th>
+                <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+                  <th className="text-left px-3 py-2 text-[10px] font-semibold text-apple-gray-500 uppercase">Name</th>
+                  <th className="text-left px-3 py-2 text-[10px] font-semibold text-apple-gray-500 uppercase">Phone</th>
+                  <th className="text-left px-3 py-2 text-[10px] font-semibold text-apple-gray-500 uppercase">Joined</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-ydl-dark-border/50">
+              <tbody className="divide-y divide-apple-gray-200/50">
                 {selectedBatch && (mockMembers[selectedBatch.id] || []).map(m => (
                   <tr key={m.id} className="hover:bg-white/[0.02]">
-                    <td className="px-3 py-2 text-xs text-white">{m.name}</td>
-                    <td className="px-3 py-2 text-xs text-gray-400">{m.phone}</td>
-                    <td className="px-3 py-2 text-xs text-gray-400">{m.joinDate}</td>
+                    <td className="px-3 py-2 text-xs text-[#1C1C1E]">{m.name}</td>
+                    <td className="px-3 py-2 text-xs text-apple-gray-400">{m.phone}</td>
+                    <td className="px-3 py-2 text-xs text-apple-gray-400">{m.joinDate}</td>
                   </tr>
                 ))}
                 {selectedBatch && (!mockMembers[selectedBatch.id] || mockMembers[selectedBatch.id].length === 0) && (
-                  <tr><td colSpan={3} className="px-3 py-4 text-xs text-gray-500 text-center">No members enrolled yet.</td></tr>
+                  <tr><td colSpan={3} className="px-3 py-4 text-xs text-apple-gray-500 text-center">No members enrolled yet.</td></tr>
                 )}
               </tbody>
             </table>
@@ -217,24 +217,24 @@ export default function BatchesList() {
 
       <Modal open={attendanceModal} onClose={() => setAttendanceModal(false)} title={`Take Attendance - ${selectedBatch?.name || ''}`} size="md">
         <div className="space-y-3">
-          <p className="text-xs text-gray-500">{selectedBatch ? new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
+          <p className="text-xs text-apple-gray-500">{selectedBatch ? new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
           <div className="space-y-1">
             {selectedBatch && (mockMembers[selectedBatch.id] || []).map(m => (
-              <label key={m.id} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors ${attendance.includes(m.id) ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-white/[0.02] border border-ydl-dark-border'}`}>
+              <label key={m.id} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors ${attendance.includes(m.id) ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-white/[0.02] border border-apple-gray-200'}`}>
                 <div>
-                  <p className="text-xs text-white">{m.name}</p>
-                  <p className="text-[10px] text-gray-500">{m.phone}</p>
+                  <p className="text-xs text-[#1C1C1E]">{m.name}</p>
+                  <p className="text-[10px] text-apple-gray-500">{m.phone}</p>
                 </div>
                 <input type="checkbox" checked={attendance.includes(m.id)} onChange={() => toggleAttendance(m.id)} className="w-4 h-4 accent-ydl-yellow" />
               </label>
             ))}
             {selectedBatch && (!mockMembers[selectedBatch.id] || mockMembers[selectedBatch.id].length === 0) && (
-              <p className="text-xs text-gray-500 text-center py-4">No members to take attendance for.</p>
+              <p className="text-xs text-apple-gray-500 text-center py-4">No members to take attendance for.</p>
             )}
           </div>
-          <div className="flex items-center gap-3 pt-3 border-t border-ydl-dark-border">
-            <button onClick={() => { setAttendanceModal(false); toast(`Attendance saved for ${attendance.length} member(s)`, 'success') }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Save Attendance</button>
-            <button onClick={() => setAttendanceModal(false)} className="px-4 py-2 text-xs font-medium text-gray-400 hover:text-white">Cancel</button>
+          <div className="flex items-center gap-3 pt-3 border-t border-apple-gray-200">
+            <button onClick={() => { setAttendanceModal(false); toast(`Attendance saved for ${attendance.length} member(s)`, 'success') }} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90">Save Attendance</button>
+            <button onClick={() => setAttendanceModal(false)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 hover:text-[#1C1C1E]">Cancel</button>
           </div>
         </div>
       </Modal>

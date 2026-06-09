@@ -41,20 +41,20 @@ export default function AnalysisCollection() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Collection Analysis</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Payment collections and daily revenue.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Collection Analysis</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Payment collections and daily revenue.</p>
         </div>
-        <button onClick={() => setDetailsOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">
+        <button onClick={() => setDetailsOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-apple-blue/10 border border-ydl-yellow/30 text-apple-blue rounded-lg hover:bg-apple-blue/20 transition-all">
           <Eye className="w-3 h-3" /> View Details
         </button>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="Staff">
           <FilterSelect options={staffOptions} value={staff} onChange={e => setStaff(e.target.value)} />
@@ -63,19 +63,19 @@ export default function AnalysisCollection() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <StatsCard label="Total Collection" value={`₹ ${totalCollection.toLocaleString()}`} icon={DollarSign} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={0} />
-        <StatsCard label="Today" value={`₹ ${todayCol.toLocaleString()}`} icon={TrendingUp} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={1} />
+        <StatsCard label="Today" value={`₹ ${todayCol.toLocaleString()}`} icon={TrendingUp} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={1} />
         <StatsCard label="Pending" value={`₹ ${pendingCol.toLocaleString()}`} icon={Clock} color="from-orange-500/20 to-orange-600/5" border="border-orange-500/30" text="text-orange-400" index={2} />
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-        <h2 className="text-xs font-semibold text-white mb-4">Daily Collection</h2>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Daily Collection</h2>
         <div className="h-44">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={days.map((d, i) => ({ day: d, amount: dailyCol[i] }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
               <XAxis dataKey="day" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
+              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#007AFF' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
               <Bar dataKey="amount" fill="#10B981" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -83,7 +83,7 @@ export default function AnalysisCollection() {
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-        <h3 className="text-xs font-semibold text-white mb-3">Daily Breakdown</h3>
+        <h3 className="text-xs font-semibold text-[#1C1C1E] mb-3">Daily Breakdown</h3>
         <Table
           columns={[
             { header: 'Day', accessor: i => days[i] },

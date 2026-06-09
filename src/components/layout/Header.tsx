@@ -45,17 +45,17 @@ export default function Header() {
   const [loginOpen, setLoginOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-ydl-dark-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-apple-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-ydl-gradient flex items-center justify-center">
-              <Dumbbell className="w-5 h-5 text-black" />
+            <div className="w-9 h-9 rounded-lg bg-apple-gradient-blue flex items-center justify-center">
+              <Dumbbell className="w-5 h-5 text-white" />
             </div>
             <span className="font-heading font-bold text-lg tracking-tight">
-              <span className="text-white">Your</span>
-              <span className="text-ydl-yellow"> Digital Lift</span>
+              <span className="text-[#1C1C1E]">Your</span>
+              <span className="text-apple-blue"> Digital Lift</span>
             </span>
           </Link>
 
@@ -69,7 +69,7 @@ export default function Header() {
                   onMouseEnter={() => setProductsOpen(true)}
                   onMouseLeave={() => setProductsOpen(false)}
                 >
-                  <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-ydl-muted-light hover:text-white transition-colors rounded-lg hover:bg-white/5">
+                  <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-apple-gray-500 hover:text-[#1C1C1E] transition-colors rounded-lg hover:bg-apple-gray-100">
                     {link.name}
                     <ChevronDown
                       className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -84,19 +84,19 @@ export default function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute top-full left-0 mt-1 w-64 bg-ydl-surface border border-ydl-dark-border rounded-xl shadow-2xl shadow-black/50 overflow-hidden"
+                        className="absolute top-full left-0 mt-1 w-64 bg-white border border-apple-gray-200 rounded-xl shadow-apple-lg overflow-hidden"
                       >
                         <div className="p-2">
                           {products.map((item) => (
                             <Link
                               key={item.path}
                               to={item.path}
-                              className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group"
+                              className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-apple-gray-100 transition-colors group"
                             >
-                              <div className="w-8 h-8 rounded-lg bg-ydl-yellow/10 flex items-center justify-center group-hover:bg-ydl-yellow/20 transition-colors">
-                                <item.icon className="w-4 h-4 text-ydl-yellow" />
+                              <div className="w-8 h-8 rounded-lg bg-apple-blue/10 flex items-center justify-center group-hover:bg-apple-blue/20 transition-colors">
+                                <item.icon className="w-4 h-4 text-apple-blue" />
                               </div>
-                              <span className="text-sm font-medium text-ydl-muted-light group-hover:text-white transition-colors">
+                              <span className="text-sm font-medium text-apple-gray-500 group-hover:text-[#1C1C1E] transition-colors">
                                 {item.name}
                               </span>
                             </Link>
@@ -110,7 +110,7 @@ export default function Header() {
                 <Link
                   key={link.name}
                   to={link.path!}
-                  className="px-4 py-2 text-sm font-medium text-ydl-muted-light hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                  className="px-4 py-2 text-sm font-medium text-apple-gray-500 hover:text-[#1C1C1E] transition-colors rounded-lg hover:bg-apple-gray-100"
                 >
                   {link.name}
                 </Link>
@@ -123,7 +123,7 @@ export default function Header() {
             {/* Phone */}
             <a
               href="tel:+918800567469"
-              className="flex items-center gap-2 text-sm text-ydl-muted-light hover:text-ydl-yellow transition-colors"
+              className="flex items-center gap-2 text-sm text-apple-gray-500 hover:text-apple-blue transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
               <span>+91 88005 67469</span>
@@ -135,7 +135,7 @@ export default function Header() {
               onMouseEnter={() => setLoginOpen(true)}
               onMouseLeave={() => setLoginOpen(false)}
             >
-              <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-ydl-muted-light hover:text-white transition-colors rounded-lg hover:bg-white/5 border border-ydl-dark-border">
+              <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-apple-gray-500 hover:text-[#1C1C1E] transition-colors rounded-lg hover:bg-apple-gray-100 border border-apple-gray-200">
                 <LogIn className="w-4 h-4" />
                 Login
               </button>
@@ -146,17 +146,17 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full right-0 mt-1 w-52 bg-ydl-surface border border-ydl-dark-border rounded-xl shadow-2xl shadow-black/50 overflow-hidden"
+                    className="absolute top-full right-0 mt-1 w-52 bg-white border border-apple-gray-200 rounded-xl shadow-apple-lg overflow-hidden"
                   >
                     <div className="p-2">
                       {loginItems.map((item) => (
                         <Link
                           key={item.path}
                           to={item.path}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group"
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-apple-gray-100 transition-colors group"
                         >
-                          <item.icon className="w-4 h-4 text-ydl-yellow" />
-                          <span className="text-sm font-medium text-ydl-muted-light group-hover:text-white transition-colors">
+                          <item.icon className="w-4 h-4 text-apple-blue" />
+                          <span className="text-sm font-medium text-apple-gray-500 group-hover:text-[#1C1C1E] transition-colors">
                             {item.name}
                           </span>
                         </Link>
@@ -170,7 +170,7 @@ export default function Header() {
             {/* Book A Demo CTA */}
             <Link
               to="/call-for-demo"
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-black bg-ydl-gradient rounded-lg hover:shadow-ydl-gold-lg transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-apple-gradient-blue rounded-lg hover:shadow-apple-lg transition-all duration-300 hover:scale-105"
             >
               Book A Demo
             </Link>
@@ -179,7 +179,7 @@ export default function Header() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-white hover:text-ydl-yellow transition-colors"
+            className="lg:hidden p-2 text-[#1C1C1E] hover:text-apple-blue transition-colors"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -195,7 +195,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden bg-ydl-surface border-t border-ydl-dark-border overflow-hidden"
+            className="lg:hidden bg-white border-t border-apple-gray-200 overflow-hidden"
           >
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) =>
@@ -203,7 +203,7 @@ export default function Header() {
                   <div key={link.name}>
                     <button
                       onClick={() => setProductsOpen(!productsOpen)}
-                      className="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-ydl-muted-light hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                      className="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-apple-gray-500 hover:text-[#1C1C1E] transition-colors rounded-lg hover:bg-apple-gray-100"
                     >
                       {link.name}
                       <ChevronDown
@@ -225,9 +225,9 @@ export default function Header() {
                               key={item.path}
                               to={item.path}
                               onClick={() => setMobileOpen(false)}
-                              className="flex items-center gap-3 px-3 py-2 text-sm text-ydl-muted hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                              className="flex items-center gap-3 px-3 py-2 text-sm text-apple-gray-400 hover:text-[#1C1C1E] transition-colors rounded-lg hover:bg-apple-gray-100"
                             >
-                              <item.icon className="w-4 h-4 text-ydl-yellow" />
+                              <item.icon className="w-4 h-4 text-apple-blue" />
                               {item.name}
                             </Link>
                           ))}
@@ -240,33 +240,33 @@ export default function Header() {
                     key={link.name}
                     to={link.path!}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-2.5 text-sm font-medium text-ydl-muted-light hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                    className="block px-3 py-2.5 text-sm font-medium text-apple-gray-500 hover:text-[#1C1C1E] transition-colors rounded-lg hover:bg-apple-gray-100"
                   >
                     {link.name}
                   </Link>
                 )
               )}
 
-              <hr className="border-ydl-dark-border my-3" />
+              <hr className="border-apple-gray-200 my-3" />
 
               <a
                 href="tel:+918800567469"
-                className="flex items-center gap-2 px-3 py-2.5 text-sm text-ydl-muted-light hover:text-ydl-yellow transition-colors"
+                className="flex items-center gap-2 px-3 py-2.5 text-sm text-apple-gray-500 hover:text-apple-blue transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 +91 88005 67469
               </a>
 
               <div className="pt-2 space-y-1">
-                <p className="px-3 text-xs font-medium text-ydl-muted uppercase tracking-wider">Login</p>
+                <p className="px-3 text-xs font-medium text-apple-gray-400 uppercase tracking-wider">Login</p>
                 {loginItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-ydl-muted-light hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                    className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-apple-gray-500 hover:text-[#1C1C1E] transition-colors rounded-lg hover:bg-apple-gray-100"
                   >
-                    <item.icon className="w-4 h-4 text-ydl-yellow" />
+                    <item.icon className="w-4 h-4 text-apple-blue" />
                     {item.name}
                   </Link>
                 ))}
@@ -276,7 +276,7 @@ export default function Header() {
                 <Link
                   to="/call-for-demo"
                   onClick={() => setMobileOpen(false)}
-                  className="block w-full text-center px-5 py-3 text-sm font-semibold text-black bg-ydl-gradient rounded-lg hover:shadow-ydl-gold-lg transition-all"
+                  className="block w-full text-center px-5 py-3 text-sm font-semibold text-white bg-apple-gradient-blue rounded-lg hover:shadow-apple-lg transition-all"
                 >
                   Book A Demo
                 </Link>

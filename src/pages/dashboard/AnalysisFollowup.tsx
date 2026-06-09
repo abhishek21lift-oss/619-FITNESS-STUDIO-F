@@ -46,10 +46,10 @@ export default function AnalysisFollowup() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Follow-up Analysis</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Track follow-up activities and staff performance.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Follow-up Analysis</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Track follow-up activities and staff performance.</p>
         </div>
-        <button onClick={() => setExportOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">
+        <button onClick={() => setExportOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-apple-blue/10 border border-ydl-yellow/30 text-apple-blue rounded-lg hover:bg-apple-blue/20 transition-all">
           <Download className="w-3 h-3" /> Export CSV
         </button>
       </div>
@@ -59,10 +59,10 @@ export default function AnalysisFollowup() {
           <FilterSelect options={staffOptions} value={staff} onChange={e => setStaff(e.target.value)} />
         </FilterField>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="Type">
           <FilterSelect options={typeOptions} value={type} onChange={e => setType(e.target.value)} />
@@ -70,14 +70,14 @@ export default function AnalysisFollowup() {
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatsCard label="Total Followups" value={totalFollowups} icon={PhoneCall} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={0} />
+        <StatsCard label="Total Followups" value={totalFollowups} icon={PhoneCall} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={0} />
         <StatsCard label="Done" value={totalDone} icon={CheckCircle} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
         <StatsCard label="Missed" value={totalMissed} icon={XCircle} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" index={2} />
         <StatsCard label="Avg Response" value={avgResponse} icon={Clock} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" index={3} />
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h2 className="text-xs font-semibold text-white mb-3">Staff-wise Breakdown</h2>
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-3">Staff-wise Breakdown</h2>
         <Table
           columns={[
             { header: 'Staff', accessor: r => r.name },
@@ -103,12 +103,12 @@ export default function AnalysisFollowup() {
       </motion.div>
 
       <Modal open={exportOpen} onClose={() => setExportOpen(false)} title="Export Follow-up Report" size="sm">
-        <p className="text-xs text-gray-400 mb-3">Download follow-up analysis as CSV:</p>
-        <button onClick={() => { setExportOpen(false) }} className="w-full px-3 py-2 text-[11px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">Download CSV</button>
+        <p className="text-xs text-apple-gray-400 mb-3">Download follow-up analysis as CSV:</p>
+        <button onClick={() => { setExportOpen(false) }} className="w-full px-3 py-2 text-[11px] font-medium bg-apple-blue/10 border border-ydl-yellow/30 text-apple-blue rounded-lg hover:bg-apple-blue/20 transition-all">Download CSV</button>
       </Modal>
 
       <Modal open={detailModal.open} onClose={() => setDetailModal({ open: false, staff: '' })} title={`Follow-ups - ${detailModal.staff}`} size="lg">
-        <p className="text-xs text-gray-400 mb-3">Detailed follow-up records for {detailModal.staff}.</p>
+        <p className="text-xs text-apple-gray-400 mb-3">Detailed follow-up records for {detailModal.staff}.</p>
         <Table
           columns={[
             { header: 'Client', accessor: i => `Client ${i + 1}` },

@@ -28,20 +28,20 @@ export default function StudioSoftware() {
     <div>
       {/* Hero */}
       <section className="relative py-20 sm:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-ydl-glow pointer-events-none" />
+        <div className="absolute inset-0 bg-white pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1C1C1E] mb-6 leading-tight">
               Studio{' '}
-              <span className="text-ydl-yellow">Management Software</span>
+              <span className="text-apple-blue">Management Software</span>
             </h1>
-            <p className="text-lg sm:text-xl text-ydl-muted-light max-w-3xl mx-auto mb-8">
+            <p className="text-lg sm:text-xl text-apple-gray-500 max-w-3xl mx-auto mb-8">
               The all-in-one platform for yoga studios, dance studios, CrossFit boxes, and boutique
               fitness studios.
             </p>
             <Link
               to="/call-for-demo"
-              className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-black bg-ydl-gradient rounded-xl hover:shadow-ydl-gold-lg transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-white bg-apple-gradient-blue rounded-xl hover:shadow-apple-lg transition-all hover:scale-105"
             >
               Book a Demo
               <ArrowRight className="w-5 h-5" />
@@ -51,13 +51,13 @@ export default function StudioSoftware() {
       </section>
 
       {/* Features */}
-      <section className="py-16 sm:py-20 bg-ydl-surface/30">
+      <section className="py-16 sm:py-20 bg-apple-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
               Powerful Features for Your Studio
             </h2>
-            <p className="text-ydl-muted-light max-w-2xl mx-auto">
+            <p className="text-apple-gray-500 max-w-2xl mx-auto">
               Everything you need to manage classes, members, billing, and growth.
             </p>
           </motion.div>
@@ -69,13 +69,13 @@ export default function StudioSoftware() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: (i % 8) * 0.05 }}
-                className="bg-ydl-card-gradient border border-ydl-dark-border rounded-xl p-5 hover:border-ydl-dark-border-hover transition-all"
+                className="bg-white border border-apple-gray-200 rounded-xl p-5 hover:border-apple-gray-300 transition-all"
               >
-                <div className="w-10 h-10 rounded-lg bg-ydl-yellow/10 flex items-center justify-center mb-3">
-                  <feat.icon className="w-5 h-5 text-ydl-yellow" />
+                <div className="w-10 h-10 rounded-lg bg-apple-blue/10 flex items-center justify-center mb-3">
+                  <feat.icon className="w-5 h-5 text-apple-blue" />
                 </div>
-                <h3 className="font-heading font-semibold text-white text-sm mb-2">{feat.title}</h3>
-                <p className="text-xs text-ydl-muted leading-relaxed">{feat.desc}</p>
+                <h3 className="font-heading font-semibold text-[#1C1C1E] text-sm mb-2">{feat.title}</h3>
+                <p className="text-xs text-apple-gray-400 leading-relaxed">{feat.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -86,7 +86,7 @@ export default function StudioSoftware() {
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
               Why Studios Choose YDL
             </h2>
           </motion.div>
@@ -109,8 +109,8 @@ export default function StudioSoftware() {
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className="flex items-start gap-3"
               >
-                <CheckCircle className="w-5 h-5 text-ydl-yellow flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-ydl-muted-light">{item}</span>
+                <CheckCircle className="w-5 h-5 text-apple-blue flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-apple-gray-500">{item}</span>
               </motion.div>
             ))}
           </div>
@@ -124,19 +124,19 @@ export default function StudioSoftware() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="rounded-3xl bg-ydl-gradient p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden"
+            className="rounded-3xl bg-apple-gradient-blue p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px]" />
             <div className="relative z-10">
-              <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-black mb-4">
+              <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">
                 Ready to Simplify Studio Management?
               </h2>
-              <p className="text-lg text-black/80 mb-8 max-w-xl mx-auto">
+              <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
                 Join hundreds of studios across India using YDL to grow their business.
               </p>
               <Link
                 to="/call-for-demo"
-                className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-ydl-yellow bg-black rounded-xl hover:bg-black/90 transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-white bg-apple-blue rounded-xl hover:bg-apple-blue/90 transition-all hover:scale-105"
               >
                 Start Your Free Trial
                 <ArrowRight className="w-5 h-5" />

@@ -49,20 +49,20 @@ export default function AnalysisBilling() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Billing Analysis</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Billing metrics, payment methods, and trends.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Billing Analysis</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Billing metrics, payment methods, and trends.</p>
         </div>
-        <button onClick={() => setExportOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">
+        <button onClick={() => setExportOpen(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-apple-blue/10 border border-ydl-yellow/30 text-apple-blue rounded-lg hover:bg-apple-blue/20 transition-all">
           <Download className="w-3 h-3" /> Export
         </button>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="Payment Method">
           <FilterSelect options={methodOptions} value={method} onChange={e => setMethod(e.target.value)} />
@@ -70,36 +70,36 @@ export default function AnalysisBilling() {
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Billed" value={`₹ ${totalBilled.toLocaleString()}`} icon={DollarSign} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={0} />
+        <StatsCard label="Total Billed" value={`₹ ${totalBilled.toLocaleString()}`} icon={DollarSign} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={0} />
         <StatsCard label="Collected" value={`₹ ${collected.toLocaleString()}`} icon={CreditCard} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
         <StatsCard label="Pending" value={`₹ ${pending.toLocaleString()}`} icon={Clock} color="from-orange-500/20 to-orange-600/5" border="border-orange-500/30" text="text-orange-400" index={2} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Payment Method Breakdown</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Payment Method Breakdown</h2>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={filteredMethods} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis type="number" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
                 <YAxis type="category" dataKey="method" tick={{ fill: '#D1D5DB', fontSize: 11 }} axisLine={false} tickLine={false} width={80} />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
-                <Bar dataKey="amount" fill="#D4AF34" radius={[0, 4, 4, 0]} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#007AFF' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
+                <Bar dataKey="amount" fill="#007AFF" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Daily Billing Trend</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Daily Billing Trend</h2>
           <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={days.map((d, i) => ({ day: d, amount: dailyBilling[i] }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis dataKey="day" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#007AFF' }} formatter={(v: any) => [`₹${Number(v).toLocaleString()}`, 'Amount']} />
                 <Bar dataKey="amount" fill="#3B82F6" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -108,19 +108,19 @@ export default function AnalysisBilling() {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-        <h2 className="text-xs font-semibold text-white mb-3">Recent Billing Records</h2>
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-3">Recent Billing Records</h2>
         <Table
           columns={[
             { header: 'ID', accessor: r => r.id },
             { header: 'Client', accessor: r => r.client },
-            { header: 'Amount', accessor: r => <span className="text-white font-medium">₹{r.amount.toLocaleString()}</span> },
+            { header: 'Amount', accessor: r => <span className="text-[#1C1C1E] font-medium">₹{r.amount.toLocaleString()}</span> },
             { header: 'Method', accessor: r => r.method },
             { header: 'Date', accessor: r => r.date },
             { header: 'Status', accessor: r => (
               <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${r.status === 'Paid' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-orange-500/10 text-orange-400'}`}>{r.status}</span>
             )},
             { header: '', accessor: r => (
-              <button onClick={() => setDetailModal({ open: true, method: r.id })} className="text-ydl-yellow/70 hover:text-ydl-yellow transition-colors">
+              <button onClick={() => setDetailModal({ open: true, method: r.id })} className="text-apple-blue/70 hover:text-apple-blue transition-colors">
                 <Eye className="w-3 h-3" />
               </button>
             )},
@@ -131,15 +131,15 @@ export default function AnalysisBilling() {
       </motion.div>
 
       <Modal open={exportOpen} onClose={() => setExportOpen(false)} title="Export Billing Report" size="sm">
-        <p className="text-xs text-gray-400 mb-3">Download billing analysis:</p>
+        <p className="text-xs text-apple-gray-400 mb-3">Download billing analysis:</p>
         <div className="flex gap-2">
-          <button onClick={() => { setExportOpen(false) }} className="flex-1 px-3 py-2 text-[11px] font-medium bg-white/5 border border-ydl-dark-border rounded-lg text-gray-300 hover:bg-white/10 transition-all">CSV</button>
-          <button onClick={() => { setExportOpen(false) }} className="flex-1 px-3 py-2 text-[11px] font-medium bg-white/5 border border-ydl-dark-border rounded-lg text-gray-300 hover:bg-white/10 transition-all">PDF</button>
+          <button onClick={() => { setExportOpen(false) }} className="flex-1 px-3 py-2 text-[11px] font-medium bg-white/5 border border-apple-gray-200 rounded-lg text-apple-gray-600 hover:bg-white/10 transition-all">CSV</button>
+          <button onClick={() => { setExportOpen(false) }} className="flex-1 px-3 py-2 text-[11px] font-medium bg-white/5 border border-apple-gray-200 rounded-lg text-apple-gray-600 hover:bg-white/10 transition-all">PDF</button>
         </div>
       </Modal>
 
       <Modal open={detailModal.open} onClose={() => setDetailModal({ open: false, method: '' })} title={`Billing Detail - ${detailModal.method}`} size="lg">
-        <p className="text-xs text-gray-400 mb-3">Full billing record details.</p>
+        <p className="text-xs text-apple-gray-400 mb-3">Full billing record details.</p>
         <Table
           columns={[
             { header: 'Field', accessor: i => ['Client', 'Amount', 'Method', 'Date', 'Status'][i] },
@@ -147,7 +147,7 @@ export default function AnalysisBilling() {
               const record = billingRecords.find(r => r.id === detailModal.method)
               if (!record) return ''
               const vals = [record.client, `₹${record.amount.toLocaleString()}`, record.method, record.date, record.status]
-              return <span className="text-white">{vals[i]}</span>
+              return <span className="text-[#1C1C1E]">{vals[i]}</span>
             }},
           ]}
           data={[0, 1, 2, 3, 4]}

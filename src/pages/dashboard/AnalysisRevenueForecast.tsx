@@ -37,8 +37,8 @@ export default function AnalysisRevenueForecast() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Revenue Forecast</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Project future revenue based on current trends.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Revenue Forecast</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Project future revenue based on current trends.</p>
       </div>
 
       <FilterBar>
@@ -51,13 +51,13 @@ export default function AnalysisRevenueForecast() {
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Current Revenue" value={`₹ ${currentRevenue.toLocaleString()}`} icon={DollarSign} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={0} />
+        <StatsCard label="Current Revenue" value={`₹ ${currentRevenue.toLocaleString()}`} icon={DollarSign} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={0} />
         <StatsCard label="Projected Revenue" value={`₹ ${projectedRevenue.toLocaleString()}`} icon={TrendingUp} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
         <StatsCard label="Growth %" value={`${growthPct >= 0 ? '+' : ''}${growthPct}%`} icon={BarChart3} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text={growthPct >= 0 ? 'text-emerald-400' : 'text-red-400'} index={2} />
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-        <h2 className="text-xs font-semibold text-white mb-4">Current vs Projected Revenue</h2>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Current vs Projected Revenue</h2>
         <div className="h-44">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={forecastMonths.map(m => {
@@ -72,28 +72,28 @@ export default function AnalysisRevenueForecast() {
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
               <XAxis dataKey="month" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
+              <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#007AFF' }} />
               <Bar dataKey="Actual" fill="#3B82F6" radius={[2, 2, 0, 0]} />
               <Bar dataKey="Projected" fill="#10B981" radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-ydl-dark-border">
-          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-blue-500/60" /><span className="text-[10px] text-gray-400">Actual</span></div>
-          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-emerald-500/60" /><span className="text-[10px] text-gray-400">Projected</span></div>
+        <div className="flex items-center gap-4 mt-4 pt-3 border-t border-apple-gray-200">
+          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-blue-500/60" /><span className="text-[10px] text-apple-gray-400">Actual</span></div>
+          <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-emerald-500/60" /><span className="text-[10px] text-apple-gray-400">Projected</span></div>
         </div>
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-        <h2 className="text-xs font-semibold text-white mb-3">Monthly Breakdown</h2>
+        <h2 className="text-xs font-semibold text-[#1C1C1E] mb-3">Monthly Breakdown</h2>
         <Table
           columns={[
             { header: 'Month', accessor: r => r.month },
-            { header: 'Current', accessor: r => r.current !== null ? <span className="text-blue-400 font-medium">₹{r.current.toLocaleString()}</span> : <span className="text-gray-600">—</span> },
+            { header: 'Current', accessor: r => r.current !== null ? <span className="text-[#007AFF] font-medium">₹{r.current.toLocaleString()}</span> : <span className="text-apple-gray-400">—</span> },
             { header: 'Projected', accessor: r => <span className="text-emerald-400 font-medium">₹{r.projected.toLocaleString()}</span> },
             { header: 'Growth', accessor: r => r.growth !== null ? (
               <span className={r.growth >= 0 ? 'text-emerald-400' : 'text-red-400'}>₹{r.growth > 0 ? '+' : ''}{r.growth.toLocaleString()}</span>
-            ) : <span className="text-gray-600">—</span> },
+            ) : <span className="text-apple-gray-400">—</span> },
           ]}
           data={tableData}
           keyExtractor={r => r.month}

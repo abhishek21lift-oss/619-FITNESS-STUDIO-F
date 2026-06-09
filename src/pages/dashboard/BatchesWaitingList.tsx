@@ -39,36 +39,36 @@ export default function BatchesWaitingList() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Waiting List</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Manage batch waiting lists.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Waiting List</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Manage batch waiting lists.</p>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 text-xs text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
           <User className="w-3.5 h-3.5" /> {waiting} waiting
         </div>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-ydl-dark-border">
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">#</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Member</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Class / Batch</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Date Requested</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <tr className="border-b border-apple-gray-200">
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">#</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Member</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Class / Batch</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Date Requested</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Phone</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Status</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
           <tbody>
             {entries.map((e, i) => (
-              <tr key={e.id} className="border-b border-ydl-dark-border/50 last:border-0 hover:bg-white/[0.02] transition-colors">
-                <td className="px-4 py-3 text-xs text-gray-500">{i + 1}</td>
-                <td className="px-4 py-3 text-xs text-white">{e.name}</td>
-                <td className="px-4 py-3 text-xs text-gray-300">{e.batch}</td>
-                <td className="px-4 py-3 text-xs text-gray-400">{e.dateRequested}</td>
+              <tr key={e.id} className="border-b border-apple-gray-200/50 last:border-0 hover:bg-white/[0.02] transition-colors">
+                <td className="px-4 py-3 text-xs text-apple-gray-500">{i + 1}</td>
+                <td className="px-4 py-3 text-xs text-[#1C1C1E]">{e.name}</td>
+                <td className="px-4 py-3 text-xs text-apple-gray-600">{e.batch}</td>
+                <td className="px-4 py-3 text-xs text-apple-gray-400">{e.dateRequested}</td>
                 <td className="px-4 py-3">
-                  <span className="flex items-center gap-1 text-xs text-gray-400">
+                  <span className="flex items-center gap-1 text-xs text-apple-gray-400">
                     <Phone className="w-3 h-3" />{e.phone}
                   </span>
                 </td>

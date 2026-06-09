@@ -72,51 +72,51 @@ export default function BatchesBookings() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Class Bookings</h1>
-        <p className="text-xs text-gray-500 mt-0.5">View and manage batch reservations.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Class Bookings</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">View and manage batch reservations.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Bookings" value={stats.total} icon={Calendar} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Total Bookings" value={stats.total} icon={Calendar} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Confirmed" value={stats.confirmed} icon={CheckCircle} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
         <StatsCard label="Waitlisted" value={stats.waitlisted} icon={Users} color="from-amber-500/20 to-amber-600/5" border="border-amber-500/30" text="text-amber-400" />
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative">
-          <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-          <input type="date" value={dateFilter} onChange={e => setDateFilter(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 transition-colors [color-scheme:dark]" />
+          <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-apple-gray-500" />
+          <input type="date" value={dateFilter} onChange={e => setDateFilter(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40 transition-colors [color-scheme:dark]" />
         </div>
-        <select value={batchFilter} onChange={e => setBatchFilter(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+        <select value={batchFilter} onChange={e => setBatchFilter(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
           {batchOptions.map(b => <option key={b}>{b}</option>)}
         </select>
-        <select value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+        <select value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
           {categoryOptions.map(c => <option key={c}>{c}</option>)}
         </select>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Member</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Batch</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Date</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Time</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-                <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Action</th>
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Member</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Batch</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Date</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Time</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Status</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {paged.map((b, i) => {
                 const StatusIcon = statusIcons[b.status]
                 return (
                   <motion.tr key={b.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-4 py-3"><span className="text-xs font-medium text-white cursor-pointer hover:text-ydl-yellow transition-colors" onClick={() => { setProfileMember(b); setProfileModal(true) }}>{b.member}</span><br /><span className="text-[9px] text-gray-600">{b.id}</span></td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{b.batch}</td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{b.date}</td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{b.time}</td>
+                    <td className="px-4 py-3"><span className="text-xs font-medium text-[#1C1C1E] cursor-pointer hover:text-apple-blue transition-colors" onClick={() => { setProfileMember(b); setProfileModal(true) }}>{b.member}</span><br /><span className="text-[9px] text-apple-gray-400">{b.id}</span></td>
+                    <td className="px-4 py-3 text-xs text-apple-gray-400">{b.batch}</td>
+                    <td className="px-4 py-3 text-xs text-apple-gray-400">{b.date}</td>
+                    <td className="px-4 py-3 text-xs text-apple-gray-400">{b.time}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md border ${statusColors[b.status]}`}>
                         <StatusIcon className="w-3 h-3" />{b.status}
@@ -139,25 +139,25 @@ export default function BatchesBookings() {
             </tbody>
           </table>
         </div>
-        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-apple-gray-200 bg-white/[0.02]"><span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
       <Modal open={profileModal} onClose={() => setProfileModal(false)} title="Member Profile" size="sm">
         {profileMember && (
           <div className="space-y-3">
-            <div className="flex items-center gap-3 pb-3 border-b border-ydl-dark-border">
-              <div className="w-10 h-10 rounded-full bg-ydl-yellow/10 border border-ydl-yellow/20 flex items-center justify-center text-sm font-bold text-ydl-yellow">
+            <div className="flex items-center gap-3 pb-3 border-b border-apple-gray-200">
+              <div className="w-10 h-10 rounded-full bg-apple-blue/10 border border-ydl-yellow/20 flex items-center justify-center text-sm font-bold text-apple-blue">
                 {profileMember.member.charAt(0)}
               </div>
               <div>
-                <h3 className="text-sm font-bold text-white">{profileMember.member}</h3>
-                <p className="text-[10px] text-gray-500">{profileMember.id}</p>
+                <h3 className="text-sm font-bold text-[#1C1C1E]">{profileMember.member}</h3>
+                <p className="text-[10px] text-apple-gray-500">{profileMember.id}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <div><p className="text-[10px] text-gray-500">Batch</p><p className="text-xs text-white">{profileMember.batch}</p></div>
-              <div><p className="text-[10px] text-gray-500">Status</p><span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md border ${statusColors[profileMember.status]}`}>{profileMember.status}</span></div>
-              <div><p className="text-[10px] text-gray-500">Date</p><p className="text-xs text-white">{profileMember.date}</p></div>
-              <div><p className="text-[10px] text-gray-500">Time</p><p className="text-xs text-white">{profileMember.time}</p></div>
+              <div><p className="text-[10px] text-apple-gray-500">Batch</p><p className="text-xs text-[#1C1C1E]">{profileMember.batch}</p></div>
+              <div><p className="text-[10px] text-apple-gray-500">Status</p><span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md border ${statusColors[profileMember.status]}`}>{profileMember.status}</span></div>
+              <div><p className="text-[10px] text-apple-gray-500">Date</p><p className="text-xs text-[#1C1C1E]">{profileMember.date}</p></div>
+              <div><p className="text-[10px] text-apple-gray-500">Time</p><p className="text-xs text-[#1C1C1E]">{profileMember.time}</p></div>
             </div>
           </div>
         )}

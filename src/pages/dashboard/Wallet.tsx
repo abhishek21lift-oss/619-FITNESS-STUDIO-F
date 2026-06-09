@@ -93,15 +93,15 @@ export default function Wallet() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-bold text-white">Wallet</h1><p className="text-xs text-gray-500 mt-0.5">Financial overview and transactions.</p></div>
+        <div><h1 className="text-lg font-bold text-[#1C1C1E]">Wallet</h1><p className="text-xs text-apple-gray-500 mt-0.5">Financial overview and transactions.</p></div>
         <div className="flex items-center gap-2">
           <button onClick={() => setWithdrawOpen(true)} className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg hover:bg-red-500/20"><ArrowDownRight className="w-3.5 h-3.5" /> Withdraw</button>
-          <button onClick={() => setAddMoneyOpen(true)} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Money</button>
+          <button onClick={() => setAddMoneyOpen(true)} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Money</button>
         </div>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
-        <StatsCard label="Total Balance" value={formatAmount(totalBalance)} icon={WalletIcon} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" />
+        <StatsCard label="Total Balance" value={formatAmount(totalBalance)} icon={WalletIcon} color="from-apple-blue/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-apple-blue" />
         <StatsCard label="Credits This Month" value={formatAmount(thisMonthCredits)} icon={ArrowUpRight} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
         <StatsCard label="Debits This Month" value={formatAmount(thisMonthDebits)} icon={ArrowDownRight} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" />
       </div>
@@ -109,38 +109,38 @@ export default function Wallet() {
       <div className="flex items-center justify-between">
         <div className="flex gap-1.5">
           {(['All', 'Credits', 'Debits'] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${tab === t ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-500 hover:text-gray-300'}`}>
+            <button key={t} onClick={() => setTab(t)} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${tab === t ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue' : 'bg-white/5 border-apple-gray-200 text-apple-gray-500 hover:text-apple-gray-600'}`}>
               {t} ({t === 'All' ? transactions.length : transactions.filter(tx => tx.type === (t === 'Credits' ? 'Credit' : 'Debit')).length})
             </button>
           ))}
         </div>
-        <button onClick={() => toast('Exporting statement for the current period... This would generate a CSV/PDF report.', 'info')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">
+        <button onClick={() => toast('Exporting statement for the current period... This would generate a CSV/PDF report.', 'info')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">
           <Download className="w-3 h-3" /> Export Statement
         </button>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Date</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Description</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Type</th>
-              <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Amount</th>
-              <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Actions</th>
+            <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Date</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Description</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Type</th>
+              <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Amount</th>
+              <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-ydl-dark-border/50">
+          <tbody className="divide-y divide-apple-gray-200/50">
             {paged.map((t, i) => (
               <motion.tr key={t.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                <td className="px-4 py-3 text-xs text-gray-400">{t.date}</td>
+                <td className="px-4 py-3 text-xs text-apple-gray-400">{t.date}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
                     <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${t.type === 'Credit' ? 'bg-emerald-500/10' : 'bg-red-500/10'}`}>
                       {tab === 'Credits' || t.type === 'Credit' ? <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" /> : <ArrowDownRight className="w-3.5 h-3.5 text-red-400" />}
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-white">{t.description}</p>
+                      <p className="text-xs font-medium text-[#1C1C1E]">{t.description}</p>
                       <span className={`inline-flex items-center gap-1 text-[8px] font-medium ${t.status === 'Completed' ? 'text-emerald-500' : t.status === 'Pending' ? 'text-amber-500' : 'text-red-500'}`}>
                         {t.status === 'Completed' ? <CheckCircle className="w-2 h-2" /> : t.status === 'Pending' ? <Clock className="w-2 h-2" /> : <XCircle className="w-2 h-2" />}
                         {t.status}
@@ -164,79 +164,79 @@ export default function Wallet() {
             ))}
           </tbody>
         </table>
-        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-apple-gray-200 bg-white/[0.02]"><span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={addMoneyOpen} onClose={() => setAddMoneyOpen(false)} title="Add Money" size="sm">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Amount (₹)</label>
+            <label className="text-[10px] font-medium text-apple-gray-400">Amount (₹)</label>
             <div className="relative">
-              <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-              <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="0" />
+              <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-apple-gray-500" />
+              <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="0" />
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Description</label>
-            <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Membership payment" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Description</label>
+            <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Membership payment" />
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleAddMoney} disabled={!amount || parseInt(amount) <= 0} className="flex-1 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 disabled:opacity-40">Add ₹{amount || '0'}</button>
-          <button onClick={() => setAddMoneyOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleAddMoney} disabled={!amount || parseInt(amount) <= 0} className="flex-1 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 disabled:opacity-40">Add ₹{amount || '0'}</button>
+          <button onClick={() => setAddMoneyOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
 
       <Modal open={withdrawOpen} onClose={() => setWithdrawOpen(false)} title="Withdraw Money" size="sm">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Amount (₹)</label>
+            <label className="text-[10px] font-medium text-apple-gray-400">Amount (₹)</label>
             <div className="relative">
-              <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-              <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="0" />
+              <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-apple-gray-500" />
+              <input type="number" value={amount} onChange={e => setAmount(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="0" />
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Description</label>
-            <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Rent payment" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Description</label>
+            <input value={description} onChange={e => setDescription(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Rent payment" />
           </div>
-          <p className="text-[10px] text-gray-600">Available balance: {formatAmount(totalBalance)}</p>
+          <p className="text-[10px] text-apple-gray-400">Available balance: {formatAmount(totalBalance)}</p>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleWithdraw} disabled={!amount || parseInt(amount) <= 0 || parseInt(amount) > totalBalance} className="flex-1 py-2 text-xs font-semibold text-white bg-red-500/80 rounded-lg hover:bg-red-500 disabled:opacity-40">Withdraw ₹{amount || '0'}</button>
-          <button onClick={() => setWithdrawOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleWithdraw} disabled={!amount || parseInt(amount) <= 0 || parseInt(amount) > totalBalance} className="flex-1 py-2 text-xs font-semibold text-[#1C1C1E] bg-red-500/80 rounded-lg hover:bg-red-500 disabled:opacity-40">Withdraw ₹{amount || '0'}</button>
+          <button onClick={() => setWithdrawOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
 
       <Modal open={!!detailOpen} onClose={() => setDetailOpen(null)} title="Transaction Details" size="sm">
         {detailOpen && (
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-              <span className="text-[10px] text-gray-500">Transaction ID</span>
-              <span className="text-xs text-white font-medium">{detailOpen.id}</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+              <span className="text-[10px] text-apple-gray-500">Transaction ID</span>
+              <span className="text-xs text-[#1C1C1E] font-medium">{detailOpen.id}</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-              <span className="text-[10px] text-gray-500">Description</span>
-              <span className="text-xs text-white">{detailOpen.description}</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+              <span className="text-[10px] text-apple-gray-500">Description</span>
+              <span className="text-xs text-[#1C1C1E]">{detailOpen.description}</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-              <span className="text-[10px] text-gray-500">Amount</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+              <span className="text-[10px] text-apple-gray-500">Amount</span>
               <span className={`text-xs font-bold ${detailOpen.type === 'Credit' ? 'text-emerald-400' : 'text-red-400'}`}>{detailOpen.type === 'Credit' ? '+' : '-'}{formatAmount(detailOpen.amount)}</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-              <span className="text-[10px] text-gray-500">Type</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+              <span className="text-[10px] text-apple-gray-500">Type</span>
               <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${detailOpen.type === 'Credit' ? 'text-emerald-400 bg-emerald-500/10' : 'text-red-400 bg-red-500/10'}`}>{detailOpen.type}</span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-              <span className="text-[10px] text-gray-500">Status</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+              <span className="text-[10px] text-apple-gray-500">Status</span>
               <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md ${detailOpen.status === 'Completed' ? 'text-emerald-400 bg-emerald-500/10' : detailOpen.status === 'Pending' ? 'text-amber-400 bg-amber-500/10' : 'text-red-400 bg-red-500/10'}`}>
                 {detailOpen.status === 'Completed' ? <CheckCircle className="w-3 h-3" /> : detailOpen.status === 'Pending' ? <Clock className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
                 {detailOpen.status}
               </span>
             </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-              <span className="text-[10px] text-gray-500">Date</span>
-              <span className="text-xs text-white">{detailOpen.date}</span>
+            <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+              <span className="text-[10px] text-apple-gray-500">Date</span>
+              <span className="text-xs text-[#1C1C1E]">{detailOpen.date}</span>
             </div>
           </div>
         )}

@@ -51,7 +51,7 @@ const sourceEnquiries = ['All', 'Instagram', 'Facebook', 'Google', 'Walk-in', 'F
 
 function LeadStatusTab({ label, count, active, onClick }: { label: string; count: number; active: boolean; onClick: () => void }) {
   return (
-    <button onClick={onClick} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${active ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-500 hover:text-gray-300'}`}>
+    <button onClick={onClick} className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${active ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue' : 'bg-white/5 border-apple-gray-200 text-apple-gray-500 hover:text-apple-gray-600'}`}>
       {label}: <span className="font-bold">{count}</span>
     </button>
   )
@@ -143,7 +143,7 @@ export default function EnquiryList() {
   const statusBadge = (s: string) => {
     const styles: Record<string, string> = {
       Open: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
-      Closed: 'text-gray-400 bg-gray-500/10 border-gray-500/20',
+      Closed: 'text-apple-gray-400 bg-gray-500/10 border-gray-500/20',
       'Not Interested': 'text-red-400 bg-red-500/10 border-red-500/20',
     }
     return <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md border ${styles[s] || styles.Open}`}>{s}</span>
@@ -170,11 +170,11 @@ export default function EnquiryList() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-white">Enquiry List</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Manage and track all client leads.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Enquiry List</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Manage and track all client leads.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <button onClick={exportCSV} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">
+          <button onClick={exportCSV} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">
             <Download className="w-3 h-3" /> Export CSV
           </button>
           <button onClick={() => setModal({ type: 'delete', data: 'selected' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg hover:bg-red-500/20 transition-colors">
@@ -183,7 +183,7 @@ export default function EnquiryList() {
           <button onClick={() => setModal({ type: 'deactivate' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg hover:bg-amber-500/20 transition-colors">
             <XCircle className="w-3 h-3" /> Deactivate
           </button>
-          <button onClick={() => navigate('/dashboard/enquiry/add')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={() => navigate('/dashboard/enquiry/add')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity">
             <Plus className="w-3 h-3" /> Add Enquiry
           </button>
         </div>
@@ -198,19 +198,19 @@ export default function EnquiryList() {
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px] max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-          <input value={search} onChange={e => { setSearch(e.target.value); setPage(1) }} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="Search by mobile, email, name..." />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-apple-gray-500" />
+          <input value={search} onChange={e => { setSearch(e.target.value); setPage(1) }} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg pl-9 pr-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="Search by mobile, email, name..." />
         </div>
 
         <div className="relative" ref={dateRef}>
-          <button onClick={() => setShowDateDropdown(!showDateDropdown)} className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">
+          <button onClick={() => setShowDateDropdown(!showDateDropdown)} className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">
             {dateRange === 'All' ? 'Date Range' : dateRange} <ChevronDown className="w-3 h-3" />
           </button>
           <AnimatePresence>
             {showDateDropdown && (
-              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }} className="absolute left-0 top-full mt-1 w-40 rounded-lg border border-ydl-dark-border bg-[#1A1A1A] shadow-xl z-30 overflow-hidden">
+              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }} className="absolute left-0 top-full mt-1 w-40 rounded-lg border border-apple-gray-200 bg-[#1A1A1A] shadow-xl z-30 overflow-hidden">
                 {['All', 'Today', 'Yesterday', 'Last 7 Days', 'This Month', 'Last Month', 'Custom'].map(d => (
-                  <button key={d} onClick={() => { setDateRange(d); setShowDateDropdown(false) }} className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-white/5 transition-colors ${dateRange === d ? 'text-ydl-yellow' : 'text-gray-400'}`}>{d}</button>
+                  <button key={d} onClick={() => { setDateRange(d); setShowDateDropdown(false) }} className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-apple-gray-100 transition-colors ${dateRange === d ? 'text-apple-blue' : 'text-apple-gray-400'}`}>{d}</button>
                 ))}
               </motion.div>
             )}
@@ -218,31 +218,31 @@ export default function EnquiryList() {
         </div>
 
         <div className="relative" ref={promoRef}>
-          <button onClick={() => setShowPromoDropdown(!showPromoDropdown)} className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">
+          <button onClick={() => setShowPromoDropdown(!showPromoDropdown)} className="flex items-center gap-1.5 px-3 py-2 text-[11px] font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">
             {filters.promotion === 'All' ? 'Source of Promotion' : filters.promotion} <ChevronDown className="w-3 h-3" />
           </button>
           <AnimatePresence>
             {showPromoDropdown && (
-              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }} className="absolute left-0 top-full mt-1 w-52 rounded-lg border border-ydl-dark-border bg-[#1A1A1A] shadow-xl z-30 max-h-60 overflow-y-auto">
+              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }} className="absolute left-0 top-full mt-1 w-52 rounded-lg border border-apple-gray-200 bg-[#1A1A1A] shadow-xl z-30 max-h-60 overflow-y-auto">
                 {sourcePromotions.map(p => (
-                  <button key={p} onClick={() => { setFilters({ ...filters, promotion: p }); setShowPromoDropdown(false) }} className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-white/5 transition-colors ${filters.promotion === p ? 'text-ydl-yellow' : 'text-gray-400'}`}>{p}</button>
+                  <button key={p} onClick={() => { setFilters({ ...filters, promotion: p }); setShowPromoDropdown(false) }} className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-apple-gray-100 transition-colors ${filters.promotion === p ? 'text-apple-blue' : 'text-apple-gray-400'}`}>{p}</button>
                 ))}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        <button onClick={() => setShowFilters(!showFilters)} className={`flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-colors ${showFilters ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-400 hover:text-white'}`}>
+        <button onClick={() => setShowFilters(!showFilters)} className={`flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-colors ${showFilters ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue' : 'bg-white/5 border-apple-gray-200 text-apple-gray-400 hover:text-[#1C1C1E]'}`}>
           <Filter className="w-3 h-3" /> Filters <ChevronDown className={`w-3 h-3 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
         </button>
 
-        <span className="text-[10px] text-gray-500">{filtered.length} results</span>
+        <span className="text-[10px] text-apple-gray-500">{filtered.length} results</span>
       </div>
 
       <AnimatePresence>
         {showFilters && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-            <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
+            <div className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-4">
               <FilterBar>
                 <FilterField label="Gender"><FilterSelect options={genders} value={filters.gender} onChange={(e: any) => setFilters({ ...filters, gender: e.target.value })} /></FilterField>
                 <FilterField label="Lead Type"><FilterSelect options={leadTypes} value={filters.leadType} onChange={(e: any) => setFilters({ ...filters, leadType: e.target.value })} /></FilterField>
@@ -259,11 +259,11 @@ export default function EnquiryList() {
       </AnimatePresence>
 
       <div className="flex flex-wrap items-center gap-2">
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-ydl-dark-border">
-          <span className="text-[10px] font-semibold text-gray-400">Untapped:</span>
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-apple-gray-200">
+          <span className="text-[10px] font-semibold text-apple-gray-400">Untapped:</span>
           <span className="text-[10px] font-bold text-amber-400">{untappedCount}</span>
-          <span className="text-gray-600 mx-1">|</span>
-          <span className="text-[10px] font-semibold text-gray-400">Tapped:</span>
+          <span className="text-apple-gray-400 mx-1">|</span>
+          <span className="text-[10px] font-semibold text-apple-gray-400">Tapped:</span>
           <span className="text-[10px] font-bold text-emerald-400">{tappedCount}</span>
         </div>
         <button onClick={() => setModal({ type: 'send-notification' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-purple-400 bg-purple-500/10 border border-purple-500/20 rounded-lg hover:bg-purple-500/20 transition-colors">
@@ -272,49 +272,49 @@ export default function EnquiryList() {
         <button onClick={() => toast('Sending customized WhatsApp message...', 'info')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors">
           <Send className="w-3 h-3" /> Send Customized WhatsApp
         </button>
-        <button onClick={() => toast('Selected enquiries marked as Tapped!', 'success')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-lg hover:bg-blue-500/20 transition-colors">
+        <button onClick={() => toast('Selected enquiries marked as Tapped!', 'success')} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-[#007AFF] bg-blue-500/10 border border-blue-500/20 rounded-lg hover:bg-blue-500/20 transition-colors">
           <CheckCircle className="w-3 h-3" /> Mark as Tapped
         </button>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
                 <th className="w-8 px-3 py-3">
                   <input type="checkbox" checked={selectedRows.size === paged.length && paged.length > 0} onChange={toggleAll} className="accent-ydl-yellow" />
                 </th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Enquiry Code</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Name & Number</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Trial</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Handled By</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Source</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Promotion</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Remark</th>
-                <th className="text-right px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Enquiry Code</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Date</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Name & Number</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Trial</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Status</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Handled By</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Source</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Promotion</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Remark</th>
+                <th className="text-right px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {paged.map((enq, i) => (
                 <motion.tr key={enq.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.02 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-3 py-3"><input type="checkbox" checked={selectedRows.has(enq.id)} onChange={() => toggleRow(enq.id)} className="accent-ydl-yellow" /></td>
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-xs font-medium text-ydl-yellow">{enq.id}</span>
-                      <button onClick={() => { navigator.clipboard.writeText(enq.id); setModal({ type: 'copied', data: enq.id }) }} className="text-gray-600 hover:text-gray-400 transition-colors">
+                      <span className="text-xs font-medium text-apple-blue">{enq.id}</span>
+                      <button onClick={() => { navigator.clipboard.writeText(enq.id); setModal({ type: 'copied', data: enq.id }) }} className="text-apple-gray-400 hover:text-apple-gray-400 transition-colors">
                         <Copy className="w-3 h-3" />
                       </button>
                     </div>
                   </td>
-                  <td className="px-3 py-3 text-xs text-gray-400">{enq.date}</td>
+                  <td className="px-3 py-3 text-xs text-apple-gray-400">{enq.date}</td>
                   <td className="px-3 py-3">
                     <div className="flex flex-col gap-0.5">
                       <div className="flex items-center gap-1.5">
-                        <span onClick={() => setModal({ type: 'view-profile', data: enq })} className="text-xs font-medium text-white hover:text-ydl-yellow cursor-pointer transition-colors">{enq.name}</span>
-                        <span className={`inline-flex items-center px-1.5 py-0.5 text-[8px] font-medium rounded ${enq.appStatus === 'installed' ? 'text-emerald-400 bg-emerald-500/10' : 'text-gray-500 bg-gray-500/10'}`}>
+                        <span onClick={() => setModal({ type: 'view-profile', data: enq })} className="text-xs font-medium text-[#1C1C1E] hover:text-apple-blue cursor-pointer transition-colors">{enq.name}</span>
+                        <span className={`inline-flex items-center px-1.5 py-0.5 text-[8px] font-medium rounded ${enq.appStatus === 'installed' ? 'text-emerald-400 bg-emerald-500/10' : 'text-apple-gray-500 bg-gray-500/10'}`}>
                           {enq.appStatus === 'installed' ? 'App' : 'No App'}
                         </span>
                         <span className={`text-[8px] font-medium ${enq.tappedStatus === 'tapped' ? 'text-green-400' : 'text-amber-400'}`}>
@@ -322,19 +322,19 @@ export default function EnquiryList() {
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-gray-500">{enq.mobile}</span>
-                        <button onClick={() => setModal({ type: 'followup-history', data: enq })} className="text-[10px] text-ydl-yellow hover:underline">FollowUp</button>
+                        <span className="text-[10px] text-apple-gray-500">{enq.mobile}</span>
+                        <button onClick={() => setModal({ type: 'followup-history', data: enq })} className="text-[10px] text-apple-blue hover:underline">FollowUp</button>
                       </div>
                     </div>
                   </td>
                   <td className="px-3 py-3">
-                    <span className={`text-[10px] font-medium ${enq.onTrial === 'Yes' ? 'text-emerald-400' : 'text-gray-500'}`}>{enq.onTrial}</span>
+                    <span className={`text-[10px] font-medium ${enq.onTrial === 'Yes' ? 'text-emerald-400' : 'text-apple-gray-500'}`}>{enq.onTrial}</span>
                   </td>
                   <td className="px-3 py-3">{statusBadge(enq.status)}</td>
-                  <td className="px-3 py-3 text-xs text-gray-400">{enq.clientRep}</td>
-                  <td className="px-3 py-3 text-xs text-gray-400">{enq.source}</td>
-                  <td className="px-3 py-3 text-[10px] text-gray-400 max-w-[120px] truncate">{enq.promotion}</td>
-                  <td className="px-3 py-3 text-[10px] text-gray-500 max-w-[120px] truncate">{enq.remark || '-'}</td>
+                  <td className="px-3 py-3 text-xs text-apple-gray-400">{enq.clientRep}</td>
+                  <td className="px-3 py-3 text-xs text-apple-gray-400">{enq.source}</td>
+                  <td className="px-3 py-3 text-[10px] text-apple-gray-400 max-w-[120px] truncate">{enq.promotion}</td>
+                  <td className="px-3 py-3 text-[10px] text-apple-gray-500 max-w-[120px] truncate">{enq.remark || '-'}</td>
                   <td className="px-3 py-3 text-right">
                     <ActionMenu
                       label={<MoreHorizontal className="w-3.5 h-3.5" />}
@@ -354,13 +354,13 @@ export default function EnquiryList() {
             </tbody>
           </table>
         </div>
-        {paged.length === 0 && <div className="text-center py-10"><p className="text-xs text-gray-500">No enquiries match your filters.</p></div>}
+        {paged.length === 0 && <div className="text-center py-10"><p className="text-xs text-apple-gray-500">No enquiries match your filters.</p></div>}
       </motion.div>
 
       <div className="flex items-center justify-between">
-        <span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span>
+        <span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span>
         <div className="flex items-center gap-1">
-          <button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10 transition-colors">
+          <button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10 transition-colors">
             <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
@@ -368,12 +368,12 @@ export default function EnquiryList() {
             const p = start + i
             if (p > totalPages) return null
             return (
-              <button key={p} onClick={() => setPage(p)} className={`w-7 h-7 text-[10px] font-medium rounded-lg border transition-colors ${page === p ? 'bg-ydl-yellow/10 border-ydl-yellow/30 text-ydl-yellow' : 'bg-white/5 border-ydl-dark-border text-gray-500 hover:text-white'}`}>
+              <button key={p} onClick={() => setPage(p)} className={`w-7 h-7 text-[10px] font-medium rounded-lg border transition-colors ${page === p ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue' : 'bg-white/5 border-apple-gray-200 text-apple-gray-500 hover:text-[#1C1C1E]'}`}>
                 {p}
               </button>
             )
           })}
-          <button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10 transition-colors">
+          <button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10 transition-colors">
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -382,19 +382,19 @@ export default function EnquiryList() {
       <Modal open={modal?.type === 'send-notification'} onClose={() => setModal(null)} title="Send Notification" size="md">
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <label className="text-[11px] font-medium text-gray-400">Title</label>
-            <input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Notification title" />
+            <label className="text-[11px] font-medium text-apple-gray-400">Title</label>
+            <input className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Notification title" />
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-medium text-gray-400">Message</label>
-            <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[80px] resize-none" placeholder="Type your notification message..." />
+            <label className="text-[11px] font-medium text-apple-gray-400">Message</label>
+            <textarea className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[80px] resize-none" placeholder="Type your notification message..." />
           </div>
-          <div className="flex items-center gap-2 text-[10px] text-gray-500">
+          <div className="flex items-center gap-2 text-[10px] text-apple-gray-500">
             <input type="checkbox" className="accent-ydl-yellow" /> Send to all {filtered.length} filtered enquiries
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { toast('Notification sent successfully!', 'success'); setModal(null); }} className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><Send className="w-3.5 h-3.5" /> Send</button>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
+            <button onClick={() => { toast('Notification sent successfully!', 'success'); setModal(null); }} className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity"><Send className="w-3.5 h-3.5" /> Send</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -403,22 +403,22 @@ export default function EnquiryList() {
         {modal?.data && (
           <div className="space-y-3 text-xs">
             <div className="grid grid-cols-2 gap-3">
-              <div><span className="text-gray-500">Code:</span> <span className="text-white font-medium">{modal.data.id}</span></div>
-              <div><span className="text-gray-500">Date:</span> <span className="text-white">{modal.data.date}</span></div>
-              <div><span className="text-gray-500">Name:</span> <span className="text-white">{modal.data.name}</span></div>
-              <div><span className="text-gray-500">Mobile:</span> <span className="text-white">{modal.data.mobile}</span></div>
-              <div><span className="text-gray-500">Email:</span> <span className="text-white">{modal.data.email}</span></div>
-              <div><span className="text-gray-500">Gender:</span> <span className="text-white">{modal.data.gender}</span></div>
-              <div><span className="text-gray-500">Source:</span> <span className="text-white">{modal.data.source}</span></div>
-              <div><span className="text-gray-500">Promotion:</span> <span className="text-white">{modal.data.promotion}</span></div>
-              <div><span className="text-gray-500">Handled By:</span> <span className="text-white">{modal.data.clientRep}</span></div>
-              <div><span className="text-gray-500">Trainer:</span> <span className="text-white">{modal.data.trainer}</span></div>
-              <div><span className="text-gray-500">Lead Type:</span> <span className="text-white">{modal.data.leadType}</span></div>
-              <div><span className="text-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
+              <div><span className="text-apple-gray-500">Code:</span> <span className="text-[#1C1C1E] font-medium">{modal.data.id}</span></div>
+              <div><span className="text-apple-gray-500">Date:</span> <span className="text-[#1C1C1E]">{modal.data.date}</span></div>
+              <div><span className="text-apple-gray-500">Name:</span> <span className="text-[#1C1C1E]">{modal.data.name}</span></div>
+              <div><span className="text-apple-gray-500">Mobile:</span> <span className="text-[#1C1C1E]">{modal.data.mobile}</span></div>
+              <div><span className="text-apple-gray-500">Email:</span> <span className="text-[#1C1C1E]">{modal.data.email}</span></div>
+              <div><span className="text-apple-gray-500">Gender:</span> <span className="text-[#1C1C1E]">{modal.data.gender}</span></div>
+              <div><span className="text-apple-gray-500">Source:</span> <span className="text-[#1C1C1E]">{modal.data.source}</span></div>
+              <div><span className="text-apple-gray-500">Promotion:</span> <span className="text-[#1C1C1E]">{modal.data.promotion}</span></div>
+              <div><span className="text-apple-gray-500">Handled By:</span> <span className="text-[#1C1C1E]">{modal.data.clientRep}</span></div>
+              <div><span className="text-apple-gray-500">Trainer:</span> <span className="text-[#1C1C1E]">{modal.data.trainer}</span></div>
+              <div><span className="text-apple-gray-500">Lead Type:</span> <span className="text-[#1C1C1E]">{modal.data.leadType}</span></div>
+              <div><span className="text-apple-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
             </div>
-            <div className="pt-2 border-t border-ydl-dark-border">
-              <span className="text-gray-500">Remark:</span>
-              <p className="text-white mt-1">{modal.data.remark || 'No remarks'}</p>
+            <div className="pt-2 border-t border-apple-gray-200">
+              <span className="text-apple-gray-500">Remark:</span>
+              <p className="text-[#1C1C1E] mt-1">{modal.data.remark || 'No remarks'}</p>
             </div>
           </div>
         )}
@@ -427,17 +427,17 @@ export default function EnquiryList() {
       <Modal open={modal?.type === 'followup-history'} onClose={() => setModal(null)} title={`FollowUp History: ${modal?.data?.name || ''}`} size="md">
         <div className="space-y-2">
           {[1, 2, 3].map(i => (
-            <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-white/[0.02] border border-ydl-dark-border">
-              <div className="w-6 h-6 rounded-full bg-ydl-yellow/10 flex items-center justify-center text-xs text-ydl-yellow font-bold">{i}</div>
+            <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-white/[0.02] border border-apple-gray-200">
+              <div className="w-6 h-6 rounded-full bg-apple-blue/10 flex items-center justify-center text-xs text-apple-blue font-bold">{i}</div>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-medium text-white">Follow Up #{i}</span>
-                  <span className="text-[10px] text-gray-500">{new Date(2026, 5, 7 - i).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}</span>
+                  <span className="text-[11px] font-medium text-[#1C1C1E]">Follow Up #{i}</span>
+                  <span className="text-[10px] text-apple-gray-500">{new Date(2026, 5, 7 - i).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}</span>
                 </div>
-                <p className="text-[10px] text-gray-400 mt-0.5">Called and discussed membership options. Client showed interest in Annual Gold plan.</p>
+                <p className="text-[10px] text-apple-gray-400 mt-0.5">Called and discussed membership options. Client showed interest in Annual Gold plan.</p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Hot</span>
-                  <span className="text-[9px] text-gray-500">by Riya Singh</span>
+                  <span className="text-[9px] text-apple-gray-500">by Riya Singh</span>
                 </div>
               </div>
             </div>
@@ -446,32 +446,32 @@ export default function EnquiryList() {
       </Modal>
 
       <Modal open={modal?.type === 'delete'} onClose={() => setModal(null)} title="Confirm Delete" size="sm">
-        <p className="text-xs text-gray-400">Are you sure you want to delete {modal?.data === 'selected' ? `${selectedRows.size} selected` : 'this'} enquiry? This action cannot be undone.</p>
+        <p className="text-xs text-apple-gray-400">Are you sure you want to delete {modal?.data === 'selected' ? `${selectedRows.size} selected` : 'this'} enquiry? This action cannot be undone.</p>
         <div className="flex items-center gap-3 mt-4">
-          <button onClick={() => { toast(`Enquiry ${modal?.data === 'selected' ? `${selectedRows.size} selected` : modal?.data?.id || ''} deleted.`, 'error'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors">Delete</button>
-          <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
+          <button onClick={() => { toast(`Enquiry ${modal?.data === 'selected' ? `${selectedRows.size} selected` : modal?.data?.id || ''} deleted.`, 'error'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-[#1C1C1E] bg-red-500 rounded-lg hover:bg-red-600 transition-colors">Delete</button>
+          <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">Cancel</button>
         </div>
       </Modal>
 
       <Modal open={modal?.type === 'send-sms'} onClose={() => setModal(null)} title={`Send SMS to ${modal?.data?.name || ''}`} size="md">
         <div className="space-y-3">
-          <div className="text-[11px] text-gray-500">To: <span className="text-white">{modal?.data?.mobile}</span></div>
-          <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[100px] resize-none" placeholder="Type SMS message..." />
+          <div className="text-[11px] text-apple-gray-500">To: <span className="text-[#1C1C1E]">{modal?.data?.mobile}</span></div>
+          <textarea className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[100px] resize-none" placeholder="Type SMS message..." />
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { toast('SMS sent successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><MessageSquare className="w-3 h-3 inline mr-1" /> Send SMS</button>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
+            <button onClick={() => { toast('SMS sent successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity"><MessageSquare className="w-3 h-3 inline mr-1" /> Send SMS</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">Cancel</button>
           </div>
         </div>
       </Modal>
 
       <Modal open={modal?.type === 'send-email'} onClose={() => setModal(null)} title={`Send Email to ${modal?.data?.name || ''}`} size="lg">
         <div className="space-y-3">
-          <div className="text-[11px] text-gray-500">To: <span className="text-white">{modal?.data?.email}</span></div>
-          <input className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Subject" />
-          <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[120px] resize-none" placeholder="Compose email..." />
+          <div className="text-[11px] text-apple-gray-500">To: <span className="text-[#1C1C1E]">{modal?.data?.email}</span></div>
+          <input className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Subject" />
+          <textarea className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[120px] resize-none" placeholder="Compose email..." />
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { toast('Email sent successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity"><Mail className="w-3 h-3 inline mr-1" /> Send Email</button>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
+            <button onClick={() => { toast('Email sent successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity"><Mail className="w-3 h-3 inline mr-1" /> Send Email</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -479,30 +479,30 @@ export default function EnquiryList() {
       <Modal open={modal?.type === 'edit-enquiry'} onClose={() => setModal(null)} title={`Edit Enquiry: ${modal?.data?.id || ''}`} size="lg">
         {modal?.data && (
           <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Name</label><input defaultValue={modal.data.name} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40" /></div>
-            <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Mobile</label><input defaultValue={modal.data.mobile} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40" /></div>
-            <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Email</label><input defaultValue={modal.data.email} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40" /></div>
-            <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Status</label><select defaultValue={modal.data.status} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40"><option>Open</option><option>Closed</option><option>Not Interested</option></select></div>
-            <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Source</label><select defaultValue={modal.data.source} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40">{sourceEnquiries.filter(s => s !== 'All').map(s => <option key={s}>{s}</option>)}</select></div>
-            <div className="space-y-1.5"><label className="text-[10px] text-gray-500">Handled By</label><select defaultValue={modal.data.clientRep} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-white focus:outline-none focus:border-ydl-yellow/40">{clientReps.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}</select></div>
-            <div className="col-span-2 flex items-center gap-3 pt-2 border-t border-ydl-dark-border mt-2">
-              <button onClick={() => { toast('Enquiry updated successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
-              <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+            <div className="space-y-1.5"><label className="text-[10px] text-apple-gray-500">Name</label><input defaultValue={modal.data.name} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40" /></div>
+            <div className="space-y-1.5"><label className="text-[10px] text-apple-gray-500">Mobile</label><input defaultValue={modal.data.mobile} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40" /></div>
+            <div className="space-y-1.5"><label className="text-[10px] text-apple-gray-500">Email</label><input defaultValue={modal.data.email} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40" /></div>
+            <div className="space-y-1.5"><label className="text-[10px] text-apple-gray-500">Status</label><select defaultValue={modal.data.status} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40"><option>Open</option><option>Closed</option><option>Not Interested</option></select></div>
+            <div className="space-y-1.5"><label className="text-[10px] text-apple-gray-500">Source</label><select defaultValue={modal.data.source} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">{sourceEnquiries.filter(s => s !== 'All').map(s => <option key={s}>{s}</option>)}</select></div>
+            <div className="space-y-1.5"><label className="text-[10px] text-apple-gray-500">Handled By</label><select defaultValue={modal.data.clientRep} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">{clientReps.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}</select></div>
+            <div className="col-span-2 flex items-center gap-3 pt-2 border-t border-apple-gray-200 mt-2">
+              <button onClick={() => { toast('Enquiry updated successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Edit3 className="w-3 h-3 inline mr-1" /> Save Changes</button>
+              <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
             </div>
           </div>
         )}
       </Modal>
 
       <Modal open={modal?.type === 'copied'} onClose={() => setModal(null)} title="Copied" size="sm">
-        <p className="text-xs text-gray-400">Enquiry code <span className="text-ydl-yellow font-medium">{modal?.data}</span> copied to clipboard.</p>
-        <button onClick={() => setModal(null)} className="mt-3 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">OK</button>
+        <p className="text-xs text-apple-gray-400">Enquiry code <span className="text-apple-blue font-medium">{modal?.data}</span> copied to clipboard.</p>
+        <button onClick={() => setModal(null)} className="mt-3 px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90">OK</button>
       </Modal>
 
       <Modal open={modal?.type === 'deactivate'} onClose={() => setModal(null)} title="Deactivate Enquiries" size="sm">
-        <p className="text-xs text-gray-400">You can deactivate selected enquiries. They will be hidden from the active list but data will be preserved.</p>
+        <p className="text-xs text-apple-gray-400">You can deactivate selected enquiries. They will be hidden from the active list but data will be preserved.</p>
         <div className="flex items-center gap-3 mt-4">
-          <button onClick={() => { toast('Enquiries deactivated successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-white bg-amber-500 rounded-lg hover:bg-amber-600 transition-colors">Deactivate</button>
-          <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white transition-colors">Cancel</button>
+          <button onClick={() => { toast('Enquiries deactivated successfully!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-[#1C1C1E] bg-amber-500 rounded-lg hover:bg-amber-600 transition-colors">Deactivate</button>
+          <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E] transition-colors">Cancel</button>
         </div>
       </Modal>
     </div>

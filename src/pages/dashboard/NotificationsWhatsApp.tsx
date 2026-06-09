@@ -43,17 +43,17 @@ export default function NotificationsWhatsApp() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">WhatsApp Settings</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Configure WhatsApp Business API integration.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">WhatsApp Settings</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Configure WhatsApp Business API integration.</p>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
         <StatsCard label="Sent Today" value={sentCount} icon={Send} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
         <StatsCard label="Failed" value="0" icon={X} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" />
-        <StatsCard label="Delivery Rate" value="100%" icon={BarChart3} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Delivery Rate" value="100%" icon={BarChart3} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5 max-w-2xl">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5 max-w-2xl">
         {connected ? (
           <div className="flex items-center gap-3 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 mb-4">
             <CheckCircle className="w-5 h-5 text-emerald-400" />
@@ -67,51 +67,51 @@ export default function NotificationsWhatsApp() {
         )}
 
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-            <div><p className="text-xs text-white">Phone Number ID</p><p className="text-[10px] text-gray-500 mt-0.5">+91 9876543210</p></div>
-            <Settings className="w-4 h-4 text-gray-500" />
+          <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+            <div><p className="text-xs text-[#1C1C1E]">Phone Number ID</p><p className="text-[10px] text-apple-gray-500 mt-0.5">+91 9876543210</p></div>
+            <Settings className="w-4 h-4 text-apple-gray-500" />
           </div>
-          <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-            <div><p className="text-xs text-white">Business Account</p><p className="text-[10px] text-gray-500 mt-0.5">YourDigitalLift</p></div>
+          <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+            <div><p className="text-xs text-[#1C1C1E]">Business Account</p><p className="text-[10px] text-apple-gray-500 mt-0.5">YourDigitalLift</p></div>
             <CheckCircle className="w-4 h-4 text-emerald-400" />
           </div>
-          <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-ydl-dark-border">
-            <div><p className="text-xs text-white">Template Messages</p><p className="text-[10px] text-gray-500 mt-0.5">{templates.filter(t => t.status === 'Approved').length} templates approved</p></div>
-            <span className="text-[10px] font-medium text-ydl-yellow">Manage</span>
+          <div className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] border border-apple-gray-200">
+            <div><p className="text-xs text-[#1C1C1E]">Template Messages</p><p className="text-[10px] text-apple-gray-500 mt-0.5">{templates.filter(t => t.status === 'Approved').length} templates approved</p></div>
+            <span className="text-[10px] font-medium text-apple-blue">Manage</span>
           </div>
         </div>
 
         <div className="mt-4">
-          <h3 className="text-xs font-semibold text-white mb-2">Templates</h3>
+          <h3 className="text-xs font-semibold text-[#1C1C1E] mb-2">Templates</h3>
           <div className="space-y-2">
             {paged.map((t, i) => (
-              <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-ydl-dark-border">
+              <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-apple-gray-200">
                 <div className="flex items-center gap-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-ydl-yellow" />
+                  <MessageSquare className="w-3.5 h-3.5 text-apple-blue" />
                   <div>
-                    <p className="text-[11px] font-medium text-white">{t.name}</p>
-                    <p className="text-[9px] text-gray-600">{t.category}</p>
+                    <p className="text-[11px] font-medium text-[#1C1C1E]">{t.name}</p>
+                    <p className="text-[9px] text-apple-gray-400">{t.category}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded ${t.status === 'Approved' ? 'text-emerald-400 bg-emerald-500/10' : 'text-amber-400 bg-amber-500/10'}`}>{t.status}</span>
-                  <button onClick={() => { setTestPhone(''); setTestMsg(`Hello! This is a test of the ${t.name} template.`); setTestOpen(true) }} className="text-[9px] text-ydl-yellow hover:underline">Send Test</button>
+                  <button onClick={() => { setTestPhone(''); setTestMsg(`Hello! This is a test of the ${t.name} template.`); setTestOpen(true) }} className="text-[9px] text-apple-blue hover:underline">Send Test</button>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {totalPages > 1 && <div className="flex items-center justify-between"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
+        {totalPages > 1 && <div className="flex items-center justify-between"><span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">›</button></div></div>}
 
-        <div className="flex items-center gap-3 mt-6 pt-4 border-t border-ydl-dark-border">
+        <div className="flex items-center gap-3 mt-6 pt-4 border-t border-apple-gray-200">
           {connected ? (
             <>
-              <button onClick={handleReconnect} className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><RefreshCw className="w-3.5 h-3.5" /> Re-scan QR</button>
+              <button onClick={handleReconnect} className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><RefreshCw className="w-3.5 h-3.5" /> Re-scan QR</button>
               <button onClick={() => setDisconnectOpen(true)} className="px-4 py-2 text-xs font-medium text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500/10">Disconnect</button>
             </>
           ) : (
-            <button onClick={handleReconnect} className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><QrCode className="w-3.5 h-3.5" /> Scan QR Code</button>
+            <button onClick={handleReconnect} className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><QrCode className="w-3.5 h-3.5" /> Scan QR Code</button>
           )}
         </div>
       </motion.div>
@@ -121,34 +121,34 @@ export default function NotificationsWhatsApp() {
           <div className="w-48 h-48 rounded-xl bg-white p-3 flex items-center justify-center mb-3">
             <QrCode className="w-full h-full text-black" />
           </div>
-          <p className="text-xs text-gray-400 text-center">Open WhatsApp on your phone and scan this QR code to connect.</p>
-          <p className="text-[10px] text-gray-600 mt-2">QR code expires in 5:00 minutes</p>
-          <button onClick={() => setQrOpen(false)} className="mt-4 px-6 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">I've Scanned the Code</button>
+          <p className="text-xs text-apple-gray-400 text-center">Open WhatsApp on your phone and scan this QR code to connect.</p>
+          <p className="text-[10px] text-apple-gray-400 mt-2">QR code expires in 5:00 minutes</p>
+          <button onClick={() => setQrOpen(false)} className="mt-4 px-6 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90">I've Scanned the Code</button>
         </div>
       </Modal>
 
       <Modal open={disconnectOpen} onClose={() => setDisconnectOpen(false)} title="Disconnect WhatsApp" size="sm">
-        <p className="text-xs text-gray-400 mb-4">Are you sure you want to disconnect WhatsApp? All automated messaging will stop until you reconnect.</p>
+        <p className="text-xs text-apple-gray-400 mb-4">Are you sure you want to disconnect WhatsApp? All automated messaging will stop until you reconnect.</p>
         <div className="flex items-center gap-2">
-          <button onClick={handleDisconnect} className="flex-1 py-2 text-xs font-semibold text-white bg-red-500/80 rounded-lg hover:bg-red-500">Disconnect</button>
-          <button onClick={() => setDisconnectOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleDisconnect} className="flex-1 py-2 text-xs font-semibold text-[#1C1C1E] bg-red-500/80 rounded-lg hover:bg-red-500">Disconnect</button>
+          <button onClick={() => setDisconnectOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
 
       <Modal open={testOpen} onClose={() => setTestOpen(false)} title="Send Test Message" size="sm">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Phone Number</label>
-            <input value={testPhone} onChange={e => setTestPhone(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="+91 9876543210" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Phone Number</label>
+            <input value={testPhone} onChange={e => setTestPhone(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="+91 9876543210" />
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Message</label>
-            <textarea value={testMsg} onChange={e => setTestMsg(e.target.value)} rows={3} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 resize-none" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Message</label>
+            <textarea value={testMsg} onChange={e => setTestMsg(e.target.value)} rows={3} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 resize-none" />
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleSendTest} disabled={!testPhone} className="flex-1 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 disabled:opacity-40">Send Test</button>
-          <button onClick={() => setTestOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleSendTest} disabled={!testPhone} className="flex-1 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 disabled:opacity-40">Send Test</button>
+          <button onClick={() => setTestOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
     </div>

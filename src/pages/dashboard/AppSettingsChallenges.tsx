@@ -92,36 +92,36 @@ export default function AppSettingsChallenges() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-bold text-white">Challenges</h1><p className="text-xs text-gray-500 mt-0.5">Create and manage fitness challenges.</p></div>
-        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Challenge</button>
+        <div><h1 className="text-lg font-bold text-[#1C1C1E]">Challenges</h1><p className="text-xs text-apple-gray-500 mt-0.5">Create and manage fitness challenges.</p></div>
+        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Challenge</button>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
         <StatsCard label="Active" value={activeChallenges} icon={Trophy} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
-        <StatsCard label="Total Participants" value={totalParticipants} icon={Users} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Total Participants" value={totalParticipants} icon={Users} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Completed" value={completedChallenges} icon={Flag} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {challenges.map((c, i) => (
-          <motion.div key={c.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
+          <motion.div key={c.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-4">
             <div className="flex items-start justify-between">
-              <div className="w-10 h-10 rounded-xl bg-ydl-yellow/10 border border-ydl-yellow/20 flex items-center justify-center"><Trophy className="w-5 h-5 text-ydl-yellow" /></div>
+              <div className="w-10 h-10 rounded-xl bg-apple-blue/10 border border-ydl-yellow/20 flex items-center justify-center"><Trophy className="w-5 h-5 text-apple-blue" /></div>
               <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${
                 c.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' :
-                c.status === 'Upcoming' ? 'text-blue-400 bg-blue-500/10 border border-blue-500/20' :
-                'text-gray-400 bg-gray-500/10 border border-gray-500/20'
+                c.status === 'Upcoming' ? 'text-[#007AFF] bg-blue-500/10 border border-blue-500/20' :
+                'text-apple-gray-400 bg-gray-500/10 border border-gray-500/20'
               }`}>{c.status}</span>
             </div>
-            <h3 className="text-sm font-bold text-white mt-3">{c.name}</h3>
+            <h3 className="text-sm font-bold text-[#1C1C1E] mt-3">{c.name}</h3>
             <div className="mt-2 space-y-1">
-              <p className="text-[10px] text-gray-500">Type: <span className="text-gray-300">{c.type}</span></p>
-              <p className="text-[10px] text-gray-500"><Calendar className="inline w-3 h-3 mr-0.5" />{c.startDate} - {c.endDate}</p>
-              <p className="text-[10px] text-gray-500">Goal: <span className="text-gray-300">{c.goal}</span></p>
-              <p className="text-[10px] text-gray-500"><Users className="inline w-3 h-3 mr-0.5" />{c.participants} participants</p>
-              <p className="text-[10px] font-medium text-ydl-yellow">Prize: {c.prize}</p>
+              <p className="text-[10px] text-apple-gray-500">Type: <span className="text-apple-gray-600">{c.type}</span></p>
+              <p className="text-[10px] text-apple-gray-500"><Calendar className="inline w-3 h-3 mr-0.5" />{c.startDate} - {c.endDate}</p>
+              <p className="text-[10px] text-apple-gray-500">Goal: <span className="text-apple-gray-600">{c.goal}</span></p>
+              <p className="text-[10px] text-apple-gray-500"><Users className="inline w-3 h-3 mr-0.5" />{c.participants} participants</p>
+              <p className="text-[10px] font-medium text-apple-blue">Prize: {c.prize}</p>
             </div>
-            <div className="flex items-center gap-2 mt-4 pt-3 border-t border-ydl-dark-border">
+            <div className="flex items-center gap-2 mt-4 pt-3 border-t border-apple-gray-200">
               <ActionMenu actions={[
                 { label: 'Edit', icon: Edit3, onClick: () => openEdit(c) },
                 { label: 'View Leaderboard', icon: Medal, onClick: () => viewLeaderboard(c) },
@@ -136,71 +136,71 @@ export default function AppSettingsChallenges() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editChallenge ? 'Edit Challenge' : 'Add Challenge'} size="md">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Challenge Name</label>
-            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Summer Shred Challenge" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Challenge Name</label>
+            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Summer Shred Challenge" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Type</label>
-              <select value={form.type} onChange={e => setForm(p => ({ ...p, type: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+              <label className="text-[10px] font-medium text-apple-gray-400">Type</label>
+              <select value={form.type} onChange={e => setForm(p => ({ ...p, type: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
                 {challengeTypes.map(t => <option key={t}>{t}</option>)}
               </select>
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Status</label>
-              <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Challenge['status'] }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+              <label className="text-[10px] font-medium text-apple-gray-400">Status</label>
+              <select value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value as Challenge['status'] }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
                 <option>Active</option><option>Upcoming</option><option>Ended</option>
               </select>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Start Date</label>
-              <input type="date" value={form.startDate} onChange={e => setForm(p => ({ ...p, startDate: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
+              <label className="text-[10px] font-medium text-apple-gray-400">Start Date</label>
+              <input type="date" value={form.startDate} onChange={e => setForm(p => ({ ...p, startDate: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">End Date</label>
-              <input type="date" value={form.endDate} onChange={e => setForm(p => ({ ...p, endDate: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
+              <label className="text-[10px] font-medium text-apple-gray-400">End Date</label>
+              <input type="date" value={form.endDate} onChange={e => setForm(p => ({ ...p, endDate: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] [color-scheme:dark] focus:outline-none focus:border-ydl-yellow/40" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Goal</label>
-              <input value={form.goal} onChange={e => setForm(p => ({ ...p, goal: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="10,000 steps daily" />
+              <label className="text-[10px] font-medium text-apple-gray-400">Goal</label>
+              <input value={form.goal} onChange={e => setForm(p => ({ ...p, goal: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="10,000 steps daily" />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Prize</label>
-              <input value={form.prize} onChange={e => setForm(p => ({ ...p, prize: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="1 Month Free" />
+              <label className="text-[10px] font-medium text-apple-gray-400">Prize</label>
+              <input value={form.prize} onChange={e => setForm(p => ({ ...p, prize: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="1 Month Free" />
             </div>
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleSave} disabled={!form.name} className="flex-1 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 disabled:opacity-40">{editChallenge ? 'Update' : 'Add'} Challenge</button>
-          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleSave} disabled={!form.name} className="flex-1 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 disabled:opacity-40">{editChallenge ? 'Update' : 'Add'} Challenge</button>
+          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
 
       <Modal open={leaderboardOpen} onClose={() => setLeaderboardOpen(false)} title={`Leaderboard: ${leaderboardTitle}`} size="lg">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase w-12">Rank</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Member</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Progress</th>
-              <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Prize</th>
+            <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase w-12">Rank</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Member</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Progress</th>
+              <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Prize</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-ydl-dark-border/50">
+          <tbody className="divide-y divide-apple-gray-200/50">
             {leaderboardData.map((e, i) => (
               <motion.tr key={e.rank} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="hover:bg-white/[0.02] transition-colors">
                 <td className="px-4 py-3">
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                    e.rank === 1 ? 'bg-ydl-yellow/20 text-ydl-yellow' : e.rank === 2 ? 'bg-gray-300/20 text-gray-300' : e.rank === 3 ? 'bg-amber-600/20 text-amber-600' : 'bg-white/5 text-gray-500'
+                    e.rank === 1 ? 'bg-apple-blue/20 text-apple-blue' : e.rank === 2 ? 'bg-gray-300/20 text-apple-gray-600' : e.rank === 3 ? 'bg-amber-600/20 text-amber-600' : 'bg-white/5 text-apple-gray-500'
                   }`}>{e.rank}</div>
                 </td>
-                <td className="px-4 py-3 text-xs font-medium text-white">{e.name}</td>
-                <td className="px-4 py-3 text-xs text-ydl-yellow">{e.value}</td>
-                <td className="px-4 py-3 text-right text-xs text-gray-400">{e.prize}</td>
+                <td className="px-4 py-3 text-xs font-medium text-[#1C1C1E]">{e.name}</td>
+                <td className="px-4 py-3 text-xs text-apple-blue">{e.value}</td>
+                <td className="px-4 py-3 text-right text-xs text-apple-gray-400">{e.prize}</td>
               </motion.tr>
             ))}
           </tbody>

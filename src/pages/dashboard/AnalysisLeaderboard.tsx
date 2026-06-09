@@ -30,44 +30,44 @@ export default function AnalysisLeaderboard() {
 
   const rankBadge = (rank: number) => {
     const colors: Record<number, string> = {
-      1: 'text-ydl-yellow bg-ydl-yellow/10 border-ydl-yellow/30',
-      2: 'text-gray-300 bg-gray-500/10 border-gray-500/30',
+      1: 'text-apple-blue bg-apple-blue/10 border-ydl-yellow/30',
+      2: 'text-apple-gray-600 bg-gray-500/10 border-gray-500/30',
       3: 'text-amber-600 bg-amber-500/10 border-amber-500/30',
     }
-    return <span className={`inline-flex items-center justify-center w-6 h-6 text-[10px] font-bold rounded-full border ${colors[rank] || 'text-gray-500 bg-white/5 border-ydl-dark-border'}`}>{rank}</span>
+    return <span className={`inline-flex items-center justify-center w-6 h-6 text-[10px] font-bold rounded-full border ${colors[rank] || 'text-apple-gray-500 bg-white/5 border-apple-gray-200'}`}>{rank}</span>
   }
 
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Leaderboard</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Top performing staff and trainers.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Leaderboard</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Top performing staff and trainers.</p>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Top Performer" value={topPerformer.name} icon={Trophy} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" index={0} />
+        <StatsCard label="Top Performer" value={topPerformer.name} icon={Trophy} color="from-apple-blue/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-apple-blue" index={0} />
         <StatsCard label="Total Sales" value={formatRupee(totalSales)} icon={IndianRupee} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
-        <StatsCard label="Avg Conversion" value={`${avgRate}%`} icon={Percent} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={2} />
+        <StatsCard label="Avg Conversion" value={`${avgRate}%`} icon={Percent} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={2} />
       </div>
 
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <Table
           columns={[
             { header: 'Rank', accessor: r => rankBadge(r.rank) },
-            { header: 'Name', accessor: r => <span className="text-white font-medium">{r.name}</span> },
+            { header: 'Name', accessor: r => <span className="text-[#1C1C1E] font-medium">{r.name}</span> },
             { header: 'Sales', accessor: r => formatRupee(r.sales) },
             { header: 'Sessions', accessor: r => r.sessions },
             { header: 'Conversions', accessor: r => r.conversions },
-            { header: 'Conversion Rate', accessor: r => <span className="text-ydl-yellow font-medium">{r.rate}%</span> },
+            { header: 'Conversion Rate', accessor: r => <span className="text-apple-blue font-medium">{r.rate}%</span> },
           ]}
           data={leaderboardData}
           keyExtractor={r => r.rank}

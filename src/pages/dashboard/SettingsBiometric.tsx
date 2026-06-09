@@ -74,37 +74,37 @@ export default function SettingsBiometric() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-bold text-white">Biometric Manager</h1><p className="text-xs text-gray-500 mt-0.5">Manage fingerprint scanners and devices.</p></div>
+        <div><h1 className="text-lg font-bold text-[#1C1C1E]">Biometric Manager</h1><p className="text-xs text-apple-gray-500 mt-0.5">Manage fingerprint scanners and devices.</p></div>
         <div className="flex items-center gap-2">
-          <button onClick={() => setSyncOpen(true)} className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white"><RefreshCw className="w-3.5 h-3.5" /> Sync Now</button>
-          <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Device</button>
+          <button onClick={() => setSyncOpen(true)} className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]"><RefreshCw className="w-3.5 h-3.5" /> Sync Now</button>
+          <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Device</button>
         </div>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
         <StatsCard label="Connected Devices" value={`${connectedCount} / ${devices.length}`} icon={Fingerprint} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
-        <StatsCard label="Today's Syncs" value={todaySyncs} icon={RefreshCw} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Today's Syncs" value={todaySyncs} icon={RefreshCw} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Offline" value={devices.length - connectedCount} icon={WifiOff} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" />
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Device Name</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Location</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Model</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Last Sync</th>
-              <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Action</th>
+            <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Device Name</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Location</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Model</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Status</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Last Sync</th>
+              <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-ydl-dark-border/50">
+          <tbody className="divide-y divide-apple-gray-200/50">
             {devices.map((d, i) => (
               <motion.tr key={d.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                <td className="px-4 py-3"><div className="flex items-center gap-2"><Fingerprint className="w-3.5 h-3.5 text-ydl-yellow" /><span className="text-xs font-medium text-white">{d.name}</span></div></td>
-                <td className="px-4 py-3 text-xs text-gray-400">{d.location}</td>
-                <td className="px-4 py-3 text-xs text-gray-400">{d.model}</td>
+                <td className="px-4 py-3"><div className="flex items-center gap-2"><Fingerprint className="w-3.5 h-3.5 text-apple-blue" /><span className="text-xs font-medium text-[#1C1C1E]">{d.name}</span></div></td>
+                <td className="px-4 py-3 text-xs text-apple-gray-400">{d.location}</td>
+                <td className="px-4 py-3 text-xs text-apple-gray-400">{d.model}</td>
                 <td className="px-4 py-3">
                   <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md ${
                     d.status === 'Online' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : 'text-red-400 bg-red-500/10 border border-red-500/20'
@@ -113,7 +113,7 @@ export default function SettingsBiometric() {
                     {d.status}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-xs text-gray-400">{d.lastSync}</td>
+                <td className="px-4 py-3 text-xs text-apple-gray-400">{d.lastSync}</td>
                 <td className="px-4 py-3 text-right">
                   <ActionMenu actions={[
                     { label: 'Edit', icon: Edit3, onClick: () => openEdit(d) },
@@ -130,16 +130,16 @@ export default function SettingsBiometric() {
       <Modal open={addOpen} onClose={() => setAddOpen(false)} title={editDevice ? 'Edit Device' : 'Add Device'} size="sm">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Device Name</label>
-            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Main Entrance Scanner" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Device Name</label>
+            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Main Entrance Scanner" />
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Location / IP</label>
-            <input value={form.location} onChange={e => setForm(p => ({ ...p, location: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Main Gate or 192.168.1.100" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Location / IP</label>
+            <input value={form.location} onChange={e => setForm(p => ({ ...p, location: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Main Gate or 192.168.1.100" />
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Model</label>
-            <select value={form.model} onChange={e => setForm(p => ({ ...p, model: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+            <label className="text-[10px] font-medium text-apple-gray-400">Model</label>
+            <select value={form.model} onChange={e => setForm(p => ({ ...p, model: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
               <option>BioStar V2</option>
               <option>BioStar V3</option>
               <option>BioLite Pro</option>
@@ -148,8 +148,8 @@ export default function SettingsBiometric() {
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleSave} disabled={!form.name} className="flex-1 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 disabled:opacity-40">{editDevice ? 'Update' : 'Add'} Device</button>
-          <button onClick={() => setAddOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleSave} disabled={!form.name} className="flex-1 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 disabled:opacity-40">{editDevice ? 'Update' : 'Add'} Device</button>
+          <button onClick={() => setAddOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
 
@@ -157,21 +157,21 @@ export default function SettingsBiometric() {
         <div className="flex flex-col items-center py-4">
           {syncing ? (
             <>
-              <RefreshCw className="w-12 h-12 text-ydl-yellow animate-spin mb-3" />
-              <p className="text-xs text-white font-medium">Syncing all devices...</p>
-              <p className="text-[10px] text-gray-500 mt-1">Please wait while we sync with {devices.length} devices.</p>
+              <RefreshCw className="w-12 h-12 text-apple-blue animate-spin mb-3" />
+              <p className="text-xs text-[#1C1C1E] font-medium">Syncing all devices...</p>
+              <p className="text-[10px] text-apple-gray-500 mt-1">Please wait while we sync with {devices.length} devices.</p>
               <div className="w-full bg-white/[0.03] rounded-lg h-2 mt-4 overflow-hidden">
                 <div className="h-full bg-ydl-yellow/40 animate-pulse rounded-lg" style={{ width: '60%' }} />
               </div>
             </>
           ) : (
             <>
-              <RefreshCw className="w-12 h-12 text-ydl-yellow mb-3" />
-              <p className="text-xs text-white font-medium">Sync {devices.length} Devices</p>
-              <p className="text-[10px] text-gray-500 mt-1">This will sync all biometric data from connected devices.</p>
+              <RefreshCw className="w-12 h-12 text-apple-blue mb-3" />
+              <p className="text-xs text-[#1C1C1E] font-medium">Sync {devices.length} Devices</p>
+              <p className="text-[10px] text-apple-gray-500 mt-1">This will sync all biometric data from connected devices.</p>
               <div className="flex items-center gap-2 mt-4">
-                <button onClick={handleSync} className="px-6 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">Start Sync</button>
-                <button onClick={() => setSyncOpen(false)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+                <button onClick={handleSync} className="px-6 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90">Start Sync</button>
+                <button onClick={() => setSyncOpen(false)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
               </div>
             </>
           )}

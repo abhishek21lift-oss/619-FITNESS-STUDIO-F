@@ -36,8 +36,8 @@ export default function AppSettingsChallengeTeams() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-bold text-white">Challenge Teams</h1><p className="text-xs text-gray-500 mt-0.5">Teams participating in challenges.</p></div>
-        <button onClick={() => navigate('/dashboard/app-settings/challenges/teams/create')} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90">
+        <div><h1 className="text-lg font-bold text-[#1C1C1E]">Challenge Teams</h1><p className="text-xs text-apple-gray-500 mt-0.5">Teams participating in challenges.</p></div>
+        <button onClick={() => navigate('/dashboard/app-settings/challenges/teams/create')} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90">
           <Plus className="w-3.5 h-3.5" /> Add Team
         </button>
       </div>
@@ -45,13 +45,13 @@ export default function AppSettingsChallengeTeams() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <Table
           columns={[
-            { header: 'Team Name', accessor: (r: ChallengeTeam) => <div className="flex items-center gap-2"><Users className="w-3.5 h-3.5 text-ydl-yellow" /><span className="text-white font-medium">{r.teamName}</span></div> },
+            { header: 'Team Name', accessor: (r: ChallengeTeam) => <div className="flex items-center gap-2"><Users className="w-3.5 h-3.5 text-apple-blue" /><span className="text-[#1C1C1E] font-medium">{r.teamName}</span></div> },
             { header: 'Challenge', accessor: (r: ChallengeTeam) => <span>{r.challenge}</span> },
             { header: 'Captain', accessor: (r: ChallengeTeam) => <span>{r.captain}</span> },
             { header: 'Members', accessor: (r: ChallengeTeam) => <span>{r.membersCount}</span> },
-            { header: 'Points', accessor: (r: ChallengeTeam) => <span className="text-ydl-yellow font-medium">{r.points.toLocaleString()}</span> },
+            { header: 'Points', accessor: (r: ChallengeTeam) => <span className="text-apple-blue font-medium">{r.points.toLocaleString()}</span> },
             { header: 'Rank', accessor: (r: ChallengeTeam) => (
-              <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md ${r.rank === 1 ? 'text-ydl-yellow bg-ydl-yellow/10' : 'text-gray-400 bg-gray-500/10'}`}>
+              <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium rounded-md ${r.rank === 1 ? 'text-apple-blue bg-apple-blue/10' : 'text-apple-gray-400 bg-gray-500/10'}`}>
                 <Trophy className="w-2.5 h-2.5" /> #{r.rank}
               </span>
             )},

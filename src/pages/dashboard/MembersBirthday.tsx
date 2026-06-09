@@ -64,15 +64,15 @@ export default function MembersBirthday() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-white">Members Birthday</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Celebrate client birthdays and send wishes.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Members Birthday</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Celebrate client birthdays and send wishes.</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-ydl-yellow/10 border border-ydl-yellow/20">
-            <Cake className="w-3.5 h-3.5 text-ydl-yellow" />
-            <span className="text-[10px] font-semibold text-ydl-yellow">{todayBirthdays.length} Today</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-apple-blue/10 border border-ydl-yellow/20">
+            <Cake className="w-3.5 h-3.5 text-apple-blue" />
+            <span className="text-[10px] font-semibold text-apple-blue">{todayBirthdays.length} Today</span>
           </div>
-          <button onClick={() => setModal({ type: 'send-all' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity" disabled={todayBirthdays.length === 0}>
+          <button onClick={() => setModal({ type: 'send-all' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity" disabled={todayBirthdays.length === 0}>
             <Send className="w-3 h-3" /> Send Wishes to All
           </button>
         </div>
@@ -80,27 +80,27 @@ export default function MembersBirthday() {
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[200px] max-w-xs">
-          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="Search name or mobile..." />
+          <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 transition-colors" placeholder="Search name or mobile..." />
         </div>
-        <select value={month} onChange={e => setMonth(e.target.value)} className="bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+        <select value={month} onChange={e => setMonth(e.target.value)} className="bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
           {months.map(m => <option key={m}>{m}</option>)}
         </select>
-        <span className="text-[10px] text-gray-500">{filtered.length} birthdays this month</span>
+        <span className="text-[10px] text-apple-gray-500">{filtered.length} birthdays this month</span>
       </div>
 
       {todayBirthdays.length > 0 && (
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-yellow/30 bg-ydl-yellow/[0.03] p-4">
           <div className="flex items-center gap-2 mb-3">
-            <Cake className="w-4 h-4 text-ydl-yellow" />
-            <span className="text-sm font-semibold text-ydl-yellow">Birthdays Today!</span>
+            <Cake className="w-4 h-4 text-apple-blue" />
+            <span className="text-sm font-semibold text-apple-blue">Birthdays Today!</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {todayBirthdays.map(b => (
-              <div key={b.name} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-ydl-dark-border">
-                <div className="w-8 h-8 rounded-full bg-ydl-yellow/10 flex items-center justify-center text-xs font-bold text-ydl-yellow">{b.name.split(' ').map(n => n[0]).join('')}</div>
+              <div key={b.name} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-apple-gray-200">
+                <div className="w-8 h-8 rounded-full bg-apple-blue/10 flex items-center justify-center text-xs font-bold text-apple-blue">{b.name.split(' ').map(n => n[0]).join('')}</div>
                 <div>
-                  <div className="text-xs font-medium text-white">{b.name}</div>
-                  <div className="text-[10px] text-gray-500">{b.mobile}</div>
+                  <div className="text-xs font-medium text-[#1C1C1E]">{b.name}</div>
+                  <div className="text-[10px] text-apple-gray-500">{b.mobile}</div>
                 </div>
                 <button onClick={() => sendWishes(b)} className="ml-2 p-1.5 text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors">
                   <Send className="w-3 h-3" />
@@ -111,44 +111,44 @@ export default function MembersBirthday() {
         </motion.div>
       )}
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
                 <th className="w-8 px-3 py-3"><input type="checkbox" onChange={() => { if (selected.size === filtered.length) setSelected(new Set()); else setSelected(new Set(filtered.map(b => b.name))) }} checked={selected.size === filtered.length && filtered.length > 0} className="accent-ydl-yellow" /></th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase">Name</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase">Mobile</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase">Date</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase">Age</th>
-                <th className="text-left px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase">Plan</th>
-                <th className="text-right px-3 py-3 text-[10px] font-semibold text-gray-500 uppercase">Actions</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Name</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Mobile</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Date</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Age</th>
+                <th className="text-left px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Plan</th>
+                <th className="text-right px-3 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {paged.map((b, i) => (
                 <motion.tr key={b.name} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-3 py-3"><input type="checkbox" checked={selected.has(b.name)} onChange={() => toggleSelect(b.name)} className="accent-ydl-yellow" /></td>
                   <td className="px-3 py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-ydl-yellow/10 flex items-center justify-center">
-                        <Cake className="w-3.5 h-3.5 text-ydl-yellow" />
+                      <div className="w-8 h-8 rounded-full bg-apple-blue/10 flex items-center justify-center">
+                        <Cake className="w-3.5 h-3.5 text-apple-blue" />
                       </div>
-                      <span onClick={() => setModal({ type: 'profile', data: b })} className="text-xs font-medium text-white hover:text-ydl-yellow cursor-pointer transition-colors">{b.name}</span>
+                      <span onClick={() => setModal({ type: 'profile', data: b })} className="text-xs font-medium text-[#1C1C1E] hover:text-apple-blue cursor-pointer transition-colors">{b.name}</span>
                     </div>
                   </td>
-                  <td className="px-3 py-3 text-xs text-gray-400">{b.mobile}</td>
+                  <td className="px-3 py-3 text-xs text-apple-gray-400">{b.mobile}</td>
                   <td className="px-3 py-3">
-                    <span className={`text-xs font-medium ${b.date === todayStr ? 'text-ydl-yellow' : 'text-gray-400'}`}>{b.date}</span>
+                    <span className={`text-xs font-medium ${b.date === todayStr ? 'text-apple-blue' : 'text-apple-gray-400'}`}>{b.date}</span>
                   </td>
-                  <td className="px-3 py-3 text-xs text-gray-400">{b.age} yrs</td>
-                  <td className="px-3 py-3 text-xs text-gray-400">{b.plan}</td>
+                  <td className="px-3 py-3 text-xs text-apple-gray-400">{b.age} yrs</td>
+                  <td className="px-3 py-3 text-xs text-apple-gray-400">{b.plan}</td>
                   <td className="px-3 py-3 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <button onClick={() => sendWishes(b)} className="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors">
                         <Send className="w-3 h-3" /> Wish
                       </button>
-                      <button onClick={() => setModal({ type: 'gift', data: b })} className="p-1.5 text-gray-500 hover:text-ydl-yellow hover:bg-ydl-yellow/10 rounded-lg transition-all">
+                      <button onClick={() => setModal({ type: 'gift', data: b })} className="p-1.5 text-apple-gray-500 hover:text-apple-blue hover:bg-apple-blue/10 rounded-lg transition-all">
                         <Gift className="w-3.5 h-3.5" />
                       </button>
                       <ActionMenu
@@ -166,44 +166,44 @@ export default function MembersBirthday() {
             </tbody>
           </table>
         </div>
-        {filtered.length === 0 && <div className="text-center py-10"><p className="text-xs text-gray-500">No birthdays found for this period.</p></div>}
-        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
+        {filtered.length === 0 && <div className="text-center py-10"><p className="text-xs text-apple-gray-500">No birthdays found for this period.</p></div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-apple-gray-200 bg-white/[0.02]"><span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       {selected.size > 0 && (
         <div className="flex items-center gap-2 text-[10px]">
-          <span className="text-ydl-yellow">{selected.size} selected</span>
+          <span className="text-apple-blue">{selected.size} selected</span>
           <button onClick={() => { selected.forEach(name => { const b = mockBirthdays.find(x => x.name === name); if (b) sendWishes(b) }); setSelected(new Set()) }} className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20"><Send className="w-3 h-3" /> Send Wishes</button>
         </div>
       )}
 
       <Modal open={modal?.type === 'gift'} onClose={() => setModal(null)} title={`Send Gift to ${modal?.data?.name || ''}`} size="md">
         <div className="space-y-3">
-          <div className="text-[11px] text-gray-500">Choose a birthday gift or reward for <span className="text-white">{modal?.data?.name}</span></div>
+          <div className="text-[11px] text-apple-gray-500">Choose a birthday gift or reward for <span className="text-[#1C1C1E]">{modal?.data?.name}</span></div>
           <div className="grid grid-cols-2 gap-2">
             {['1 Month Free', '₹500 Off', 'PT Session', 'Protein Shake', 'T-Shirt', 'Water Bottle'].map(g => (
-              <button key={g} className="px-3 py-2 text-xs text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:border-ydl-yellow/30 hover:text-ydl-yellow transition-colors text-left">{g}</button>
+              <button key={g} className="px-3 py-2 text-xs text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:border-ydl-yellow/30 hover:text-apple-blue transition-colors text-left">{g}</button>
             ))}
           </div>
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { toast(`Gift sent to ${modal?.data?.name}!`, 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Gift className="w-3 h-3 inline mr-1" /> Send Gift</button>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+            <button onClick={() => { toast(`Gift sent to ${modal?.data?.name}!`, 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Gift className="w-3 h-3 inline mr-1" /> Send Gift</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
           </div>
         </div>
       </Modal>
 
       <Modal open={modal?.type === 'send-all'} onClose={() => setModal(null)} title="Send Wishes to All" size="md">
         <div className="space-y-3">
-          <p className="text-xs text-gray-400">Send birthday wishes to <span className="text-ydl-yellow">{todayBirthdays.length}</span> members celebrating today.</p>
+          <p className="text-xs text-apple-gray-400">Send birthday wishes to <span className="text-apple-blue">{todayBirthdays.length}</span> members celebrating today.</p>
           <div className="space-y-1 max-h-32 overflow-y-auto">
             {todayBirthdays.map(b => (
-              <div key={b.name} className="flex items-center gap-2 text-xs text-gray-400"><span className="text-white">{b.name}</span> - {b.mobile}</div>
+              <div key={b.name} className="flex items-center gap-2 text-xs text-apple-gray-400"><span className="text-[#1C1C1E]">{b.name}</span> - {b.mobile}</div>
             ))}
           </div>
-          <textarea className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[80px] resize-none" placeholder="Custom message (optional)" defaultValue="Happy Birthday! 🎂 Wishing you health and happiness. - 619 FITNESS STUDIO" />
+          <textarea className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40 min-h-[80px] resize-none" placeholder="Custom message (optional)" defaultValue="Happy Birthday! 🎂 Wishing you health and happiness. - 619 FITNESS STUDIO" />
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={() => { toast('Birthday wishes sent to all!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send to All</button>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+            <button onClick={() => { toast('Birthday wishes sent to all!', 'success'); setModal(null); }} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Send className="w-3 h-3 inline mr-1" /> Send to All</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
           </div>
         </div>
       </Modal>
@@ -212,12 +212,12 @@ export default function MembersBirthday() {
         {modal?.data && (
           <div className="space-y-3 text-xs">
             <div className="grid grid-cols-2 gap-3">
-              <div><span className="text-gray-500">Name:</span> <span className="text-white font-medium">{modal.data.name}</span></div>
-              <div><span className="text-gray-500">Mobile:</span> <span className="text-white">{modal.data.mobile}</span></div>
-              <div><span className="text-gray-500">Email:</span> <span className="text-white">{modal.data.email}</span></div>
-              <div><span className="text-gray-500">Birth Date:</span> <span className="text-white">{modal.data.date}</span></div>
-              <div><span className="text-gray-500">Age:</span> <span className="text-white">{modal.data.age} yrs</span></div>
-              <div><span className="text-gray-500">Plan:</span> <span className="text-white">{modal.data.plan}</span></div>
+              <div><span className="text-apple-gray-500">Name:</span> <span className="text-[#1C1C1E] font-medium">{modal.data.name}</span></div>
+              <div><span className="text-apple-gray-500">Mobile:</span> <span className="text-[#1C1C1E]">{modal.data.mobile}</span></div>
+              <div><span className="text-apple-gray-500">Email:</span> <span className="text-[#1C1C1E]">{modal.data.email}</span></div>
+              <div><span className="text-apple-gray-500">Birth Date:</span> <span className="text-[#1C1C1E]">{modal.data.date}</span></div>
+              <div><span className="text-apple-gray-500">Age:</span> <span className="text-[#1C1C1E]">{modal.data.age} yrs</span></div>
+              <div><span className="text-apple-gray-500">Plan:</span> <span className="text-[#1C1C1E]">{modal.data.plan}</span></div>
             </div>
           </div>
         )}

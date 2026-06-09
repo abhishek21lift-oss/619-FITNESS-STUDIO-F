@@ -36,16 +36,16 @@ export default function AnalysisSession() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Session Analysis</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Analyse trainer sessions and PT revenue.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Session Analysis</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Analyse trainer sessions and PT revenue.</p>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="Trainer">
           <FilterSelect options={trainers} value={trainer} onChange={e => setTrainer(e.target.value)} />
@@ -53,36 +53,36 @@ export default function AnalysisSession() {
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Sessions" value={totalSessions} icon={CalendarDays} color="from-ydl-yellow/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-ydl-yellow" index={0} />
-        <StatsCard label="Active PT Members" value={totalPT} icon={Users} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={1} />
+        <StatsCard label="Total Sessions" value={totalSessions} icon={CalendarDays} color="from-apple-blue/20 to-ydl-yellow/5" border="border-ydl-yellow/30" text="text-apple-blue" index={0} />
+        <StatsCard label="Active PT Members" value={totalPT} icon={Users} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={1} />
         <StatsCard label="Revenue" value={formatRupee(totalRevenue)} icon={IndianRupee} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={2} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Session Timeline</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Session Timeline</h2>
           <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sessionTimeline} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis dataKey="date" tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
-                <Bar dataKey="sessions" fill="#D4AF34" radius={[4, 4, 0, 0]} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#007AFF' }} />
+                <Bar dataKey="sessions" fill="#007AFF" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Trainer Revenue</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Trainer Revenue</h2>
           <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sessionData} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis dataKey="trainer" tick={{ fill: '#9CA3AF', fontSize: 8 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#D4AF34' }} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11, color: '#fff' }} labelStyle={{ color: '#007AFF' }} />
                 <Bar dataKey="revenue" fill="#34D399" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -93,10 +93,10 @@ export default function AnalysisSession() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <Table
           columns={[
-            { header: 'Trainer', accessor: r => <span className="text-white font-medium">{r.trainer}</span> },
+            { header: 'Trainer', accessor: r => <span className="text-[#1C1C1E] font-medium">{r.trainer}</span> },
             { header: 'Sessions', accessor: r => r.sessions },
             { header: 'Active PT Members', accessor: r => r.ptMembers },
-            { header: 'Revenue', accessor: r => <span className="text-ydl-yellow font-medium">{formatRupee(r.revenue)}</span> },
+            { header: 'Revenue', accessor: r => <span className="text-apple-blue font-medium">{formatRupee(r.revenue)}</span> },
           ]}
           data={sessionData}
           keyExtractor={r => r.trainer}

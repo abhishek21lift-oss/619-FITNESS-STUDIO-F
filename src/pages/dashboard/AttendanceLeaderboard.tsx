@@ -37,13 +37,13 @@ export default function AttendanceLeaderboard() {
 
   const RankBadge = ({ rank }: { rank: number }) => {
     if (rank === 1) return (
-      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-ydl-yellow/30 to-amber-600/20 border border-ydl-yellow/30 flex items-center justify-center shadow-lg shadow-ydl-yellow/10">
-        <Trophy className="w-4 h-4 text-ydl-yellow" />
+      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-apple-blue/30 to-amber-600/20 border border-ydl-yellow/30 flex items-center justify-center shadow-lg shadow-ydl-yellow/10">
+        <Trophy className="w-4 h-4 text-apple-blue" />
       </div>
     )
     if (rank === 2) return (
       <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-gray-300/20 to-gray-400/10 border border-gray-300/30 flex items-center justify-center">
-        <Medal className="w-4 h-4 text-gray-300" />
+        <Medal className="w-4 h-4 text-apple-gray-600" />
       </div>
     )
     if (rank === 3) return (
@@ -52,8 +52,8 @@ export default function AttendanceLeaderboard() {
       </div>
     )
     return (
-      <div className="w-8 h-8 rounded-xl bg-white/5 border border-ydl-dark-border flex items-center justify-center">
-        <span className="text-xs font-bold text-gray-500">#{rank}</span>
+      <div className="w-8 h-8 rounded-xl bg-white/5 border border-apple-gray-200 flex items-center justify-center">
+        <span className="text-xs font-bold text-apple-gray-500">#{rank}</span>
       </div>
     )
   }
@@ -62,18 +62,18 @@ export default function AttendanceLeaderboard() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-white">Check-ins Leaderboard</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Most consistent members ranked by attendance.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Check-ins Leaderboard</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Most consistent members ranked by attendance.</p>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-ydl-yellow/10 border border-ydl-yellow/20">
-          <Award className="w-3.5 h-3.5 text-ydl-yellow" />
-          <span className="text-[10px] font-semibold text-ydl-yellow">{dateRange}</span>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-apple-blue/10 border border-ydl-yellow/20">
+          <Award className="w-3.5 h-3.5 text-apple-blue" />
+          <span className="text-[10px] font-semibold text-apple-blue">{dateRange}</span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Top Member" value={topMember?.name || '-'} icon={Crown} color="from-ydl-yellow/20 to-amber-600/5" border="border-ydl-yellow/30" text="text-ydl-yellow" />
-        <StatsCard label="Average Check-ins" value={avgCheckins} icon={TrendingUp} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="Top Member" value={topMember?.name || '-'} icon={Crown} color="from-apple-blue/20 to-amber-600/5" border="border-ydl-yellow/30" text="text-apple-blue" />
+        <StatsCard label="Average Check-ins" value={avgCheckins} icon={TrendingUp} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Highest Streak" value={`${highestStreak} days`} icon={Star} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
       </div>
 
@@ -102,33 +102,33 @@ export default function AttendanceLeaderboard() {
                     : m.rank === 2
                       ? 'bg-gray-300/5 border-gray-300/20'
                       : 'bg-amber-700/5 border-amber-700/20'
-                  : 'bg-white/[0.02] border-ydl-dark-border hover:bg-white/[0.04]'
+                  : 'bg-white/[0.02] border-apple-gray-200 hover:bg-white/[0.04]'
               }`}
             >
               <RankBadge rank={m.rank} />
 
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className={`text-sm font-semibold cursor-pointer hover:text-ydl-yellow transition-colors ${isTop3 ? 'text-white' : 'text-gray-300'}`} onClick={() => toast(`Member: ${m.name}, Membership: ${m.membership}, Check-ins: ${m.checkins}, Streak: ${m.streak} days, Last: ${m.lastCheckin}`, 'info')}>{m.name}</span>
-                  {isTop3 && <Star className={`w-3 h-3 ${m.rank === 1 ? 'text-ydl-yellow' : m.rank === 2 ? 'text-gray-300' : 'text-amber-700'}`} />}
+                  <span className={`text-sm font-semibold cursor-pointer hover:text-apple-blue transition-colors ${isTop3 ? 'text-[#1C1C1E]' : 'text-apple-gray-600'}`} onClick={() => toast(`Member: ${m.name}, Membership: ${m.membership}, Check-ins: ${m.checkins}, Streak: ${m.streak} days, Last: ${m.lastCheckin}`, 'info')}>{m.name}</span>
+                  {isTop3 && <Star className={`w-3 h-3 ${m.rank === 1 ? 'text-apple-blue' : m.rank === 2 ? 'text-apple-gray-600' : 'text-amber-700'}`} />}
                 </div>
                 <div className="flex items-center gap-4 mt-0.5">
-                  <span className="text-[10px] text-gray-500">
+                  <span className="text-[10px] text-apple-gray-500">
                     <Calendar className="w-3 h-3 inline mr-0.5" />
                     {m.checkins} check-ins
                   </span>
-                  <span className="text-[10px] text-ydl-yellow">
+                  <span className="text-[10px] text-apple-blue">
                     <Star className="w-3 h-3 inline mr-0.5" />
                     Streak: {m.streak} days
                   </span>
-                  <span className="text-[10px] text-gray-600">
+                  <span className="text-[10px] text-apple-gray-400">
                     Last: {m.lastCheckin}
                   </span>
                 </div>
               </div>
 
               <div className="text-right">
-                <p className="text-[10px] text-gray-500">{m.membership}</p>
+                <p className="text-[10px] text-apple-gray-500">{m.membership}</p>
                 <div className="flex items-center gap-1 mt-1">
                   <div className="flex-1 max-w-[80px] h-1.5 bg-white/5 rounded-full overflow-hidden">
                     <div
@@ -138,7 +138,7 @@ export default function AttendanceLeaderboard() {
                       style={{ width: `${Math.min((m.checkins / leaderboard[0].checkins) * 100, 100)}%` }}
                     />
                   </div>
-                  <span className={`text-[10px] font-bold ${isTop3 ? 'text-white' : 'text-gray-500'}`}>
+                  <span className={`text-[10px] font-bold ${isTop3 ? 'text-[#1C1C1E]' : 'text-apple-gray-500'}`}>
                     {Math.round((m.checkins / leaderboard[0].checkins) * 100)}%
                   </span>
                 </div>

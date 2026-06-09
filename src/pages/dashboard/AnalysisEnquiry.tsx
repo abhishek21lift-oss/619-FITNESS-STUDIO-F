@@ -48,16 +48,16 @@ export default function AnalysisEnquiry() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Enquiry Analysis</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Track enquiries by source, staff, and status.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Enquiry Analysis</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Track enquiries by source, staff, and status.</p>
       </div>
 
       <FilterBar>
         <FilterField label="From">
-          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={from} onChange={e => setFrom(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="To">
-          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30" />
+          <input type="date" value={to} onChange={e => setTo(e.target.value)} className="h-7 px-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30" />
         </FilterField>
         <FilterField label="Source">
           <FilterSelect options={sourceOptions} value={source} onChange={e => setSource(e.target.value)} />
@@ -68,37 +68,37 @@ export default function AnalysisEnquiry() {
       </FilterBar>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <StatsCard label="Total Enquiries" value={totalEnquiries} icon={PhoneCall} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" index={0} />
+        <StatsCard label="Total Enquiries" value={totalEnquiries} icon={PhoneCall} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" index={0} />
         <StatsCard label="Open" value={openCount} icon={MessageSquare} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" index={1} />
         <StatsCard label="Closed" value={closedCount} icon={Users} color="from-purple-500/20 to-purple-600/5" border="border-purple-500/30" text="text-purple-400" index={2} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Source-wise Breakdown</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Source-wise Breakdown</h2>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={filteredSource} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis type="number" tick={{ fill: '#9CA3AF', fontSize: 10 }} axisLine={false} tickLine={false} />
                 <YAxis type="category" dataKey="source" tick={{ fill: '#D1D5DB', fontSize: 11 }} axisLine={false} tickLine={false} width={70} />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 12 }} labelStyle={{ color: '#D4AF34' }} />
-                <Bar dataKey="count" fill="#D4AF34" radius={[0, 4, 4, 0]} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 12 }} labelStyle={{ color: '#007AFF' }} />
+                <Bar dataKey="count" fill="#007AFF" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-5">
-          <h2 className="text-xs font-semibold text-white mb-4">Daily Enquiry Trend</h2>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-5">
+          <h2 className="text-xs font-semibold text-[#1C1C1E] mb-4">Daily Enquiry Trend</h2>
           <div className="h-36">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={dailyTrend.map((v, i) => ({ day: `D${i + 1}`, count: v }))} margin={{ left: -10, right: 0, top: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
                 <XAxis dataKey="day" tick={{ fill: '#9CA3AF', fontSize: 8 }} axisLine={false} tickLine={false} interval={4} />
                 <YAxis tick={{ fill: '#9CA3AF', fontSize: 9 }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(212,175,52,0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#D4AF34' }} />
-                <Bar dataKey="count" fill="#D4AF34" radius={[2, 2, 0, 0]} />
+                <Tooltip contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(0, 122, 255, 0.3)', borderRadius: 8, fontSize: 11 }} labelStyle={{ color: '#007AFF' }} />
+                <Bar dataKey="count" fill="#007AFF" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -106,7 +106,7 @@ export default function AnalysisEnquiry() {
       </div>
 
       <div className="flex justify-end">
-        <button onClick={() => setViewAll(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-ydl-yellow/10 border border-ydl-yellow/30 text-ydl-yellow rounded-lg hover:bg-ydl-yellow/20 transition-all">
+        <button onClick={() => setViewAll(true)} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium bg-apple-blue/10 border border-ydl-yellow/30 text-apple-blue rounded-lg hover:bg-apple-blue/20 transition-all">
           <Eye className="w-3 h-3" /> View All Enquiries
         </button>
       </div>
@@ -121,7 +121,7 @@ export default function AnalysisEnquiry() {
               { header: 'Staff', accessor: r => r.staff },
               { header: 'Date', accessor: r => r.date },
               { header: 'Status', accessor: r => (
-                <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${r.status === 'Open' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-gray-500/10 text-gray-400'}`}>{r.status}</span>
+                <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${r.status === 'Open' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-gray-500/10 text-apple-gray-400'}`}>{r.status}</span>
               )},
             ]}
             data={allEnquiries}

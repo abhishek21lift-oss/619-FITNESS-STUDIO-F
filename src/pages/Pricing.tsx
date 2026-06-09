@@ -110,10 +110,10 @@ export default function Pricing() {
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
         <motion.div {...fadeInUp}>
-          <h1 className="font-heading text-4xl sm:text-5xl font-extrabold text-white mb-4">
+          <h1 className="font-heading text-4xl sm:text-5xl font-extrabold text-[#1C1C1E] mb-4">
             Simple, Transparent Pricing
           </h1>
-          <p className="text-lg text-ydl-muted-light max-w-2xl mx-auto">
+          <p className="text-lg text-apple-gray-500 max-w-2xl mx-auto">
             Choose the plan that fits your fitness business. No hidden fees, no surprises.
           </p>
         </motion.div>
@@ -129,27 +129,27 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`relative bg-ydl-card-gradient border rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1 ${
+              className={`relative bg-white border rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1 ${
                 plan.popular
-                  ? 'border-ydl-yellow shadow-ydl-gold'
-                  : 'border-ydl-dark-border hover:border-ydl-dark-border-hover'
+                  ? 'border-apple-blue shadow-apple-md'
+                  : 'border-apple-gray-200 hover:border-apple-gray-300'
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-ydl-yellow text-black text-xs font-bold rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-apple-blue text-white text-xs font-bold rounded-full">
                   Most Popular
                 </div>
               )}
-              <h3 className="font-heading text-xl font-bold text-white mb-1">{plan.name}</h3>
-              <p className="text-sm text-ydl-muted mb-4">{plan.description}</p>
+              <h3 className="font-heading text-xl font-bold text-[#1C1C1E] mb-1">{plan.name}</h3>
+              <p className="text-sm text-apple-gray-400 mb-4">{plan.description}</p>
               <div className="mb-6">
-                <span className="font-heading text-4xl font-extrabold text-white">{plan.price}</span>
-                <span className="text-ydl-muted text-sm">{plan.period}</span>
+                <span className="font-heading text-4xl font-extrabold text-[#1C1C1E]">{plan.price}</span>
+                <span className="text-apple-gray-400 text-sm">{plan.period}</span>
               </div>
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feat) => (
-                  <li key={feat} className="flex items-start gap-2 text-sm text-ydl-muted-light">
-                    <CheckCircle className="w-4 h-4 text-ydl-yellow flex-shrink-0 mt-0.5" />
+                  <li key={feat} className="flex items-start gap-2 text-sm text-apple-gray-500">
+                    <CheckCircle className="w-4 h-4 text-apple-blue flex-shrink-0 mt-0.5" />
                     {feat}
                   </li>
                 ))}
@@ -158,8 +158,8 @@ export default function Pricing() {
                 to="/call-for-demo"
                 className={`block w-full text-center px-6 py-3 text-sm font-bold rounded-xl transition-all ${
                   plan.popular
-                    ? 'bg-ydl-gradient text-black hover:shadow-ydl-gold-lg'
-                    : 'bg-white/5 text-white border border-ydl-dark-border hover:bg-white/10'
+                    ? 'bg-apple-gradient-blue text-white hover:shadow-apple-lg'
+                    : 'bg-apple-gray-50 text-[#1C1C1E] border border-apple-gray-200 hover:bg-apple-gray-100'
                 }`}
               >
                 {plan.name === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
@@ -172,7 +172,7 @@ export default function Pricing() {
       {/* Feature Comparison Table */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
         <motion.h2
-          className="font-heading text-2xl sm:text-3xl font-bold text-white text-center mb-8"
+          className="font-heading text-2xl sm:text-3xl font-bold text-[#1C1C1E] text-center mb-8"
           {...fadeInUp}
         >
           Feature Comparison
@@ -180,36 +180,36 @@ export default function Pricing() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-ydl-dark-border">
-                <th className="text-left py-3 pr-4 font-semibold text-white">Feature</th>
-                <th className="text-center py-3 px-4 font-semibold text-ydl-muted">Starter</th>
-                <th className="text-center py-3 px-4 font-semibold text-ydl-yellow">Professional</th>
-                <th className="text-center py-3 px-4 font-semibold text-ydl-muted">Enterprise</th>
+              <tr className="border-b border-apple-gray-200">
+                <th className="text-left py-3 pr-4 font-semibold text-[#1C1C1E]">Feature</th>
+                <th className="text-center py-3 px-4 font-semibold text-apple-gray-400">Starter</th>
+                <th className="text-center py-3 px-4 font-semibold text-apple-blue">Professional</th>
+                <th className="text-center py-3 px-4 font-semibold text-apple-gray-400">Enterprise</th>
               </tr>
             </thead>
             <tbody>
               {compareFeatures.map((feat) => (
-                <tr key={feat.name} className="border-b border-ydl-dark-border/50">
-                  <td className="py-3 pr-4 text-ydl-muted-light">{feat.name}</td>
+                <tr key={feat.name} className="border-b border-apple-gray-200/50">
+                  <td className="py-3 pr-4 text-apple-gray-500">{feat.name}</td>
                   <td className="text-center py-3 px-4">
                     {feat.starter ? (
-                      <CheckCircle className="w-4 h-4 text-ydl-yellow mx-auto" />
+                      <CheckCircle className="w-4 h-4 text-apple-blue mx-auto" />
                     ) : (
-                      <span className="text-ydl-muted">—</span>
+                      <span className="text-apple-gray-400">—</span>
                     )}
                   </td>
                   <td className="text-center py-3 px-4">
                     {feat.pro ? (
-                      <CheckCircle className="w-4 h-4 text-ydl-yellow mx-auto" />
+                      <CheckCircle className="w-4 h-4 text-apple-blue mx-auto" />
                     ) : (
-                      <span className="text-ydl-muted">—</span>
+                      <span className="text-apple-gray-400">—</span>
                     )}
                   </td>
                   <td className="text-center py-3 px-4">
                     {feat.enterprise ? (
-                      <CheckCircle className="w-4 h-4 text-ydl-yellow mx-auto" />
+                      <CheckCircle className="w-4 h-4 text-apple-blue mx-auto" />
                     ) : (
-                      <span className="text-ydl-muted">—</span>
+                      <span className="text-apple-gray-400">—</span>
                     )}
                   </td>
                 </tr>
@@ -222,7 +222,7 @@ export default function Pricing() {
       {/* FAQ */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
-          className="font-heading text-2xl sm:text-3xl font-bold text-white text-center mb-8"
+          className="font-heading text-2xl sm:text-3xl font-bold text-[#1C1C1E] text-center mb-8"
           {...fadeInUp}
         >
           Pricing FAQs
@@ -231,22 +231,22 @@ export default function Pricing() {
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="bg-ydl-card-gradient border border-ydl-dark-border rounded-xl overflow-hidden"
+              className="bg-white border border-apple-gray-200 rounded-xl overflow-hidden"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 className="flex items-center justify-between w-full px-5 py-4 text-left"
               >
-                <span className="text-sm font-medium text-white pr-4">{faq.q}</span>
+                <span className="text-sm font-medium text-[#1C1C1E] pr-4">{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-ydl-yellow flex-shrink-0 transition-transform ${
+                  className={`w-4 h-4 text-apple-blue flex-shrink-0 transition-transform ${
                     openFaq === i ? 'rotate-180' : ''
                   }`}
                 />
               </button>
               {openFaq === i && (
                 <div className="px-5 pb-4">
-                  <p className="text-sm text-ydl-muted leading-relaxed">{faq.a}</p>
+                  <p className="text-sm text-apple-gray-400 leading-relaxed">{faq.a}</p>
                 </div>
               )}
             </div>

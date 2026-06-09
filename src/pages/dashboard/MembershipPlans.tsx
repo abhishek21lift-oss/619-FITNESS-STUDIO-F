@@ -17,8 +17,8 @@ interface Plan {
 }
 
 const initialPlans: Plan[] = [
-  { id: 1, name: 'Monthly Basic', price: '₹999', duration: '1 Month', period: '/mo', features: ['Gym Access', 'Cardio', 'Locker'], status: 'Active', popular: false, color: 'from-blue-500/20 to-blue-600/5' },
-  { id: 2, name: 'Quarterly Pro', price: '₹2,499', duration: '3 Months', period: '/3mo', features: ['Gym Access', 'Cardio + Weights', 'Locker + Towel', '1 PT Session/mo'], status: 'Active', popular: true, color: 'from-ydl-yellow/20 to-amber-600/5' },
+  { id: 1, name: 'Monthly Basic', price: '₹999', duration: '1 Month', period: '/mo', features: ['Gym Access', 'Cardio', 'Locker'], status: 'Active', popular: false, color: 'from-[#007AFF]/10 to-[#007AFF]/5' },
+  { id: 2, name: 'Quarterly Pro', price: '₹2,499', duration: '3 Months', period: '/3mo', features: ['Gym Access', 'Cardio + Weights', 'Locker + Towel', '1 PT Session/mo'], status: 'Active', popular: true, color: 'from-apple-blue/20 to-amber-600/5' },
   { id: 3, name: 'Half-Yearly', price: '₹4,499', duration: '6 Months', period: '/6mo', features: ['Gym Access', 'Cardio + Weights', 'Locker + Towel', '2 PT Sessions/mo'], status: 'Active', popular: false, color: 'from-emerald-500/20 to-emerald-600/5' },
   { id: 4, name: 'Annual Gold', price: '₹7,999', duration: '12 Months', period: '/yr', features: ['Unlimited Access', 'All Equipment', 'Locker + Towel', '4 PT Sessions/mo', 'Diet Consultation'], status: 'Active', popular: false, color: 'from-purple-500/20 to-purple-600/5' },
   { id: 5, name: 'PT Monthly', price: '₹2,999', duration: '1 Month', period: '/mo', features: ['Gym Access', 'Personal Trainer', 'Custom Workout Plan'], status: 'Active', popular: false, color: 'from-pink-500/20 to-pink-600/5' },
@@ -80,10 +80,10 @@ export default function MembershipPlans() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-bold text-white">Membership Plans</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Manage subscription plans and pricing.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Membership Plans</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Manage subscription plans and pricing.</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity">
           <Plus className="w-3.5 h-3.5" /> Add Plan
         </button>
       </div>
@@ -94,32 +94,32 @@ export default function MembershipPlans() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className={`relative rounded-xl border ${p.popular ? 'border-ydl-yellow/40' : 'border-ydl-dark-border'} bg-gradient-to-br ${p.color} p-5`}
+            className={`relative rounded-xl border ${p.popular ? 'border-ydl-yellow/40' : 'border-apple-gray-200'} bg-gradient-to-br ${p.color} p-5`}
           >
             {p.popular && (
-              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 text-[9px] font-bold text-black bg-ydl-gradient rounded-full">
+              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 text-[9px] font-bold text-black bg-apple-gradient-blue rounded-full">
                 POPULAR
               </span>
             )}
             <div className="flex items-start justify-between">
-              <h3 className="text-sm font-bold text-white">{p.name}</h3>
-              <span className={`inline-flex items-center px-2 py-0.5 text-[9px] font-medium rounded-full ${p.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : 'text-gray-400 bg-gray-500/10 border border-gray-500/20'}`}>{p.status}</span>
+              <h3 className="text-sm font-bold text-[#1C1C1E]">{p.name}</h3>
+              <span className={`inline-flex items-center px-2 py-0.5 text-[9px] font-medium rounded-full ${p.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : 'text-apple-gray-400 bg-gray-500/10 border border-gray-500/20'}`}>{p.status}</span>
             </div>
             <div className="mt-2">
-              <span className="text-2xl font-bold text-white">{p.price}</span>
-              <span className="text-xs text-gray-500">{p.period}</span>
+              <span className="text-2xl font-bold text-[#1C1C1E]">{p.price}</span>
+              <span className="text-xs text-apple-gray-500">{p.period}</span>
             </div>
-            <p className="text-[10px] text-gray-500 mt-0.5">{p.duration}</p>
+            <p className="text-[10px] text-apple-gray-500 mt-0.5">{p.duration}</p>
             <ul className="mt-4 space-y-2">
               {p.features.map(f => (
-                <li key={f} className="flex items-center gap-2 text-[11px] text-gray-400">
-                  <Check className="w-3 h-3 text-ydl-yellow" />
+                <li key={f} className="flex items-center gap-2 text-[11px] text-apple-gray-400">
+                  <Check className="w-3 h-3 text-apple-blue" />
                   {f}
                 </li>
               ))}
             </ul>
-            <div className="mt-4 pt-3 border-t border-ydl-dark-border/50 flex items-center justify-between">
-              <button onClick={() => openEdit(p)} className="text-[10px] font-medium text-ydl-yellow hover:underline">Edit Plan</button>
+            <div className="mt-4 pt-3 border-t border-apple-gray-200/50 flex items-center justify-between">
+              <button onClick={() => openEdit(p)} className="text-[10px] font-medium text-apple-blue hover:underline">Edit Plan</button>
               <ActionMenu
                 label="More"
                 actions={[
@@ -138,39 +138,39 @@ export default function MembershipPlans() {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Plan Name</label>
-              <input value={form.name} onChange={e => setForm(prev => ({ ...prev, name: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. Monthly Basic" />
+              <label className="text-[11px] font-medium text-apple-gray-400">Plan Name</label>
+              <input value={form.name} onChange={e => setForm(prev => ({ ...prev, name: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. Monthly Basic" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Price</label>
-              <input value={form.price} onChange={e => setForm(prev => ({ ...prev, price: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. ₹999" />
+              <label className="text-[11px] font-medium text-apple-gray-400">Price</label>
+              <input value={form.price} onChange={e => setForm(prev => ({ ...prev, price: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. ₹999" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Duration</label>
-              <input value={form.duration} onChange={e => setForm(prev => ({ ...prev, duration: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. 1 Month" />
+              <label className="text-[11px] font-medium text-apple-gray-400">Duration</label>
+              <input value={form.duration} onChange={e => setForm(prev => ({ ...prev, duration: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="e.g. 1 Month" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-gray-400">Status</label>
-              <select value={form.status} onChange={e => setForm(prev => ({ ...prev, status: e.target.value as 'Active' | 'Inactive' }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+              <label className="text-[11px] font-medium text-apple-gray-400">Status</label>
+              <select value={form.status} onChange={e => setForm(prev => ({ ...prev, status: e.target.value as 'Active' | 'Inactive' }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
               </select>
             </div>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-medium text-gray-400">Features</label>
-            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2 rounded-lg bg-white/[0.02] border border-ydl-dark-border">
+            <label className="text-[11px] font-medium text-apple-gray-400">Features</label>
+            <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2 rounded-lg bg-white/[0.02] border border-apple-gray-200">
               {featureOptions.map(f => (
-                <label key={f} className="flex items-center gap-2 px-2 py-1 text-[11px] text-gray-300 cursor-pointer hover:text-white rounded-md hover:bg-white/5">
+                <label key={f} className="flex items-center gap-2 px-2 py-1 text-[11px] text-apple-gray-600 cursor-pointer hover:text-[#1C1C1E] rounded-md hover:bg-apple-gray-100">
                   <input type="checkbox" checked={form.features.includes(f)} onChange={() => toggleFeature(f)} className="w-3 h-3 accent-ydl-yellow" />
                   {f}
                 </label>
               ))}
             </div>
           </div>
-          <div className="flex items-center gap-3 pt-3 border-t border-ydl-dark-border">
-            <button onClick={handleSave} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">{editPlan ? 'Update Plan' : 'Create Plan'}</button>
-            <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors">Cancel</button>
+          <div className="flex items-center gap-3 pt-3 border-t border-apple-gray-200">
+            <button onClick={handleSave} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity">{editPlan ? 'Update Plan' : 'Create Plan'}</button>
+            <button onClick={() => setModalOpen(false)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 hover:text-[#1C1C1E] transition-colors">Cancel</button>
           </div>
         </div>
       </Modal>

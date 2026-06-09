@@ -38,14 +38,14 @@ export default function BatchesBatchAttendance() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-white">Batch Attendance</h1>
-        <p className="text-xs text-gray-500 mt-0.5">Track daily batch attendance.</p>
+        <h1 className="text-lg font-bold text-[#1C1C1E]">Batch Attendance</h1>
+        <p className="text-xs text-apple-gray-500 mt-0.5">Track daily batch attendance.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="rounded-xl border border-ydl-dark-border bg-white/[0.02] p-4">
-          <p className="text-[10px] text-gray-500">Total Members</p>
-          <p className="text-xl font-bold text-white mt-1">{total}</p>
+        <div className="rounded-xl border border-apple-gray-200 bg-white/[0.02] p-4">
+          <p className="text-[10px] text-apple-gray-500">Total Members</p>
+          <p className="text-xl font-bold text-[#1C1C1E] mt-1">{total}</p>
         </div>
         <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
           <p className="text-[10px] text-emerald-400">Present</p>
@@ -59,33 +59,33 @@ export default function BatchesBatchAttendance() {
 
       <div className="flex items-center gap-4">
         <div className="space-y-1.5">
-          <label className="text-[11px] font-medium text-gray-400">Batch</label>
-          <select value={selectedBatch} onChange={e => setSelectedBatch(e.target.value)} className="w-52 bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+          <label className="text-[11px] font-medium text-apple-gray-400">Batch</label>
+          <select value={selectedBatch} onChange={e => setSelectedBatch(e.target.value)} className="w-52 bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
             {batchOptions.map(b => <option key={b}>{b}</option>)}
           </select>
         </div>
         <div className="space-y-1.5">
-          <label className="text-[11px] font-medium text-gray-400">Date</label>
-          <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="w-40 bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
+          <label className="text-[11px] font-medium text-apple-gray-400">Date</label>
+          <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="w-40 bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
         </div>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-ydl-dark-border">
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">#</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Member</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Time In</th>
-              <th className="text-left px-4 py-3 text-[10px] font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <tr className="border-b border-apple-gray-200">
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">#</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Member</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Time In</th>
+              <th className="text-left px-4 py-3 text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">Status</th>
             </tr>
           </thead>
           <tbody>
             {records.map((r, i) => (
-              <tr key={r.id} className="border-b border-ydl-dark-border/50 last:border-0 hover:bg-white/[0.02] transition-colors">
-                <td className="px-4 py-3 text-xs text-gray-500">{i + 1}</td>
-                <td className="px-4 py-3 text-xs text-white">{r.name}</td>
-                <td className="px-4 py-3 text-xs text-gray-400">
+              <tr key={r.id} className="border-b border-apple-gray-200/50 last:border-0 hover:bg-white/[0.02] transition-colors">
+                <td className="px-4 py-3 text-xs text-apple-gray-500">{i + 1}</td>
+                <td className="px-4 py-3 text-xs text-[#1C1C1E]">{r.name}</td>
+                <td className="px-4 py-3 text-xs text-apple-gray-400">
                   {r.timeIn ? <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{r.timeIn}</span> : '-'}
                 </td>
                 <td className="px-4 py-3">

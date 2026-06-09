@@ -67,27 +67,27 @@ export default function AppSettingsMeasurements() {
   return (
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-bold text-white">Measurement Settings</h1><p className="text-xs text-gray-500 mt-0.5">Configure client body measurement fields.</p></div>
-        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Field</button>
+        <div><h1 className="text-lg font-bold text-[#1C1C1E]">Measurement Settings</h1><p className="text-xs text-apple-gray-500 mt-0.5">Configure client body measurement fields.</p></div>
+        <button onClick={openAdd} className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Plus className="w-3.5 h-3.5" /> Add Field</button>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">#</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Field</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Unit</th>
-              <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Visible</th>
-              <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Actions</th>
+            <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">#</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Field</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Unit</th>
+              <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Visible</th>
+              <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-ydl-dark-border/50">
+          <tbody className="divide-y divide-apple-gray-200/50">
             {sorted.map((f, i) => (
               <motion.tr key={f.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.02 }} className="hover:bg-white/[0.02] transition-colors">
-                <td className="px-4 py-3 text-xs text-gray-500">{f.order}</td>
-                <td className="px-4 py-3"><div className="flex items-center gap-2"><Activity className="w-3.5 h-3.5 text-gray-500" /><span className="text-xs font-medium text-white">{f.name}</span></div></td>
-                <td className="px-4 py-3 text-xs text-gray-400">{f.unit}</td>
+                <td className="px-4 py-3 text-xs text-apple-gray-500">{f.order}</td>
+                <td className="px-4 py-3"><div className="flex items-center gap-2"><Activity className="w-3.5 h-3.5 text-apple-gray-500" /><span className="text-xs font-medium text-[#1C1C1E]">{f.name}</span></div></td>
+                <td className="px-4 py-3 text-xs text-apple-gray-400">{f.unit}</td>
                 <td className="px-4 py-3">
                   <div onClick={() => toggleEnabled(f.id)} className={`w-8 h-4 rounded-full relative cursor-pointer ${f.enabled ? 'bg-ydl-yellow/40' : 'bg-white/10'}`}>
                     <div className={`w-3 h-3 rounded-full absolute top-0.5 transition-all ${f.enabled ? 'bg-ydl-yellow right-0.5' : 'bg-gray-500 left-0.5'}`} />
@@ -108,23 +108,23 @@ export default function AppSettingsMeasurements() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editField ? 'Edit Field' : 'Add Custom Field'} size="sm">
         <div className="space-y-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-medium text-gray-400">Field Name</label>
-            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Body Fat %" />
+            <label className="text-[10px] font-medium text-apple-gray-400">Field Name</label>
+            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="Body Fat %" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Unit</label>
-              <input value={form.unit} onChange={e => setForm(p => ({ ...p, unit: e.target.value }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="cm, kg, %" />
+              <label className="text-[10px] font-medium text-apple-gray-400">Unit</label>
+              <input value={form.unit} onChange={e => setForm(p => ({ ...p, unit: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="cm, kg, %" />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] font-medium text-gray-400">Order</label>
-              <input type="number" value={form.order} onChange={e => setForm(p => ({ ...p, order: parseInt(e.target.value) || 0 }))} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40" />
+              <label className="text-[10px] font-medium text-apple-gray-400">Order</label>
+              <input type="number" value={form.order} onChange={e => setForm(p => ({ ...p, order: parseInt(e.target.value) || 0 }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40" />
             </div>
           </div>
         </div>
         <div className="flex items-center gap-2 mt-4">
-          <button onClick={handleSave} disabled={!form.name} className="flex-1 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 disabled:opacity-40">{editField ? 'Update' : 'Add'} Field</button>
-          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleSave} disabled={!form.name} className="flex-1 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 disabled:opacity-40">{editField ? 'Update' : 'Add'} Field</button>
+          <button onClick={() => setModalOpen(false)} className="flex-1 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
     </div>

@@ -86,7 +86,7 @@ export default function AttendanceStaff() {
       Present: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
       Absent: 'text-red-400 bg-red-500/10 border-red-500/20',
       Late: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
-      'On Leave': 'text-blue-400 bg-blue-500/10 border-blue-500/20',
+      'On Leave': 'text-[#007AFF] bg-blue-500/10 border-blue-500/20',
       'Half Day': 'text-purple-400 bg-purple-500/10 border-purple-500/20',
     }
     return (
@@ -101,14 +101,14 @@ export default function AttendanceStaff() {
     <div className="p-4 lg:p-6 space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-bold text-white">Staff Attendance</h1>
-          <p className="text-xs text-gray-500 mt-0.5">Track daily staff and trainer check-ins.</p>
+          <h1 className="text-lg font-bold text-[#1C1C1E]">Staff Attendance</h1>
+          <p className="text-xs text-apple-gray-500 mt-0.5">Track daily staff and trainer check-ins.</p>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => setModal({ type: 'bulk-present' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors">
             <UserCheck className="w-3 h-3" /> Bulk Mark Present
           </button>
-          <button onClick={() => setModal({ type: 'mark' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90 transition-opacity">
+          <button onClick={() => setModal({ type: 'mark' })} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90 transition-opacity">
             <Clock className="w-3 h-3" /> Mark Attendance
           </button>
         </div>
@@ -117,15 +117,15 @@ export default function AttendanceStaff() {
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
         <StatsCard label="Present" value={presentCount} icon={CheckCircle} color="from-emerald-500/20 to-emerald-600/5" border="border-emerald-500/30" text="text-emerald-400" />
         <StatsCard label="Absent" value={absentCount} icon={XCircle} color="from-red-500/20 to-red-600/5" border="border-red-500/30" text="text-red-400" />
-        <StatsCard label="On Leave" value={leaveCount} icon={AlertTriangle} color="from-blue-500/20 to-blue-600/5" border="border-blue-500/30" text="text-blue-400" />
+        <StatsCard label="On Leave" value={leaveCount} icon={AlertTriangle} color="from-[#007AFF]/10 to-[#007AFF]/5" border="border-[#007AFF]/20" text="text-[#007AFF]" />
         <StatsCard label="Late" value={lateCount} icon={Clock} color="from-amber-500/20 to-amber-600/5" border="border-amber-500/30" text="text-amber-400" />
       </div>
 
       <FilterBar>
         <FilterField label="Date">
           <div className="relative">
-            <Calendar className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-500" />
-            <input type="date" value={date} onChange={e => setDate(e.target.value)} className="h-7 pl-7 pr-2 text-[11px] bg-white/5 border border-ydl-dark-border rounded-lg text-white focus:outline-none focus:border-ydl-yellow/30 [color-scheme:dark]" />
+            <Calendar className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-apple-gray-500" />
+            <input type="date" value={date} onChange={e => setDate(e.target.value)} className="h-7 pl-7 pr-2 text-[11px] bg-white/5 border border-apple-gray-200 rounded-lg text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/30 [color-scheme:dark]" />
           </div>
         </FilterField>
         <FilterField label="Staff">
@@ -136,41 +136,41 @@ export default function AttendanceStaff() {
         </FilterField>
       </FilterBar>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-ydl-dark-border bg-white/[0.02] overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-apple-gray-200 bg-white/[0.02] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ydl-dark-border bg-white/[0.03]">
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Name</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Role</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Check In</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Check Out</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Status</th>
-                <th className="text-left px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Hours</th>
-                <th className="text-right px-4 py-3 text-[10px] font-semibold text-gray-500 uppercase">Action</th>
+              <tr className="border-b border-apple-gray-200 bg-white/[0.03]">
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Name</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Role</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Check In</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Check Out</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Status</th>
+                <th className="text-left px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Hours</th>
+                <th className="text-right px-4 py-3 text-[10px] font-semibold text-apple-gray-500 uppercase">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ydl-dark-border/50">
+            <tbody className="divide-y divide-apple-gray-200/50">
               {paged.map((a, i) => (
                 <motion.tr key={a.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-ydl-yellow/20 to-amber-600/10 border border-ydl-yellow/20 flex items-center justify-center">
-                        <span className="text-[9px] font-bold text-ydl-yellow">{a.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
+                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-apple-blue/20 to-amber-600/10 border border-ydl-yellow/20 flex items-center justify-center">
+                        <span className="text-[9px] font-bold text-apple-blue">{a.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
                       </div>
-                      <span className="text-xs font-medium text-white">{a.name}</span>
+                      <span className="text-xs font-medium text-[#1C1C1E]">{a.name}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{a.role}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{a.role}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-gray-500" />
-                      <span className="text-xs text-gray-400">{a.checkIn}</span>
+                      <Clock className="w-3 h-3 text-apple-gray-500" />
+                      <span className="text-xs text-apple-gray-400">{a.checkIn}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{a.checkOut}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{a.checkOut}</td>
                   <td className="px-4 py-3">{statusBadge(a.status)}</td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{a.hours}</td>
+                  <td className="px-4 py-3 text-xs text-apple-gray-400">{a.hours}</td>
                   <td className="px-4 py-3 text-right">
                     <ActionMenu
                       label={<MoreHorizontal className="w-3.5 h-3.5" />}
@@ -186,46 +186,46 @@ export default function AttendanceStaff() {
             </tbody>
           </table>
         </div>
-        {filtered.length === 0 && <div className="text-center py-10 text-xs text-gray-500">No attendance records for this date.</div>}
-        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-ydl-dark-border bg-white/[0.02]"><span className="text-[10px] text-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-gray-500 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-ydl-dark-border bg-white/5 hover:bg-white/10">›</button></div></div>}
+        {filtered.length === 0 && <div className="text-center py-10 text-xs text-apple-gray-500">No attendance records for this date.</div>}
+        {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-apple-gray-200 bg-white/[0.02]"><span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
 
       <Modal open={modal?.type === 'mark'} onClose={() => setModal(null)} title="Mark Attendance" size="md">
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <label className="text-[10px] text-gray-500">Staff/Trainer</label>
-            <select value={markForm.name} onChange={e => setMarkForm({ ...markForm, name: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+            <label className="text-[10px] text-apple-gray-500">Staff/Trainer</label>
+            <select value={markForm.name} onChange={e => setMarkForm({ ...markForm, name: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
               {staffFilter.filter(s => s !== 'All Staff').map(s => <option key={s}>{s}</option>)}
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[10px] text-gray-500">Status</label>
-            <select value={markForm.status} onChange={e => setMarkForm({ ...markForm, status: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+            <label className="text-[10px] text-apple-gray-500">Status</label>
+            <select value={markForm.status} onChange={e => setMarkForm({ ...markForm, status: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
               {attendanceStatuses.map(s => <option key={s}>{s}</option>)}
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[10px] text-gray-500">Date</label>
-            <input type="date" value={markForm.date} onChange={e => setMarkForm({ ...markForm, date: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
+            <label className="text-[10px] text-apple-gray-500">Date</label>
+            <input type="date" value={markForm.date} onChange={e => setMarkForm({ ...markForm, date: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
           </div>
           {(markForm.status === 'Present' || markForm.status === 'Late') && (
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-500">Time</label>
-              <input type="time" value={markForm.time} onChange={e => setMarkForm({ ...markForm, time: e.target.value })} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
+              <label className="text-[10px] text-apple-gray-500">Time</label>
+              <input type="time" value={markForm.time} onChange={e => setMarkForm({ ...markForm, time: e.target.value })} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40 [color-scheme:dark]" />
             </div>
           )}
           <div className="flex items-center gap-3 pt-2">
-            <button onClick={handleMarkAttendance} className="px-4 py-2 text-xs font-semibold text-black bg-ydl-gradient rounded-lg hover:opacity-90"><Clock className="w-3 h-3 inline mr-1" /> Mark</button>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+            <button onClick={handleMarkAttendance} className="px-4 py-2 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><Clock className="w-3 h-3 inline mr-1" /> Mark</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
           </div>
         </div>
       </Modal>
 
       <Modal open={modal?.type === 'bulk-present'} onClose={() => setModal(null)} title="Bulk Mark Present" size="sm">
-        <p className="text-xs text-gray-400">Mark all absent/late staff as present for today?</p>
+        <p className="text-xs text-apple-gray-400">Mark all absent/late staff as present for today?</p>
         <div className="flex items-center gap-3 mt-4">
-          <button onClick={handleBulkPresent} className="px-4 py-2 text-xs font-semibold text-white bg-emerald-500 rounded-lg hover:bg-emerald-600 transition-colors"><UserCheck className="w-3 h-3 inline mr-1" /> Confirm</button>
-          <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Cancel</button>
+          <button onClick={handleBulkPresent} className="px-4 py-2 text-xs font-semibold text-[#1C1C1E] bg-emerald-500 rounded-lg hover:bg-emerald-600 transition-colors"><UserCheck className="w-3 h-3 inline mr-1" /> Confirm</button>
+          <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
         </div>
       </Modal>
 
@@ -233,13 +233,13 @@ export default function AttendanceStaff() {
         {modal?.data && (
           <div className="space-y-2 text-xs">
             <div className="grid grid-cols-2 gap-2">
-              <div><span className="text-gray-500">Name:</span> <span className="text-white">{modal.data.name}</span></div>
-              <div><span className="text-gray-500">Role:</span> <span className="text-white">{modal.data.role}</span></div>
-              <div><span className="text-gray-500">Date:</span> <span className="text-white">{new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span></div>
-              <div><span className="text-gray-500">Check In:</span> <span className="text-white">{modal.data.checkIn}</span></div>
-              <div><span className="text-gray-500">Check Out:</span> <span className="text-white">{modal.data.checkOut}</span></div>
-              <div><span className="text-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
-              <div><span className="text-gray-500">Hours:</span> <span className="text-white">{modal.data.hours}</span></div>
+              <div><span className="text-apple-gray-500">Name:</span> <span className="text-[#1C1C1E]">{modal.data.name}</span></div>
+              <div><span className="text-apple-gray-500">Role:</span> <span className="text-[#1C1C1E]">{modal.data.role}</span></div>
+              <div><span className="text-apple-gray-500">Date:</span> <span className="text-[#1C1C1E]">{new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span></div>
+              <div><span className="text-apple-gray-500">Check In:</span> <span className="text-[#1C1C1E]">{modal.data.checkIn}</span></div>
+              <div><span className="text-apple-gray-500">Check Out:</span> <span className="text-[#1C1C1E]">{modal.data.checkOut}</span></div>
+              <div><span className="text-apple-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
+              <div><span className="text-apple-gray-500">Hours:</span> <span className="text-[#1C1C1E]">{modal.data.hours}</span></div>
             </div>
           </div>
         )}
@@ -249,12 +249,12 @@ export default function AttendanceStaff() {
         {modal?.data && (
           <div className="space-y-3">
             <div className="space-y-1.5">
-              <label className="text-[10px] text-gray-500">Status</label>
-              <select defaultValue={modal.data.status} onChange={e => handleEditStatus(modal.data.id, e.target.value)} className="w-full bg-white/5 border border-ydl-dark-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-ydl-yellow/40">
+              <label className="text-[10px] text-apple-gray-500">Status</label>
+              <select defaultValue={modal.data.status} onChange={e => handleEditStatus(modal.data.id, e.target.value)} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] focus:outline-none focus:border-ydl-yellow/40">
                 {attendanceStatuses.map(s => <option key={s}>{s}</option>)}
               </select>
             </div>
-            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-gray-400 bg-white/5 border border-ydl-dark-border rounded-lg hover:text-white">Close</button>
+            <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Close</button>
           </div>
         )}
       </Modal>

@@ -50,20 +50,20 @@ export default function DigitalMarketing() {
     <div>
       {/* Hero */}
       <section className="relative py-20 sm:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-ydl-glow pointer-events-none" />
+        <div className="absolute inset-0 bg-white pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1C1C1E] mb-6 leading-tight">
               Digital Marketing{' '}
-              <span className="text-ydl-yellow">for Gyms & Clubs</span>
+              <span className="text-apple-blue">for Gyms & Clubs</span>
             </h1>
-            <p className="text-lg sm:text-xl text-ydl-muted-light max-w-3xl mx-auto mb-8">
+            <p className="text-lg sm:text-xl text-apple-gray-500 max-w-3xl mx-auto mb-8">
               Data-driven marketing strategies designed specifically for fitness businesses. Attract
               more members, retain them longer, and grow your revenue.
             </p>
             <Link
               to="/call-for-demo"
-              className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-black bg-ydl-gradient rounded-xl hover:shadow-ydl-gold-lg transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-white bg-apple-gradient-blue rounded-xl hover:shadow-apple-lg transition-all hover:scale-105"
             >
               Get a Marketing Audit
               <ArrowRight className="w-5 h-5" />
@@ -73,13 +73,13 @@ export default function DigitalMarketing() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-16 sm:py-20 bg-ydl-surface/30">
+      <section className="py-16 sm:py-20 bg-apple-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
               Our Marketing Services
             </h2>
-            <p className="text-ydl-muted-light max-w-2xl mx-auto">
+            <p className="text-apple-gray-500 max-w-2xl mx-auto">
               End-to-end digital marketing solutions tailored for fitness businesses.
             </p>
           </motion.div>
@@ -91,16 +91,16 @@ export default function DigitalMarketing() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="bg-ydl-card-gradient border border-ydl-dark-border rounded-2xl p-6 hover:border-ydl-dark-border-hover transition-all"
+                className="bg-white border border-apple-gray-200 rounded-2xl p-6 hover:border-apple-gray-300 transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-ydl-yellow/10 flex items-center justify-center mb-4">
-                  <service.icon className="w-6 h-6 text-ydl-yellow" />
+                <div className="w-12 h-12 rounded-xl bg-apple-blue/10 flex items-center justify-center mb-4">
+                  <service.icon className="w-6 h-6 text-apple-blue" />
                 </div>
-                <h3 className="font-heading text-lg font-bold text-white mb-3">{service.title}</h3>
+                <h3 className="font-heading text-lg font-bold text-[#1C1C1E] mb-3">{service.title}</h3>
                 <ul className="space-y-2">
                   {service.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-ydl-muted">
-                      <CheckCircle className="w-3.5 h-3.5 text-ydl-yellow flex-shrink-0 mt-0.5" />
+                    <li key={item} className="flex items-start gap-2 text-sm text-apple-gray-400">
+                      <CheckCircle className="w-3.5 h-3.5 text-apple-blue flex-shrink-0 mt-0.5" />
                       {item}
                     </li>
                   ))}
@@ -115,10 +115,10 @@ export default function DigitalMarketing() {
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
               Why YDL Marketing?
             </h2>
-            <p className="text-ydl-muted-light max-w-2xl mx-auto">
+            <p className="text-apple-gray-500 max-w-2xl mx-auto">
               We understand the fitness industry because we&apos;re part of it.
             </p>
           </motion.div>
@@ -134,10 +134,10 @@ export default function DigitalMarketing() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-ydl-card-gradient border border-ydl-dark-border rounded-xl p-6 text-center hover:border-ydl-dark-border-hover transition-all"
+                className="bg-white border border-apple-gray-200 rounded-xl p-6 text-center hover:border-apple-gray-300 transition-all"
               >
-                <h3 className="font-heading font-bold text-white text-base mb-2">{item.title}</h3>
-                <p className="text-sm text-ydl-muted">{item.desc}</p>
+                <h3 className="font-heading font-bold text-[#1C1C1E] text-base mb-2">{item.title}</h3>
+                <p className="text-sm text-apple-gray-400">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -151,19 +151,19 @@ export default function DigitalMarketing() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="rounded-3xl bg-ydl-gradient p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden"
+            className="rounded-3xl bg-apple-gradient-blue p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px]" />
             <div className="relative z-10">
-              <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-black mb-4">
+              <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-white mb-4">
                 Ready to Grow Your Gym?
               </h2>
-              <p className="text-lg text-black/80 mb-8 max-w-xl mx-auto">
+              <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
                 Get a free marketing audit and see how we can help you attract more members.
               </p>
               <Link
                 to="/call-for-demo"
-                className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-ydl-yellow bg-black rounded-xl hover:bg-black/90 transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 px-8 py-4 text-base font-bold text-white bg-apple-blue rounded-xl hover:bg-apple-blue/90 transition-all hover:scale-105"
               >
                 Get Your Free Audit
                 <ArrowRight className="w-5 h-5" />
