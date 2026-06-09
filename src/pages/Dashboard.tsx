@@ -53,12 +53,32 @@ function CountUp({ value, suffix = '' }: { value: number; suffix?: string }) {
   return <>{display.toLocaleString()}{suffix}</>
 }
 
-function Doughnut3D({ data, colors, title, icon: Icon, centerLabel }: {
+const BOX_GRADIENTS = [
+  'linear-gradient(135deg, #007AFF15, #5856D608)',
+  'linear-gradient(135deg, #34C75915, #30B35008)',
+  'linear-gradient(135deg, #FF950015, #FF6B0008)',
+  'linear-gradient(135deg, #AF52DE15, #8944C208)',
+  'linear-gradient(135deg, #FF2D5515, #D6244A08)',
+  'linear-gradient(135deg, #5AC8FA15, #4A9EDA08)',
+  'linear-gradient(135deg, #FF3B3015, #D6292908)',
+]
+const BOX_BORDERS = [
+  '1px solid #007AFF30',
+  '1px solid #34C75930',
+  '1px solid #FF950030',
+  '1px solid #AF52DE30',
+  '1px solid #FF2D5530',
+  '1px solid #5AC8FA30',
+  '1px solid #FF3B3030',
+]
+
+function Doughnut3D({ data, colors, title, icon: Icon, centerLabel, boxIndex = 0 }: {
   data: { name: string; value: number }[]
   colors: Record<string, string>
   title: string
   icon: any
   centerLabel: string
+  boxIndex?: number
 }) {
   const total = data.reduce((s, d) => s + d.value, 0)
   return (
@@ -66,7 +86,8 @@ function Doughnut3D({ data, colors, title, icon: Icon, centerLabel }: {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="rounded-2xl bg-white border border-apple-gray-200 p-4 shadow-apple-md hover:shadow-apple-lg transition-all duration-300 group"
+      className="rounded-2xl p-4 shadow-apple-md hover:shadow-apple-lg transition-all duration-300 group"
+      style={{ background: BOX_GRADIENTS[boxIndex % BOX_GRADIENTS.length], border: BOX_BORDERS[boxIndex % BOX_BORDERS.length] }}
     >
       <div className="flex items-center gap-2 mb-3">
         <Icon className="w-4 h-4 text-apple-blue" />
@@ -386,7 +407,7 @@ export default function Dashboard() {
 
       {/* Branch Selector + Date Filters */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-apple-gray-200 shadow-apple-sm">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl shadow-apple-sm" style={{ background: 'linear-gradient(135deg, #007AFF12, #5856D608)', border: '1px solid #007AFF25' }}>
           <Users className="w-3.5 h-3.5 text-apple-blue" />
           <span className="text-xs font-medium text-[#1C1C1E]">619 FITNESS STUDIO (Kalyanpur)</span>
           <ChevronDown className="w-3 h-3 text-apple-gray-400" />
@@ -396,11 +417,15 @@ export default function Dashboard() {
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
-              className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${
+              className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all shadow-sm ${
                 activeFilter === f
-                  ? 'bg-apple-blue/10 border-apple-blue/30 text-apple-blue shadow-sm'
-                  : 'bg-white border-apple-gray-200 text-apple-gray-500 hover:text-[#1C1C1E] hover:border-apple-gray-300 shadow-sm'
+                  ? 'text-white shadow-md'
+                  : 'text-apple-gray-500 hover:text-[#1C1C1E]'
               }`}
+              style={activeFilter === f
+                ? { background: 'linear-gradient(135deg, #007AFF, #5856D6)', border: '1px solid transparent' }
+                : { background: 'linear-gradient(135deg, #007AFF08, #5856D604)', border: '1px solid #007AFF20' }
+              }
             >
               {f}
             </button>
@@ -442,21 +467,25 @@ export default function Dashboard() {
       {/* Counters Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: 'New Clients', value: 0, icon: UserCheck, color: APPLE_BLUE, bg: '#E8F2FF' },
-          { label: 'Renewals', value: 0, icon: RefreshCwIcon, color: APPLE_GREEN, bg: '#E8F8ED' },
-          { label: 'Upgrade', value: 0, icon: TrendingUp, color: APPLE_ORANGE, bg: '#FFF3E0' },
-          { label: 'Check-ins', value: 0, icon: Activity, color: APPLE_PURPLE, bg: '#F0E6F9' },
+          { label: 'New Clients', value: 0, icon: UserCheck, color: APPLE_BLUE },
+          { label: 'Renewals', value: 0, icon: RefreshCwIcon, color: APPLE_GREEN },
+          { label: 'Upgrade', value: 0, icon: TrendingUp, color: APPLE_ORANGE },
+          { label: 'Check-ins', value: 0, icon: Activity, color: APPLE_PURPLE },
         ].map((m, i) => (
           <motion.div
             key={m.label}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 + i * 0.05 }}
-            className="rounded-2xl border border-apple-gray-200 bg-white p-4 shadow-apple-sm hover:shadow-apple-md transition-all"
+            className="rounded-2xl p-4 shadow-apple-sm hover:shadow-apple-md transition-all"
+            style={{
+              background: `linear-gradient(135deg, ${m.color}18, ${m.color}08)`,
+              border: `1px solid ${m.color}30`,
+            }}
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">{m.label}</span>
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: m.bg }}>
+              <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: m.color }}>{m.label}</span>
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${m.color}20` }}>
                 <m.icon className="w-3.5 h-3.5" style={{ color: m.color }} />
               </div>
             </div>
@@ -473,6 +502,7 @@ export default function Dashboard() {
           title="Membership Overview"
           icon={Users}
           centerLabel="Members"
+          boxIndex={0}
         />
         <Doughnut3D
           data={enquiryData}
@@ -480,6 +510,7 @@ export default function Dashboard() {
           title="Enquiry Funnel"
           icon={Target}
           centerLabel="Enquiries"
+          boxIndex={1}
         />
         <Doughnut3D
           data={genderData}
@@ -487,6 +518,7 @@ export default function Dashboard() {
           title="Gender Distribution"
           icon={PieChartIcon}
           centerLabel="Clients"
+          boxIndex={2}
         />
         <Doughnut3D
           data={revenueData}
@@ -494,6 +526,7 @@ export default function Dashboard() {
           title="Revenue Breakdown"
           icon={BarChart3}
           centerLabel="Total ₹"
+          boxIndex={3}
         />
       </div>
 
@@ -502,7 +535,8 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="rounded-2xl border border-apple-gray-200 bg-white p-5 shadow-apple-sm"
+        className="rounded-2xl p-5 shadow-apple-sm"
+        style={{ background: 'linear-gradient(135deg, #007AFF10, #5856D608)', border: '1px solid #007AFF25' }}
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -546,10 +580,11 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
-          className="rounded-2xl border border-apple-gray-200 bg-white p-5 shadow-apple-sm"
+          className="rounded-2xl p-5 shadow-apple-sm"
+          style={{ background: 'linear-gradient(135deg, #34C75912, #30B35008)', border: '1px solid #34C75925' }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <Target className="w-4 h-4 text-apple-blue" />
+            <Target className="w-4 h-4 text-apple-green" />
             <h3 className="text-xs font-semibold text-[#1C1C1E]">Performance Metrics</h3>
           </div>
           <div className="space-y-3">
@@ -564,10 +599,11 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="rounded-2xl border border-apple-gray-200 bg-white p-5 shadow-apple-sm"
+          className="rounded-2xl p-5 shadow-apple-sm"
+          style={{ background: 'linear-gradient(135deg, #AF52DE12, #8944C208)', border: '1px solid #AF52DE25' }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <Award className="w-4 h-4 text-apple-blue" />
+            <Award className="w-4 h-4 text-apple-purple" />
             <h3 className="text-xs font-semibold text-[#1C1C1E]">Top Performers</h3>
           </div>
           <div className="space-y-3">
@@ -609,20 +645,26 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.65 }}
-        className="rounded-2xl border border-apple-gray-200 bg-white overflow-hidden shadow-apple-sm"
+        className="rounded-2xl overflow-hidden shadow-apple-sm"
+        style={{ background: 'linear-gradient(135deg, #FF950010, #FF6B0008)', border: '1px solid #FF950025' }}
       >
-        <div className="px-5 py-3 border-b border-apple-gray-200 flex items-center justify-between">
-          <h2 className="text-xs font-semibold text-[#1C1C1E]">Summary</h2>
-          <span className="text-[10px] text-apple-gray-400">{summaryRows.length} items</span>
+        <div className="px-5 py-3 flex items-center justify-between" style={{
+          background: 'linear-gradient(135deg, #FF9500, #FF6B00)',
+        }}>
+          <h2 className="text-xs font-semibold text-white">Summary</h2>
+          <span className="text-[10px] text-white/70">{summaryRows.length} items</span>
         </div>
-        <div className="divide-y divide-apple-gray-100">
+        <div>
           {summaryRows.map((row, i) => (
             <motion.div
               key={row.label}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 + i * 0.02 }}
-              className="flex items-center justify-between px-5 py-2.5 hover:bg-apple-gray-50 transition-colors"
+              className="flex items-center justify-between px-5 py-2.5 transition-colors"
+              style={{
+                background: i % 2 === 0 ? 'rgba(255,149,0,0.04)' : 'rgba(255,149,0,0.10)',
+              }}
             >
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full" style={{
