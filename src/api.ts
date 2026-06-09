@@ -1,3 +1,6 @@
+import { User } from './types';
+import { useAuthStore } from './store/authStore';
+
 const API = import.meta.env.PROD
   ? 'https://ydl-backend.onrender.com'
   : (import.meta.env.VITE_API_URL || 'http://localhost:3001');
@@ -10,31 +13,34 @@ export async function login(email: string, password: string) {
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || 'Login failed');
+  
+  const { setAuth } = useAuthStore.getState();
+  setAuth(data.user, data.token);
+  
   return data;
 }
 
 export function getToken() {
-  return localStorage.getItem('ydl_token');
+  return useAuthStore.getState().token;
 }
 
 export function setToken(token: string) {
-  localStorage.setItem('ydl_token', token);
+  useAuthStore.getState().setAuth(useAuthStore.getState().user!, token);
 }
 
 export function clearToken() {
-  localStorage.removeItem('ydl_token');
+  useAuthStore.getState().clearAuth();
 }
 
-export function getUser() {
-  const raw = localStorage.getItem('ydl_user');
-  return raw ? JSON.parse(raw) : null;
+export function getUser(): User | null {
+  return useAuthStore.getState().user;
 }
 
-export function setUser(user: any) {
-  localStorage.setItem('ydl_user', JSON.stringify(user));
+export function setUser(user: User) {
+  useAuthStore.getState().setAuth(user, useAuthStore.getState().token || '');
 }
 
-export async function getMe() {
+export async function getMe(): Promise<User | null> {
   const token = getToken();
   if (!token) return null;
   const res = await fetch(`${API}/api/auth/me`, {
@@ -44,7 +50,7 @@ export async function getMe() {
   return res.json();
 }
 
-export async function api(path: string, options?: RequestInit) {
+export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const token = getToken();
   const res = await fetch(`${API}/api${path}`, {
     ...options,
