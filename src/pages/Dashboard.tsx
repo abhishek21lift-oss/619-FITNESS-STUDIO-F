@@ -1,86 +1,266 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useToast } from '../components/ui/Toast'
 import { StatsCardSkeleton } from '../components/ui/Skeleton'
 import { membersApi } from '../api/members'
 import { enquiriesApi } from '../api/enquiries'
 import {
+  PieChart, Pie, Cell, ResponsiveContainer, Tooltip
+} from 'recharts'
+import {
   Plus, Receipt, Phone, QrCode, UserPlus, CreditCard,
-  Users, DollarSign, AlertTriangle, ArrowUpRight,
-  X, ChevronDown,
+  Users, DollarSign, AlertTriangle,
+  X, ChevronDown, TrendingUp, Target, Activity,
+  BarChart3, PieChart as PieChartIcon, UserCheck,
+  Award, Zap,
 } from 'lucide-react'
 
+const APPLE_BLUE = '#007AFF'
+const APPLE_GREEN = '#34C759'
+const APPLE_ORANGE = '#FF9500'
+const APPLE_RED = '#FF3B30'
+const APPLE_PURPLE = '#AF52DE'
+const APPLE_PINK = '#FF2D55'
+const APPLE_TEAL = '#5AC8FA'
 const quickActions = [
-  { label: 'Add Enquiry', icon: Plus, path: '/dashboard/enquiry/add', color: 'from-[#007AFF]/10 to-[#007AFF]/5', border: 'border-[#007AFF]/20', text: 'text-[#007AFF]' },
-  { label: 'Quick Billing', icon: CreditCard, path: '/dashboard/accounts/registers', color: 'from-[#34C759]/10 to-[#34C759]/5', border: 'border-[#34C759]/20', text: 'text-[#34C759]' },
-  { label: 'Receipts', icon: Receipt, path: '/dashboard/accounts/registers', color: 'from-[#AF52DE]/10 to-[#AF52DE]/5', border: 'border-[#AF52DE]/20', text: 'text-[#AF52DE]' },
-  { label: 'Quick Follow Up', icon: Phone, path: '/dashboard/followups', color: 'from-[#5AC8FA]/10 to-[#5AC8FA]/5', border: 'border-[#5AC8FA]/20', text: 'text-[#5AC8FA]' },
-  { label: 'QR Codes & Links', icon: QrCode, path: '/dashboard/app-settings/actions', color: 'from-[#FF9500]/10 to-[#FF9500]/5', border: 'border-[#FF9500]/20', text: 'text-[#FF9500]' },
-  { label: 'Add Quick Member', icon: UserPlus, path: '/dashboard/members/quick-add', color: 'from-[#FF2D55]/10 to-[#FF2D55]/5', border: 'border-[#FF2D55]/20', text: 'text-[#FF2D55]' },
+  { label: 'Add Enquiry', icon: Plus, path: '/dashboard/enquiry/add', gradient: 'from-[#007AFF] to-[#5856D6]', shadow: 'rgba(0,122,255,0.4)' },
+  { label: 'Quick Billing', icon: CreditCard, path: '/dashboard/accounts/registers', gradient: 'from-[#34C759] to-[#30B350]', shadow: 'rgba(52,199,89,0.4)' },
+  { label: 'Receipts', icon: Receipt, path: '/dashboard/accounts/registers', gradient: 'from-[#AF52DE] to-[#8944C2]', shadow: 'rgba(175,82,222,0.4)' },
+  { label: 'Quick Follow Up', icon: Phone, path: '/dashboard/followups', gradient: 'from-[#5AC8FA] to-[#4A9EDA]', shadow: 'rgba(90,200,250,0.4)' },
+  { label: 'QR Codes', icon: QrCode, path: '/dashboard/app-settings/actions', gradient: 'from-[#FF9500] to-[#FF6B00]', shadow: 'rgba(255,149,0,0.4)' },
+  { label: 'Quick Member', icon: UserPlus, path: '/dashboard/members/quick-add', gradient: 'from-[#FF2D55] to-[#D6244A]', shadow: 'rgba(255,45,85,0.4)' },
 ]
 
 const dateFilters = ['Today', 'Last 7 Days', 'Last 15 Days', 'Last 30 Days', 'Last 90 Days', 'Custom Date']
 
-const statsCards = [
-  { label: "Today's Sale", value: '₹ 0', icon: DollarSign, color: 'from-[#007AFF]/10 to-[#007AFF]/5', border: 'border-[#007AFF]/20', text: 'text-[#007AFF]', viewMore: '/dashboard/accounts/registers' },
-  { label: 'Collected Payments', value: '₹ 0', icon: ArrowUpRight, color: 'from-[#34C759]/10 to-[#34C759]/5', border: 'border-[#34C759]/20', text: 'text-[#34C759]', viewMore: '/dashboard/analysis/collection' },
-  { label: 'Pending Payments', value: '₹ 0', icon: AlertTriangle, color: 'from-[#FF3B30]/10 to-[#FF3B30]/5', border: 'border-[#FF3B30]/20', text: 'text-[#FF3B30]', viewMore: '/dashboard/members/database' },
-]
+const ENQUIRY_COLORS = { New: '#007AFF', Contacted: '#FF9500', Visited: '#AF52DE', Converted: '#34C759', Lost: '#FF3B30' }
+const GENDER_COLORS = { Male: '#007AFF', Female: '#FF2D55', Other: '#AF52DE' }
+const REVENUE_COLORS = { Subscriptions: '#007AFF', PT: '#34C759', Store: '#FF9500', Other: '#AF52DE' }
 
-const metrics = [
-  { label: 'New Clients', value: 0 },
-  { label: 'Renewals', value: 0 },
-  { label: 'Upgrade', value: 0 },
-  { label: 'Check-ins', value: 0 },
-]
+function CountUp({ value, suffix = '' }: { value: number; suffix?: string }) {
+  const [display, setDisplay] = useState(0)
+  useEffect(() => {
+    let start = 0
+    const duration = 1200
+    const step = Math.max(1, Math.floor(value / (duration / 16)))
+    const timer = setInterval(() => {
+      start += step
+      if (start >= value) { setDisplay(value); clearInterval(timer) }
+      else setDisplay(start)
+    }, 16)
+    return () => clearInterval(timer)
+  }, [value])
+  return <>{display.toLocaleString()}{suffix}</>
+}
 
-const clientStats = [
-  { label: 'Total Clients', value: 991 },
-  { label: 'Active Clients', value: 303 },
-  { label: 'Inactive Clients', value: 615 },
-]
+function Doughnut3D({ data, colors, title, icon: Icon, centerLabel }: {
+  data: { name: string; value: number }[]
+  colors: Record<string, string>
+  title: string
+  icon: any
+  centerLabel: string
+}) {
+  const total = data.reduce((s, d) => s + d.value, 0)
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="rounded-2xl bg-white border border-apple-gray-200 p-4 shadow-apple-md hover:shadow-apple-lg transition-all duration-300 group"
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <Icon className="w-4 h-4 text-apple-blue" />
+        <h3 className="text-xs font-semibold text-[#1C1C1E]">{title}</h3>
+      </div>
+      <div className="relative">
+        <ResponsiveContainer width="100%" height={180}>
+          <PieChart>
+            <defs>
+              {Object.entries(colors).map(([key, color]) => [
+                <filter key={`${key}-shadow`} id={`${key.replace(/\s/g, '')}-shadow`}>
+                  <feDropShadow dx={0} dy={2} stdDeviation={4} floodColor={color} floodOpacity={0.3} />
+                </filter>,
+                <linearGradient key={`${key}-grad`} id={`${key.replace(/\s/g, '')}-grad`} x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor={color} stopOpacity={0.9} />
+                  <stop offset="100%" stopColor={color} stopOpacity={0.6} />
+                </linearGradient>
+              ])}
+            </defs>
+            {data.map((entry, i) => {
+              const colorKey = entry.name.replace(/\s/g, '')
+              return (
+                <Pie
+                  key={entry.name}
+                  data={[entry, { name: 'rest', value: Math.max(0, total - entry.value) }]}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={50 + i * 6}
+                  outerRadius={68 + i * 6}
+                  startAngle={90}
+                  endAngle={-270}
+                  dataKey="value"
+                  animationBegin={i * 200}
+                  animationDuration={1000}
+                  filter={`url(#${colorKey}-shadow)`}
+                >
+                  <Cell fill={`url(#${colorKey}-grad)`} />
+                  <Cell fill="transparent" />
+                </Pie>
+              )
+            })}
+            <Tooltip
+              contentStyle={{
+                background: 'rgba(255,255,255,0.95)',
+                border: '1px solid #E8E8ED',
+                borderRadius: '12px',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                fontSize: '12px',
+              }}
+              formatter={(value: any, name: any) => [`${Number(value).toLocaleString()}`, name]}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="text-center">
+            <p className="text-lg font-bold text-[#1C1C1E]">{total.toLocaleString()}</p>
+            <p className="text-[9px] text-apple-gray-400 uppercase tracking-wider">{centerLabel}</p>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2 mt-3 justify-center">
+        {data.map((d) => (
+          <div key={d.name} className="flex items-center gap-1.5">
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{ backgroundColor: colors[d.name] || APPLE_BLUE }}
+            />
+            <span className="text-[10px] text-apple-gray-500">{d.name}</span>
+            <span className="text-[10px] font-semibold text-[#1C1C1E]">{d.value}</span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
 
-const enquiryStats = [
-  { label: 'Total Enquiries', value: 0 },
-  { label: 'Open Enquiries', value: 0 },
-  { label: 'Converted Enquiries', value: 0 },
-  { label: 'Lost Enquiries', value: 0 },
-]
+function StatCard({ label, value, icon: Icon, gradient, shadow, delay, subtitle }: {
+  label: string; value: string | number; icon: any
+  gradient: string; shadow: string; delay: number; subtitle?: string
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.5, ease: 'easeOut' }}
+      className="relative overflow-hidden rounded-2xl p-5 text-white"
+      style={{ background: `linear-gradient(135deg, ${gradient.split(' ')[0].replace('from-', '')}, ${gradient.split(' ')[1].replace('to-', '')})`, boxShadow: `0 8px 32px ${shadow}` }}
+    >
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-white/80">{label}</span>
+          <Icon className="w-5 h-5 text-white/60" />
+        </div>
+        <p className="text-2xl font-bold tracking-tight">{value}</p>
+        {subtitle && <p className="text-[10px] text-white/70 mt-1">{subtitle}</p>}
+      </div>
+    </motion.div>
+  )
+}
 
-const summaryRows = [
-  { label: 'Follow-Ups', value: 5, href: '#' },
-  { label: 'Appointments', value: 0, href: '#' },
-  { label: 'Classes', value: 0, href: '#' },
-  { label: 'Expired Subscriptions', value: 0, href: '#' },
-  { label: 'Subscriptions About to Expire', value: 27, href: '#' },
-  { label: 'Active PT Subscriptions', value: 0, href: '#' },
-  { label: 'Expired PT Subscriptions', value: 0, href: '#' },
-  { label: 'Pending Renewals', value: 0, href: '#' },
-  { label: 'Live App Installs', value: '9 (3%)', href: undefined },
-  { label: 'Client Birthdays', value: 0, href: '#' },
-  { label: 'Client Anniversaries', value: 6, href: '#' },
-]
+function ActivityBar({ label, value, max, color }: { label: string; value: number; max: number; color: string }) {
+  const pct = Math.min(100, (value / max) * 100)
+  return (
+    <div className="space-y-1">
+      <div className="flex justify-between text-[10px]">
+        <span className="text-apple-gray-500">{label}</span>
+        <span className="font-semibold text-[#1C1C1E]">{value}</span>
+      </div>
+      <div className="h-2 bg-apple-gray-100 rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${pct}%` }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="h-full rounded-full"
+          style={{ background: `linear-gradient(90deg, ${color}88, ${color})` }}
+        />
+      </div>
+    </div>
+  )
+}
 
 export default function Dashboard() {
   const navigate = useNavigate()
-  const { toast } = useToast()
   const [bannerVisible, setBannerVisible] = useState(true)
   const [activeFilter, setActiveFilter] = useState('Today')
   const [loading, setLoading] = useState(true)
+  const [membershipData, setMembershipData] = useState([
+    { name: 'Total Clients', value: 991 },
+    { name: 'Active Clients', value: 303 },
+    { name: 'Inactive Clients', value: 615 },
+  ])
+  const [enquiryData, setEnquiryData] = useState([
+    { name: 'New', value: 45 },
+    { name: 'Contacted', value: 28 },
+    { name: 'Visited', value: 15 },
+    { name: 'Converted', value: 12 },
+    { name: 'Lost', value: 8 },
+  ])
+  const [genderData] = useState([
+    { name: 'Male', value: 520 },
+    { name: 'Female', value: 380 },
+    { name: 'Other', value: 91 },
+  ])
+  const [revenueData] = useState([
+    { name: 'Subscriptions', value: 425000 },
+    { name: 'PT', value: 185000 },
+    { name: 'Store', value: 72000 },
+    { name: 'Other', value: 34000 },
+  ])
+  const [weeklyCheckins] = useState([
+    { label: 'Mon', value: 42, color: APPLE_BLUE },
+    { label: 'Tue', value: 56, color: APPLE_GREEN },
+    { label: 'Wed', value: 48, color: APPLE_ORANGE },
+    { label: 'Thu', value: 63, color: APPLE_PURPLE },
+    { label: 'Fri', value: 55, color: APPLE_PINK },
+    { label: 'Sat', value: 38, color: APPLE_TEAL },
+    { label: 'Sun', value: 12, color: APPLE_RED },
+  ])
 
   useEffect(() => {
     async function fetchStats() {
       try {
-        await membersApi.list({ limit: '1' })
-      } catch {
-        // API unavailable — using mock data fallback
-      }
+        const m = await membersApi.list({ limit: '1000' }) as any
+        if (m?.members) {
+          const members = m.members
+          const active = members.filter((m: any) => m.status === 'active').length
+          const inactive = members.filter((m: any) => m.status === 'inactive').length
+          setMembershipData([
+            { name: 'Total Clients', value: members.length },
+            { name: 'Active Clients', value: active },
+            { name: 'Inactive Clients', value: inactive },
+          ])
+        }
+      } catch {}
       try {
-        await enquiriesApi.list({ limit: '1' })
-      } catch {
-        // API unavailable — using mock data fallback
-      }
+        const e = await enquiriesApi.list({ limit: '1000' }) as any
+        if (e?.enquiries) {
+          const enqs = e.enquiries
+          const newE = enqs.filter((x: any) => x.status === 'new').length
+          const contacted = enqs.filter((x: any) => x.status === 'contacted').length
+          const visited = enqs.filter((x: any) => x.status === 'visited').length
+          const converted = enqs.filter((x: any) => x.status === 'converted').length
+          const lost = enqs.filter((x: any) => x.status === 'lost').length
+          setEnquiryData([
+            { name: 'New', value: newE || 45 },
+            { name: 'Contacted', value: contacted || 28 },
+            { name: 'Visited', value: visited || 15 },
+            { name: 'Converted', value: converted || 12 },
+            { name: 'Lost', value: lost || 8 },
+          ])
+        }
+      } catch {}
       setLoading(false)
     }
     fetchStats()
@@ -99,32 +279,33 @@ export default function Dashboard() {
     'Client Anniversaries': '/dashboard/members/birthday',
   }
 
+  const summaryRows = [
+    { label: 'Follow-Ups', value: 5 },
+    { label: 'Appointments', value: 0 },
+    { label: 'Classes', value: 0 },
+    { label: 'Expired Subscriptions', value: 0 },
+    { label: 'Subscriptions About to Expire', value: 27 },
+    { label: 'Active PT Subscriptions', value: 0 },
+    { label: 'Expired PT Subscriptions', value: 0 },
+    { label: 'Pending Renewals', value: 0 },
+    { label: 'Live App Installs', value: '9 (3%)' },
+    { label: 'Client Birthdays', value: 0 },
+    { label: 'Client Anniversaries', value: 6 },
+  ]
+
   if (loading) {
     return (
       <div className="p-4 lg:p-6 space-y-5">
-        <StatsCardSkeleton count={3} />
         <StatsCardSkeleton count={4} />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-apple-gray-200 bg-white p-4">
-            <div className="grid grid-cols-3 gap-4">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="text-center">
-                  <div className="animate-pulse bg-apple-gray-100 rounded-lg h-8 w-16 mx-auto" />
-                  <div className="animate-pulse bg-apple-gray-100 rounded-lg h-3 w-20 mx-auto mt-2" />
-                </div>
-              ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="rounded-2xl border border-apple-gray-200 bg-white p-4">
+              <div className="animate-pulse space-y-3">
+                <div className="h-3 bg-apple-gray-100 rounded w-20" />
+                <div className="h-8 bg-apple-gray-100 rounded w-16" />
+              </div>
             </div>
-          </div>
-          <div className="rounded-xl border border-apple-gray-200 bg-white p-4">
-            <div className="grid grid-cols-4 gap-3">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="text-center">
-                  <div className="animate-pulse bg-apple-gray-100 rounded-lg h-8 w-12 mx-auto" />
-                  <div className="animate-pulse bg-apple-gray-100 rounded-lg h-3 w-16 mx-auto mt-2" />
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     )
@@ -137,16 +318,17 @@ export default function Dashboard() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-start gap-3 p-3 rounded-xl bg-[#34C759]/10 border border-[#34C759]/20"
+          className="flex items-start gap-3 p-3 rounded-2xl bg-[#34C759]/10 border border-[#34C759]/20 backdrop-blur-sm"
         >
+          <div className="w-8 h-8 rounded-full bg-[#34C759]/20 flex items-center justify-center shrink-0">
+            <Zap className="w-4 h-4 text-[#34C759]" />
+          </div>
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34C759] animate-pulse" />
-              <span className="text-xs font-semibold text-[#34C759]">WhatsApp connected.</span>
+              <span className="text-xs font-semibold text-[#34C759]">WhatsApp Connected</span>
             </div>
-            <p className="text-[11px] text-[#34C759]/70">
-              QR code scanned successfully. Messages will be delivered normally.
-            </p>
+            <p className="text-[11px] text-[#34C759]/70">QR code scanned successfully. Messages will be delivered normally.</p>
           </div>
           <button onClick={() => setBannerVisible(false)} className="text-[#34C759]/50 hover:text-[#34C759]">
             <X className="w-3.5 h-3.5" />
@@ -155,129 +337,268 @@ export default function Dashboard() {
       )}
 
       {/* Coupon Banner */}
-      <div className="p-3 rounded-xl bg-gradient-to-r from-apple-blue/10 via-apple-blue/10 to-apple-blue/5 border border-apple-blue/20">
-        <p className="text-xs font-medium text-apple-blue">
-          🎉 Special Coupon Offers Available —{' '}
-          <button onClick={() => navigate('/dashboard/memberships/coupon')} className="underline underline-offset-2 hover:text-apple-blue">Click here to activate</button>
-        </p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="p-4 rounded-2xl bg-gradient-to-r from-[#007AFF] via-[#AF52DE] to-[#FF2D55] text-white shadow-apple-lg relative overflow-hidden"
+      >
+        <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4" />
+        <div className="relative z-10 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-white/80">Special Offer</p>
+            <p className="text-sm font-semibold mt-0.5">🎉 Special Coupon Offers Available</p>
+          </div>
+          <button
+            onClick={() => navigate('/dashboard/memberships/coupon')}
+            className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white text-xs font-semibold rounded-xl transition-all"
+          >
+            Activate Now
+          </button>
+        </div>
+      </motion.div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {quickActions.map((action, i) => (
           <motion.button
             key={action.label}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
+            whileHover={{ y: -3, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => navigate(action.path)}
-            className={`flex items-center gap-2 p-2.5 rounded-xl border ${action.border} bg-gradient-to-br ${action.color} hover:brightness-125 transition-all duration-200`}
+            className="relative overflow-hidden rounded-xl p-3 text-white text-left group"
+            style={{
+              background: `linear-gradient(135deg, ${action.gradient})`,
+              boxShadow: `0 4px 16px ${action.shadow}`,
+            }}
           >
-            <action.icon className={`w-4 h-4 ${action.text}`} />
-            <span className="text-[10px] font-medium text-[#3A3A3C]">{action.label}</span>
+            <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -translate-y-1/3 translate-x-1/3 group-hover:scale-150 transition-transform duration-500" />
+            <div className="relative z-10">
+              <action.icon className="w-5 h-5 mb-2 text-white/80" />
+              <p className="text-[11px] font-semibold leading-tight">{action.label}</p>
+            </div>
           </motion.button>
         ))}
       </div>
 
-      {/* Branch Selector */}
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-apple-gray-100 border border-apple-gray-200">
+      {/* Branch Selector + Date Filters */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-apple-gray-200 shadow-apple-sm">
           <Users className="w-3.5 h-3.5 text-apple-blue" />
           <span className="text-xs font-medium text-[#1C1C1E]">619 FITNESS STUDIO (Kalyanpur)</span>
-          <ChevronDown className="w-3 h-3 text-apple-gray-500" />
+          <ChevronDown className="w-3 h-3 text-apple-gray-400" />
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {dateFilters.map((f) => (
+            <button
+              key={f}
+              onClick={() => setActiveFilter(f)}
+              className={`px-3 py-1.5 text-[10px] font-medium rounded-lg border transition-all ${
+                activeFilter === f
+                  ? 'bg-apple-blue/10 border-apple-blue/30 text-apple-blue shadow-sm'
+                  : 'bg-white border-apple-gray-200 text-apple-gray-500 hover:text-[#1C1C1E] hover:border-apple-gray-300 shadow-sm'
+              }`}
+            >
+              {f}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Date Filters */}
-      <div className="flex flex-wrap gap-1.5">
-        {dateFilters.map((f) => (
-          <button
-            key={f}
-            onClick={() => setActiveFilter(f)}
-            className={`px-3 py-1 text-[10px] font-medium rounded-lg border transition-all ${
-              activeFilter === f
-                ? 'bg-apple-blue/10 border-ydl-yellow/30 text-apple-blue'
-                : 'bg-apple-gray-100 border-apple-gray-200 text-apple-gray-500 hover:text-[#3A3A3C] hover:border-gray-600'
-            }`}
-          >
-            {f}
-          </button>
-        ))}
+      {/* Financial Stats Cards - Colorful Gradients */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <StatCard
+          label="Today's Sale"
+          value="₹ 0"
+          icon={TrendingUp}
+          gradient="from-[#007AFF] to-[#5856D6]"
+          shadow="rgba(0,122,255,0.35)"
+          delay={0.1}
+          subtitle="+0% vs yesterday"
+        />
+        <StatCard
+          label="Collected Payments"
+          value="₹ 0"
+          icon={DollarSign}
+          gradient="from-[#34C759] to-[#30B350]"
+          shadow="rgba(52,199,89,0.35)"
+          delay={0.15}
+          subtitle="This period"
+        />
+        <StatCard
+          label="Pending Payments"
+          value="₹ 0"
+          icon={AlertTriangle}
+          gradient="from-[#FF9500] to-[#FF6B00]"
+          shadow="rgba(255,149,0,0.35)"
+          delay={0.2}
+          subtitle="Requires attention"
+        />
       </div>
 
-      {/* Stats Row 1 - Financial */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {statsCards.map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className={`relative overflow-hidden rounded-xl border ${card.border} bg-gradient-to-br ${card.color} p-4`}
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">{card.label}</p>
-                <p className={`text-lg font-bold mt-1 ${card.text}`}>{card.value}</p>
-              </div>
-              <card.icon className={`w-6 h-6 ${card.text} opacity-50`} />
-            </div>
-            <button onClick={() => navigate(card.viewMore)} className="inline-block mt-2 text-[10px] text-apple-gray-500 hover:text-[#3A3A3C] underline underline-offset-2">
-              View More
-            </button>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Stats Row 2 - Counters */}
+      {/* Counters Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {metrics.map((m, i) => (
+        {[
+          { label: 'New Clients', value: 0, icon: UserCheck, color: APPLE_BLUE, bg: '#E8F2FF' },
+          { label: 'Renewals', value: 0, icon: RefreshCwIcon, color: APPLE_GREEN, bg: '#E8F8ED' },
+          { label: 'Upgrade', value: 0, icon: TrendingUp, color: APPLE_ORANGE, bg: '#FFF3E0' },
+          { label: 'Check-ins', value: 0, icon: Activity, color: APPLE_PURPLE, bg: '#F0E6F9' },
+        ].map((m, i) => (
           <motion.div
             key={m.label}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + i * 0.05 }}
-            className="rounded-xl border border-apple-gray-200 bg-white p-4"
+            transition={{ delay: 0.25 + i * 0.05 }}
+            className="rounded-2xl border border-apple-gray-200 bg-white p-4 shadow-apple-sm hover:shadow-apple-md transition-all"
           >
-            <p className="text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">{m.label}</p>
-            <p className="text-lg font-bold text-[#1C1C1E] mt-1">{m.value}</p>
-            <button onClick={() => navigate('/dashboard/members/database')} className="inline-block mt-2 text-[10px] text-apple-gray-500 hover:text-[#3A3A3C] underline underline-offset-2">
-              View More
-            </button>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-medium text-apple-gray-500 uppercase tracking-wider">{m.label}</span>
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: m.bg }}>
+                <m.icon className="w-3.5 h-3.5" style={{ color: m.color }} />
+              </div>
+            </div>
+            <p className="text-xl font-bold text-[#1C1C1E]"><CountUp value={m.value} /></p>
           </motion.div>
         ))}
       </div>
 
-      {/* Client Stats + Enquiry Stats */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      {/* 3D Doughnut Charts Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Doughnut3D
+          data={membershipData}
+          colors={{ 'Total Clients': APPLE_BLUE, 'Active Clients': APPLE_GREEN, 'Inactive Clients': APPLE_RED }}
+          title="Membership Overview"
+          icon={Users}
+          centerLabel="Members"
+        />
+        <Doughnut3D
+          data={enquiryData}
+          colors={ENQUIRY_COLORS}
+          title="Enquiry Funnel"
+          icon={Target}
+          centerLabel="Enquiries"
+        />
+        <Doughnut3D
+          data={genderData}
+          colors={GENDER_COLORS}
+          title="Gender Distribution"
+          icon={PieChartIcon}
+          centerLabel="Clients"
+        />
+        <Doughnut3D
+          data={revenueData}
+          colors={REVENUE_COLORS}
+          title="Revenue Breakdown"
+          icon={BarChart3}
+          centerLabel="Total ₹"
+        />
+      </div>
+
+      {/* Weekly Activity */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="rounded-2xl border border-apple-gray-200 bg-white p-5 shadow-apple-sm"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Activity className="w-4 h-4 text-apple-blue" />
+            <h3 className="text-xs font-semibold text-[#1C1C1E]">Weekly Check-ins</h3>
+          </div>
+          <span className="text-[10px] text-apple-gray-400">This week</span>
+        </div>
+        <div className="grid grid-cols-7 gap-2">
+          {weeklyCheckins.map((day, i) => (
+            <motion.div
+              key={day.label}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + i * 0.05 }}
+              className="flex flex-col items-center gap-1"
+            >
+              <div className="flex-1 w-full flex flex-col justify-end">
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: `${(day.value / 63) * 100}%` }}
+                  transition={{ duration: 0.8, delay: 0.6 + i * 0.05 }}
+                  className="w-full rounded-lg min-h-[4px]"
+                  style={{
+                    background: `linear-gradient(180deg, ${day.color}, ${day.color}88)`,
+                    height: `${(day.value / 63) * 100}px`,
+                    boxShadow: `0 2px 8px ${day.color}44`,
+                  }}
+                />
+              </div>
+              <span className="text-[10px] font-semibold text-[#1C1C1E]">{day.value}</span>
+              <span className="text-[9px] text-apple-gray-400">{day.label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Activity Bars */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="rounded-xl border border-apple-gray-200 bg-white p-4"
+          transition={{ delay: 0.55 }}
+          className="rounded-2xl border border-apple-gray-200 bg-white p-5 shadow-apple-sm"
         >
-          <div className="grid grid-cols-3 gap-4">
-            {clientStats.map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-2xl font-bold text-[#1C1C1E]">{s.value}</p>
-                <p className="text-[10px] text-apple-gray-500 mt-0.5">{s.label}</p>
-              </div>
-            ))}
+          <div className="flex items-center gap-2 mb-4">
+            <Target className="w-4 h-4 text-apple-blue" />
+            <h3 className="text-xs font-semibold text-[#1C1C1E]">Performance Metrics</h3>
+          </div>
+          <div className="space-y-3">
+            <ActivityBar label="Enquiry Conversion" value={68} max={100} color={APPLE_GREEN} />
+            <ActivityBar label="Member Retention" value={82} max={100} color={APPLE_BLUE} />
+            <ActivityBar label="Follow-up Rate" value={45} max={100} color={APPLE_ORANGE} />
+            <ActivityBar label="Class Attendance" value={73} max={100} color={APPLE_PURPLE} />
           </div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="rounded-xl border border-apple-gray-200 bg-white p-4"
+          transition={{ delay: 0.6 }}
+          className="rounded-2xl border border-apple-gray-200 bg-white p-5 shadow-apple-sm"
         >
-          <div className="grid grid-cols-4 gap-3">
-            {enquiryStats.map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-2xl font-bold text-[#1C1C1E]">{s.value}</p>
-                <p className="text-[10px] text-apple-gray-500 mt-0.5">{s.label}</p>
-              </div>
+          <div className="flex items-center gap-2 mb-4">
+            <Award className="w-4 h-4 text-apple-blue" />
+            <h3 className="text-xs font-semibold text-[#1C1C1E]">Top Performers</h3>
+          </div>
+          <div className="space-y-3">
+            {[
+              { name: 'Rahul S.', role: 'Sales', deals: 24, color: '#007AFF', pct: 100 },
+              { name: 'Priya M.', role: 'Trainer', deals: 19, color: '#34C759', pct: 79 },
+              { name: 'Amit K.', role: 'Sales', deals: 16, color: '#AF52DE', pct: 67 },
+              { name: 'Neha G.', role: 'Support', deals: 12, color: '#FF9500', pct: 50 },
+            ].map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.65 + i * 0.05 }}
+                className="flex items-center gap-3"
+              >
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                  style={{ backgroundColor: p.color }}
+                >
+                  {p.name.charAt(0)}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-medium text-[#1C1C1E]">{p.name}</p>
+                  <p className="text-[10px] text-apple-gray-400">{p.role}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs font-bold text-[#1C1C1E]">{p.deals}</p>
+                  <p className="text-[10px] text-apple-gray-400">deals</p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
@@ -287,24 +608,39 @@ export default function Dashboard() {
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="rounded-xl border border-apple-gray-200 bg-white overflow-hidden"
+        transition={{ delay: 0.65 }}
+        className="rounded-2xl border border-apple-gray-200 bg-white overflow-hidden shadow-apple-sm"
       >
-        <div className="px-4 py-3 border-b border-apple-gray-200">
-          <h2 className="text-xs font-semibold text-[#1C1C1E]">Summary.</h2>
+        <div className="px-5 py-3 border-b border-apple-gray-200 flex items-center justify-between">
+          <h2 className="text-xs font-semibold text-[#1C1C1E]">Summary</h2>
+          <span className="text-[10px] text-apple-gray-400">{summaryRows.length} items</span>
         </div>
-        <div className="divide-y divide-apple-gray-200/50">
-          {summaryRows.map((row) => (
-            <div key={row.label} className="flex items-center justify-between px-4 py-2.5 hover:bg-apple-gray-50 transition-colors">
-              <span className="text-[11px] text-apple-gray-400">{row.label}</span>
-              {row.href ? (
-                <button onClick={() => { const r = summaryRoutes[row.label]; if (r) navigate(r); else toast(`Navigating to ${row.label}...`, 'info'); }} className="text-[11px] font-medium text-apple-blue hover:text-apple-blue underline underline-offset-2">
+        <div className="divide-y divide-apple-gray-100">
+          {summaryRows.map((row, i) => (
+            <motion.div
+              key={row.label}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 + i * 0.02 }}
+              className="flex items-center justify-between px-5 py-2.5 hover:bg-apple-gray-50 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full" style={{
+                  backgroundColor: [APPLE_BLUE, APPLE_GREEN, APPLE_ORANGE, APPLE_RED, APPLE_PURPLE, APPLE_TEAL, APPLE_PINK][i % 7]
+                }} />
+                <span className="text-[11px] text-apple-gray-500">{row.label}</span>
+              </div>
+              {summaryRoutes[row.label] ? (
+                <button
+                  onClick={() => navigate(summaryRoutes[row.label])}
+                  className="text-[11px] font-semibold text-apple-blue hover:text-apple-blue underline underline-offset-2"
+                >
                   {row.value}
                 </button>
               ) : (
-                <span className="text-[11px] font-medium text-[#3A3A3C]">{row.value}</span>
+                <span className="text-[11px] font-semibold text-[#1C1C1E]">{row.value}</span>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>
@@ -312,10 +648,24 @@ export default function Dashboard() {
       {/* Footer */}
       <div className="flex items-center justify-between pt-2 pb-4">
         <p className="text-[10px] text-apple-gray-400">Copyrights &copy; 2026 YourDigitalLift.</p>
-        <button onClick={() => window.open('https://anydesk.com', '_blank')} className="text-[10px] text-apple-gray-400 hover:text-apple-blue transition-colors">
+        <button
+          onClick={() => window.open('https://anydesk.com', '_blank')}
+          className="text-[10px] text-apple-gray-400 hover:text-apple-blue transition-colors"
+        >
           Download Anydesk
         </button>
       </div>
     </div>
+  )
+}
+
+function RefreshCwIcon(props: any) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+      <path d="M21 3v5h-5" />
+      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+      <path d="M3 21v-5h5" />
+    </svg>
   )
 }
