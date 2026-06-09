@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   GitBranch, Search, MapPin, Phone, Eye, Edit3, Trash2,
@@ -25,6 +26,7 @@ const mockOtherBranchClients = Array.from({ length: 32 }, (_, i) => ({
 }))
 
 export default function MembersOtherBranch() {
+  const navigate = useNavigate()
   const [filter, setFilter] = useState('All Branches')
   const [statusFilter, setStatusFilter] = useState('All')
   const [search, setSearch] = useState('')
@@ -142,7 +144,7 @@ export default function MembersOtherBranch() {
                     <ActionMenu
                       label={<MoreHorizontal className="w-3.5 h-3.5" />}
                       actions={[
-                        { label: 'View Profile', icon: Eye, onClick: () => setModal({ type: 'view-profile', data: c }) },
+                        { label: 'View Profile', icon: Eye, onClick: () => navigate(`/dashboard/members/profile/${c.membershipId}`) },
                         { label: 'Edit', icon: Edit3, onClick: () => setModal({ type: 'edit', data: c }) },
                         { label: 'Send WhatsApp', icon: Send, onClick: () => window.open(`https://wa.me/${c.mobile.replace(/[^0-9]/g, '')}`, '_blank') },
                         { label: 'Send Notification', icon: Bell, onClick: () => setModal({ type: 'notify', data: c }) },
@@ -158,26 +160,6 @@ export default function MembersOtherBranch() {
         {filtered.length === 0 && <div className="text-center py-10"><p className="text-xs text-apple-gray-500">No members found in this branch.</p></div>}
         {totalPages > 1 && <div className="flex items-center justify-between px-3 py-2 border-t border-apple-gray-200 bg-white/[0.02]"><span className="text-[10px] text-apple-gray-500">Page {page} of {totalPages}</span><div className="flex items-center gap-1"><button disabled={page <= 1} onClick={() => setPage(page - 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">‹</button><button disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="p-1.5 text-apple-gray-500 hover:text-[#1C1C1E] disabled:opacity-30 disabled:cursor-not-allowed rounded-lg border border-apple-gray-200 bg-white/5 hover:bg-white/10">›</button></div></div>}
       </motion.div>
-
-      <Modal open={modal?.type === 'view-profile'} onClose={() => setModal(null)} title={`Member: ${modal?.data?.name || ''}`} size="lg">
-        {modal?.data && (
-          <div className="space-y-3 text-xs">
-            <div className="flex items-center gap-3 pb-3 border-b border-apple-gray-200">
-              <div className="w-10 h-10 rounded-full bg-apple-blue/10 flex items-center justify-center text-sm font-bold text-apple-blue">{modal.data.name.split(' ').map((n: string) => n[0]).join('')}</div>
-              <div><h3 className="text-sm font-semibold text-[#1C1C1E]">{modal.data.name}</h3><p className="text-[11px] text-apple-gray-500">{modal.data.membershipId} • {modal.data.branch}</p></div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div><span className="text-apple-gray-500">Mobile:</span> <span className="text-[#1C1C1E]">{modal.data.mobile}</span></div>
-              <div><span className="text-apple-gray-500">Email:</span> <span className="text-[#1C1C1E]">{modal.data.email}</span></div>
-              <div><span className="text-apple-gray-500">Branch:</span> <span className="text-[#1C1C1E]">{modal.data.branch}</span></div>
-              <div><span className="text-apple-gray-500">Plan:</span> <span className="text-[#1C1C1E]">{modal.data.plan}</span></div>
-              <div><span className="text-apple-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
-              <div><span className="text-apple-gray-500">Join Date:</span> <span className="text-[#1C1C1E]">{modal.data.joinDate}</span></div>
-              <div><span className="text-apple-gray-500">Expiry:</span> <span className="text-[#1C1C1E]">{modal.data.expiry}</span></div>
-            </div>
-          </div>
-        )}
-      </Modal>
 
       <Modal open={modal?.type === 'edit'} onClose={() => setModal(null)} title={`Edit: ${modal?.data?.name || ''}`} size="md">
         {modal?.data && (

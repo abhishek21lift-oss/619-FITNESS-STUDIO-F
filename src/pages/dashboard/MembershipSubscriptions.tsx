@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Search, Eye, RefreshCw, ArrowUpRight, XCircle, Bell, Layers, Users, AlertTriangle } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
@@ -30,6 +31,7 @@ const initialSubs: Sub[] = [
 type TabType = 'Active' | 'Expired' | 'About to Expire' | 'All'
 
 export default function MembershipSubscriptions() {
+  const navigate = useNavigate()
   const [subs, setSubs] = useState<Sub[]>(initialSubs)
   const [search, setSearch] = useState('')
   const [planFilter, setPlanFilter] = useState('All Plans')
@@ -40,8 +42,7 @@ export default function MembershipSubscriptions() {
   const [selectedSub, setSelectedSub] = useState<Sub | null>(null)
   const [renewDate, setRenewDate] = useState('')
   const [cancelReason, setCancelReason] = useState('')
-  const [profileModal, setProfileModal] = useState(false)
-  const [profileMember, setProfileMember] = useState<Sub | null>(null)
+  
   const [page, setPage] = useState(1)
   const perPage = 10
   const { toast } = useToast()
@@ -94,11 +95,6 @@ export default function MembershipSubscriptions() {
     setSelectedSub(sub)
     setCancelReason('')
     setCancelModal(true)
-  }
-
-  const viewProfile = (sub: Sub) => {
-    setProfileMember(sub)
-    setProfileModal(true)
   }
 
   return (
@@ -155,7 +151,7 @@ export default function MembershipSubscriptions() {
             <tbody className="divide-y divide-apple-gray-200/50">
               {paged.map((s, i) => (
                 <motion.tr key={s.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.03 }} className="hover:bg-white/[0.02] transition-colors">
-                  <td className="px-4 py-3"><span className="text-xs font-medium text-[#1C1C1E] cursor-pointer hover:text-apple-blue transition-colors" onClick={() => viewProfile(s)}>{s.member}</span><br /><span className="text-[9px] text-apple-gray-400">{s.id}</span></td>
+                  <td className="px-4 py-3"><span className="text-xs font-medium text-[#1C1C1E] cursor-pointer hover:text-apple-blue transition-colors" onClick={() => navigate(`/dashboard/members/profile/${encodeURIComponent(s.member)}`)}>{s.member}</span><br /><span className="text-[9px] text-apple-gray-400">{s.id}</span></td>
                   <td className="px-4 py-3 text-xs text-apple-gray-400">{s.plan}</td>
                   <td className="px-4 py-3 text-xs text-apple-gray-400">{s.startDate}</td>
                   <td className="px-4 py-3 text-xs text-apple-gray-400">{s.endDate}</td>
@@ -171,7 +167,7 @@ export default function MembershipSubscriptions() {
                     <ActionMenu
                       label="Actions"
                       actions={[
-                        { label: 'View', onClick: () => viewProfile(s), icon: Eye },
+                        { label: 'View', onClick: () => navigate(`/dashboard/members/profile/${encodeURIComponent(s.member)}`), icon: Eye },
                         { label: 'Renew', onClick: () => openRenew(s), icon: RefreshCw },
                         { label: 'Upgrade', onClick: () => toast(`Upgrade ${s.member} from ${s.plan} to a higher tier.`, 'info'), icon: ArrowUpRight },
                         { label: 'Cancel', onClick: () => openCancel(s), icon: XCircle, color: 'text-red-400' },
@@ -221,30 +217,6 @@ export default function MembershipSubscriptions() {
             <button onClick={() => setCancelModal(false)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 hover:text-[#1C1C1E]">Keep Subscription</button>
           </div>
         </div>
-      </Modal>
-      <Modal open={profileModal} onClose={() => setProfileModal(false)} title="Member Profile" size="sm">
-        {profileMember && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 pb-3 border-b border-apple-gray-200">
-              <div className="w-10 h-10 rounded-full bg-apple-blue/10 border border-ydl-yellow/20 flex items-center justify-center text-sm font-bold text-apple-blue">
-                {profileMember.member.charAt(0)}
-              </div>
-              <div>
-                <h3 className="text-sm font-bold text-[#1C1C1E]">{profileMember.member}</h3>
-                <p className="text-[10px] text-apple-gray-500">{profileMember.id}</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div><p className="text-[10px] text-apple-gray-500">Plan</p><p className="text-xs text-[#1C1C1E]">{profileMember.plan}</p></div>
-              <div><p className="text-[10px] text-apple-gray-500">Amount</p><p className="text-xs text-apple-blue">{profileMember.amount}</p></div>
-              <div><p className="text-[10px] text-apple-gray-500">Start Date</p><p className="text-xs text-[#1C1C1E]">{profileMember.startDate}</p></div>
-              <div><p className="text-[10px] text-apple-gray-500">End Date</p><p className="text-xs text-[#1C1C1E]">{profileMember.endDate}</p></div>
-            </div>
-            <div className="pt-2">
-              <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-md ${profileMember.status === 'Active' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : profileMember.status === 'Expired' ? 'text-red-400 bg-red-500/10 border border-red-500/20' : 'text-amber-400 bg-amber-500/10 border border-amber-500/20'}`}>{profileMember.status}</span>
-            </div>
-          </div>
-        )}
       </Modal>
     </div>
   )

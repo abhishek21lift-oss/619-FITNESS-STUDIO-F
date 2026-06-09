@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Cake, Gift, Send, ChevronLeft, Phone, MessageSquare } from 'lucide-react'
 import Modal from '../../components/shared/Modal'
@@ -23,6 +24,7 @@ const mockBirthdays = [
 ]
 
 export default function MembersBirthday() {
+  const navigate = useNavigate()
   const [month, setMonth] = useState('All')
   const [search, setSearch] = useState('')
   const [modal, setModal] = useState<{ type: string; data?: any } | null>(null)
@@ -134,7 +136,7 @@ export default function MembersBirthday() {
                       <div className="w-8 h-8 rounded-full bg-apple-blue/10 flex items-center justify-center">
                         <Cake className="w-3.5 h-3.5 text-apple-blue" />
                       </div>
-                      <span onClick={() => setModal({ type: 'profile', data: b })} className="text-xs font-medium text-[#1C1C1E] hover:text-apple-blue cursor-pointer transition-colors">{b.name}</span>
+                      <span onClick={() => navigate(`/dashboard/members/profile/${encodeURIComponent(b.name)}`)} className="text-xs font-medium text-[#1C1C1E] hover:text-apple-blue cursor-pointer transition-colors">{b.name}</span>
                     </div>
                   </td>
                   <td className="px-3 py-3 text-xs text-apple-gray-400">{b.mobile}</td>
@@ -208,20 +210,6 @@ export default function MembersBirthday() {
         </div>
       </Modal>
 
-      <Modal open={modal?.type === 'profile'} onClose={() => setModal(null)} title={`Profile: ${modal?.data?.name || ''}`} size="lg">
-        {modal?.data && (
-          <div className="space-y-3 text-xs">
-            <div className="grid grid-cols-2 gap-3">
-              <div><span className="text-apple-gray-500">Name:</span> <span className="text-[#1C1C1E] font-medium">{modal.data.name}</span></div>
-              <div><span className="text-apple-gray-500">Mobile:</span> <span className="text-[#1C1C1E]">{modal.data.mobile}</span></div>
-              <div><span className="text-apple-gray-500">Email:</span> <span className="text-[#1C1C1E]">{modal.data.email}</span></div>
-              <div><span className="text-apple-gray-500">Birth Date:</span> <span className="text-[#1C1C1E]">{modal.data.date}</span></div>
-              <div><span className="text-apple-gray-500">Age:</span> <span className="text-[#1C1C1E]">{modal.data.age} yrs</span></div>
-              <div><span className="text-apple-gray-500">Plan:</span> <span className="text-[#1C1C1E]">{modal.data.plan}</span></div>
-            </div>
-          </div>
-        )}
-      </Modal>
     </div>
   )
 }

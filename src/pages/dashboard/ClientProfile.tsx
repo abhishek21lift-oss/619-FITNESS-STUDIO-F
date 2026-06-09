@@ -7,7 +7,6 @@ import {
   CheckCircle, XCircle, AlertTriangle, Clock, DollarSign,
   Activity, Award, Target, Users,
 } from 'lucide-react'
-import { membersApi } from '../../api/members'
 import { useToast } from '../../components/ui/Toast'
 
 const ACTIVE_COLORS = ['#007AFF', '#34C759', '#FF9500', '#AF52DE', '#FF2D55', '#5AC8FA']
@@ -49,7 +48,11 @@ export default function ClientProfile() {
   useEffect(() => {
     async function fetch() {
       try {
-        const m = mockMembers.find(x => x.id === id)
+        const decoded = decodeURIComponent(id || '')
+        let m = mockMembers.find(x => x.id === decoded)
+        if (!m) m = mockMembers.find(x => x.name.toLowerCase() === decoded.toLowerCase())
+        if (!m) m = mockMembers.find(x => decoded.toLowerCase().includes(x.name.toLowerCase()))
+        if (!m) m = mockMembers.find(x => x.name.toLowerCase().includes(decoded.toLowerCase()))
         if (m) {
           setMember(m)
           setForm(m)

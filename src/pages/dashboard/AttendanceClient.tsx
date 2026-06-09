@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   Users2, Search, Calendar, Clock, CheckCircle, MoreHorizontal,
@@ -25,6 +26,7 @@ const planFilters = ['All Plans', 'Annual Gold', 'Annual Platinum', 'Monthly Bas
 const memberSearchResults = ['Rahul Sharma', 'Priya Singh', 'Sneha Patel', 'Neha Gupta', 'Arun Kumar', 'Amit Verma', 'Vikram Yadav', 'Pooja Jain', 'Rohan Mehra']
 
 export default function AttendanceClient() {
+  const navigate = useNavigate()
   const [checkins, setCheckins] = useState(initialCheckins)
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [branch, setBranch] = useState('All Branches')
@@ -141,7 +143,7 @@ export default function AttendanceClient() {
                         <span className="text-[9px] font-bold text-apple-blue">{c.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>
                       </div>
                       <div>
-                        <span className="text-xs font-medium text-[#1C1C1E] cursor-pointer hover:text-apple-blue transition-colors" onClick={() => setModal({ type: 'view-member', data: c })}>{c.name}</span>
+                        <span className="text-xs font-medium text-[#1C1C1E] cursor-pointer hover:text-apple-blue transition-colors" onClick={() => navigate(`/dashboard/members/profile/${encodeURIComponent(c.name)}`)}>{c.name}</span>
                         <p className="text-[9px] text-apple-gray-400">{c.mobile}</p>
                       </div>
                     </div>
@@ -159,7 +161,7 @@ export default function AttendanceClient() {
                     <ActionMenu
                       label={<MoreHorizontal className="w-3.5 h-3.5" />}
                       actions={[
-                        { label: 'View Member', icon: Eye, onClick: () => setModal({ type: 'view-member', data: c }) },
+                        { label: 'View Member', icon: Eye, onClick: () => navigate(`/dashboard/members/profile/${encodeURIComponent(c.name)}`) },
                         { label: 'View History', icon: History, onClick: () => setModal({ type: 'history', data: c }) },
                         { label: 'Mark Manual Check-in', icon: UserPlus, onClick: () => setModal({ type: 'manual-checkin' }) },
                       ]}
@@ -201,21 +203,6 @@ export default function AttendanceClient() {
             <button onClick={() => setModal(null)} className="px-4 py-2 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]">Cancel</button>
           </div>
         </div>
-      </Modal>
-
-      <Modal open={modal?.type === 'view-member'} onClose={() => setModal(null)} title={`Member: ${modal?.data?.name || ''}`} size="sm">
-        {modal?.data && (
-          <div className="space-y-2 text-xs">
-            <div className="grid grid-cols-2 gap-2">
-              <div><span className="text-apple-gray-500">Name:</span> <span className="text-[#1C1C1E]">{modal.data.name}</span></div>
-              <div><span className="text-apple-gray-500">Mobile:</span> <span className="text-[#1C1C1E]">{modal.data.mobile}</span></div>
-              <div><span className="text-apple-gray-500">Plan:</span> <span className="text-[#1C1C1E]">{modal.data.membership}</span></div>
-              <div><span className="text-apple-gray-500">Status:</span> {statusBadge(modal.data.status)}</div>
-              <div><span className="text-apple-gray-500">Check In:</span> <span className="text-[#1C1C1E]">{modal.data.checkIn}</span></div>
-              <div><span className="text-apple-gray-500">Check Out:</span> <span className="text-[#1C1C1E]">{modal.data.checkOut}</span></div>
-            </div>
-          </div>
-        )}
       </Modal>
 
       <Modal open={modal?.type === 'history'} onClose={() => setModal(null)} title={`Check-in History: ${modal?.data?.name || ''}`} size="md">
