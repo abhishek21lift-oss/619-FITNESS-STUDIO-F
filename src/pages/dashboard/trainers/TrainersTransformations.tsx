@@ -4,11 +4,11 @@ import {
   Plus, Image, Search, Trash2, Eye, CheckCircle,
   MoreHorizontal, TrendingUp, Percent
 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
-import FilterBar from '../../components/shared/FilterBar'
-import { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
+import FilterBar from '../../../components/shared/FilterBar'
+import { FilterField, FilterSelect } from '../../../components/shared/FilterBar'
 
 const initialTransformations = [
   { id: 1, client: 'Rahul Sharma', trainer: 'Riya Singh', start: '2026-01-15', end: '2026-06-15', progress: 75, status: 'In Progress', notes: 'Focus on weight loss and muscle definition' },
@@ -269,3 +269,4 @@ export default function TrainersTransformations() {
     </div>
   )
 }
+

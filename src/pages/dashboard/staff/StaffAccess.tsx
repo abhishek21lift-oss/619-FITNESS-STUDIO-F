@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Save, Check, X, User, Shield } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
+import Modal from '../../../components/shared/Modal'
 
 const staffList = ['Awash Vikash', 'Riya Singh', 'Abhishek Katiyar', 'Rajat Katiyar', 'Narayan Chandel', 'Shivani Verma', 'Rajesh Kumar', 'Sunita Devi']
 
@@ -143,3 +143,4 @@ export default function StaffAccess() {
     </div>
   )
 }
+

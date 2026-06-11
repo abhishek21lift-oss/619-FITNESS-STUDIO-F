@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Save, ArrowLeft } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 const featureOptions = ['Gym Access', 'Cardio', 'Weights', 'Locker', 'Towel', 'PT Session/mo', 'Personal Trainer', 'Diet Consultation', 'Custom Workout Plan', 'Fitness Assessment', 'Progress Tracking', 'Unlimited Access', 'All Equipment', 'Priority Booking']
 
@@ -104,3 +104,4 @@ export default function MembershipCreatePlan() {
     </div>
   )
 }
+

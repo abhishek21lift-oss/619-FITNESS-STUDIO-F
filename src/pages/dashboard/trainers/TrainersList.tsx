@@ -4,10 +4,10 @@ import {
   Search, Plus, LogOut, UserCheck, UserX, Clock, Edit3, Eye,
   MoreHorizontal, CheckCircle, XCircle, Calendar
 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
+import { useToast } from '../../../components/ui/Toast'
 
 const initialTrainers = [
   { id: 'TT-17043', name: '619 Fitness Studio', subtitle: 'AWASH VIKASH', type: 'Head Trainer', email: 'awash@ydl.com', phone: '+91 98765 43210', gender: 'Male', checkin: 'Present', checkinTime: '05:45 AM', star: '-', status: 'Active' },
@@ -295,3 +295,4 @@ export default function TrainersList() {
     </div>
   )
 }
+

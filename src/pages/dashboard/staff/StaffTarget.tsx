@@ -4,11 +4,11 @@ import {
   Target, Edit3, MoreHorizontal, History, RotateCcw,
   DollarSign, Percent
 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
-import FilterBar from '../../components/shared/FilterBar'
-import { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
+import FilterBar from '../../../components/shared/FilterBar'
+import { FilterField, FilterSelect } from '../../../components/shared/FilterBar'
 
 const initialTargets = [
   { id: 1, name: 'Riya Singh', type: 'Sales', target: 500000, achieved: 396000, membersTarget: 20, membersAchieved: 16, month: 'June', year: 2026, incentive: '5% of achieved' },
@@ -264,3 +264,4 @@ export default function StaffTarget() {
     </div>
   )
 }
+

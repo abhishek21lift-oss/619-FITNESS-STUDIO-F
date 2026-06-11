@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Save, ArrowLeft } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 const planOptions = ['Monthly Basic', 'Quarterly Pro', 'Half-Yearly', 'Annual Gold', 'Annual Platinum', 'PT Monthly', 'PT 12 Sessions', 'Gym Access Only']
 
@@ -98,3 +98,4 @@ export default function MembershipCreateCombo() {
     </div>
   )
 }
+

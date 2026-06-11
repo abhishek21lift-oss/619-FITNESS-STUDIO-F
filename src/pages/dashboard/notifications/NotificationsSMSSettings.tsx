@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Save, Send, Key, Globe, Hash, ToggleLeft } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 export default function NotificationsSMSSettings() {
   const [senderId, setSenderId] = useState('YDLIFT')
@@ -74,3 +74,4 @@ export default function NotificationsSMSSettings() {
     </div>
   )
 }
+

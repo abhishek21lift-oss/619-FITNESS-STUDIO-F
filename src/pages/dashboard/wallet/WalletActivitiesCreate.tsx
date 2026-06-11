@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Save } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 const categoryOptions = ['Training', 'Group', 'Wellness', 'Nutrition', 'Assessment']
 
@@ -72,3 +72,4 @@ export default function WalletActivitiesCreate() {
     </div>
   )
 }
+

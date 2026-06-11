@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Sun, Plus, Calendar, Edit3, Trash2, List, Grid3X3 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
 
 interface Holiday {
   id: number
@@ -178,3 +178,4 @@ export default function SettingsHoliday() {
     </div>
   )
 }
+

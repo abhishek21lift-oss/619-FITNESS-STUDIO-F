@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Send, Users, MessageSquare, Eye, FileText } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
+import Modal from '../../../components/shared/Modal'
 
 const groupOptions = ['All Enquiries', 'All Male Enquiries', 'All Female Enquiries', 'All Members', 'All Male Members', 'All Female Members', 'Expired Membership']
 const categoryOptions = ['All Categories', 'Weight Training', 'Personal Training']
@@ -123,3 +123,4 @@ export default function Notifications() {
     </div>
   )
 }
+

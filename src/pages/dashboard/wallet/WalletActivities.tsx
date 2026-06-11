@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Edit3, Trash2, Activity } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import Table from '../../components/shared/Table'
-import ActionMenu from '../../components/shared/ActionMenu'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import Table from '../../../components/shared/Table'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import { useToast } from '../../../components/ui/Toast'
 
 interface WalletActivity {
   id: number
@@ -128,3 +128,4 @@ export default function WalletActivities() {
     </div>
   )
 }
+

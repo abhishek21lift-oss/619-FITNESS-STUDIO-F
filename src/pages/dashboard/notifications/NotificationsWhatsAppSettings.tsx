@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Save, Key, Globe, MessageSquare, ToggleLeft, Eye, EyeOff } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 export default function NotificationsWhatsAppSettings() {
   const [apiKey, setApiKey] = useState('')
@@ -74,3 +74,4 @@ export default function NotificationsWhatsAppSettings() {
     </div>
   )
 }
+

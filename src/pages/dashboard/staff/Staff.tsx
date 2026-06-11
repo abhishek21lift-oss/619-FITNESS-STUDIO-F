@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Loader2, Plus } from 'lucide-react'
-import { api } from '../../api'
+import { api } from '../../../api'
 
 export default function Staff() {
   const [staff, setStaff] = useState<any[]>([])
@@ -50,3 +50,4 @@ export default function Staff() {
     </div>
   )
 }
+

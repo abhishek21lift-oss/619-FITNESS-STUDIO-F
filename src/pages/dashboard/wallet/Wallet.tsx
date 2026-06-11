@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Wallet as WalletIcon, Plus, ArrowUpRight, ArrowDownRight, Clock, CheckCircle, Download, Eye, Trash2, IndianRupee, XCircle } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
+import { useToast } from '../../../components/ui/Toast'
 
 interface Transaction {
   id: string
@@ -244,3 +244,4 @@ export default function Wallet() {
     </div>
   )
 }
+

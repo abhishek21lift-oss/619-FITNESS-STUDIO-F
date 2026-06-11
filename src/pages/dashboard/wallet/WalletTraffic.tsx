@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, IndianRupee, Activity, Users, Calendar } from 'lucide-react'
-import StatsCard from '../../components/shared/StatsCard'
-import Table from '../../components/shared/Table'
+import StatsCard from '../../../components/shared/StatsCard'
+import Table from '../../../components/shared/Table'
 
 interface TrafficRow {
   id: number
@@ -79,3 +79,4 @@ export default function WalletTraffic() {
     </div>
   )
 }
+

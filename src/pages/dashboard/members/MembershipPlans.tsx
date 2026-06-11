@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Plus, Copy } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
 
 interface Plan {
   id: number
@@ -177,3 +177,4 @@ export default function MembershipPlans() {
     </div>
   )
 }
+

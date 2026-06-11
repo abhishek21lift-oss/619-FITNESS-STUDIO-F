@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Dumbbell, Plus, Edit3, Trash2, AlertTriangle, Wrench, Archive } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
 
 interface EquipmentItem {
   id: number
@@ -190,3 +190,4 @@ export default function SettingsEquipment() {
     </div>
   )
 }
+

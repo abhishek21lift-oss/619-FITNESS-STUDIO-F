@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle, Shield, Save, Send } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
+import Modal from '../../../components/shared/Modal'
 
 export default function NotificationsEmail() {
   const [host, setHost] = useState('smtp.sendgrid.net')
@@ -131,3 +131,4 @@ export default function NotificationsEmail() {
     </div>
   )
 }
+

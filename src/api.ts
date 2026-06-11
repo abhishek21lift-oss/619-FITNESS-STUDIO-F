@@ -50,7 +50,7 @@ export async function getMe(): Promise<User | null> {
   return res.json();
 }
 
-export async function api<T>(path: string, options?: RequestInit): Promise<T> {
+export async function api<T = any>(path: string, options?: RequestInit): Promise<T> {
   const token = getToken();
   const res = await fetch(`${API}/api${path}`, {
     ...options,

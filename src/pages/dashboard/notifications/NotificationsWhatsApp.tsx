@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle, RefreshCw, Settings, Send, QrCode, X, MessageSquare, BarChart3 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import StatsCard from '../../components/shared/StatsCard'
+import Modal from '../../../components/shared/Modal'
+import StatsCard from '../../../components/shared/StatsCard'
 
 const templates = [
   { name: 'Welcome Message', category: 'Utility', status: 'Approved', lastUsed: '07 Jun 2026' },
@@ -154,3 +154,4 @@ export default function NotificationsWhatsApp() {
     </div>
   )
 }
+

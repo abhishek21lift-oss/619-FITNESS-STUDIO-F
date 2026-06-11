@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Wallet, ArrowUpRight, ArrowDownRight } from 'lucide-react'
-import StatsCard from '../../components/shared/StatsCard'
+import StatsCard from '../../../components/shared/StatsCard'
 
 interface RechargeEntry {
   id: number
@@ -99,3 +99,4 @@ function ClockIcon(props: any) {
     </svg>
   )
 }
+

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Save, ArrowLeft } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 export default function MembershipCreateCoupon() {
   const navigate = useNavigate()
@@ -85,3 +85,4 @@ export default function MembershipCreateCoupon() {
     </div>
   )
 }
+

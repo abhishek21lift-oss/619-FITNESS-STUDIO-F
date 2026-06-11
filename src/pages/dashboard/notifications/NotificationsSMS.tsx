@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Settings, CreditCard, DollarSign, Send, Save } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import StatsCard from '../../components/shared/StatsCard'
+import Modal from '../../../components/shared/Modal'
+import StatsCard from '../../../components/shared/StatsCard'
 
 const providers = ['MSG91', 'Twilio', 'TextLocal']
 
@@ -106,3 +106,4 @@ export default function NotificationsSMS() {
     </div>
   )
 }
+

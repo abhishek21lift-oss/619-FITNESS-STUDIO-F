@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Briefcase, MapPin, Phone, Users, Plus, CheckCircle, XCircle, Edit3, Eye, Star } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
 
 interface Center {
   id: number
@@ -155,3 +155,4 @@ function Mail(props: any) {
     </svg>
   )
 }
+

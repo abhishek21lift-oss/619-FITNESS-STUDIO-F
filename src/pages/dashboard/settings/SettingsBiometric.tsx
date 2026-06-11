@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Fingerprint, Edit3, Trash2, WifiOff, RefreshCw } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
 
 interface Device {
   id: number
@@ -188,3 +188,4 @@ function WifiIcon(props: any) {
     </svg>
   )
 }
+

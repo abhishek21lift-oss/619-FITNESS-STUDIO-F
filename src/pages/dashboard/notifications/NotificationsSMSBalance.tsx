@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, CreditCard, Calendar, Wallet, ArrowDownRight, ArrowUpRight } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import StatsCard from '../../components/shared/StatsCard'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import StatsCard from '../../../components/shared/StatsCard'
+import { useToast } from '../../../components/ui/Toast'
 
 interface Recharge {
   id: number
@@ -126,3 +126,4 @@ function ClockIcon(props: any) {
     </svg>
   )
 }
+

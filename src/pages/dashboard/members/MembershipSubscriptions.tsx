@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Search, Eye, RefreshCw, ArrowUpRight, XCircle, Bell, Layers, Users, AlertTriangle } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
+import { useToast } from '../../../components/ui/Toast'
 
 interface Sub {
   id: string
@@ -221,3 +221,4 @@ export default function MembershipSubscriptions() {
     </div>
   )
 }
+

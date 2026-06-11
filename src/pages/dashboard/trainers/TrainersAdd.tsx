@@ -5,7 +5,7 @@ import {
   User, Mail, Phone, Dumbbell, Percent, Save, ArrowLeft,
   Briefcase, Image, ShieldCheck, X
 } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 const specializations = ['Strength Training', 'Yoga', 'Cardio', 'HIIT', 'Boxing', 'Zumba', 'Pilates', 'CrossFit', 'MMA', 'Functional Training', 'Bodybuilding', 'Rehabilitation']
 const trainerTypes = ['Personal Trainer', 'Head Trainer', 'CH', 'Nutrition Coach']
@@ -177,3 +177,4 @@ export default function TrainersAdd() {
     </div>
   )
 }
+

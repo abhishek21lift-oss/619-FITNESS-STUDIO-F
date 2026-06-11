@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Send, Users, Upload, MessageSquare, AlertTriangle } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import { useToast } from '../../../components/ui/Toast'
 
 const audienceOptions = ['All Active Members', 'All Members', 'Custom (Upload CSV)']
 
@@ -102,3 +102,4 @@ export default function NotificationsSMSBulk() {
     </div>
   )
 }
+

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Loader2, Save } from 'lucide-react'
-import { api } from '../../api'
+import { api } from '../../../api'
 
 export default function Settings() {
   const [settings, setSettings] = useState<any>({})
@@ -46,3 +46,4 @@ export default function Settings() {
     </div>
   )
 }
+

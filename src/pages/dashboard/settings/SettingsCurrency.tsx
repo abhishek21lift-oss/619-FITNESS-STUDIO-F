@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Save, DollarSign, AlignLeft, ToggleLeft } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 const currencyCodes = ['INR', 'USD', 'EUR', 'GBP', 'AED', 'AUD', 'CAD', 'SGD']
 
@@ -66,3 +66,4 @@ export default function SettingsCurrency() {
     </div>
   )
 }
+

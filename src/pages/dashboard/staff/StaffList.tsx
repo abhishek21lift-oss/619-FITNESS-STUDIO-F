@@ -4,12 +4,12 @@ import {
   Search, Edit3, Eye, MoreHorizontal, UserCog, Lock, Trash2,
   UserCheck, UserX
 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
-import FilterBar from '../../components/shared/FilterBar'
-import { useToast } from '../../components/ui/Toast'
-import { FilterField, FilterSelect } from '../../components/shared/FilterBar'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
+import FilterBar from '../../../components/shared/FilterBar'
+import { useToast } from '../../../components/ui/Toast'
+import { FilterField, FilterSelect } from '../../../components/shared/FilterBar'
 
 const initialStaff = [
   { id: 1, name: 'Awash Vikash', email: 'awash@ydl.com', phone: '+91 98765 43210', role: 'Head Trainer', branch: 'Lucknow', access: 'Full', status: 'Active', lastLogin: '07 Jun 2026, 05:45 AM' },
@@ -229,3 +229,4 @@ export default function StaffList() {
     </div>
   )
 }
+

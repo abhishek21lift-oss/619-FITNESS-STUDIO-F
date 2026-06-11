@@ -5,9 +5,9 @@ import {
   GitBranch, Search, MapPin, Phone, Eye, Edit3, Trash2,
   MoreHorizontal, Send, Bell, Plus
 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import { useToast } from '../../../components/ui/Toast'
 
 const branches = ['All Branches', 'Gomti Nagar', 'Indira Nagar', 'Hazratganj', 'Aliganj']
 const statusOptions = ['All', 'Active', 'Inactive', 'Expired', 'Freeze']
@@ -197,3 +197,4 @@ export default function MembersOtherBranch() {
     </div>
   )
 }
+

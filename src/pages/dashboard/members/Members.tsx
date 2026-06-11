@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Loader2, Plus } from 'lucide-react'
-import { api } from '../../api'
+import { api } from '../../../api'
 
 export default function Members() {
   const [members, setMembers] = useState<any[]>([])
@@ -61,3 +61,4 @@ export default function Members() {
     </div>
   )
 }
+

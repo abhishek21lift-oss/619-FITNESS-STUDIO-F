@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { User, Phone, Users, Save, Zap } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 const genderOptions = ['Male', 'Female', 'Other']
 
@@ -72,3 +72,4 @@ export default function MembersQuickAdd() {
     </div>
   )
 }
+

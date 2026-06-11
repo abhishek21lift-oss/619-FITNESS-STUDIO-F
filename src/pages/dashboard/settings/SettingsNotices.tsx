@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { AlertTriangle, Plus, Edit3, Trash2, Pin, PinOff } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
 
 interface Notice {
   id: number
@@ -147,3 +147,4 @@ export default function SettingsNotices() {
     </div>
   )
 }
+

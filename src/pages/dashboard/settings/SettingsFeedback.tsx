@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Star, ThumbsUp, MessageSquare, CheckCircle, Send } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import StatsCard from '../../components/shared/StatsCard'
+import Modal from '../../../components/shared/Modal'
+import StatsCard from '../../../components/shared/StatsCard'
 
 interface Feedback {
   id: number
@@ -156,3 +156,4 @@ export default function SettingsFeedback() {
     </div>
   )
 }
+

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Hash, CheckCircle, XCircle, Clock } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import { useToast } from '../../../components/ui/Toast'
 
 interface Template {
   id: number
@@ -107,3 +107,4 @@ export default function SettingsDLTOTP() {
     </div>
   )
 }
+

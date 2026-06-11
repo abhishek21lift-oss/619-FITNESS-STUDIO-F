@@ -4,9 +4,9 @@ import {
   Gift, Award, Trophy, Search, Download, ChevronDown,
   CheckCircle, XCircle, Plus, Phone, MessageSquare
 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import { useToast } from '../../../components/ui/Toast'
 
 const statusOptions = ['All', 'Claimed', 'Pending', 'Expired']
 const rewardOptions = ['All', '1 Month Free', '₹500 Off', 'PT Session', '₹1000 Off', 'T-Shirt', 'Water Bottle', 'Protein Shake']
@@ -214,3 +214,4 @@ export default function MembersReferrals() {
     </div>
   )
 }
+

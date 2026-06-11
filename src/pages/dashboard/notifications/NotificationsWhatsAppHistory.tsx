@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { RefreshCw, Search, CheckCircle, XCircle, Clock } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 interface WhatsAppMessage {
   id: number
@@ -107,3 +107,4 @@ export default function NotificationsWhatsAppHistory() {
     </div>
   )
 }
+

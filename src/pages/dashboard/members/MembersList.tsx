@@ -4,9 +4,9 @@ import {
   Search, Users, UserCheck, UserX, MoreHorizontal, Eye, Edit3, Trash2,
   ChevronLeft, ChevronRight, Phone, Calendar,
 } from 'lucide-react'
-import StatsCard from '../../components/shared/StatsCard'
-import ActionMenu from '../../components/shared/ActionMenu'
-import Modal from '../../components/shared/Modal'
+import StatsCard from '../../../components/shared/StatsCard'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import Modal from '../../../components/shared/Modal'
 
 const mockMembers = Array.from({ length: 45 }, (_, i) => ({
   id: `M-${String(i + 1).padStart(4, '0')}`,
@@ -169,3 +169,4 @@ export default function MembersList() {
     </div>
   )
 }
+

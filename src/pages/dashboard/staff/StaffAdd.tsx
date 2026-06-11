@@ -5,7 +5,7 @@ import {
   User, Mail, Phone, Briefcase, Shield, Save, ArrowLeft,
   Lock, MapPin, Eye, EyeOff
 } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 const roleOptions = ['Manager', 'Receptionist', 'Accountant', 'Trainer', 'Admin']
 const accessLevels = ['Full', 'Partial', 'Limited']
@@ -152,3 +152,4 @@ export default function StaffAdd() {
     </div>
   )
 }
+

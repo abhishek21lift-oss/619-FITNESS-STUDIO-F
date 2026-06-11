@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Save, Send, Server, Key, Globe, Mail, User, Eye, EyeOff } from 'lucide-react'
-import { useToast } from '../../components/ui/Toast'
+import { useToast } from '../../../components/ui/Toast'
 
 export default function SettingsEmailManager() {
   const [host, setHost] = useState('')
@@ -82,3 +82,4 @@ export default function SettingsEmailManager() {
     </div>
   )
 }
+

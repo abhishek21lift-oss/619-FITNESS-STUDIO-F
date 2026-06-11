@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Fingerprint, RefreshCw, Wifi, WifiOff, Edit3, Trash2 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
+import { useToast } from '../../../components/ui/Toast'
 
 interface BiometricDevice {
   id: number
@@ -147,3 +147,4 @@ export default function SettingsExtendedBiometric() {
     </div>
   )
 }
+

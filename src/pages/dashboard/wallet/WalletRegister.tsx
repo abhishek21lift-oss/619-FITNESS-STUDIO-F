@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Calendar, ArrowUpRight, ArrowDownRight } from 'lucide-react'
-import Table from '../../components/shared/Table'
+import Table from '../../../components/shared/Table'
 
 interface RegisterRow {
   id: number
@@ -68,3 +68,4 @@ export default function WalletRegister() {
     </div>
   )
 }
+

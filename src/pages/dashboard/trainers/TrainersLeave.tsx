@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 import {
   Clock, CheckCircle, XCircle, Plus, Eye, MoreHorizontal
 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import StatsCard from '../../components/shared/StatsCard'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import StatsCard from '../../../components/shared/StatsCard'
 
 const initialLeaves = [
   { id: 1, trainer: 'Riya Singh', type: 'Sick Leave', from: '2026-06-10', to: '2026-06-11', days: 2, reason: 'Not feeling well', status: 'Approved' },
@@ -233,3 +233,4 @@ export default function TrainersLeave() {
     </div>
   )
 }
+

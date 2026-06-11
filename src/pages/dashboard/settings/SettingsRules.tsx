@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Search, ToggleLeft, Edit3, Trash2 } from 'lucide-react'
-import Modal from '../../components/shared/Modal'
-import ActionMenu from '../../components/shared/ActionMenu'
-import { useToast } from '../../components/ui/Toast'
+import Modal from '../../../components/shared/Modal'
+import ActionMenu from '../../../components/shared/ActionMenu'
+import { useToast } from '../../../components/ui/Toast'
 
 interface Rule {
   id: number
@@ -138,3 +138,4 @@ export default function SettingsRules() {
     </div>
   )
 }
+
