@@ -1,41 +1,22 @@
 import { Link } from 'react-router-dom'
-import { Dumbbell, Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'
-
-const products = [
-  { name: 'Gym & Club Software', path: '/gym-and-club-software' },
-  { name: 'Pilates Studio Software', path: '/pilates-studio' },
-  { name: 'Studio Software', path: '/studio' },
-  { name: 'Digital Marketing', path: '/digital-marketing-for-gyms-and-fitness-clubs' },
-]
-
-const features = [
-  { name: 'WhatsApp Automation', path: '/gym-and-club-software' },
-  { name: 'Member Management', path: '/gym-and-club-software' },
-  { name: 'Billing & GST', path: '/gym-and-club-software' },
-  { name: 'QR Attendance', path: '/gym-and-club-software' },
-  { name: 'PT Management', path: '/gym-and-club-software' },
-  { name: 'Reports & Analytics', path: '/gym-and-club-software' },
-]
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'
 
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-apple-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 group mb-4">
-              <div className="w-9 h-9 rounded-lg bg-apple-gradient-blue flex items-center justify-center">
-                <Dumbbell className="w-5 h-5 text-white" />
-              </div>
+              <img src="/logo.png" alt="619 FITNESS STUDIO" className="h-9 w-auto" />
               <span className="font-heading font-bold text-lg">
-                <span className="text-[#1C1C1E]">Your</span>
-                <span className="text-apple-blue"> Digital Lift</span>
+                <span className="text-[#1C1C1E]">619</span>
+                <span className="text-apple-blue"> FITNESS STUDIO</span>
               </span>
             </Link>
             <p className="text-sm text-apple-gray-400 leading-relaxed max-w-sm mb-6">
-              India&apos;s leading fitness management software. Empower your gym or studio with
-              automated billing, attendance, member management, and growth marketing tools.
+              Premium fitness management software for modern gyms and studios.
             </p>
 
             {/* App Store Buttons */}
@@ -99,37 +80,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Products */}
+          {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-semibold text-[#1C1C1E] text-sm mb-4">Products</h3>
+            <h3 className="font-heading font-semibold text-[#1C1C1E] text-sm mb-4">Quick Links</h3>
             <ul className="space-y-3">
-              {products.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    to={item.path}
-                    className="text-sm text-apple-gray-400 hover:text-apple-blue transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Features */}
-          <div>
-            <h3 className="font-heading font-semibold text-[#1C1C1E] text-sm mb-4">Features</h3>
-            <ul className="space-y-3">
-              {features.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    to={item.path}
-                    className="text-sm text-apple-gray-400 hover:text-apple-blue transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
+              <li><Link to="/" className="text-sm text-apple-gray-400 hover:text-apple-blue transition-colors">Home</Link></li>
+              <li><Link to="/login" className="text-sm text-apple-gray-400 hover:text-apple-blue transition-colors">Login</Link></li>
             </ul>
           </div>
 

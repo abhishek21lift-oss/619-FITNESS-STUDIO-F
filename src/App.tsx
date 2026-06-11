@@ -2,20 +2,10 @@ import { Route, Routes } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import Layout from './components/layout/Layout'
 
-// Lazy load public pages
+// Landing page
 const Home = lazy(() => import('./pages/Home'))
-const Pricing = lazy(() => import('./pages/Pricing'))
-const ContactUs = lazy(() => import('./pages/ContactUs'))
-const CallForDemo = lazy(() => import('./pages/CallForDemo'))
-const Blog = lazy(() => import('./pages/Blog'))
-const GymSoftware = lazy(() => import('./pages/GymSoftware'))
-const PilatesStudio = lazy(() => import('./pages/PilatesStudio'))
-const StudioSoftware = lazy(() => import('./pages/StudioSoftware'))
-const DigitalMarketing = lazy(() => import('./pages/DigitalMarketing'))
 
-// Login pages
-const AdminLogin = lazy(() => import('./pages/AdminLogin'))
-const TrainerLogin = lazy(() => import('./pages/TrainerLogin'))
+// Login
 const Login = lazy(() => import('./pages/Login'))
 
 // Dashboard & Auth
@@ -135,22 +125,11 @@ export default function App() {
   return (
     <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
       <Routes>
-        {/* Public pages */}
+        {/* Public pages — only Landing + Login */}
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/call-for-demo" element={<CallForDemo />} />
-          <Route path="/blogs" element={<Blog />} />
-          <Route path="/gym-and-club-software" element={<GymSoftware />} />
-          <Route path="/pilates-studio" element={<PilatesStudio />} />
-          <Route path="/studio" element={<StudioSoftware />} />
-          <Route path="/digital-marketing-for-gyms-and-fitness-clubs" element={<DigitalMarketing />} />
         </Route>
 
-        {/* Login pages */}
-        <Route path="/fitness-center/login" element={<AdminLogin />} />
-        <Route path="/trainer-dashboard/login" element={<TrainerLogin />} />
         <Route path="/login" element={<Login />} />
 
         {/* Protected Dashboard */}
