@@ -14,7 +14,7 @@ const posts = [
     excerpt: 'Discover proven strategies to keep your gym members engaged and reduce churn rates with automated communication and personalized experiences.',
     date: 'Mar 15, 2025',
     readTime: '5 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Retention',
   },
   {
@@ -22,7 +22,7 @@ const posts = [
     excerpt: 'Everything you need to know about choosing the right gym management software for your fitness business.',
     date: 'Feb 28, 2025',
     readTime: '8 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Guides',
   },
   {
@@ -30,7 +30,7 @@ const posts = [
     excerpt: 'Learn how WhatsApp automation can save you 20+ hours per week while improving member communication and engagement.',
     date: 'Feb 10, 2025',
     readTime: '4 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Automation',
   },
   {
@@ -38,7 +38,7 @@ const posts = [
     excerpt: 'Navigate GST compliance for your fitness business with ease. Learn about billing, returns, and tax saving strategies.',
     date: 'Jan 25, 2025',
     readTime: '6 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Compliance',
   },
   {
@@ -46,7 +46,7 @@ const posts = [
     excerpt: 'Not all gym software is created equal. Here are the top 10 features you must look for before making a decision.',
     date: 'Jan 12, 2025',
     readTime: '7 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Guides',
   },
   {
@@ -54,7 +54,7 @@ const posts = [
     excerpt: 'Leverage Meta Ads, Google Ads, and content marketing to attract new members and build your gym brand online.',
     date: 'Dec 20, 2024',
     readTime: '5 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Marketing',
   },
   {
@@ -62,7 +62,7 @@ const posts = [
     excerpt: 'Compare the benefits of a dedicated member app versus a web portal for your gym management ecosystem.',
     date: 'Dec 5, 2024',
     readTime: '4 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Technology',
   },
   {
@@ -70,7 +70,7 @@ const posts = [
     excerpt: 'A step-by-step guide to expanding your fitness business across multiple locations with the right software infrastructure.',
     date: 'Nov 18, 2024',
     readTime: '6 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Growth',
   },
   {
@@ -78,7 +78,7 @@ const posts = [
     excerpt: 'From AI-powered workouts to biometric integration, explore the technology trends shaping the fitness industry.',
     date: 'Nov 2, 2024',
     readTime: '5 min read',
-    author: 'YDL Team',
+    author: '619 Team',
     category: 'Trends',
   },
 ]
@@ -89,7 +89,7 @@ export default function Blog() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="text-center mb-12" {...fadeInUp}>
           <h1 className="font-heading text-4xl sm:text-5xl font-extrabold text-[#1C1C1E] mb-4">
-            YDL Blog
+            619 Blog
           </h1>
           <p className="text-lg text-apple-gray-500 max-w-2xl mx-auto">
             Insights, guides, and tips to help you run and grow your fitness business.
@@ -152,7 +152,7 @@ export default function Blog() {
             Subscribe to Our Newsletter
           </h2>
           <p className="text-apple-gray-500 mb-6 max-w-lg mx-auto">
-            Get the latest fitness industry insights and YDL updates delivered to your inbox.
+            Get the latest fitness industry insights and 619 updates delivered to your inbox.
           </p>
           <form
             onSubmit={(e) => e.preventDefault()}

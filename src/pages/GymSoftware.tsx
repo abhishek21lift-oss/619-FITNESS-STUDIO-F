@@ -88,7 +88,7 @@ export default function GymSoftware() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
-              Why Choose YDL for Your Gym?
+              Why Choose 619 for Your Gym?
             </h2>
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -133,7 +133,7 @@ export default function GymSoftware() {
                 Ready to Transform Your Gym?
               </h2>
               <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
-                Join 3000+ gyms already using YDL to streamline operations and grow.
+                Join 3000+ gyms already using 619 to streamline operations and grow.
               </p>
               <Link
                 to="/call-for-demo"

@@ -13,10 +13,10 @@ interface Banner {
 }
 
 const initialBanners: Banner[] = [
-  { id: 1, title: 'Summer Sale 2026', link: 'https://yourdigitallift.com/summer-sale', position: 'Top', status: 'Active' },
-  { id: 2, title: 'New Batch Alert', link: 'https://yourdigitallift.com/batches', position: 'Middle', status: 'Active' },
-  { id: 3, title: 'Referral Bonus', link: 'https://yourdigitallift.com/referral', position: 'Bottom', status: 'Inactive' },
-  { id: 4, title: 'Diwali Offer', link: 'https://yourdigitallift.com/diwali', position: 'Top', status: 'Active' },
+  { id: 1, title: 'Summer Sale 2026', link: 'https://619fitnessstudio.com/summer-sale', position: 'Top', status: 'Active' },
+  { id: 2, title: 'New Batch Alert', link: 'https://619fitnessstudio.com/batches', position: 'Middle', status: 'Active' },
+  { id: 3, title: 'Referral Bonus', link: 'https://619fitnessstudio.com/referral', position: 'Bottom', status: 'Inactive' },
+  { id: 4, title: 'Diwali Offer', link: 'https://619fitnessstudio.com/diwali', position: 'Top', status: 'Active' },
 ]
 
 export default function AppSettingsBanner() {
@@ -108,7 +108,7 @@ export default function AppSettingsBanner() {
           </div>
           <div className="space-y-1">
             <label className="text-[10px] font-medium text-apple-gray-400">Link URL</label>
-            <input value={form.link} onChange={e => setForm(p => ({ ...p, link: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="https://yourdigitallift.com/offer" />
+            <input value={form.link} onChange={e => setForm(p => ({ ...p, link: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="https://619fitnessstudio.com/offer" />
           </div>
           <div className="space-y-1">
             <label className="text-[10px] font-medium text-apple-gray-400">Banner Image</label>

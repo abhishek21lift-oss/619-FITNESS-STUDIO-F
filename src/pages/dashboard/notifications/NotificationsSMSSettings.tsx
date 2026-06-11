@@ -4,7 +4,7 @@ import { Save, Send, Key, Globe, Hash, ToggleLeft } from 'lucide-react'
 import { useToast } from '../../../components/ui/Toast'
 
 export default function NotificationsSMSSettings() {
-  const [senderId, setSenderId] = useState('YDLIFT')
+  const [senderId, setSenderId] = useState('619FIT')
   const [dltNumber, setDltNumber] = useState('')
   const [apiKey, setApiKey] = useState('')
   const [apiUrl, setApiUrl] = useState('')

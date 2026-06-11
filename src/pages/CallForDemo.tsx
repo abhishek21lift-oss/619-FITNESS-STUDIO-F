@@ -70,7 +70,7 @@ export default function CallForDemo() {
             Book a Free Demo
           </h1>
           <p className="text-lg text-apple-gray-500 max-w-xl mx-auto">
-            See how Your Digital Lift can transform your fitness business. Fill in the details and
+            See how 619 FITNESS STUDIO can transform your fitness business. Fill in the details and
             we&apos;ll show you around.
           </p>
         </motion.div>

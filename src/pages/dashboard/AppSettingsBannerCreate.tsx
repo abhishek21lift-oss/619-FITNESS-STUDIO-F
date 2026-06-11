@@ -46,7 +46,7 @@ export default function AppSettingsBannerCreate() {
         </div>
         <div className="space-y-1">
           <label className="text-[10px] font-medium text-apple-gray-400">Link URL</label>
-          <input value={form.link} onChange={e => setForm(p => ({ ...p, link: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="https://yourdigitallift.com/offer" />
+          <input value={form.link} onChange={e => setForm(p => ({ ...p, link: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="https://619fitnessstudio.com/offer" />
         </div>
         <div className="space-y-1">
           <label className="text-[10px] font-medium text-apple-gray-400">Status</label>

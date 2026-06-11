@@ -19,7 +19,7 @@ const initialTemplates: Template[] = [
 ]
 
 export default function SettingsDLTOTP() {
-  const [senderId, setSenderId] = useState('YDLIFT')
+  const [senderId, setSenderId] = useState('619FIT')
   const [principalEntityId, setPrincipalEntityId] = useState('')
   const [contentTemplateId, setContentTemplateId] = useState('')
   const [templates, setTemplates] = useState<Template[]>(initialTemplates)

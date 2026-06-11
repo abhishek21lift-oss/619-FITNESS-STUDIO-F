@@ -148,11 +148,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:contact@yourdigitallift.com"
+                  href="mailto:contact@619fitnessstudio.com"
                   className="flex items-center gap-2 text-sm text-apple-gray-400 hover:text-apple-blue transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 flex-shrink-0" />
-                  contact@yourdigitallift.com
+                  contact@619fitnessstudio.com
                 </a>
               </li>
               <li>
@@ -182,7 +182,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-10 pt-6 border-t border-apple-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-apple-gray-400">
-            &copy; {new Date().getFullYear()} Your Digital Lift. All rights reserved.
+            &copy; {new Date().getFullYear()} 619 FITNESS STUDIO. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link

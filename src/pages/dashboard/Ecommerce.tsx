@@ -18,14 +18,14 @@ interface Product {
 const categories = ['All', 'Supplements', 'Apparel', 'Accessories', 'Equipment']
 
 const initialProducts: Product[] = [
-  { id: 1, name: 'YDL Premium T-Shirt', price: '₹799', category: 'Apparel', stock: 45, description: 'Premium cotton gym t-shirt with YDL logo.', status: 'Active' },
-  { id: 2, name: 'YDL Gym Bag', price: '₹1,299', category: 'Accessories', stock: 22, description: 'Spacious gym bag with multiple compartments.', status: 'Active' },
-  { id: 3, name: 'YDL Shaker Bottle', price: '₹349', category: 'Accessories', stock: 78, description: 'BPA-free protein shaker bottle 600ml.', status: 'Active' },
-  { id: 4, name: 'YDL Resistance Bands', price: '₹599', category: 'Equipment', stock: 5, description: 'Set of 5 resistance bands with different tensions.', status: 'Active' },
-  { id: 5, name: 'YDL Wrist Wraps', price: '₹449', category: 'Equipment', stock: 56, description: 'Premium wrist wraps for heavy lifting.', status: 'Inactive' },
+  { id: 1, name: '619 Premium T-Shirt', price: '₹799', category: 'Apparel', stock: 45, description: 'Premium cotton gym t-shirt with 619 logo.', status: 'Active' },
+  { id: 2, name: '619 Gym Bag', price: '₹1,299', category: 'Accessories', stock: 22, description: 'Spacious gym bag with multiple compartments.', status: 'Active' },
+  { id: 3, name: '619 Shaker Bottle', price: '₹349', category: 'Accessories', stock: 78, description: 'BPA-free protein shaker bottle 600ml.', status: 'Active' },
+  { id: 4, name: '619 Resistance Bands', price: '₹599', category: 'Equipment', stock: 5, description: 'Set of 5 resistance bands with different tensions.', status: 'Active' },
+  { id: 5, name: '619 Wrist Wraps', price: '₹449', category: 'Equipment', stock: 56, description: 'Premium wrist wraps for heavy lifting.', status: 'Inactive' },
   { id: 6, name: 'Whey Protein 1kg', price: '₹2,499', category: 'Supplements', stock: 3, description: 'Premium whey protein isolate - chocolate flavor.', status: 'Active' },
-  { id: 7, name: 'YDL Cap', price: '₹399', category: 'Apparel', stock: 34, description: 'Adjustable gym cap with embroidered logo.', status: 'Active' },
-  { id: 8, name: 'YDL Water Bottle', price: '₹299', category: 'Accessories', stock: 12, description: 'Stainless steel insulated water bottle 1L.', status: 'Active' },
+  { id: 7, name: '619 Cap', price: '₹399', category: 'Apparel', stock: 34, description: 'Adjustable gym cap with embroidered logo.', status: 'Active' },
+  { id: 8, name: '619 Water Bottle', price: '₹299', category: 'Accessories', stock: 12, description: 'Stainless steel insulated water bottle 1L.', status: 'Active' },
 ]
 
 export default function Ecommerce() {
@@ -146,7 +146,7 @@ export default function Ecommerce() {
         <div className="space-y-3">
           <div className="space-y-1">
             <label className="text-[10px] font-medium text-apple-gray-400">Product Name</label>
-            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="YDL Premium T-Shirt" />
+            <input value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="619 Premium T-Shirt" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">

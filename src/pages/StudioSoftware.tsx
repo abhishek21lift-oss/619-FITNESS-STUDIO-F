@@ -87,7 +87,7 @@ export default function StudioSoftware() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
-              Why Studios Choose YDL
+              Why Studios Choose 619
             </h2>
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -132,7 +132,7 @@ export default function StudioSoftware() {
                 Ready to Simplify Studio Management?
               </h2>
               <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
-                Join hundreds of studios across India using YDL to grow their business.
+                Join hundreds of studios across India using 619 to grow their business.
               </p>
               <Link
                 to="/call-for-demo"

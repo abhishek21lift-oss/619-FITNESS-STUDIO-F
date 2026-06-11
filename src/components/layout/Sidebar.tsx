@@ -276,12 +276,10 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
       >
         <div className="flex items-center justify-between p-4 border-b border-apple-gray-200">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-apple-gradient-blue flex items-center justify-center">
-              <Dumbbell className="w-4 h-4 text-white" />
-            </div>
+            <img src="/logo.png" alt="619 FITNESS STUDIO" className="h-8 w-auto" />
             <div>
-              <h1 className="font-heading text-xs font-bold text-[#1C1C1E] tracking-tight">YOUR DIGITAL</h1>
-              <p className="text-[9px] font-accent text-apple-blue tracking-widest -mt-0.5">LIFT</p>
+              <h1 className="font-heading text-xs font-bold text-[#1C1C1E] tracking-tight">619</h1>
+              <p className="text-[9px] font-accent text-apple-blue tracking-widest -mt-0.5">FITNESS STUDIO</p>
             </div>
           </div>
           <button onClick={onClose} className="lg:hidden text-apple-gray-400 hover:text-[#1C1C1E]">
@@ -303,7 +301,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
         </nav>
 
         <div className="p-3 border-t border-apple-gray-200">
-          <p className="text-[9px] text-apple-gray-400 font-accent text-center">v2.0.0 &middot; YDL Admin</p>
+          <p className="text-[9px] text-apple-gray-400 font-accent text-center">v2.0.0 &middot; 619 Admin</p>
         </div>
       </aside>
     </>

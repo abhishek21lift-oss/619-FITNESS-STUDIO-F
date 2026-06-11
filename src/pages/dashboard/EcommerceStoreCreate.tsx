@@ -35,7 +35,7 @@ export default function EcommerceStoreCreate() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl rounded-xl border border-apple-gray-200 bg-white/[0.02] p-6 space-y-4">
         <div className="space-y-1">
           <label className="text-[10px] font-medium text-apple-gray-400">Store Name *</label>
-          <input value={form.storeName} onChange={e => setForm(p => ({ ...p, storeName: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="YDL Premium T-Shirt" />
+          <input value={form.storeName} onChange={e => setForm(p => ({ ...p, storeName: e.target.value }))} className="w-full bg-white/5 border border-apple-gray-200 rounded-lg px-3 py-2 text-xs text-[#1C1C1E] placeholder-gray-600 focus:outline-none focus:border-ydl-yellow/40" placeholder="619 Premium T-Shirt" />
         </div>
         <div className="space-y-1">
           <label className="text-[10px] font-medium text-apple-gray-400">Description</label>

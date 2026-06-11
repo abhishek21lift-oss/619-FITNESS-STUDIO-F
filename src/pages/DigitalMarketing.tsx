@@ -41,7 +41,7 @@ const services = [
   {
     icon: Users,
     title: 'Lead Generation',
-    items: ['Multi-channel lead capture funnels', 'Automated lead nurturing workflows', 'CRM integration with YDL', 'Qualified lead handover', 'Conversion rate optimization'],
+    items: ['Multi-channel lead capture funnels', 'Automated lead nurturing workflows', 'CRM integration with 619', 'Qualified lead handover', 'Conversion rate optimization'],
   },
 ]
 
@@ -116,7 +116,7 @@ export default function DigitalMarketing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
-              Why YDL Marketing?
+              Why 619 Marketing?
             </h2>
             <p className="text-apple-gray-500 max-w-2xl mx-auto">
               We understand the fitness industry because we&apos;re part of it.
@@ -125,7 +125,7 @@ export default function DigitalMarketing() {
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               { title: 'Fitness-First Approach', desc: 'Every campaign is built on fitness industry insights and member behavior data.' },
-              { title: 'Integrated with YDL', desc: 'Seamless integration with your YDL dashboard for lead tracking and ROI measurement.' },
+              { title: 'Integrated with 619', desc: 'Seamless integration with your 619 dashboard for lead tracking and ROI measurement.' },
               { title: 'Proven Results', desc: 'Average 3x ROAS for our clients with measurable member acquisition and retention.' },
             ].map((item, i) => (
               <motion.div

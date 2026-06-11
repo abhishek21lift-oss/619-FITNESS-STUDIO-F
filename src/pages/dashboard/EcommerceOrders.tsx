@@ -16,12 +16,12 @@ interface Order {
 }
 
 const initialOrders: Order[] = [
-  { id: 'ORD-001', date: '07 Jun 2026', customer: 'Rahul Sharma', product: 'YDL Premium T-Shirt', qty: 2, total: 1598, status: 'Delivered' },
+  { id: 'ORD-001', date: '07 Jun 2026', customer: 'Rahul Sharma', product: '619 Premium T-Shirt', qty: 2, total: 1598, status: 'Delivered' },
   { id: 'ORD-002', date: '07 Jun 2026', customer: 'Priya Singh', product: 'Whey Protein 1kg', qty: 1, total: 2499, status: 'Shipped' },
-  { id: 'ORD-003', date: '06 Jun 2026', customer: 'Amit Verma', product: 'YDL Gym Bag', qty: 1, total: 1299, status: 'Confirmed' },
-  { id: 'ORD-004', date: '06 Jun 2026', customer: 'Neha Gupta', product: 'YDL Shaker Bottle', qty: 3, total: 1047, status: 'Pending' },
+  { id: 'ORD-003', date: '06 Jun 2026', customer: 'Amit Verma', product: '619 Gym Bag', qty: 1, total: 1299, status: 'Confirmed' },
+  { id: 'ORD-004', date: '06 Jun 2026', customer: 'Neha Gupta', product: '619 Shaker Bottle', qty: 3, total: 1047, status: 'Pending' },
   { id: 'ORD-005', date: '05 Jun 2026', customer: 'Sneha Patel', product: 'Resistance Bands', qty: 1, total: 599, status: 'Cancelled' },
-  { id: 'ORD-006', date: '04 Jun 2026', customer: 'Vikram Joshi', product: 'YDL Cap', qty: 2, total: 798, status: 'Delivered' },
+  { id: 'ORD-006', date: '04 Jun 2026', customer: 'Vikram Joshi', product: '619 Cap', qty: 2, total: 798, status: 'Delivered' },
 ]
 
 const statusColors: Record<string, string> = {

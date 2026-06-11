@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import { Dumbbell, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 
 export default function Login() {
   const { login } = useAuth()
@@ -45,10 +45,8 @@ export default function Login() {
         </div>
         <div className="absolute top-10 left-10 z-20">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-lg bg-apple-blue flex items-center justify-center">
-              <Dumbbell className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-lg font-bold text-[#1C1C1E]">YDL</span>
+            <img src="/logo.png" alt="619 FITNESS STUDIO" className="h-10 w-auto" />
+            <span className="text-lg font-bold text-[#1C1C1E]">619</span>
           </div>
         </div>
       </section>
@@ -57,10 +55,8 @@ export default function Login() {
       <section className="flex-1 flex flex-col justify-center items-center px-6 py-12">
         <div className="md:hidden mb-8 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-lg bg-apple-blue flex items-center justify-center">
-              <Dumbbell className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-bold text-[#1C1C1E]">YDL</span>
+            <img src="/logo.png" alt="619 FITNESS STUDIO" className="h-8 w-auto" />
+            <span className="text-lg font-bold text-[#1C1C1E]">619</span>
           </div>
         </div>
 
@@ -124,10 +120,10 @@ export default function Login() {
           </form>
 
           <footer className="mt-8 text-center">
-            <p className="text-[10px] text-apple-gray-400 uppercase tracking-widest">&copy; 2026 YOUR DIGITAL LIFT PRIVATE LIMITED.</p>
+            <p className="text-[10px] text-apple-gray-400 uppercase tracking-widest">&copy; 2026 619 FITNESS STUDIO PRIVATE LIMITED.</p>
             <div className="mt-2 flex justify-center gap-4 text-[10px] text-apple-gray-400">
-              <a href="https://yourdigitallift.com/privacy-policy/" className="hover:text-apple-blue transition-colors">Privacy Policy</a>
-              <a href="https://yourdigitallift.com/privacy-policy/" className="hover:text-apple-blue transition-colors">Terms of Service</a>
+              <a href="https://619fitnessstudio.com/privacy-policy/" className="hover:text-apple-blue transition-colors">Privacy Policy</a>
+              <a href="https://619fitnessstudio.com/privacy-policy/" className="hover:text-apple-blue transition-colors">Terms of Service</a>
             </div>
           </footer>
         </motion.div>

@@ -112,7 +112,7 @@ export default function Notifications() {
               <MessageSquare className="w-4 h-4 text-apple-blue" />
             </div>
             <div>
-              <p className="text-[10px] font-medium text-[#1C1C1E]">Your Digital Lift</p>
+              <p className="text-[10px] font-medium text-[#1C1C1E]">619 FITNESS STUDIO</p>
               <p className="text-[8px] text-apple-gray-500">Push Notification</p>
             </div>
           </div>

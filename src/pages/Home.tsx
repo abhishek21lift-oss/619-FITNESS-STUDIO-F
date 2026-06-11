@@ -138,7 +138,7 @@ const testimonials = [
   {
     name: 'Rajesh Kumar',
     gym: 'Iron House Gym, Delhi',
-    quote: 'Your Digital Lift transformed our operations. Billing is now fully automated and our member retention has increased by 40%.',
+    quote: '619 FITNESS STUDIO transformed our operations. Billing is now fully automated and our member retention has increased by 40%.',
     stars: 5,
   },
   {
@@ -150,7 +150,7 @@ const testimonials = [
   {
     name: 'Ahmed Khan',
     gym: 'Proactive Fitness, Dubai',
-    quote: 'We tried 5 different software before YDL. Nothing comes close to the features and support they provide.',
+    quote: 'We tried 5 different software before 619. Nothing comes close to the features and support they provide.',
     stars: 5,
   },
   {
@@ -163,8 +163,8 @@ const testimonials = [
 
 const faqs = [
   {
-    q: 'What is Your Digital Lift?',
-    a: 'Your Digital Lift is a comprehensive gym and studio management software that automates billing, attendance, member management, scheduling, and marketing for fitness businesses.',
+    q: 'What is 619 FITNESS STUDIO?',
+    a: '619 FITNESS STUDIO is a comprehensive gym and studio management software that automates billing, attendance, member management, scheduling, and marketing for fitness businesses.',
   },
   {
     q: 'Is there a free trial available?',
@@ -176,7 +176,7 @@ const faqs = [
   },
   {
     q: 'Does it work for both gyms and studios?',
-    a: 'Yes, YDL is designed for independent gyms, fitness studios, boutique studios, and multi-location chains.',
+    a: 'Yes, 619 is designed for independent gyms, fitness studios, boutique studios, and multi-location chains.',
   },
   {
     q: 'Is GST billing supported?',
@@ -258,7 +258,7 @@ export default function Home() {
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                  <span className="ml-3 text-xs text-apple-gray-400">Your Digital Lift Dashboard</span>
+                  <span className="ml-3 text-xs text-apple-gray-400">619 FITNESS STUDIO Dashboard</span>
                 </div>
                 <div className="p-4 sm:p-6 lg:p-8">
                   <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-4">
@@ -314,7 +314,7 @@ export default function Home() {
               Built for Every Fitness Business
             </h2>
             <p className="text-apple-gray-500 max-w-2xl mx-auto">
-              Whether you run a single studio or a chain of gyms, YDL scales with your needs.
+              Whether you run a single studio or a chain of gyms, 619 scales with your needs.
             </p>
           </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -503,7 +503,7 @@ export default function Home() {
               What Our Clients Say
             </h2>
             <p className="text-apple-gray-500 max-w-2xl mx-auto">
-              Hear from gym owners and fitness professionals who trust YDL.
+              Hear from gym owners and fitness professionals who trust 619.
             </p>
           </motion.div>
 
@@ -613,7 +613,7 @@ export default function Home() {
               Frequently Asked Questions
             </h2>
             <p className="text-apple-gray-500">
-              Everything you need to know about Your Digital Lift.
+              Everything you need to know about 619 FITNESS STUDIO.
             </p>
           </motion.div>
           <div className="space-y-3">

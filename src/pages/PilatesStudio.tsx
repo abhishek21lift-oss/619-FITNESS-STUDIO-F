@@ -86,7 +86,7 @@ export default function PilatesStudio() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-12" {...fadeInUp}>
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#1C1C1E] mb-4">
-              Why Pilates Studios Love YDL
+              Why Pilates Studios Love 619
             </h2>
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -131,7 +131,7 @@ export default function PilatesStudio() {
                 Ready to Elevate Your Studio?
               </h2>
               <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
-                Join India&apos;s fastest-growing Pilates studios using YDL.
+                Join India&apos;s fastest-growing Pilates studios using 619.
               </p>
               <Link
                 to="/call-for-demo"

@@ -9,7 +9,7 @@ const providers = ['MSG91', 'Twilio', 'TextLocal']
 export default function NotificationsSMS() {
   const [provider, setProvider] = useState('MSG91')
   const [apiKey, setApiKey] = useState('')
-  const [senderId, setSenderId] = useState('YDLIFT')
+  const [senderId, setSenderId] = useState('619FIT')
   const [balance, setBalance] = useState(1247)
   const [sentToday, setSentToday] = useState(42)
   const [testOpen, setTestOpen] = useState(false)

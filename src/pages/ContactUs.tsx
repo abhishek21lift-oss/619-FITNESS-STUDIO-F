@@ -181,8 +181,8 @@ export default function ContactUs() {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-[#1C1C1E]">Email</p>
-                    <a href="mailto:contact@yourdigitallift.com" className="text-sm text-apple-gray-400 hover:text-apple-blue transition-colors">
-                      contact@yourdigitallift.com
+                    <a href="mailto:contact@619fitnessstudio.com" className="text-sm text-apple-gray-400 hover:text-apple-blue transition-colors">
+                      contact@619fitnessstudio.com
                     </a>
                   </div>
                 </div>

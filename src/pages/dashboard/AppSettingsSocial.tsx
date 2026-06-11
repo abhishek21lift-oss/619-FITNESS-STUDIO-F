@@ -13,17 +13,17 @@ interface SocialPlatform {
 }
 
 const initialPlatforms: SocialPlatform[] = [
-  { id: 'facebook', name: 'Facebook', icon: FacebookIcon, color: 'text-blue-500', bg: 'bg-blue-500/10', url: 'https://facebook.com/yourdigitallift', enabled: true },
-  { id: 'instagram', name: 'Instagram', icon: InstagramIcon, color: 'text-pink-400', bg: 'bg-pink-500/10', url: 'https://instagram.com/yourdigitallift', enabled: true },
-  { id: 'youtube', name: 'YouTube', icon: YoutubeIcon, color: 'text-red-500', bg: 'bg-red-500/10', url: 'https://youtube.com/@yourdigitallift', enabled: true },
-  { id: 'linkedin', name: 'LinkedIn', icon: LinkedinIcon, color: 'text-[#007AFF]', bg: 'bg-blue-500/10', url: 'https://linkedin.com/company/yourdigitallift', enabled: false },
-  { id: 'twitter', name: 'Twitter', icon: TwitterIcon, color: 'text-sky-400', bg: 'bg-sky-500/10', url: 'https://twitter.com/yourdigitallift', enabled: false },
+  { id: 'facebook', name: 'Facebook', icon: FacebookIcon, color: 'text-blue-500', bg: 'bg-blue-500/10', url: 'https://facebook.com/619fitnessstudio', enabled: true },
+  { id: 'instagram', name: 'Instagram', icon: InstagramIcon, color: 'text-pink-400', bg: 'bg-pink-500/10', url: 'https://instagram.com/619fitnessstudio', enabled: true },
+  { id: 'youtube', name: 'YouTube', icon: YoutubeIcon, color: 'text-red-500', bg: 'bg-red-500/10', url: 'https://youtube.com/@619fitnessstudio', enabled: true },
+  { id: 'linkedin', name: 'LinkedIn', icon: LinkedinIcon, color: 'text-[#007AFF]', bg: 'bg-blue-500/10', url: 'https://linkedin.com/company/619fitnessstudio', enabled: false },
+  { id: 'twitter', name: 'Twitter', icon: TwitterIcon, color: 'text-sky-400', bg: 'bg-sky-500/10', url: 'https://twitter.com/619fitnessstudio', enabled: false },
   { id: 'whatsapp', name: 'WhatsApp', icon: WhatsAppIcon, color: 'text-emerald-400', bg: 'bg-emerald-500/10', url: 'https://wa.me/919876543210', enabled: true },
 ]
 
 export default function AppSettingsSocial() {
   const [platforms, setPlatforms] = useState<SocialPlatform[]>(initialPlatforms)
-  const [qrLink, setQrLink] = useState('https://yourdigitallift.com')
+  const [qrLink, setQrLink] = useState('https://619fitnessstudio.com')
   const [saved, setSaved] = useState(false)
 
   const updateUrl = (id: string, url: string) => {
@@ -85,7 +85,7 @@ export default function AppSettingsSocial() {
             <p className="text-[10px] text-apple-gray-500 text-center">Scan to visit your page</p>
             <div className="flex items-center gap-2 mt-3">
               <button onClick={() => testLink(qrLink)} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-black bg-apple-gradient-blue rounded-lg hover:opacity-90"><QrCode className="w-3.5 h-3.5" /> Download QR</button>
-              <button onClick={() => setQrLink('https://yourdigitallift.com')} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]"><RefreshCw className="w-3.5 h-3.5" /> Regenerate</button>
+              <button onClick={() => setQrLink('https://619fitnessstudio.com')} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-apple-gray-400 bg-white/5 border border-apple-gray-200 rounded-lg hover:text-[#1C1C1E]"><RefreshCw className="w-3.5 h-3.5" /> Regenerate</button>
             </div>
           </div>
         </motion.div>
